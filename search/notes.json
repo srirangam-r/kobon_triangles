@@ -1,0 +1,26 @@
+{
+  "status": {
+    "updated": "2026-09-27T16:40Z",
+    "tree_hash": "966e6945",
+    "phase": "setup",
+    "loop": "starting",
+    "budget": "1 h from 16:36Z",
+    "now": "Journal created. Next: score the hill's baseline twice to confirm the pipeline and the (expected zero) run-to-run spread."
+  },
+  "records": {
+    "15": {"best": 65, "bound": 65, "note": "warm-up; 65 is proven optimal (meets Tamura's bound)"},
+    "18": {"best": 93, "bound": 94, "note": "main target; open whether 94 is achievable"}
+  },
+  "measured": "The score is the number of <b>triangles</b> formed by exactly <i>n</i> straight lines that no other line of the arrangement cuts through (bounded triangular faces). Higher is better. A submission is a <code>solution.json</code> listing the lines as integer triples [a, b, c] meaning a·x + b·y + c = 0; the hill's evaluator counts the triangles with exact rational arithmetic, so there is no tolerance and no randomness. It stands in for a real, checkable geometric construction for the Kobon triangle problem. Different line counts are separate contests. Nothing is held out from the construction itself; the hill's only private data are regression fixtures for its own tests, which were not shipped to us and were not read. All runs are on this machine (local, 24 CPU cores); hardware is not part of the score.",
+  "hill_warning": "<b>These are local, unofficial scores.</b> The hill was pulled from AutoLab (alejandrozu/kobon-triangles 0.1.0, official tree hash 7d3f1d91). Non-owners do not receive its private test fixtures, so the local copy was frozen unchanged with <code>hills commit --no-tests</code>, which gives local tree hash 966e6945. The scoring code (eval.py) is byte-identical to the published one, but reports here are tied to 966e6945 and may not rank on the AutoLab leaderboard.",
+  "plan": "Warm up at n = 15 (record 65, proven optimal), then n = 18 (record 93, bound 94). Published constructions (Utkin &amp; Parpalak's Kobon solution gallery, exact rational certificates) may be used as seeds; anything reproduced from them is labelled 'reproduced'. Own search: local search over line angles/offsets, and a structured move that removes one line and re-inserts the best line through pairs of existing crossing points. Stop after 1 hour (from 16:36Z) or on matching the record at 18 lines, then run one --final evaluation of the best 18-line submission and report.",
+  "ideas": [
+    {"state": "queued", "text": "Baseline (hill example, parabola tangents): expect 16 at n = 18."},
+    {"state": "queued", "text": "Reproduce the gallery's exact 65-triangle certificate at n = 15 (pipeline check for rational → integer conversion)."},
+    {"state": "queued", "text": "Own search at n = 15 from random/symmetric starts, to see how far a simple method gets without seeds."},
+    {"state": "queued", "text": "Reproduce the gallery's exact 93-triangle certificate at n = 18."},
+    {"state": "queued", "text": "Try for 94 at n = 18: drop-one-line / re-insert-best-line search seeded from the gallery's 93-triangle arrangements."}
+  ],
+  "dev": [],
+  "runs": {}
+}
