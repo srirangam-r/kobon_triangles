@@ -1,11 +1,11 @@
 {
   "status": {
-    "updated": "2026-09-27T23:12Z",
+    "updated": "2026-09-27T23:03Z",
     "tree_hash": "966e6945",
-    "phase": "hand proofs refereed",
-    "loop": "idle except the three-triple-point lemma subagent",
+    "phase": "wrapping up",
+    "loop": "idle; waiting for the three-triple-point subagent report",
     "budget": "until stopped; $100 total (rentals up to $75, AutoLab agent $25 once raised on the dashboard; it is still $5)",
-    "now": "Referee (independent subagent) verdict: correct for no 94 with at most one triple point, correct for exactly two (after the overlapping-blocks fix; simpler case-B argument adopted), and correct for Theorem G (even n, general position: T <= floor((2n^2 - 5n + 2t)/6)). 142,160 arrangements tested exactly, no counterexamples. A subagent is working on the three-triple-point case."
+    "now": "Refereed: no 94 with at most two triple points; Theorem G (even n, general position). Frontier recorded in SUMMARY.md (at least 3 full triple points needed; the rigid t2 = 3 configuration). The ud1 heuristic search at 18/94 ended with 0 hits after 843 billion iterations (not a proof)."
   },
   "records": {
     "15": {
@@ -164,7 +164,8 @@
     "Generalization checked by hand: exactly one triple point, even n: 3T <= n(n-2) - 3 - (n-8)/2, i.e. T <= floor((2n^2 - 5n + 2)/6).",
     "Two-triple-point run v1 (21:29-21:39Z, 240 s limit): case A 96 UNSAT / 22 timeouts, case B 92 / 22, in 10 min; projected about 80 h per case, with timeouts using about 3/4 of the compute.",
     "Extra deductions (both cases): every segment at a triple point is used (the two cap blocks cover all 6 rays), so unused segments have simple endpoints and the Blanc claims total at most 2Z (8 in A, 10 in B). Case B has at least 5 triangles at each triple point. Encoded; v2 restarted with a 60 s split limit.",
-    "REFEREE REPORT (work/referee/): L1, L3, L4, the stretch lemma and the counting are correct; the original L2 disjointness was wrong in case B (blocks can overlap on the ray between P and Q; explicit examples at n = 10, 16, 18), and the patch and a simpler case-B argument (x >= 2) both hold. Theorem G is correct. Tested on 142,160 arrangements: 321,793 doubly used segments, 315,797 blocks, 4.79M even stretches, 68,830 valid axes, 1.62M clean lines; no counterexamples. Two false case-B statements in SUMMARY.md and the --case2 B SAT deductions were corrected."
+    "REFEREE REPORT (work/referee/): L1, L3, L4, the stretch lemma and the counting are correct; the original L2 disjointness was wrong in case B (blocks can overlap on the ray between P and Q; explicit examples at n = 10, 16, 18), and the patch and a simpler case-B argument (x >= 2) both hold. Theorem G is correct. Tested on 142,160 arrangements: 321,793 doubly used segments, 315,797 blocks, 4.79M even stretches, 68,830 valid axes, 1.62M clean lines; no counterexamples. Two false case-B statements in SUMMARY.md and the --case2 B SAT deductions were corrected.",
+    "ud1 kobon.cpp (heuristic DFS, its original pruning) at 18/94: finished 22:02Z, 843,312,536,903 iterations, 0 arrangements found. Its shortcut prunes are unsound, so this is evidence only."
   ],
   "runs": {
     "001-baseline": {

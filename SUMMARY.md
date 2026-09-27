@@ -157,6 +157,30 @@ T ≤ ⌊(2n² − 5n + 2)/6⌋.
   the known records that beat the simple bound (8/15, 14/54, 20/117), all of which have
   n ≡ 2 (mod 6) and use triple points.
 
+## Toward the full problem (23:00 UTC; not refereed)
+
+- **What remains.** In general position, Λ ≥ (18 + 3t₀ − 2t₂)/2, where t₂ counts triple
+  points with two cap blocks ("full") and t₀ those with none. So a 94 needs at least 3 full
+  triple points, each contributing −1 net to Λ. A full proof needs a lemma making each full
+  triple point net ≥ 0.
+- **Per-line parity rule (derived, not yet refereed).** Along a line, a claim-free
+  t-sequence requires (number of triple points on the line) + (number of parity breaks,
+  i.e. same-side repeats) to be odd. Breaks occur exactly where the line acts as a cap line.
+  Consequences:
+  - a non-triple line capping two blocks claims;
+  - a line through one full triple point, as a non-axis line, capping exactly one block
+    elsewhere claims.
+- **The rigid tight configuration** (general position, t₂ = 3):
+  - three triple points on disjoint lines;
+  - T = 94 exactly, D = 6, Z = 3;
+  - six single-block cap lines;
+  - three clean lines and three axes, each claiming exactly once, with every unused
+    segment claimed from both ends.
+
+  Ruling it out, plus t₂ = 4–6, shared-line clusters and 4-fold mixtures, would complete
+  the proof. The last step would be to encode each rigid configuration exactly and let the
+  solver exhaust it.
+
 ## Partial results: where a 94 cannot be (updated 23:10 UTC)
 
 None of these is a full proof that 94 is impossible. Each rules out one class of arrangement.
