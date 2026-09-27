@@ -1,11 +1,11 @@
 {
   "status": {
-    "updated": "2026-09-27T16:51Z",
+    "updated": "2026-09-27T16:47Z",
     "tree_hash": "966e6945",
     "phase": "main target n=18",
     "loop": "running",
     "budget": "1 h from 16:36Z",
-    "now": "Warm-up done (65 from scratch). Running unseeded annealing at n=18 and building the exact drop-one/re-insert search seeded from the gallery 93."
+    "now": "Scoring the unseeded annealing result at n=18 (float count 93)."
   },
   "records": {
     "15": {
@@ -44,14 +44,22 @@
       "text": "Try for 94 at n = 18: drop-one-line / re-insert-best-line search seeded from the gallery's 93-triangle arrangements."
     },
     {
-      "state": "running",
+      "state": "done: float 93, see run 007",
       "text": "Own search at n = 18: unseeded annealing, 12 workers x 5 min (float counter, so only arrangements without exact triple points)."
+    },
+    {
+      "state": "running",
+      "text": "Plateau walk at n = 18: from the gallery 93, repeatedly replace one line with a tied-or-better line through two crossing points (keeping exact triple points), looking for a 93 from which 94 is one move away."
     }
   ],
   "dev": [
     "Float counter sanity: 13 on the n=15 baseline and 65 on the gallery 15 (both match exact); 88 on the gallery 18 (exact 93) because floats cannot hold its 3 exact triple points. So float search cannot see concurrency-based triangles.",
     "anneal.py smoke test, n=15, 4 workers x 8 s: float best 65.",
-    "anneal n=15, 22 workers x 20 s: float best 65; 10 of 22 workers reached 65."
+    "anneal n=15, 22 workers x 20 s: float best 65; 10 of 22 workers reached 65.",
+    "reinsert.py: incremental exact counter validated against the hill's own counter on 354 cases (one bug found and fixed first: a new crossing past the near end of a line).",
+    "Exact re-insert pass on the gallery 93 (all 18 removals, every line through 2 crossing points + perturbations of the best): best is 93 for every removed line, with 2-5 tied replacements each. The 93 is a local maximum for this move, sitting on a plateau.",
+    "Plateau walk smoke test (8 workers x 20 s): 6-7 accepted moves per worker, all at 93.",
+    "Unseeded annealing at n=18, 12 workers x 300 s (1279 restarts): float best 93 on 11 of 12 workers, 92 on the other. These are arrangements without exact triple points."
   ],
   "runs": {
     "001-baseline": {
