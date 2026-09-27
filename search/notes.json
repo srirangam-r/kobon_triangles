@@ -1,11 +1,11 @@
 {
   "status": {
-    "updated": "2026-09-27T16:49Z",
+    "updated": "2026-09-27T16:51Z",
     "tree_hash": "966e6945",
-    "phase": "warm-up n=15",
+    "phase": "main target n=18",
     "loop": "running",
     "budget": "1 h from 16:36Z",
-    "now": "Scoring own-search annealing result at n=15 (unseeded)."
+    "now": "Warm-up done (65 from scratch). Running unseeded annealing at n=18 and building the exact drop-one/re-insert search seeded from the gallery 93."
   },
   "records": {
     "15": {
@@ -32,7 +32,7 @@
       "text": "Reproduce the gallery's exact 65-triangle certificate at n = 15 (pipeline check for rational \u2192 integer conversion)."
     },
     {
-      "state": "queued",
+      "state": "done: 65 (own search)",
       "text": "Own search at n = 15 from random/symmetric starts, to see how far a simple method gets without seeds."
     },
     {
@@ -42,11 +42,16 @@
     {
       "state": "queued",
       "text": "Try for 94 at n = 18: drop-one-line / re-insert-best-line search seeded from the gallery's 93-triangle arrangements."
+    },
+    {
+      "state": "running",
+      "text": "Own search at n = 18: unseeded annealing, 12 workers x 5 min (float counter, so only arrangements without exact triple points)."
     }
   ],
   "dev": [
     "Float counter sanity: 13 on the n=15 baseline and 65 on the gallery 15 (both match exact); 88 on the gallery 18 (exact 93) because floats cannot hold its 3 exact triple points. So float search cannot see concurrency-based triangles.",
-    "anneal.py smoke test, n=15, 4 workers x 8 s: float best 65."
+    "anneal.py smoke test, n=15, 4 workers x 8 s: float best 65.",
+    "anneal n=15, 22 workers x 20 s: float best 65; 10 of 22 workers reached 65."
   ],
   "runs": {
     "001-baseline": {
@@ -73,6 +78,11 @@
       "what": "Gallery certificate 18-36dwfgkhquwqj: 18 exact rational lines with 3 exact triple points",
       "origin": "REPRODUCED (Utkin & Parpalak gallery)",
       "decision": "93 = ties best known; seed for the 94 attempt"
+    },
+    "006-anneal-n15": {
+      "what": "Simulated annealing on (angle, offset) of each line, float counter, 22 workers x 20 s, random starts, rounded to integers at 1e17",
+      "origin": "OWN SEARCH (unseeded)",
+      "decision": "65 = proven optimum reached from scratch; method confirmed, warm-up done"
     }
   }
 }
