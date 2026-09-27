@@ -163,13 +163,17 @@ T ≤ ⌊(2n² − 5n + 2)/6⌋.
   points with two cap blocks ("full") and t₀ those with none. So a 94 needs at least 3 full
   triple points, each contributing −1 net to Λ. A full proof needs a lemma making each full
   triple point net ≥ 0.
-- **Per-line parity rule (derived, not yet refereed).** Along a line, a claim-free
-  t-sequence requires (number of triple points on the line) + (number of parity breaks,
-  i.e. same-side repeats) to be odd. Breaks occur exactly where the line acts as a cap line.
-  Consequences:
-  - a non-triple line capping two blocks claims;
-  - a line through one full triple point, as a non-axis line, capping exactly one block
-    elsewhere claims.
+- **Per-line parity rule (corrected by the referee; see `work/loop/verdicts/C06.md`).**
+  - *My original statement was false as stated*: it counted all triple points and had
+    missing hypotheses. The referee found counterexamples among real 18-line 93s.
+  - *Corrected rule.* Assume L has no doubly used segment, no 4-fold point, simple first and
+    last vertices, κ(L) = 0, and every segment at L's triple points used. Then K + j_alt is
+    odd, where K counts the blocks L caps and j_alt counts the triple points where L's
+    triangles alternate sides.
+  - This is equivalent to the generator's C11 (Lemma D), which C12 uses.
+  - Both consequences stated earlier (a non-triple line capping two blocks claims; a
+    non-axis line through one full triple point capping exactly one block claims) are
+    correct.
 - **The rigid tight configuration** (general position, t₂ = 3):
   - three triple points on disjoint lines;
   - T = 94 exactly, D = 6, Z = 3;

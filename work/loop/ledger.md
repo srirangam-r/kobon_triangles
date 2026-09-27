@@ -11,7 +11,7 @@ rolled back.
 | C3 | Theorem G: even n, general position, Λ ≥ n/2 − t | work/proof_general.md | refereed-correct | — |
 | C4 | No 94 with exactly 3 triple points | work/t3/notes.md | refereed-correct (two steps spelled out) | exact k ≥ 4 |
 | C5 | Theorem H: n=18, general position ⇒ T ≤ 93 | work/t3/general.md | refereed-correct (hand only; 4-fold untested) | shared-line constraint |
-| C6 | Per-line parity rule: a claim-free line has (#triple points on it) + (#cap roles) odd | SUMMARY.md "Toward the full problem" | proposed | not encoded |
+| C6 | Per-line parity rule: a claim-free line has (#triple points on it) + (#cap roles) odd | SUMMARY.md "Toward the full problem" | refereed-fixed | not encoded |
 | C7 | t ≥ 7 impossible without bridges / bent / centroid / all-multiple faces / ≥3-bridge-end points (Lemma C) | work/t3/shared.md | proposed | not encoded |
 | C8 | k = 4 open pattern = two disjoint consecutive pairs; then Z ≤ 2, claims ≤ 4 | work/t3/general.md §6 | proposed | k4 pattern, us ≤ 2, U ≤ 4 |
 | C9 | Budgets: unused simple segments + ℓ ≤ 6+2k; claims + 2ℓ ≤ 12+4k | derived 23:36 UTC (identity + D ≤ 2k+σ) | proposed | us+h, U+2h |
