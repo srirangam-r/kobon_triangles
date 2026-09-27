@@ -1,11 +1,11 @@
 {
   "status": {
-    "updated": "2026-09-27T16:47Z",
+    "updated": "2026-09-27T16:48Z",
     "tree_hash": "966e6945",
     "phase": "main target n=18",
     "loop": "running",
     "budget": "1 h from 16:36Z",
-    "now": "Scoring the unseeded annealing result at n=18 (float count 93)."
+    "now": "Two independent 93s at n=18 (gallery and own search). Running plateau walks from both plus a fresh annealing batch whose every 93 gets an exact re-insert pass, looking for 94."
   },
   "records": {
     "15": {
@@ -91,6 +91,11 @@
       "what": "Simulated annealing on (angle, offset) of each line, float counter, 22 workers x 20 s, random starts, rounded to integers at 1e17",
       "origin": "OWN SEARCH (unseeded)",
       "decision": "65 = proven optimum reached from scratch; method confirmed, warm-up done"
+    },
+    "007-anneal-n18": {
+      "what": "Simulated annealing, random starts, 12 workers x 300 s; lines rounded to integers at 1e17",
+      "origin": "OWN SEARCH (unseeded)",
+      "decision": "93 = ties best known, found from scratch; kept as a second seed"
     }
   }
 }

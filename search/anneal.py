@@ -130,6 +130,8 @@ def main():
     (out / "solution.json").write_text(json.dumps({"lines": to_integer_lines(results[0][1], results[0][2])}) + "\n")
     (out / "search.json").write_text(json.dumps({"dev_float_count": counts[0], "theta": results[0][1], "d": results[0][2],
                                                  "args": vars(args)}) + "\n")
+    for w, (c, theta, d, _) in enumerate(results):  # every worker's best, as seeds for other searches
+        (out / f"worker{w:02d}-{c}.json").write_text(json.dumps({"lines": to_integer_lines(theta, d)}) + "\n")
 
 
 if __name__ == "__main__":
