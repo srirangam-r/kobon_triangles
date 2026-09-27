@@ -201,6 +201,22 @@ sub-case (`work/t3/notes.md`).
 - **Status:** a fast independent referee was started at 23:15 UTC. Until it reports, treat
   this as an unverified claim.
 
+## Next steps for a future session
+
+1. Read the fast referee's verdict on the three-triple-point claim and fix any gaps.
+   `work/referee3/` has its notes; `work/t3/notes.md` has the claim.
+2. Four triple points: the credit framework stalls at "two disjoint consecutive pairs, each a
+   mutual pair" (x = 4, need = 1, no credit found). Try a hand argument first. If it
+   resists, encode exactly that configuration with all proven structure (cap blocks, claims,
+   credits) and let the solver exhaust it. That instance is small and rigid, which is the
+   only kind the solver handles well.
+3. Generalize Lemma A/B credits to any number of triple points and to 4-fold points (net
+   charge ≤ −2 each, so they only add slack), then referee.
+4. Formalize the counting and parity core in Lean. The geometric lemmas L1–L4 become explicit
+   hypotheses.
+5. Do not restart brute-force runs on the full 18-line problem. Every estimate was days or
+   more.
+
 ## Partial results: where a 94 cannot be (updated 23:10 UTC)
 
 None of these is a full proof that 94 is impossible. Each rules out one class of arrangement.
