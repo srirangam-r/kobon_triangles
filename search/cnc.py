@@ -75,11 +75,43 @@ def main():
     parser.add_argument("--cubes", type=int, default=0, help="stop cubing at this many cubes (march -l)")
     parser.add_argument("--workers", type=int, default=22)
     parser.add_argument("--timeout", type=int, default=3600)
+    parser.add_argument("--prefix", help="cubes over the first crossings along line 0 (JSON spec)")
+    parser.add_argument("--split", help="manual cubes: JSON file with a list of [zero_var, pos_var] pairs; "
+                        "every combination of their 3 values (0, +, -) becomes a cube, which covers everything")
     args = parser.parse_args()
     work = Path(args.workdir)
     work.mkdir(parents=True, exist_ok=True)
     icnf = work / "cubes.icnf"
-    cmd = [str(MARCH), args.cnf, "-o", str(icnf)]
+    if args.split:
+        from itertools import product
+        pairs = json.loads(Path(args.split).read_text())
+        def options(entry):
+            if len(entry) == 1:  # a plain boolean: both values
+                return ([entry[0]], [-entry[0]])
+            zv, pv = entry
+            return ([zv], [-zv, pv], [-zv, -pv])  # chi = 0, +1, -1
+        with icnf.open("w") as f:
+            for combo in product(*[options(e) for e in pairs]):
+                f.write("a " + " ".join(str(l) for part in combo for l in part) + " 0\n")
+    if args.prefix:
+        # cubes = every ordered prefix (a, b, c, ...) of line 0's crossing order: a is crossed
+        # first, then b, ... Literal before(0; x, y) (x < y) is ng(0,x,y), else pz(0,y,x) -- the
+        # JSON file gives {"n": n, "pz": {"0,x,y": id}, "ng": {...}, "depth": d}.
+        from itertools import permutations
+        spec = json.loads(Path(args.prefix).read_text())
+        n, depth = spec["n"], spec["depth"]
+        pzv, ngv = spec["pz"], spec["ng"]
+        def before(x, y):
+            return ngv[f"0,{x},{y}"] if x < y else pzv[f"0,{y},{x}"]
+        others = list(range(1, n))
+        with icnf.open("w") as f:
+            for pre in permutations(others, depth):
+                lits = []
+                for pos, a in enumerate(pre):
+                    lits += [before(a, x) for x in others if x not in pre[:pos + 1]]
+                f.write("a " + " ".join(map(str, lits)) + " 0\n")
+        args.split = True
+    cmd = [str(MARCH), args.cnf, "-o", str(icnf)] if not args.split else ["true"]
     if args.depth:
         cmd += ["-d", str(args.depth)]
     if args.cubes:

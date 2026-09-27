@@ -78,12 +78,102 @@ writes a DRAT proof for each, and drat-trim checks it. A final proof shows the c
 cover every case. Example: 10 lines, 26 triangles, ≤1 triple point gives 190 cubes
 plus coverage, all refuted and all verified.
 
+## New result: no 94 with at most one triple point (21:10 UTC)
+
+**Claim.** An arrangement of 18 lines has at most 93 bounded triangular faces if it has at
+most one point where three lines meet and no point where four or more meet. The same holds
+for pseudolines. Parallel lines are allowed, as long as no three are mutually parallel.
+
+With no triple point this is Blanc's theorem (arXiv 0801.2845, Cor. 2.0.5). The case of
+exactly one triple point is new, as far as we can tell. The argument extends Blanc's
+Prop. 2.0.4. It was extracted from the paper by a subagent, re-derived step by step here,
+and checked without counterexample on 7,264 exact perturbations of real arrangements
+(`work/blanc/`). It has not yet had an outside check.
+
+*Proof sketch.*
+
+1. **No parallels.** A projective map that sends a generic far-away line to infinity keeps
+   every bounded triangle and turns parallel pairs into ordinary crossings.
+2. **Counting.** With one triple point P (lines a, b, c) there are 285 bounded segments.
+   Counting triangle sides gives 3T = 285 − Z + D. Here Z counts unused segments (sides of
+   no triangle) and D counts segments that are sides of two triangles. So T ≥ 94 needs
+   Z − D ≤ 3.
+3. **Doubly used segments.** Two triangles can share a side only if one end of that side is
+   P. Then the side is the first segment of one of the six rays at P, and a single line
+   ("cap line") is the first to cross three consecutive rays. Such blocks of three rays
+   cannot overlap, so D ≤ 2. There are exactly D cap lines.
+4. **Clean lines.** Call a line *clean* if it avoids P and is not a cap line. There are at
+   least 15 − D clean lines.
+5. **Blanc's argument works for clean lines.** Every crossing on a clean line L is simple,
+   and no segment next to L is shared by two triangles.
+
+   Suppose every bounded piece of another line next to L were a triangle side. Record, for
+   each segment of L, whether the triangle on it (if any) is above or below.
+   - The two end entries are empty.
+   - No two empty entries are adjacent.
+   - "Triangle, empty" forces "triangle, empty, triangle" on the same side.
+   - Neighbouring triangles alternate sides.
+
+   Because 18 − 3 is odd, the first and last triangles land on opposite sides. That forces
+   the two outermost crossing lines to lie entirely on opposite sides of L, so they could
+   not cross each other. This is a contradiction. So L meets an unused segment at one of
+   its endpoints.
+6. **Each unused segment is claimed at most twice.** A clean line claims a segment at one of
+   the segment's endpoints. A simple endpoint lies on only one other line, and lines through
+   P are never clean. So each unused segment is claimed by at most 2 lines.
+7. **Conclusion.** Z ≥ ⌈(15 − D)/2⌉, so Z − D ≥ 8, 6 or 5 for D = 0, 1 or 2. Every case
+   exceeds 3, so T ≤ 93.
+
+For two triple points P and Q the same counting leaves two rigid cases (corrected 21:25 UTC;
+an earlier version wrongly said only case A survives):
+
+| Case | Structure | D | Z | Clean lines |
+|---|---|---|---|---|
+| A | P and Q share no line; 4 distinct cap lines | 4 | 4 | 8, whose claims pair up exactly on the 4 unused segments |
+| B | P and Q consecutive on a common line m, with segment PQ a side of two triangles; up to 4 cap lines | 5 | 5 | 9 |
+
+If P and Q share a line but are not consecutive on it, then D ≤ 4 and Z ≥ 5, which rules
+that configuration out.
+
+SAT with the Blanc claims and the case-A deductions did not close case A quickly. The whole
+instance timed out at 10 minutes, as did 16 of 20 sampled line-0 cubes.
+
+**Generalization (same argument, any even n):** with at most one triple point,
+T ≤ ⌊(2n² − 5n + 2)/6⌋.
+- For n ≡ 0 or 4 (mod 6), this equals Blanc's simple bound, so one triple point never
+  helps.
+- For n ≡ 2 (mod 6), it allows one more triangle than Blanc's simple bound. That matches
+  the known records that beat the simple bound (8/15, 14/54, 20/117), all of which have
+  n ≡ 2 (mod 6) and use triple points.
+
+## Partial results: where a 94 cannot be (as of 20:10 UTC)
+
+None of these is a full proof. Each rules out one class of arrangement.
+
+| Class | Result | How | Checked |
+|---|---|---|---|
+| Simple arrangements (no triple points) | ≤ 93 | Blanc's theorem (literature) | Published |
+| **Exactly one triple point** (no 4-fold points) | **≤ 93** | **New: Blanc's lemma extended to clean lines, plus D ≤ 2 (see above)** | Hand proof, re-derived step by step; 7,264 exact perturbation checks; no outside check yet |
+| A 94 whose deletion of some line leaves a *perfect* 17-line arrangement (85) | none | Exact one-line extension DP over all 255 perfect 17-line wiring diagrams, triple points allowed | DP validated against brute force and known optima; one base cross-checked with an independent exact counter |
+| One line away from any of the 3,016 known 93s | none | The same DP: every line of every gallery 93 deleted and re-inserted optimally (54,288 cases, all give 93) | As above |
+| One specific 16/72 base plus any 2 lines | none | SAT at all 153 slope positions, triple points allowed | Solver answer; no DRAT proof yet |
+
+The SAT model behind the last row is checked for soundness. Seven real arrangements with
+triple points (8/15, 10/25, 12/38, 14/54, 16/72, 18/93, 20/117) and a second 18/93 with
+4 triple points (from parpalak's fork) all satisfy it.
+
 ## Honest assessment
 
-- Solve time grows steeply with the defect budget. 18 lines needs budgets of 6 (no
-  triple points, which only re-proves Blanc), 9 (≤1 triple point) and 13 (≤2).
-  Without a better encoding or ideas borrowed from faster tools, a full proof is days
-  of compute, not hours.
+- 21:10 UTC update: "no 94 with ≤1 triple point" is now settled by hand (section above),
+  which makes the SAT run for it unnecessary. The text below is the earlier status, kept
+  for the record.
+- Proof track closed (20:30 UTC). The smallest new theorem in reach would have been "no
+  94 with ≤1 triple point", and a feasibility sample ruled it out. Split into 4,096
+  cases, 0 of 8 sampled cases were solved within 8 minutes. Split into 65,536 cases,
+  6 of 8 still timed out. That puts a checkable proof above about 11 days on all 24
+  cores, and a full proof is further away still. The split-proof and small-n runs
+  serve only as validation: they re-prove known theorems (Blanc and others), which is
+  not a new result.
 - Evidence so far leans toward 93 being optimal. Thousands of distinct 93s are known,
   no local move improves any of them, and the small-*n* pattern (Λ ≥ n/2 − 1 for even
   *n*) predicts 93. None of this is a proof.

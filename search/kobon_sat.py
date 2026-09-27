@@ -171,7 +171,7 @@ def build_general(n, target):
     return cnf, z, p, tri
 
 
-def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True):
+def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True, alternate=False, card="seqcounter", exact_triple=False, blanc=False, k2_18=False):
     """Defect-budget model for arrangements with at most `max_triple` triple points.
 
     Along line r, the crossing with i comes strictly before the crossing with j (i < j)
@@ -248,14 +248,80 @@ def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True):
                         val = want if l == b3 else -want
                         clause.append(-is_val((a3, b3, c3), val))
                     cnf.append(clause)
+    if alternate:
+        # Two triangles on consecutive segments [P_i,P_j], [P_j,P_l] of line r both have a side
+        # on line j starting at P_j. If they were on the same side of r, both sides would be the
+        # first segment of j's ray from P_j, so their apexes would coincide: i, j, l concurrent.
+        # Hence: same side => chi(i,j,l) = 0. (Holds for every real arrangement.)
+        def side_is(i, j, r, sgn):
+            a3, b3, c3 = sorted((i, j, r))
+            return is_val((a3, b3, c3), sgn if r == b3 else -sgn)
+        for r in range(n):
+            others = [x for x in range(n) if x != r]
+            for i, j, l in permutations(others, 3):
+                t1, t2 = tri[tuple(sorted((r, i, j)))], tri[tuple(sorted((r, j, l)))]
+                for sgn in (1, -1):
+                    cnf.append([-A[r, i, j], -A[r, j, l], -t1, -t2, -side_is(i, j, r, sgn),
+                                -side_is(j, l, r, sgn), z[tuple(sorted((i, j, l)))]])
+    if blanc:
+        # Generalized Blanc lemma (Prop. 2.0.4 of arXiv 0801.2845, n even, extended): a line L
+        # that avoids every multiple point and is not a "cap line" (two of its triples with
+        # the lines of some triple point are triangles) meets, at its crossing X with some
+        # line M, a piece of M that is bounded on that side and is a side of no triangle.
+        # U(L,M,d): on M, the piece from X in direction d (+1 after, -1 before) is bounded and
+        # unused; unused <=> no triangle (L,M,N) with N crossing M on that side of X.
+        assert not allow_fourfold
+        for L in range(n):
+            claim = []
+            for M in range(n):
+                if M == L:
+                    continue
+                for d in (1, -1):
+                    u = pool.id(("U", L, M, d))
+                    side_lits = []
+                    for N in range(n):
+                        if N in (L, M):
+                            continue
+                        pos = before(M, L, N) if d == 1 else before(M, N, L)
+                        side_lits.append(pos)
+                        cnf.append([-u, -pos, -tri[tuple(sorted((L, M, N)))]])
+                    cnf.append([-u] + side_lits)
+                    claim.append(u)
+            exempt = [z[t] for t in trip if L in t]
+            for t in trip:
+                if L in t:
+                    continue
+                a3, b3, c3 = t
+                cp = pool.id(("cap", L) + t)
+                t1, t2, t3 = (tri[tuple(sorted((L, x, y)))] for x, y in ((a3, b3), (a3, c3), (b3, c3)))
+                cnf.extend([[-cp, z[t]], [-cp, t1, t2], [-cp, t1, t3], [-cp, t2, t3]])
+                exempt.append(cp)
+            e = pool.id(("exempt", L))
+            cnf.append([-e] + exempt)          # e_L -> L is exempt
+            cnf.append([e] + claim)            # not exempt -> claims an unused piece
+    enc = {"seqcounter": EncType.seqcounter, "totalizer": EncType.totalizer, "mtotalizer": EncType.mtotalizer,
+           "kmtotalizer": EncType.kmtotalizer, "sortnetwrk": EncType.sortnetwrk, "cardnetwrk": EncType.cardnetwrk}[card]
     # consecutive pairs on line r = 16 + tau_r + a_r at most (tau_r triple points on r, a_r of
     # them consecutive); two triple points share at most one line, so sum a_r <= C(k,2)
     k = max_triple
     budget = n * (n - 2) + 3 * k + k * (k - 1) // 2 - 3 * target
+    if k2_18:
+        # CASE A ONLY (the two triple points share no line). Case B, where they are consecutive
+        # on a common line and the segment between them is a side of two triangles
+        # (D = Z = 5, 9 clean lines), is NOT covered, so an UNSAT here settles case A alone.
+        # Case A deductions for n=18, T=94 (3T = 282 - Z + D, D <= 4, Z >= ceil(clean/2)):
+        # no line carries both triple points; the budget drops by C(2,2)=1; exactly 10 exempt lines.
+        assert n == 18 and target == 94 and max_triple == 2 and exact_triple and blanc
+        budget -= 1
+        for L in range(n):
+            cnf.extend(CardEnc.atmost(lits=[z[t] for t in trip if L in t], bound=1, vpool=pool,
+                                      encoding=EncType.seqcounter).clauses)
+        cnf.extend(CardEnc.atleast(lits=[pool.id(("exempt", L)) for L in range(n)], bound=10, vpool=pool,
+                                   encoding=EncType.seqcounter).clauses)
     if budget < 0:
         cnf.append([])  # counting alone rules it out
     else:
-        cnf.extend(CardEnc.atmost(lits=defects, bound=budget, vpool=pool, encoding=EncType.seqcounter).clauses)
+        cnf.extend(CardEnc.atmost(lits=defects, bound=budget, vpool=pool, encoding=enc).clauses)
         # Rotation symmetry: rotating the plane only changes which line has the smallest slope,
         # so any line can be made line 0. At most `budget` lines carry a defect, so if
         # budget < n some line has none: take it as line 0.
@@ -268,8 +334,11 @@ def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True):
                 for t in trip:
                     if 0 in t:
                         cnf.append([-z[t]])
-    cnf.extend(CardEnc.atmost(lits=list(z.values()), bound=max_triple, vpool=pool, encoding=EncType.seqcounter).clauses)
-    cnf.extend(CardEnc.atleast(lits=list(tri.values()), bound=target, vpool=pool, encoding=EncType.seqcounter).clauses)
+    if exact_triple:  # exactly max_triple concurrent triples (the case with fewer is covered separately)
+        cnf.extend(CardEnc.equals(lits=list(z.values()), bound=max_triple, vpool=pool, encoding=enc).clauses)
+    else:
+        cnf.extend(CardEnc.atmost(lits=list(z.values()), bound=max_triple, vpool=pool, encoding=enc).clauses)
+    cnf.extend(CardEnc.atleast(lits=list(tri.values()), bound=target, vpool=pool, encoding=enc).clauses)
     cnf.append([-ng[0, 1, 2]])  # 180-degree rotation flips every sign
     return cnf, z, pz, ng, tri, budget
 
@@ -349,10 +418,15 @@ def main():
     parser.add_argument("--dimacs", help="write the CNF here instead of solving")
     parser.add_argument("--nonsimple", action="store_true", help="allow concurrent triples (relaxation)")
     parser.add_argument("--defect", type=int, metavar="K", help="defect-budget model with at most K triple points")
+    parser.add_argument("--alternate", action="store_true", help="add the opposite-sides rule for consecutive triangles")
+    parser.add_argument("--exact", action="store_true", help="exactly K triple points instead of at most K")
+    parser.add_argument("--blanc", action="store_true", help="add the generalized Blanc lemma (even n)")
+    parser.add_argument("--k2-18", action="store_true", help="n=18/T=94/exactly-2, CASE A only: the two triple points share no line (needs --exact --blanc)")
+    parser.add_argument("--card", default="seqcounter", help="cardinality encoding (seqcounter, totalizer, mtotalizer, kmtotalizer, sortnetwrk, cardnetwrk)")
     args = parser.parse_args()
     started = time.time()
     if args.defect is not None:
-        cnf, z, pz, ng, tri, budget = build_defect(args.n, args.target, args.defect)
+        cnf, z, pz, ng, tri, budget = build_defect(args.n, args.target, args.defect, alternate=args.alternate, card=args.card, exact_triple=args.exact, blanc=args.blanc, k2_18=args.k2_18)
         if args.dimacs:
             cnf.to_file(args.dimacs)
             print(f"wrote {args.dimacs}: {cnf.nv} vars, {len(cnf.clauses)} clauses, defect budget {budget}")
