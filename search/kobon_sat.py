@@ -171,7 +171,7 @@ def build_general(n, target):
     return cnf, z, p, tri
 
 
-def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True, alternate=False, card="seqcounter", exact_triple=False, blanc=False, k2_18=False):
+def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True, alternate=False, card="seqcounter", exact_triple=False, blanc=False, k2_18=False, case2=None):
     """Defect-budget model for arrangements with at most `max_triple` triple points.
 
     Along line r, the crossing with i comes strictly before the crossing with j (i < j)
@@ -305,6 +305,50 @@ def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True, altern
     # them consecutive); two triple points share at most one line, so sum a_r <= C(k,2)
     k = max_triple
     budget = n * (n - 2) + 3 * k + k * (k - 1) // 2 - 3 * target
+    if case2:
+        # n=18, T=94, exactly 2 triple points, split by case (all deductions from 3T = 282 - Z + D,
+        # D <= 2 cap-type segments per triple point (+1 for PQ in case B), Z >= ceil(clean/2)):
+        #   both: >= 4 triangles have each triple point as a vertex (2 disjoint cap blocks);
+        #         line 0 can be taken defect-free AND off both triple points (>= 8 such lines,
+        #         since defects lie on unused segments or on lines through a triple point).
+        #   A: the triple points share no line; budget 12; >= 10 exempt lines (4 cap lines).
+        #   B: they share a line; budget 13 (default); >= 8 exempt lines (>= 3 cap lines).
+        assert n == 18 and target == 94 and max_triple == 2 and exact_triple and blanc and case2 in ("A", "B")
+        for t in trip:
+            if 0 in t:
+                cnf.append([-z[t]])
+        for t in trip:
+            a3, b3, c3 = t
+            at_p = [tri[tuple(sorted((x, y, L)))] for x, y in ((a3, b3), (a3, c3), (b3, c3))
+                    for L in range(n) if L not in t]
+            # A: 2 disjoint cap blocks -> 4 triangles at P. B: only 4 are forced (the referee found
+            # arrangements where P's two blocks overlap on the ray toward Q, so "5" was false).
+            card4 = CardEnc.atleast(lits=at_p, bound=4, vpool=pool, encoding=EncType.seqcounter)
+            for cl in card4.clauses:
+                cnf.append([-z[t]] + cl)  # only when t is a triple point
+        per_line = [[z[t] for t in trip if L in t] for L in range(n)]
+        if case2 == "A":
+            budget -= 1
+            for lits in per_line:
+                cnf.extend(CardEnc.atmost(lits=lits, bound=1, vpool=pool, encoding=EncType.seqcounter).clauses)
+            need_exempt = 10
+        else:
+            shared = [pool.id(("shared", L)) for L in range(n)]
+            for L in range(n):  # shared_L -> line L carries both triple points
+                cnf.extend([[-shared[L]] + cl for cl in CardEnc.atleast(lits=per_line[L], bound=2, vpool=pool,
+                                                                        encoding=EncType.seqcounter).clauses])
+            cnf.append(shared)
+            need_exempt = 8
+        cnf.extend(CardEnc.atleast(lits=[pool.id(("exempt", L)) for L in range(n)], bound=need_exempt, vpool=pool,
+                                   encoding=EncType.seqcounter).clauses)
+        # every segment at a triple point is a triangle side, so every unused segment has two
+        # simple endpoints and is claimable from exactly those two: sum of U <= 2Z (Z = 4 / 5)
+        # Only in case A are all segments at a triple point used (blocks cannot overlap there),
+        # so unused segments have simple endpoints and sum U <= 2Z = 8. In case B the overlap
+        # sub-case can leave an unused segment at P, so no such bound is added.
+        if case2 == "A":
+            u_all = [pool.id(("U", L, M, d)) for L in range(n) for M in range(n) if M != L for d in (1, -1)]
+            cnf.extend(CardEnc.atmost(lits=u_all, bound=8, vpool=pool, encoding=EncType.seqcounter).clauses)
     if k2_18:
         # CASE A ONLY (the two triple points share no line). Case B, where they are consecutive
         # on a common line and the segment between them is a side of two triangles
@@ -421,12 +465,13 @@ def main():
     parser.add_argument("--alternate", action="store_true", help="add the opposite-sides rule for consecutive triangles")
     parser.add_argument("--exact", action="store_true", help="exactly K triple points instead of at most K")
     parser.add_argument("--blanc", action="store_true", help="add the generalized Blanc lemma (even n)")
+    parser.add_argument("--case2", choices=["A", "B"], help="n=18/T=94/exactly-2 case A or B deductions")
     parser.add_argument("--k2-18", action="store_true", help="n=18/T=94/exactly-2, CASE A only: the two triple points share no line (needs --exact --blanc)")
     parser.add_argument("--card", default="seqcounter", help="cardinality encoding (seqcounter, totalizer, mtotalizer, kmtotalizer, sortnetwrk, cardnetwrk)")
     args = parser.parse_args()
     started = time.time()
     if args.defect is not None:
-        cnf, z, pz, ng, tri, budget = build_defect(args.n, args.target, args.defect, alternate=args.alternate, card=args.card, exact_triple=args.exact, blanc=args.blanc, k2_18=args.k2_18)
+        cnf, z, pz, ng, tri, budget = build_defect(args.n, args.target, args.defect, alternate=args.alternate, card=args.card, exact_triple=args.exact, blanc=args.blanc, k2_18=args.k2_18, case2=args.case2)
         if args.dimacs:
             cnf.to_file(args.dimacs)
             print(f"wrote {args.dimacs}: {cnf.nv} vars, {len(cnf.clauses)} clauses, defect budget {budget}")

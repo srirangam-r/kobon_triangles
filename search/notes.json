@@ -1,11 +1,11 @@
 {
   "status": {
-    "updated": "2026-09-27T21:27Z",
+    "updated": "2026-09-27T23:12Z",
     "tree_hash": "966e6945",
-    "phase": "new theorem; two-triple-point case open",
-    "loop": "idle (only ud1 kobon.cpp on 1 core)",
+    "phase": "hand proofs refereed",
+    "loop": "idle except the three-triple-point lemma subagent",
     "budget": "until stopped; $100 total (rentals up to $75, AutoLab agent $25 once raised on the dashboard; it is still $5)",
-    "now": "New result stands: no 94 at 18 lines with at most one triple point. It generalizes to T <= floor((2n^2 - 5n + 2)/6) for even n with at most one triple point; that equals Blanc's simple bound for n = 0, 4 mod 6 and is 1 higher for n = 2 mod 6, matching the records 8/15, 14/54 and 20/117. Two triple points: two rigid cases (A: D=Z=4, 8 clean lines; B: shared line with PQ doubly used, D=Z=5, 9 clean lines). SAT with the Blanc claims did not close case A in 10 min per cube."
+    "now": "Referee (independent subagent) verdict: correct for no 94 with at most one triple point, correct for exactly two (after the overlapping-blocks fix; simpler case-B argument adopted), and correct for Theorem G (even n, general position: T <= floor((2n^2 - 5n + 2t)/6)). 142,160 arrangements tested exactly, no counterexamples. A subagent is working on the three-triple-point case."
   },
   "records": {
     "15": {
@@ -102,6 +102,10 @@
     {
       "state": "running",
       "text": "No 94 with exactly two triple points: SAT with the Blanc claims and counting deductions (whole instance with 2 Kissat configs, plus 20 sampled line-0 cubes)."
+    },
+    {
+      "state": "running",
+      "text": "Proof runs: no 94 with exactly two triple points, case A (work/k2A) and case B (work/k2B)."
     }
   ],
   "dev": [
@@ -157,7 +161,10 @@
     "Two triple points: the same counting forces the two points to share no line (otherwise Z >= 5 > D), D = 4, Z = 4, 4 distinct cap lines and 8 clean lines whose claims pair up exactly. Encoded in kobon_sat.py as --blanc (the claims; sound for every even-n arrangement with only triple points; the soundness regression passes on 9 real arrangements) and --k2-18 (the deductions for n=18, T=94, exactly 2).",
     "CORRECTION (21:25Z): an earlier note said the two triple points must share no line. Wrong: they may be consecutive on a common line with the segment PQ a side of two triangles (D = Z = 5, 9 clean lines). The --k2-18 deductions are therefore valid for case A only (code and SUMMARY fixed); no conclusion had been drawn from them.",
     "Two-triple-point SAT test (Blanc claims + case-A deductions; 271k vars, 1.06M clauses): the whole instance timed out at 600 s (Kissat default and --unsat), and 16 of 20 random line-0 cubes timed out at 600 s. Not closable quickly.",
-    "Generalization checked by hand: exactly one triple point, even n: 3T <= n(n-2) - 3 - (n-8)/2, i.e. T <= floor((2n^2 - 5n + 2)/6)."
+    "Generalization checked by hand: exactly one triple point, even n: 3T <= n(n-2) - 3 - (n-8)/2, i.e. T <= floor((2n^2 - 5n + 2)/6).",
+    "Two-triple-point run v1 (21:29-21:39Z, 240 s limit): case A 96 UNSAT / 22 timeouts, case B 92 / 22, in 10 min; projected about 80 h per case, with timeouts using about 3/4 of the compute.",
+    "Extra deductions (both cases): every segment at a triple point is used (the two cap blocks cover all 6 rays), so unused segments have simple endpoints and the Blanc claims total at most 2Z (8 in A, 10 in B). Case B has at least 5 triangles at each triple point. Encoded; v2 restarted with a 60 s split limit.",
+    "REFEREE REPORT (work/referee/): L1, L3, L4, the stretch lemma and the counting are correct; the original L2 disjointness was wrong in case B (blocks can overlap on the ray between P and Q; explicit examples at n = 10, 16, 18), and the patch and a simpler case-B argument (x >= 2) both hold. Theorem G is correct. Tested on 142,160 arrangements: 321,793 doubly used segments, 315,797 blocks, 4.79M even stretches, 68,830 valid axes, 1.62M clean lines; no counterexamples. Two false case-B statements in SUMMARY.md and the --case2 B SAT deductions were corrected."
   ],
   "runs": {
     "001-baseline": {

@@ -1,6 +1,6 @@
 # Kobon triangles, 18 lines: where things stand
 
-*Last updated 2026-09-27, 18:55 UTC. The live log with every scored run is `journal.html`.*
+*Last updated 2026-09-27, 23:10 UTC. The live log with every scored run is `journal.html`.*
 
 ## The task
 
@@ -135,8 +135,19 @@ an earlier version wrongly said only case A survives):
 If P and Q share a line but are not consecutive on it, then D ≤ 4 and Z ≥ 5, which rules
 that configuration out.
 
-SAT with the Blanc claims and the case-A deductions did not close case A quickly. The whole
-instance timed out at 10 minutes, as did 16 of 20 sampled line-0 cubes.
+**Both cases are ruled out by hand (refereed 23:10 UTC).** Full proof: `work/proof_k2.md`.
+- **Case A:** each triple point with two cap blocks has an *axis*. That is the line
+  carrying the two middle rays, and by Blanc's parity argument it also claims an unused
+  segment. The axes add 2 claimers to the 8 clean lines, so Z ≥ 5 > 4 ≥ D.
+- **Case B** (the referee's simpler argument): each point has a cap block whose cap line
+  passes through the other point. So at least 2 cap lines are triple lines, clean ≥ 11,
+  and Z ≥ 6 > 5 ≥ D.
+
+Correction: an earlier version of this section said each triple point has two
+*disjoint* blocks covering all 6 rays, and that case B forces 5 triangles at each point. The
+referee found both false in case B: P's two blocks can overlap on the ray toward Q, and it
+built explicit examples. The `--case2 B` SAT deductions that relied on those statements have
+been removed; the SAT runs had been stopped anyway.
 
 **Generalization (same argument, any even n):** with at most one triple point,
 T ≤ ⌊(2n² − 5n + 2)/6⌋.
@@ -146,14 +157,19 @@ T ≤ ⌊(2n² − 5n + 2)/6⌋.
   the known records that beat the simple bound (8/15, 14/54, 20/117), all of which have
   n ≡ 2 (mod 6) and use triple points.
 
-## Partial results: where a 94 cannot be (as of 20:10 UTC)
+## Partial results: where a 94 cannot be (updated 23:10 UTC)
 
-None of these is a full proof. Each rules out one class of arrangement.
+None of these is a full proof that 94 is impossible. Each rules out one class of arrangement.
+"Referee" means an independent subagent that checked the argument and tested every lemma
+on exact arrangements. There has been no human review and no formal (Lean) check. Treat
+these as carefully argued drafts, not published results.
 
 | Class | Result | How | Checked |
 |---|---|---|---|
 | Simple arrangements (no triple points) | ≤ 93 | Blanc's theorem (literature) | Published |
-| **Exactly one triple point** (no 4-fold points) | **≤ 93** | **New: Blanc's lemma extended to clean lines, plus D ≤ 2 (see above)** | Hand proof, re-derived step by step; 7,264 exact perturbation checks; no outside check yet |
+| **Exactly one triple point** (no 4-fold points) | **≤ 93** | **New: Blanc's lemma extended to clean lines, plus D ≤ 2 (see above)** | Hand proof; independent referee subagent: correct; 142,160 arrangements tested |
+| **Exactly two triple points** (no 4-fold points) | **≤ 93** | **New: axis lemma (case A) and cap lines through the other point (case B); `work/proof_k2.md`** | Hand proof; referee: correct after one fix; 17,038 two-triple-point 18-line arrangements tested |
+| **Any number t of triple points, in general position** (no line through two multiple points), even n | T ≤ ⌊(2n² − 5n + 2t)/6⌋; so 94 at n=18 needs 3 ≤ t ≤ 6 | **New: Theorem G, `work/proof_general.md`** | Referee: correct; Λ ≥ n/2 − t tested on 82,975 arrangements |
 | A 94 whose deletion of some line leaves a *perfect* 17-line arrangement (85) | none | Exact one-line extension DP over all 255 perfect 17-line wiring diagrams, triple points allowed | DP validated against brute force and known optima; one base cross-checked with an independent exact counter |
 | One line away from any of the 3,016 known 93s | none | The same DP: every line of every gallery 93 deleted and re-inserted optimally (54,288 cases, all give 93) | As above |
 | One specific 16/72 base plus any 2 lines | none | SAT at all 153 slope positions, triple points allowed | Solver answer; no DRAT proof yet |
