@@ -224,8 +224,15 @@ points, whatever the number of triple points and whatever 4-fold or higher point
 - Referee strengthening: at t = 6 every line passes through a triple point, so Z ≥ 3; and
   t ≥ 7 is impossible in general position, because Σk_P ≤ 18.
 
-**Remaining open, if H and the t = 3 proof hold.** Arrangements with 4–6 triple points
-where some share lines, specifically where:
+**Remaining open (corrected 23:30 UTC; the earlier "4–6" was wrong).** Arrangements with 4 or
+more triple points where some share a line, and 4-fold or higher points sharing lines.
+- 7+ triple points are impossible in general position (3t ≤ 18), but possible with shared
+  lines. There the segment bound 3T ≤ S + D = 288 − 3t + 2t + β requires β ≥ t − 6 bridges
+  (doubly used segments between two multiple points). Lemma B restricts bridges strongly,
+  but t ≥ 7 has not been analysed.
+- Such clusters are real: gallery 93s have up to 8 triple points on shared lines.
+
+The open cases include those where:
 - a triple point is killed by mutual pairs (R1);
 - an axis passes through another triple point (R2);
 - a triangular face has three multiple-point vertices (R3).
