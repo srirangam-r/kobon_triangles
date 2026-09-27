@@ -245,6 +245,27 @@ The stalled 4-point case is exactly characterized and falls short of 7 by one:
 A 94 there would need Z = 2, with each unused segment claimed from both ends by 4 clean
 lines. This is a well-defined candidate for an exhaustive solver run.
 
+## Shared-line clusters: partial, NOT refereed (23:45 UTC)
+
+- **t ≥ 7 triple points** (`work/t3/shared.md`). A 94 needs
+  Σ_P [b(P) + e(P)/2 − 2] ≥ t − 6 + Z ≥ 1, where b(P) counts blocks at P and e(P) counts
+  bridge ends at P. Lemma C bounds each point type's contribution. So t ≥ 7 is impossible
+  when:
+  - there are no doubly used bridges; or
+  - there are no bent points, no centroid-type points, no triangular faces with all vertices
+    multiple, and no point with 3 or more bridge ends.
+
+  Mixed configurations of bent pairs and all-multiple triangles remain open.
+- **Data.** Every gallery arrangement with t ≥ 7 has zero bridges, including the 57
+  eighteen-line ones with t = 7 or 8. In the 8-triple-point 93s, mutual pairs cancel Lemma A
+  at every axis point, so mutual pairs are common in real arrangements.
+- **Solver on the stalled 4-point case** (assuming the refereed theorems):
+  - the whole instance timed out at 600 s;
+  - 5 of 20 random line-0 cases were UNSAT in 0.4 s, and 15 timed out at 600 s;
+  - no SAT was found.
+
+  It is not quickly decidable.
+
 ## Next steps for a future session
 
 1. Read the fast referee's verdict on the three-triple-point claim and fix any gaps.
