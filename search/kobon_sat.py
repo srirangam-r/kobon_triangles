@@ -384,6 +384,7 @@ def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True, altern
         cnf.extend(CardEnc.atmost(lits=list(z.values()), bound=max_triple, vpool=pool, encoding=enc).clauses)
     cnf.extend(CardEnc.atleast(lits=list(tri.values()), bound=target, vpool=pool, encoding=enc).clauses)
     cnf.append([-ng[0, 1, 2]])  # 180-degree rotation flips every sign
+    cnf.pool = pool  # exposed so callers can add constraints on named variables
     return cnf, z, pz, ng, tri, budget
 
 
