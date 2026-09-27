@@ -181,6 +181,26 @@ T ≤ ⌊(2n² − 5n + 2)/6⌋.
   the proof. The last step would be to encode each rigid configuration exactly and let the
   solver exhaust it.
 
+## Three triple points: claimed, NOT refereed (23:15 UTC)
+
+A subagent reports a hand proof that three triple points also give T ≤ 93, in every
+sub-case (`work/t3/notes.md`).
+
+- **Credit framework.** Count unused-segment endpoints: 2Z = Σ_L κ(L) + Z_tr.
+- **Lemma A (cap touch).** At each full triple point, the axis segment just beyond the cap
+  point is unused unless a "mutual pair" occurs. Its endpoint belongs to the cap line, which
+  never claims, so it gives an extra credit. This kills the rigid t₂ = 3 configuration.
+- **Lemma B.** Doubly used segments between triple points occur only in a special
+  triangle-of-triple-points configuration.
+- **Also claimed:**
+  - any number of triple points on pairwise disjoint lines (up to 6);
+  - any number all on one shared axis line.
+- **Where it stalls:** 4 triple points in a "two mutual pairs" configuration.
+- **Tests:** no failures on 5,516 gallery arrangements and about 1,000 random three-triple-point
+  arrangements.
+- **Status:** a fast independent referee was started at 23:15 UTC. Until it reports, treat
+  this as an unverified claim.
+
 ## Partial results: where a 94 cannot be (updated 23:10 UTC)
 
 None of these is a full proof that 94 is impossible. Each rules out one class of arrangement.
