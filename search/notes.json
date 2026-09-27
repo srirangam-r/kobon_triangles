@@ -1,11 +1,11 @@
 {
   "status": {
-    "updated": "2026-09-27T16:44Z",
+    "updated": "2026-09-27T16:49Z",
     "tree_hash": "966e6945",
     "phase": "warm-up n=15",
     "loop": "running",
     "budget": "1 h from 16:36Z",
-    "now": "n=15 pipeline confirmed (gallery 65 reproduced). Scoring the gallery 93 at n=18; writing own search (simulated annealing) for the n=15 warm-up."
+    "now": "Scoring own-search annealing result at n=15 (unseeded)."
   },
   "records": {
     "15": {
@@ -36,7 +36,7 @@
       "text": "Own search at n = 15 from random/symmetric starts, to see how far a simple method gets without seeds."
     },
     {
-      "state": "queued",
+      "state": "done: 93 (reproduced)",
       "text": "Reproduce the gallery's exact 93-triangle certificate at n = 18."
     },
     {
@@ -44,7 +44,10 @@
       "text": "Try for 94 at n = 18: drop-one-line / re-insert-best-line search seeded from the gallery's 93-triangle arrangements."
     }
   ],
-  "dev": [],
+  "dev": [
+    "Float counter sanity: 13 on the n=15 baseline and 65 on the gallery 15 (both match exact); 88 on the gallery 18 (exact 93) because floats cannot hold its 3 exact triple points. So float search cannot see concurrency-based triangles.",
+    "anneal.py smoke test, n=15, 4 workers x 8 s: float best 65."
+  ],
   "runs": {
     "001-baseline": {
       "what": "Hill example: 18 tangent lines to y=x^2",
@@ -65,6 +68,11 @@
       "what": "Gallery certificate 15-13stqcxe05vfr, exact rationals scaled to integers per line",
       "origin": "REPRODUCED (Utkin & Parpalak gallery)",
       "decision": "65 = proven optimum; conversion pipeline confirmed"
+    },
+    "005-gallery-n18": {
+      "what": "Gallery certificate 18-36dwfgkhquwqj: 18 exact rational lines with 3 exact triple points",
+      "origin": "REPRODUCED (Utkin & Parpalak gallery)",
+      "decision": "93 = ties best known; seed for the 94 attempt"
     }
   }
 }
