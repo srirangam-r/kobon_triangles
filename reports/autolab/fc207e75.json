@@ -1,0 +1,48 @@
+{
+ "hill": "kobon-triangles",
+ "tree_hash": "7d3f1d91dcb8be8d0eef20be763557bd6d876707",
+ "commit": "17737195485728d244b0d1f30db55db42df60366",
+ "submission_hash": "sha256:fcc2d85cc064a989f3f2a2f5c0fd35ee5b344939baab8d46d986cb2b01b91cad",
+ "submission_git": "exp/nail-laptop-24c/fc207e75@8584cf7",
+ "passed": false,
+ "config": [
+  {
+   "name": "n",
+   "value": 18,
+   "primary": true
+  },
+  {
+   "name": "geometry",
+   "value": "bounded-triangular-faces",
+   "primary": true
+  },
+  {
+   "name": "arithmetic",
+   "value": "exact-rational",
+   "primary": true
+  },
+  {
+   "name": "mode",
+   "value": "validation",
+   "primary": false
+  }
+ ],
+ "metrics": [],
+ "details": {
+  "error": "submission must contain a regular, non-symlink solution.json"
+ },
+ "params": {
+  "n": 18
+ },
+ "final": false,
+ "official": true,
+ "official_reason": null,
+ "hill_spec_version": 2,
+ "tool": {
+  "version": "0.11.0",
+  "sha256": "970e4a3fcb74c27e0c56b62efd22b4fab82a755229a8aef8f90bbc00a9cfe275"
+ },
+ "timestamp": "2026-09-27T17:14:00Z",
+ "report_version": 1,
+ "signature": "hmac-sha256:60a6058d224a68aece98aa439354161976d54d5f54c19d60e5b6d8e4ddbadc63"
+}

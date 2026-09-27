@@ -75,7 +75,8 @@ def anneal(theta, d, iters, t_hot, t_cold, seed):
 
 
 def worker(args):
-    n, seconds, seed, start = args
+    n, seconds, seed, start = args[:4]
+    schedule = args[4] if len(args) > 4 else {"iters": 200_000, "t_hot": 1.5, "t_cold": 0.05}
     rng = np.random.default_rng(seed)
     deadline = time.time() + seconds
     best = (-1, None, None)
@@ -85,7 +86,7 @@ def worker(args):
             theta, d = start[0].copy(), start[1].copy()
         else:
             theta, d = rng.uniform(0, math.pi, n), rng.normal(0, 1, n)
-        result = anneal(theta, d, 200_000, 1.5, 0.05, int(rng.integers(2**31)))
+        result = anneal(theta, d, schedule["iters"], schedule["t_hot"], schedule["t_cold"], int(rng.integers(2**31)))
         if result[0] > best[0]:
             best = result
         restart += 1

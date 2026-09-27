@@ -1,11 +1,11 @@
 {
   "status": {
-    "updated": "2026-09-27T17:05Z",
+    "updated": "2026-09-27T18:55Z",
     "tree_hash": "966e6945",
-    "phase": "main target n=18",
-    "loop": "paused (user asked about AutoLab compute)",
-    "budget": "1 h from 16:36Z",
-    "now": "Every local move tried plateaus at 93 at n=18. Paused to set up AutoLab compute at the user's request."
+    "phase": "proof track (SAT)",
+    "loop": "AutoLab paused and laptop detached; SAT + exact annealing local",
+    "budget": "until stopped; $100 total (rentals up to $75, AutoLab agent $25 once raised on the dashboard; it is still $5)",
+    "now": "Standalone summary written to SUMMARY.md. Running: defect-model SAT for 18 lines/94 with K = 0, 1, 2 triple points (since 18:29Z); exact annealing from both 93s (until about 19:16Z); a second literature/code review (how the >18-line records were found, and which tools to borrow)."
   },
   "records": {
     "15": {
@@ -20,8 +20,8 @@
     }
   },
   "measured": "The score is the number of <b>triangles</b> formed by exactly <i>n</i> straight lines that no other line of the arrangement cuts through (bounded triangular faces). Higher is better. A submission is a <code>solution.json</code> listing the lines as integer triples [a, b, c] meaning a\u00b7x + b\u00b7y + c = 0; the hill's evaluator counts the triangles with exact rational arithmetic, so there is no tolerance and no randomness. It stands in for a real, checkable geometric construction for the Kobon triangle problem. Different line counts are separate contests. Nothing is held out from the construction itself; the hill's only private data are regression fixtures for its own tests, which were not shipped to us and were not read. All runs are on this machine (local, 24 CPU cores); hardware is not part of the score.",
-  "hill_warning": "<b>These are local, unofficial scores.</b> The hill was pulled from AutoLab (alejandrozu/kobon-triangles 0.1.0, official tree hash 7d3f1d91). Non-owners do not receive its private test fixtures, so the local copy was frozen unchanged with <code>hills commit --no-tests</code>, which gives local tree hash 966e6945. The scoring code (eval.py) is byte-identical to the published one, but reports here are tied to 966e6945 and may not rank on the AutoLab leaderboard.",
-  "plan": "Warm up at n = 15 (record 65, proven optimal), then n = 18 (record 93, bound 94). Published constructions (Utkin &amp; Parpalak's Kobon solution gallery, exact rational certificates) may be used as seeds; anything reproduced from them is labelled 'reproduced'. Own search: local search over line angles/offsets, and a structured move that removes one line and re-inserts the best line through pairs of existing crossing points. Stop after 1 hour (from 16:36Z) or on matching the record at 18 lines, then run one --final evaluation of the best 18-line submission and report.",
+  "hill_warning": "<b>These are local, unofficial scores.</b> The hill was pulled from AutoLab (alejandrozu/kobon-triangles 0.1.0, official tree hash 7d3f1d91). Non-owners do not receive its private test fixtures, so the local copy was frozen unchanged with <code>hills commit --no-tests</code>, which gives local tree hash 966e6945. The scoring code (eval.py) is byte-identical to the published one, but reports here are tied to 966e6945 and may not rank on the AutoLab leaderboard. <b>From 17:05Z:</b> experiments on the AutoLab climb srirangam-r/kobon-triangles-18 are scored by AutoLab against the <b>official</b> hill (tree hash 7d3f1d91), and those scores do rank on the leaderboard. They are listed in their own section below and are not mixed with the local runs.",
+  "plan": "Warm up at n = 15 (record 65, proven optimal), then n = 18 (record 93, bound 94). Published constructions (Utkin &amp; Parpalak's Kobon solution gallery, exact rational certificates) may be used as seeds; anything reproduced from them is labelled 'reproduced'. Own search: local search over line angles/offsets, and a structured move that removes one line and re-inserts the best line through pairs of existing crossing points. Stop after 1 hour (from 16:36Z) or on matching the record at 18 lines, then run one --final evaluation of the best 18-line submission and report. UPDATE 17:05Z: at the user's request the search moved to AutoLab compute, with Claude Code orchestrating. AutoLab's own idea generation is off, so it only runs experiments queued from here. Compute is this laptop as a node plus up to 4 rented cpu-xlarge machines (32 vCPU each). Spend is capped at $20 (at most $15 rental, $5 AutoLab agent), and it runs until the user stops it. Each experiment runs search/job.sh on a node (annealing, then exact re-insert polish) and the official hill scores the solution.json it writes. UPDATE 17:45Z: the user raised the budget to their 100 AutoLab credits (rentals up to $75, agent $25) and asked for a parallel-run test. They also asked whether 93 can be proven optimal for 18 lines (that is, 94 is impossible); that work is starting with a literature review of the known bounds and SAT-based proofs. A standalone summary is in SUMMARY.md.",
   "ideas": [
     {
       "state": "done",
@@ -54,6 +54,34 @@
     {
       "state": "done: no 94",
       "text": "Two-line move at n = 18: remove any 2 of the 18 lines, re-insert the 6 best first lines (plus the originals), then the best second line through two crossing points. About 153 x 60k exact evaluations per seed."
+    },
+    {
+      "state": "cancelled and re-queued (config mix-up)",
+      "text": "AutoLab batch 1 (5 x 30 min): three annealing schedules (default, slow cooling, short restarts) plus exact plateau walks from both 93s."
+    },
+    {
+      "state": "running",
+      "text": "AutoLab batch 1, re-queued with the config on the command line (5 x 30 min): three annealing schedules plus exact plateau walks from both 93s."
+    },
+    {
+      "state": "running",
+      "text": "Prove 93 optimal (rule out 94) for 18 lines: literature review first (Savchuk 2025 SAT table encoding; the hypotheses behind the even-n bound of Bartholdi, Blanc and Loisel). Then decide whether a SAT encoding for 18 lines is feasible."
+    },
+    {
+      "state": "queued",
+      "text": "Extend the SAT model to arrangements with triple crossings (sign 0 allowed per triple), needed for a real proof at even n, and as a search for 94 candidates with concurrencies. Then straighten any candidate found."
+    },
+    {
+      "state": "running",
+      "text": "Defect-model benchmarks: 10/26 (K = 0, 1, 2), 11/33, 12/38-39, 13/47, 14/54, 16/73, 18/94 with K = 0 (re-proving Blanc) and K = 1 (new if proven), plus 18/93 with K <= 3 (candidate generator)."
+    },
+    {
+      "state": "queued",
+      "text": "If the defect model is fast: prove \"no 94 with at most K triple points\" for K = 1, 2, 3, ... at 18 lines by splitting into sub-cases on 24 cores, keeping DRAT proofs verified with drat-trim. Soundness notes: parallels removed by a projective map; the defect budget follows from the counting accounting."
+    },
+    {
+      "state": "running",
+      "text": "Exact annealing from the gallery 93 and our 93, preferring more multiple points (literature hint), looking for 94."
     }
   ],
   "dev": [
@@ -67,7 +95,23 @@
     "Second annealing batch at n=18 (8 workers x 240 s): float 93, 93, 93, 92 x5; exact counts identical after integer rounding.",
     "Exact single-line re-insert pass on all 8 of those: none improves (93s stay 93, 92s stay 92). Every arrangement found is a local maximum for one-line moves.",
     "Plateau walks at n=18 (8 workers x 600 s from each 93 seed): about 2,300 distinct 93-triangle arrangements visited (gallery seed 1,265, own seed 1,007), none reached 94.",
-    "Two-line move at n=18 (153 line pairs x 8 first choices x ~9k second lines, exact): gallery seed best 93 (17 pairs tie), own seed best 92. No 94."
+    "Two-line move at n=18 (153 line pairs x 8 first choices x ~9k second lines, exact): gallery seed best 93 (17 pairs tie), own seed best 92. No 94.",
+    "SAT model for SIMPLE pseudoline arrangements (search/kobon_sat.py): one sign per triple of lines (816 for 18 lines) plus the 4-line consistency rule. The triangle rule was derived from 20,000 real 4-line arrangements (search/signotope4.py) and reproduces the exact evaluator on real arrangements (93, 65, 16).",
+    "Validation against known values: finds the record and rules out record+1 for n = 5, 6, 7, 9, 10 (10 lines: 26 ruled out in 27 s). For n = 8 it rules out 15, yet 15 is the proven optimum: the gallery's 8-line 15 uses 2 triple crossings. So simple arrangements top out at 14 for 8 lines.",
+    "Clue from the gallery certificates: every known even-n record uses triple crossings (6: 3, 8: 2, 10: 7, 12: 4, 14: 5, 16: 3, 20: 6); the odd 17-line 85 has none. Consequences: (1) a proof that 94 is impossible must cover arrangements with triple crossings; (2) the unseeded annealer cannot create triple crossings, so it is blind to the kind of arrangement that wins at even n.",
+    "Parallel lines never need encoding: a projective map sending a generic far-away line to infinity keeps every bounded triangle and makes all slopes distinct.",
+    "LITERATURE (subagent review): for SIMPLE arrangements 93 is already proven optimal at 18 lines (Blanc, arXiv 0801.2845: even n gives at most floor(n(n-5/2)/3), which is 93). Wikipedia's 94 is the older Bartholdi-Blanc-Loisel bound, which is also only for simple arrangements. So a 94 needs a point where 3 or more lines meet; for that case only 95 (Clement-Bader, informal) and 96 (Tamura) are known. No 18-line SAT attempt is published. The ud1 gallery has about 3,000 distinct 93s for 18 lines (up to 8 triple points) and no 94.",
+    "Counting identity (from the review): 3T = n(n-2) - Lambda, where Lambda = unused segments - doubly used segments + sum over multiple points of k(k-2). So 94 at 18 lines means Lambda <= 6; every known 93 has Lambda = 9. Search hint: record arrangements put their triple points on one line; a 94 would need clustered triple points joined by segments shared by two triangles.",
+    "Triple-crossing SAT model (3-valued signs, 17 realizable 4-line patterns derived empirically) validated: finds 15 for 8 lines (2 triple points) and rules out 16 in 3.7 s. The proof pipeline works end to end: CaDiCaL wrote a 10 MB DRAT proof for that case, verified by drat-trim.",
+    "Timing with the old models: proofs stall at 10-11 lines (10 lines/26 not settled in 15 min; 11/33 not in 20 min, while Savchuk's encoding does it in 1.7 s). Finding is slow too (13/47 simple in 10 min; 11/32 with triple points in 8 min). This is the user's case 4.",
+    "Defect-budget model (search/kobon_sat.py --defect K): adds each line's explicit crossing order (point i before j on line r iff sign(sorted r,i,j) = -1, derived empirically) and consecutive-pair variables. It then caps \"consecutive pair that is not a triangle side\" at n(n-2) + 6K - 3T, a valid bound for arrangements with at most K triple points and no 4-fold point. Validated: 8/15 found with 2 triple points, ruled out with 0 (1.1 s); 8/16 ruled out with up to 2 (6 s); 9/22 ruled out with up to 1 (12.9 s).",
+    "Improved defect model: tighter budget n(n-2) + 3k + C(k,2) - 3T (two triple points share at most one line), plus rotation symmetry breaking (line 0 is defect-free; it also avoids triple points when enough lines remain). Still finds the real 8-line 15. Timings: 11/33 simple 3.3 s (old models: unsolved in 20+ min; Savchuk: 1.7 s); 10/26 simple 5.4 s; 10/26 with <=1 triple point 37 s; 10/26 with <=2: 379 s; 12/39 simple (budget 3): 534 s.",
+    "Checkable proofs: search/cnc.py (march_cu cubes, CaDiCaL + DRAT per cube, drat-trim check, plus a coverage proof that the cubes cover everything). 10 lines, 26 triangles, <=1 triple point: 190 cubes plus coverage, all UNSAT and all verified.",
+    "Scaling verdict (user's case 4): solve time grows steeply with the defect budget; 18 lines needs budget 6 (no triple points, i.e. Blanc's theorem again), 9 (<=1) and 13 (<=2). A single solver likely needs days, so a full proof does not fit in hours with this encoding. Next: borrow faster tooling from the literature (Parpalak-Utkin word search, Savchuk kobon-cnf, the ud1 generators); a code review is running.",
+    "AutoLab: \"pause\" did not stop the agent's in-flight session; at 18:31Z it relaunched the walk job I had stopped. At 18:45Z the in-flight and queued experiments were cancelled and the laptop was detached from the climb. Rental spend stayed $0.",
+    "Leaderboard: submitting the local 15-line 65 report was refused (HTTP 400: tree_hash 966e69451c58 is not a known version). Local reports cannot rank, and the climb scores only the default n = 18.",
+    "Structure stats (search/structure.py, identity 3T = n(n-2) - Lambda checked): gallery 93 has Z=6, D=6, 3 triple points; own 93 has Z=9, D=0, simple; 15-line 65 is perfect (Lambda=0). Lambda is 9 for every 93, so it cannot rank 93s; the split between Z, D and triple points is what varies.",
+    "Exact annealing over line-replacement moves (search/exact_anneal.py): Metropolis on score levels, occasional 92/91, prefers new lines through more crossing points, tabu on visited arrangements. Two runs x 5 workers x 25 min, one from each 93."
   ],
   "runs": {
     "001-baseline": {
@@ -105,5 +149,159 @@
       "origin": "OWN SEARCH (unseeded)",
       "decision": "93 = ties best known, found from scratch; kept as a second seed"
     }
-  }
+  },
+  "autolab_runs": [
+    {
+      "id": "203bd68f",
+      "status": "merged",
+      "commit": "479610e9",
+      "title": "Baseline run",
+      "created": "2026-09-27T17:10:47",
+      "what": "Climb baseline: the committed solution.json = the 93-line arrangement from local run 007 (own unseeded annealing)",
+      "origin": "OWN SEARCH (unseeded), re-scored officially",
+      "decision": "official 93 on the real hill; merged",
+      "report": "reports/autolab/203bd68f.json",
+      "passed": true,
+      "value": 93,
+      "tree": "7d3f1d91",
+      "sig": "hmac-sha256:422a0174519c71",
+      "git": "exp/nail-laptop-24c/203bd68f@479610e"
+    },
+    {
+      "id": "fc207e75",
+      "status": "discarded",
+      "commit": "8584cf77",
+      "title": "anneal-seed101-25min",
+      "created": "2026-09-27T17:13:13",
+      "what": "search/job.sh: annealing on all cores ~20 min + exact re-insert polish, seed 101",
+      "origin": "OWN SEARCH",
+      "decision": "FAILED as designed: this hill has no run step. AutoLab scored the committed files directly and never ran search/job.sh; the job deletes the old solution.json first, so there was nothing to score rather than a re-scored 93. Next: hand the search to the AutoLab agent to run on the node.",
+      "report": "reports/autolab/fc207e75.json",
+      "passed": false,
+      "value": null,
+      "tree": "7d3f1d91",
+      "sig": "hmac-sha256:60a6058d224a68",
+      "git": "exp/nail-laptop-24c/fc207e75@8584cf7"
+    },
+    {
+      "id": "8b998935",
+      "status": "planning",
+      "commit": "0692e0a6",
+      "title": "agent-runs-anneal-seed102-10min",
+      "created": "2026-09-27T17:14:34",
+      "what": "Agent runs search/job.sh on the laptop node. It checked out the base commit (8584cf7), so it is really running the 25-min seed-101 annealing config, not the submitted 10-min seed-102 one",
+      "origin": "OWN SEARCH",
+      "decision": "pipeline test; showed that --soft runs start from the code you are in, not the pushed seed"
+    },
+    {
+      "id": "888a10ee",
+      "status": "cancelled",
+      "commit": "c6158d87",
+      "title": "anneal-s201-default-30min",
+      "created": "2026-09-27T17:22:22",
+      "what": "Annealing, default schedule (200k steps, T 1.5 to 0.05), all cores ~24 min + exact polish of the top 6, seed 201",
+      "origin": "OWN SEARCH",
+      "decision": "CANCELLED before running: the agent would have run the base commit's config instead of this one (see 8b998935). Re-queued with the config on the command line."
+    },
+    {
+      "id": "327dd56f",
+      "status": "cancelled",
+      "commit": "ec1f08eb",
+      "title": "anneal-s202-slow-cooling-30min",
+      "created": "2026-09-27T17:22:24",
+      "what": "Annealing, slow cooling (1M steps, T 2.0 to 0.02), seed 202",
+      "origin": "OWN SEARCH",
+      "decision": "CANCELLED before running: the agent would have run the base commit's config instead of this one (see 8b998935). Re-queued with the config on the command line."
+    },
+    {
+      "id": "b58930ba",
+      "status": "cancelled",
+      "commit": "8f72ba30",
+      "title": "anneal-s203-short-restarts-30min",
+      "created": "2026-09-27T17:22:26",
+      "what": "Annealing, many short restarts (50k steps), exact polish of the top 12, seed 203",
+      "origin": "OWN SEARCH",
+      "decision": "CANCELLED before running: the agent would have run the base commit's config instead of this one (see 8b998935). Re-queued with the config on the command line."
+    },
+    {
+      "id": "b09b8051",
+      "status": "cancelled",
+      "commit": "5ba455d2",
+      "title": "walk-gallery93-s204-30min",
+      "created": "2026-09-27T17:22:28",
+      "what": "Exact plateau walk from the gallery 93 (keeps exact triple points), all cores 27 min, seed 204",
+      "origin": "SEEDED from the gallery 93",
+      "decision": "CANCELLED before running: the agent would have run the base commit's config instead of this one (see 8b998935). Re-queued with the config on the command line."
+    },
+    {
+      "id": "e619152a",
+      "status": "cancelled",
+      "commit": "dc41b5d9",
+      "title": "walk-own93-s205-30min",
+      "created": "2026-09-27T17:22:30",
+      "what": "Exact plateau walk from our own annealed 93, all cores 27 min, seed 205",
+      "origin": "SEEDED from own 93",
+      "decision": "CANCELLED before running: the agent would have run the base commit's config instead of this one (see 8b998935). Re-queued with the config on the command line."
+    },
+    {
+      "id": "9933765f",
+      "status": "queued",
+      "commit": "ad1fd3d1",
+      "title": "base-job-config-on-command-line",
+      "created": "2026-09-27T17:33:21",
+      "what": "Code-only base commit: job.py takes its config as a command-line argument. Contains no solution.json",
+      "origin": "infrastructure",
+      "decision": "expected to fail scoring; base for the batch"
+    },
+    {
+      "id": "ae10a017",
+      "status": "queued",
+      "commit": "63d0528d",
+      "title": "walk-gallery93-s204-30min",
+      "created": "2026-09-27T17:33:36",
+      "what": "Exact plateau walk from the gallery 93 (keeps exact triple points), all cores 27 min, seed 204",
+      "origin": "SEEDED from the gallery 93",
+      "decision": "not run: climb paused at 18:05Z"
+    },
+    {
+      "id": "7cec7609",
+      "status": "queued",
+      "commit": "e306826b",
+      "title": "walk-own93-s205-30min",
+      "created": "2026-09-27T17:33:38",
+      "what": "Exact plateau walk from our own annealed 93, all cores 27 min, seed 205",
+      "origin": "SEEDED from own 93",
+      "decision": "STOPPED 18:06Z when the climb was paused at the user's request (the laptop was needed for the SAT work); no score"
+    },
+    {
+      "id": "1cdcc68e",
+      "status": "queued",
+      "commit": "8b33ecf8",
+      "title": "anneal-s201-default-30min",
+      "created": "2026-09-27T17:33:50",
+      "what": "Annealing, default schedule (200k steps, T 1.5 to 0.05), all cores ~24 min + exact polish of the top 6, seed 201",
+      "origin": "OWN SEARCH",
+      "decision": "not run: climb paused at 18:05Z"
+    },
+    {
+      "id": "cdc03e46",
+      "status": "queued",
+      "commit": "528a8660",
+      "title": "anneal-s202-slow-cooling-30min",
+      "created": "2026-09-27T17:34:01",
+      "what": "Annealing, slow cooling (1M steps, T 2.0 to 0.02), seed 202",
+      "origin": "OWN SEARCH",
+      "decision": "not run: climb paused at 18:05Z"
+    },
+    {
+      "id": "b522f3ba",
+      "status": "queued",
+      "commit": "35d41332",
+      "title": "anneal-s203-short-restarts-30min",
+      "created": "2026-09-27T17:34:03",
+      "what": "Annealing, many short restarts (50k steps), exact polish of the top 12, seed 203",
+      "origin": "OWN SEARCH",
+      "decision": "not run: climb paused at 18:05Z"
+    }
+  ]
 }

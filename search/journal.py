@@ -94,6 +94,15 @@ def main():
         f"<td>{esc(r['decision'])}</td><td class='mono'>{esc(r['git'])}<br>{esc(r['sub_hash'])}<br>{esc(r['sig'])}…</td></tr>"
         for r in rows
     ) or "<tr><td colspan='8' class='muted'>No runs scored yet.</td></tr>"
+    climb = NOTES.get("autolab_runs", [])
+    climb_rows = "".join(
+        f"<tr class='{'fail' if r.get('passed') is False else ''}'><td>{esc(r['id'])}</td><td>{esc(r['title'])}</td><td>{esc(r['status'])}</td>"
+        f"<td class='num'>{r.get('value') if r.get('value') is not None else '—'}</td><td>{esc(r.get('origin', ''))}</td><td>{esc(r.get('what', ''))}</td>"
+        f"<td>{esc(r.get('decision', ''))}</td>"
+        f"<td class='mono'>{('<a href=' + chr(39) + esc(r['report']) + chr(39) + '>report</a> · ' + esc(r.get('tree', '')) + '<br>' + esc(r.get('sig', '')) + '…') if r.get('report') else ''}</td></tr>"
+        for r in climb
+    ) or "<tr><td colspan='8' class='muted'>No AutoLab runs yet.</td></tr>"
+    climb_best = max((r["value"] for r in climb if r.get("passed") and r.get("value") is not None), default="—")
     ideas = "".join(
         f"<li><b>{esc(i['state'])}</b> — {esc(i['text'])}</li>" for i in NOTES["ideas"]
     )
@@ -135,7 +144,11 @@ svg {{ background: #fafafa; border: 1px solid #e3e3e3; margin: 6px 12px 6px 0; }
 <h2>Score over time</h2>
 {''.join(chart(rows, n) for n in groups)}
 
-<h2>Every scored run</h2>
+<h2>AutoLab climb: official scores (hill 7d3f1d91, n = 18)</h2>
+<p>Climb <b>srirangam-r/kobon-triangles-18</b>, scored by AutoLab against the official hill, so these results rank on the public leaderboard. Best so far: <b>{climb_best}</b>. The AutoLab agent's idea generation is off, so every run here was queued from Claude Code. Reports were copied from each run's log. They are signed with the node's key, so <code>hills verify</code> only succeeds on the machine that produced them.</p>
+<table><tr><th>id</th><th>experiment</th><th>status</th><th>triangles</th><th>origin</th><th>what</th><th>decision</th><th>report · tree · signature</th></tr>{climb_rows}</table>
+
+<h2>Every scored run (local hill 966e6945, unofficial)</h2>
 <p class="muted">Each row links to its signed report. The last column shows the submission git ref, submission hash and signature prefix; check a report with <code>hills verify reports/&lt;file&gt;.json</code>. "Origin" says whether the arrangement came from my own search or was reproduced from published work.</p>
 <table><tr><th>run</th><th>n</th><th>triangles</th><th>final</th><th>origin</th><th>what</th><th>decision</th><th>git · hash · signature</th></tr>{table}</table>
 

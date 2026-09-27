@@ -2,3 +2,7 @@
 skills-lock.json
 __pycache__/
 eval.log
+
+.autolab/
+tools/
+work/
