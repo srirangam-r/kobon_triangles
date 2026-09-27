@@ -201,6 +201,38 @@ sub-case (`work/t3/notes.md`).
 - **Status:** a fast independent referee was started at 23:15 UTC. Until it reports, treat
   this as an unverified claim.
 
+## Theorem H (general position): claimed, NOT refereed (23:40 UTC)
+
+**Claim.** At n = 18, T ≤ 93 for every arrangement in which no line contains two multiple
+points, whatever the number of triple points and whatever 4-fold or higher points it has.
+
+**Argument.**
+- The master inequality is 2Λ ≥ n + Φ.
+- Lemma A for any multiplicity: in general position it is never "killed".
+- This gives Λ ≥ ⌈(n − t + 2q)/2⌉, where q counts points of multiplicity 4 or more.
+
+**Cases at n = 18.**
+- t ≤ 5: Λ ≥ 7.
+- t = 6: a 94 forces Z = 0, which Lemma A contradicts.
+- t ≥ 7: too few segments remain.
+
+**Status.** Write-up: `work/t3/general.md`. No failures on 16,208 general-position
+arrangements, but 4-fold points were never tested. Queued for the referee.
+
+**Remaining open, if H and the t = 3 proof hold.** Arrangements with 4–6 triple points
+where some share lines, specifically where:
+- a triple point is killed by mutual pairs (R1);
+- an axis passes through another triple point (R2);
+- a triangular face has three multiple-point vertices (R3).
+
+The stalled 4-point case is exactly characterized and falls short of 7 by one:
+- P1 and P2 are consecutive on a line m, and P3 and P4 on a line m′;
+- the private axes form mutual pairs;
+- x = 4, D = 8.
+
+A 94 there would need Z = 2, with each unused segment claimed from both ends by 4 clean
+lines. This is a well-defined candidate for an exhaustive solver run.
+
 ## Next steps for a future session
 
 1. Read the fast referee's verdict on the three-triple-point claim and fix any gaps.
