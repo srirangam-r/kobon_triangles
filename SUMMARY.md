@@ -266,6 +266,22 @@ lines. This is a well-defined candidate for an exhaustive solver run.
 
   It is not quickly decidable.
 
+## Solver on the open shared-line space (23:44 UTC)
+
+Assuming all theorems (refereed and not), the solver was given:
+- exactly k triple points for k = 4, 5, 6, with at least one shared line;
+- line 0 off every triple point;
+- the Blanc claims, the opposite-sides rule and the defect budget;
+- two new budgets:
+  - unused simple segments + lines through triple points ≤ 6 + 2k;
+  - claims + 2·(lines through triple points) ≤ 12 + 4k;
+- for k = 4, only the open two-pair pattern, with Z ≤ 2 and claims ≤ 4.
+
+**Result:** all 22 completed jobs timed out at 300 s (whole instances under both Kissat
+modes, and 16 non-trivial line-0 cases). No SAT was found. The constraints do not yet shrink
+these instances enough. The next step is theory: exact credit analysis for 5 and 6 triple
+points, and a bidirectional encoding of "touches no unused segment" for k = 4.
+
 ## Next steps for a future session
 
 1. Read the fast referee's verdict on the three-triple-point claim and fix any gaps.
