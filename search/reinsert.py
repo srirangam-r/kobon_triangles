@@ -211,9 +211,26 @@ def walk_worker(args):
     return best, best_lines, steps, len(visited)
 
 
+def pair_worker(args):
+    """Remove lines r1, r2; re-insert the K best first lines, then the best second line for each."""
+    lines, r1, r2, k = args
+    rest = [l for t, l in enumerate(lines) if t not in (r1, r2)]
+    f16 = Fixed(rest)
+    first = sorted(((f16.count_with(c), c) for c in f16.candidates()), key=lambda x: (-x[0], size(x[1])))[:k]
+    first += [(None, lines[r1]), (None, lines[r2])]  # so this move contains every single-line move
+    best, best_lines = -1, None
+    for _, c in first:
+        f17 = Fixed(rest + [c])
+        for c2 in f17.candidates():
+            s = f17.count_with(c2)
+            if s > best:
+                best, best_lines = s, rest + [c, c2]
+    return best, (r1, r2), best_lines
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=["check", "pass", "walk"])
+    parser.add_argument("mode", choices=["check", "pass", "walk", "pair"])
     parser.add_argument("solution")
     parser.add_argument("out", nargs="?")
     parser.add_argument("seconds", nargs="?", type=float, default=0)
@@ -243,6 +260,19 @@ def main():
         new = lines[:r] + [pick] + lines[r + 1:]
         print("chosen: remove", r, "->", top, "max |coef| digits", len(str(max(abs(v) for v in pick))))
         write(args.out, new, {"dev_exact_count": top, "removed": r, "mode": "pass"})
+        return
+    if args.mode == "pair":
+        jobs = [(lines, r1, r2, 6) for r1, r2 in combinations(range(len(lines)), 2)]
+        with Pool(args.workers) as pool:
+            results = pool.map(pair_worker, jobs, chunksize=1)
+        results.sort(key=lambda x: -x[0])
+        tally = {}
+        for b, _, _ in results:
+            tally[b] = tally.get(b, 0) + 1
+        print("DEV (exact, unofficial) best two-line replacement, count of line pairs per score:", sorted(tally.items(), reverse=True))
+        best, pair, best_lines = results[0]
+        print("best", best, "removing", pair, "max |coef| digits", len(str(max(map(size, best_lines)))))
+        write(args.out, best_lines, {"dev_exact_count": best, "mode": "pair", "removed": pair})
         return
     with Pool(args.workers) as pool:
         results = pool.map(walk_worker, [(lines, args.seconds, s) for s in range(args.workers)])
