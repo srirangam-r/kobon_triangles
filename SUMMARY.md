@@ -202,7 +202,7 @@ sub-case (`work/t3/notes.md`).
   referee's arguments for them are in `work/t3/notes.md`. Tested on 100,214 eighteen-line
   arrangements with exactly three triple points, with zero failures.
 
-## Theorem H (general position): claimed, NOT refereed (23:40 UTC)
+## Theorem H (general position): refereed, CORRECT (23:25 UTC)
 
 **Claim.** At n = 18, T ≤ 93 for every arrangement in which no line contains two multiple
 points, whatever the number of triple points and whatever 4-fold or higher points it has.
@@ -217,8 +217,12 @@ points, whatever the number of triple points and whatever 4-fold or higher point
 - t = 6: a 94 forces Z = 0, which Lemma A contradicts.
 - t ≥ 7: too few segments remain.
 
-**Status.** Write-up: `work/t3/general.md`. No failures on 16,208 general-position
-arrangements, but 4-fold points were never tested. Queued for the referee.
+**Status.** Write-up: `work/t3/general.md`.
+- Independent referee: correct, checked by hand.
+- The author tested 16,208 general-position arrangements with no failures.
+- The 4-fold-point values were hand-checked only; no one has tested them on arrangements.
+- Referee strengthening: at t = 6 every line passes through a triple point, so Z ≥ 3; and
+  t ≥ 7 is impossible in general position, because Σk_P ≤ 18.
 
 **Remaining open, if H and the t = 3 proof hold.** Arrangements with 4–6 triple points
 where some share lines, specifically where:
@@ -261,6 +265,7 @@ these as carefully argued drafts, not published results.
 |---|---|---|---|
 | Simple arrangements (no triple points) | ≤ 93 | Blanc's theorem (literature) | Published |
 | **Exactly one triple point** (no 4-fold points) | **≤ 93** | **New: Blanc's lemma extended to clean lines, plus D ≤ 2 (see above)** | Hand proof; independent referee subagent: correct; 142,160 arrangements tested |
+| **General position** (no line through two multiple points), any number of triple and 4-fold+ points | **≤ 93** | **New: Theorem H, `work/t3/general.md`** | Referee: correct (hand-checked); 4-fold cases untested empirically |
 | **Exactly three triple points** (no 4-fold points) | **≤ 93** | **New: credit framework (Lemma A cap touch, Lemma B); `work/t3/notes.md`** | Referee: correct with two steps spelled out; 100,214 arrangements tested |
 | **Exactly two triple points** (no 4-fold points) | **≤ 93** | **New: axis lemma (case A) and cap lines through the other point (case B); `work/proof_k2.md`** | Hand proof; referee: correct after one fix; 17,038 two-triple-point 18-line arrangements tested |
 | **Any number t of triple points, in general position** (no line through two multiple points), even n | T ≤ ⌊(2n² − 5n + 2t)/6⌋; so 94 at n=18 needs 3 ≤ t ≤ 6 | **New: Theorem G, `work/proof_general.md`** | Referee: correct; Λ ≥ n/2 − t tested on 82,975 arrangements |
