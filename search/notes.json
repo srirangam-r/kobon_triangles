@@ -1,11 +1,11 @@
 {
   "status": {
-    "updated": "2026-09-27T16:41Z",
+    "updated": "2026-09-27T16:44Z",
     "tree_hash": "966e6945",
     "phase": "warm-up n=15",
     "loop": "running",
     "budget": "1 h from 16:36Z",
-    "now": "Baseline confirmed at 16 (two runs, zero spread). Scoring the n=15 baseline and the reproduced gallery certificate."
+    "now": "n=15 pipeline confirmed (gallery 65 reproduced). Scoring the gallery 93 at n=18; writing own search (simulated annealing) for the n=15 warm-up."
   },
   "records": {
     "15": {
@@ -28,7 +28,7 @@
       "text": "Baseline (hill example, parabola tangents): expect 16 at n = 18."
     },
     {
-      "state": "queued",
+      "state": "done: 65 (reproduced)",
       "text": "Reproduce the gallery's exact 65-triangle certificate at n = 15 (pipeline check for rational \u2192 integer conversion)."
     },
     {
@@ -55,6 +55,16 @@
       "what": "Same file scored again to measure spread",
       "origin": "hill example",
       "decision": "spread = 0 (evaluator is exact and deterministic)"
+    },
+    "003-baseline-n15": {
+      "what": "Baseline family at n=15: 15 tangent lines to y=x^2",
+      "origin": "hill example family",
+      "decision": "reference for n=15"
+    },
+    "004-gallery-n15": {
+      "what": "Gallery certificate 15-13stqcxe05vfr, exact rationals scaled to integers per line",
+      "origin": "REPRODUCED (Utkin & Parpalak gallery)",
+      "decision": "65 = proven optimum; conversion pipeline confirmed"
     }
   }
 }
