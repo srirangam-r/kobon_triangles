@@ -181,7 +181,7 @@ T ≤ ⌊(2n² − 5n + 2)/6⌋.
   the proof. The last step would be to encode each rigid configuration exactly and let the
   solver exhaust it.
 
-## Three triple points: claimed, NOT refereed (23:15 UTC)
+## Three triple points: refereed, CORRECT with two steps spelled out (23:20 UTC)
 
 A subagent reports a hand proof that three triple points also give T ≤ 93, in every
 sub-case (`work/t3/notes.md`).
@@ -198,8 +198,9 @@ sub-case (`work/t3/notes.md`).
 - **Where it stalls:** 4 triple points in a "two mutual pairs" configuration.
 - **Tests:** no failures on 5,516 gallery arrangements and about 1,000 random three-triple-point
   arrangements.
-- **Status:** a fast independent referee was started at 23:15 UTC. Until it reports, treat
-  this as an unverified claim.
+- **Status:** independent referee: correct. Two steps must be written out, and the
+  referee's arguments for them are in `work/t3/notes.md`. Tested on 100,214 eighteen-line
+  arrangements with exactly three triple points, with zero failures.
 
 ## Theorem H (general position): claimed, NOT refereed (23:40 UTC)
 
@@ -260,6 +261,7 @@ these as carefully argued drafts, not published results.
 |---|---|---|---|
 | Simple arrangements (no triple points) | ≤ 93 | Blanc's theorem (literature) | Published |
 | **Exactly one triple point** (no 4-fold points) | **≤ 93** | **New: Blanc's lemma extended to clean lines, plus D ≤ 2 (see above)** | Hand proof; independent referee subagent: correct; 142,160 arrangements tested |
+| **Exactly three triple points** (no 4-fold points) | **≤ 93** | **New: credit framework (Lemma A cap touch, Lemma B); `work/t3/notes.md`** | Referee: correct with two steps spelled out; 100,214 arrangements tested |
 | **Exactly two triple points** (no 4-fold points) | **≤ 93** | **New: axis lemma (case A) and cap lines through the other point (case B); `work/proof_k2.md`** | Hand proof; referee: correct after one fix; 17,038 two-triple-point 18-line arrangements tested |
 | **Any number t of triple points, in general position** (no line through two multiple points), even n | T ≤ ⌊(2n² − 5n + 2t)/6⌋; so 94 at n=18 needs 3 ≤ t ≤ 6 | **New: Theorem G, `work/proof_general.md`** | Referee: correct; Λ ≥ n/2 − t tested on 82,975 arrangements |
 | A 94 whose deletion of some line leaves a *perfect* 17-line arrangement (85) | none | Exact one-line extension DP over all 255 perfect 17-line wiring diagrams, triple points allowed | DP validated against brute force and known optima; one base cross-checked with an independent exact counter |

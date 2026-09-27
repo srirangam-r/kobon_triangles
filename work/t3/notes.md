@@ -17,3 +17,14 @@ face with all three vertices triple.  A bent pair (blocks sharing ray P->Q) has 
 
 Case analysis: see report.  Empirical: lemmas.py (gallery, 5516 arrangements), walk.py (flip/collapse/expand
 random walks, ~1000 k=3 arrangements): no failures.
+
+## Referee3 verdict (23:20 UTC): CORRECT, with two steps to spell out
+(a) sigma = 0, B = 6, x >= 3: mutual pairs are impossible when sigma = 0, because V_s lies on
+    another line through P, so V_s = Q would put P and Q on one line. Hence every point gets
+    its Lemma A credit (credA >= 3) and va >= 3 - x, so 6 - x >= need = 4 - x.
+(b) sigma = 3, beta = 3, B = 6 cannot occur. PQR is a face, so no point is bent. Every point
+    then has its third line as axis, with caps a_Q and a_R. P's cap a_Q meets PR beyond P,
+    while R's cap a_Q meets PR beyond R, which is a contradiction (also for pseudolines).
+Empirical: 100,214 n=18 pseudoline arrangements with exactly 3 triple points, zero failures;
+max T 93, min Lambda 9. Case (b) was checked by hand only (no samples with sigma = 3,
+beta >= 2). Details in work/referee3/.
