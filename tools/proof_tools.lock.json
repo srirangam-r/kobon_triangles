@@ -1,0 +1,20 @@
+{
+  "cake_lpr": {
+    "url": "https://github.com/tanyongkiam/cake_lpr.git",
+    "revision": "a36874a8b750b43fe4b385b8ddbf5b033e46a3fa",
+    "executable": "cake_lpr",
+    "build": [["make", "cake_lpr"]]
+  },
+  "kissat": {
+    "url": "https://github.com/arminbiere/kissat.git",
+    "revision": "8af8e56f174b778aef3aa45af9f739b2a5f492c2",
+    "executable": "build/kissat",
+    "build": [["./configure"], ["make"]]
+  },
+  "drat-trim": {
+    "url": "https://github.com/marijnheule/drat-trim.git",
+    "revision": "2e3b2dc0ecf938addbd779d42877b6ed69d9a985",
+    "executable": "drat-trim",
+    "build": [["make", "drat-trim"]]
+  }
+}

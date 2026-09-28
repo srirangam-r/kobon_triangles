@@ -1,0 +1,4 @@
+# Used only to generate the small Kobon CNFs in search/test_lrat_pipeline.py.
+# Includes python-sat's runtime dependency; install with uv pip sync.
+python-sat==1.8.dev24
+six==1.17.0

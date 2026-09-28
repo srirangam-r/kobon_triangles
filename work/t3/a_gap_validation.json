@@ -1,0 +1,23 @@
+{
+  "command": "python3 work/t3/a_gap.py --selftest 200",
+  "purpose": "Structural proof diagnostics only; no construction ranking or official scoring",
+  "status": "PASS",
+  "random_seed": 20260928,
+  "random_attempts": 200,
+  "explicit_fixtures": 3,
+  "eligible_arrangements_checked": 93,
+  "skipped_higher_multiplicity_arrangements": 110,
+  "bridges_inspected": 130,
+  "cap_gap_incidences": 35,
+  "centroids_inspected": 1,
+  "abstract_states_checked": 6576,
+  "aggregate_profiles": {"t7_m17": 24, "t7_m16": 46, "t8_m18": 46},
+  "limitations": [
+    "Tests do not referee the new claims.",
+    "The SAT specification has not been implemented or solved.",
+    "No full closure for seven or eight triple points is claimed.",
+    "C38 and the A01-A03 verdict files were absent from the available remote trees; the operator's explicit corrections were used without invoking C38.",
+    "The proof uses the pairwise-intersecting affine setting; it does not independently establish a normalization for parallel lines."
+  ],
+  "unchanged_submission_sha256": "ab3edd83735cb4a13c987de5d24d438536d6122e7feeb1f57532c297925ef875"
+}

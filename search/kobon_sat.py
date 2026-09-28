@@ -171,7 +171,7 @@ def build_general(n, target):
     return cnf, z, p, tri
 
 
-def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True, alternate=False, card="seqcounter", exact_triple=False, blanc=False, k2_18=False, case2=None):
+def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True, alternate=False, card="seqcounter", exact_triple=False, blanc=False, k2_18=False, case2=None, lex_prefix=0, lex_fixed_line0=False):
     """Defect-budget model for arrangements with at most `max_triple` triple points.
 
     Along line r, the crossing with i comes strictly before the crossing with j (i < j)
@@ -385,6 +385,12 @@ def build_defect(n, target, max_triple, allow_fourfold=False, uncut=True, altern
     cnf.extend(CardEnc.atleast(lits=list(tri.values()), bound=target, vpool=pool, encoding=enc).clauses)
     cnf.append([-ng[0, 1, 2]])  # 180-degree rotation flips every sign
     cnf.pool = pool  # exposed so callers can add constraints on named variables
+    if lex_prefix:
+        from lexleader import add_lex_leaders
+        # The budget/case rules above anchor line 0. A caller adding any other
+        # line-0 constraint afterwards must explicitly set lex_fixed_line0=True.
+        anchored = lex_fixed_line0 or bool(case2) or (0 <= budget < n)
+        cnf.lex_info = add_lex_leaders(cnf, z, pz, ng, lex_prefix, fixed_line0=anchored)
     return cnf, z, pz, ng, tri, budget
 
 
@@ -469,10 +475,18 @@ def main():
     parser.add_argument("--case2", choices=["A", "B"], help="n=18/T=94/exactly-2 case A or B deductions")
     parser.add_argument("--k2-18", action="store_true", help="n=18/T=94/exactly-2, CASE A only: the two triple points share no line (needs --exact --blanc)")
     parser.add_argument("--card", default="seqcounter", help="cardinality encoding (seqcounter, totalizer, mtotalizer, kmtotalizer, sortnetwrk, cardnetwrk)")
+    parser.add_argument("--lex-prefix", type=int, default=0, metavar="K",
+                        help="lex leaders on first K sorted triples (defect model only; 0 disables)")
+    parser.add_argument("--lex-fix-line0", action="store_true",
+                        help="use only symmetries preserving line 0 (for downstream anchored constraints)")
     args = parser.parse_args()
+    if args.lex_prefix < 0 or args.lex_prefix > args.n * (args.n-1) * (args.n-2) // 6:
+        parser.error("--lex-prefix must be between 0 and the number of triples")
+    if (args.lex_prefix or args.lex_fix_line0) and args.defect is None:
+        parser.error("lex options require --defect")
     started = time.time()
     if args.defect is not None:
-        cnf, z, pz, ng, tri, budget = build_defect(args.n, args.target, args.defect, alternate=args.alternate, card=args.card, exact_triple=args.exact, blanc=args.blanc, k2_18=args.k2_18, case2=args.case2)
+        cnf, z, pz, ng, tri, budget = build_defect(args.n, args.target, args.defect, alternate=args.alternate, card=args.card, exact_triple=args.exact, blanc=args.blanc, k2_18=args.k2_18, case2=args.case2, lex_prefix=args.lex_prefix, lex_fixed_line0=args.lex_fix_line0)
         if args.dimacs:
             cnf.to_file(args.dimacs)
             print(f"wrote {args.dimacs}: {cnf.nv} vars, {len(cnf.clauses)} clauses, defect budget {budget}")
