@@ -363,8 +363,8 @@ C16 (u ∈ {4, 6}), C17 (wedges), C26 (singleton rigidity) and C27 (sector lemma
 - **Audit** (`AUDIT_k6z.md`): symmetry breaks, the cube cover, the build_k6z base, and the wedge_cubes /
   wedge_cubes_c26 clauses are sound. On 721 real axis-end configurations there were 0 failures.
   - (A)'s 16 C26 sub-cubes were re-run by the verifier: UNSAT in 3–12 s.
-- **DRAT.** All 32 (A) cases (16 C26 + 16 even) and 150 of the 225 even (B) cases are
-  **DRAT-verified** by drat-trim, each in about 12 s. The rest is running.
+- **DRAT: all 257 valid k6z solver cases are DRAT-verified** by drat-trim (the 32 (A) cases and all
+  225 even (B) cases), each check ≤ 39 s. Logs: `work/k6z2/drat_all.jsonl`, `drat_B_even_rest.jsonl`.
 - **What is left for k = 6:** β > 0 (doubly used bridges).
 
 ## k = 5 triple points, β = 0, B = 10 (03:20 UTC)
@@ -376,10 +376,32 @@ dead; clean ≤ 1 with K = 4 leaves 48 end patterns, 32 avoiding positions 0 and
   - It adds one slack s = u₀ with Σs = 1 and guards, type X at every triple point, Σ clean ≤ 1,
     11 ≤ τ ≤ 13, and C17 with Statement 2 weakened at u₀.
 - **Cases.** `search/k5_cubes.py` makes one cube per C32 (c) row: 192 rows over 32 end sets.
-- **Result:** **all 192 cubes are UNSAT** (median 2.5 s; no timeouts, no SAT). The base alone times out
-  at 200 s. A DRAT pass is running, and the verifier is auditing the k5 encoding.
-- **Still open:** C32 (d), the clean = 0, K = 3 shared-axis configuration, which is not yet encoded.
-  When that closes, k = 5, β = 0 is done (B = 9 is dead by C18).
+- **Result:** **all 192 cubes are UNSAT and DRAT-verified** (median 2.5 s, checks ≤ 9 s; log
+  `work/k5/drat_k5.jsonl`). The base alone times out at 200 s.
+- **Audit:** `work/loop/verdicts/AUDIT_k5.md`.
+  - Every base clause and per-row unit is a necessary condition. There were 0 failures on 670 real
+    configurations with the solver's own literal semantics.
+  - The numbering is clean, and the verifier regenerated the same 192 rows independently.
+- **C32 (d), the clean = 0, K = 3 shared-axis configuration: killed by hand**, C33 (refereed-correct),
+  using C11 on the second mutual line.
+- **So k = 5, β = 0 is closed:** B = 9 (C18), B = 10 with Z = 0 (C30), clean = 2 (C31), the 192 cubes,
+  and C33.
+
+## Where things stand (03:50 UTC)
+
+**Closed, with refereed arguments and DRAT-verified solver steps:**
+- 0–4 triple points (no 4-fold point);
+- general position, any number (Theorem H);
+- 5 triple points with β = 0;
+- 6 triple points with β = 0.
+
+**Open:**
+- 5 or 6 triple points with a doubly used bridge (β > 0);
+- 7+ triple points (these need ≥ t − 6 bridges; Lemma C covers part of it);
+- 4-fold points on shared lines.
+
+The generator's C34 collects the β > 0 toolkit. The next step is a C25-style case tree for k = 6,
+β > 0.
 
 ## Next steps for a future session
 
