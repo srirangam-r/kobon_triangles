@@ -25,11 +25,8 @@ from build_k5b import build, S, n  # noqa: E402
 from pysat.card import CardEnc, EncType  # noqa: E402
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("out")
-    ap.add_argument("--zmax", type=int, default=5)
-    a = ap.parse_args()
+def build_g(zmax=5):
+    """The k5g instance; returns (cnf, pool, g) with g holding the named literals (see main for ids.json)."""
     cnf, pool, z, tri, pz, ng, trip, bf, brs = build(dz=True)
     A = lambda r, i, j: pool.id(("adj", r, i, j))
     # canonical slack: the clause for (r,i,j) is exempt unless i and j are the smallest lines at their endpoints
@@ -54,7 +51,7 @@ def main():
         s[r, i, j] = v
         cnf.append(lits + [v])
         cnf.append([-v, A(r, i, j)])
-    for cl in CardEnc.atmost(lits=list(s.values()), bound=a.zmax, vpool=pool, encoding=EncType.seqcounter).clauses:
+    for cl in CardEnc.atmost(lits=list(s.values()), bound=zmax, vpool=pool, encoding=EncType.seqcounter).clauses:
         cnf.append(cl)
     # first/last conjunctions (C17) and Statement 2 weakened with touches
     first = lambda L, R: [x for M in range(n) if M not in (L, R) for x in (-bf(L, M, R), -z[S(L, R, M)])]
@@ -112,6 +109,17 @@ def main():
         axcap.append(w)
     exc_any = list(cpe.values()) + axcap
     cnf.append(exc_any)
+    g = dict(z=z, tri=tri, pz=pz, ng=ng, trip=trip, bf=bf, brs=brs, s=s, F=F, G=G, blk=blk, cpe=cpe, axcap=axcap)
+    return cnf, pool, g
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("out")
+    ap.add_argument("--zmax", type=int, default=5)
+    a = ap.parse_args()
+    cnf, pool, g = build_g(a.zmax)
+    F, G, blk, cpe, axcap, pz, ng = (g[x] for x in ("F", "G", "blk", "cpe", "axcap", "pz", "ng"))
     cnf.to_file(a.out)
     key = lambda t: ",".join(map(str, t))
     json.dump({"top": pool.top, "F": {key(k): v for k, v in F.items()}, "G": {key(k): v for k, v in G.items()},

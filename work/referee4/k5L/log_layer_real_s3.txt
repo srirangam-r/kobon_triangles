@@ -1,0 +1,29 @@
+('k', 3) 78
+('k', 4) 18
+('k', 5) 11
+('k', 6) 1
+AX ok 367
+BR ok 467
+CPE false: tight 307
+CPE true: sound 60
+E1 false: tight 1039
+E1 true: sound 17
+E2 false: tight 932
+E2 true: sound 2
+FC false: tight 277
+FC true: sound 3
+GE1 ok 367
+GE2 ok 367
+JOINT sat 108
+MUT false: tight 296
+MUT true: sound 71
+TB ok 367
+arrangements 108
+b1 O1a 88
+b1 O1b 68
+capok True 367
+type axis 38
+type b0 138
+type b1 156
+type bent 35
+PASS []
