@@ -1,6 +1,6 @@
 # Kobon triangles, 18 lines: where things stand
 
-*Last updated 2026-09-27, 23:10 UTC. The live log with every scored run is `journal.html`.*
+*Last updated 2026-09-28 (k = 5 closed for all β; see "Where things stand"). Earlier: 2026-09-27, 23:10 UTC. The live log with every scored run is `journal.html`.*
 
 ## The task
 
@@ -387,21 +387,38 @@ dead; clean ≤ 1 with K = 4 leaves 48 end patterns, 32 avoiding positions 0 and
 - **So k = 5, β = 0 is closed:** B = 9 (C18), B = 10 with Z = 0 (C30), clean = 2 (C31), the 192 cubes,
   and C33.
 
-## Where things stand (03:50 UTC)
+## Where things stand (2026-09-28, evening)
 
-**Closed, with refereed arguments and DRAT-verified solver steps:**
-- 0–4 triple points (no 4-fold point);
-- general position, any number (Theorem H);
-- 5 triple points with β = 0;
-- 6 triple points with β = 0.
+**Closed, with refereed arguments** (AI referees only: no human or Lean check; solver steps are DRAT-verified):
+- 0–4 triple points (no 4-fold point) and general position (Theorem H).
+- **5 triple points, every β** (new):
+  - β = 0 by C14–C33 plus solver cubes.
+  - β > 0 by the residue C37–C50 (28 labelled bridge graphs), killed outright by
+    C62 (twin faces), C63 (fan), C64 (bent partner) and C65 (converging caps: no all-multiple face has two
+    type-X vertices).
+  - Verdicts: `work/loop/verdicts/C62.md`–`C65.md`. The pseudoline premises were checked exhaustively at 6–7 lines
+    and by SAT at up to 10 lines with any number of triple points. Each premise survives deleting the other lines.
+- 6 triple points with β = 0; no centroid at k = 5 or k = 6.
+- 4-fold points: non-rich ones reduce to triple points (C51); rich ones never help (C52, partial).
 
 **Open:**
-- 5 or 6 triple points with a doubly used bridge (β > 0);
-- 7+ triple points (these need ≥ t − 6 bridges; Lemma C covers part of it);
-- 4-fold points on shared lines.
+- 6 triple points with β > 0. C62–C65 cut the 1,911 centroid-free graphs to about 327, and C35/C38 now apply
+  at k = 6 because k = 5 is closed.
+- 7+ triple points. These need ≥ t − 6 bridges; A01–A03 are refereed and A04–A05 proposed.
 
-The generator's C34 collects the β > 0 toolkit. The next step is a C25-style case tree for k = 6,
-β > 0.
+**Solver findings this round:**
+- The per-graph labelled k = 5 encoding (`search/build_k5L.py`, audited sound) timed out on every cube.
+- The reason: without pinned line indices, the solver re-learns each local lemma per index tuple.
+- Theory closed the case instead.
+
+**Constructive searches** (`work/sym/NOTES.md`, `work/lns/`, `work/ext/`), all SAT/UNSAT with no timeouts unless stated:
+- Every known 93 has D − Z = 3k − 9, so a 94 must be a high-k cluster with bridges.
+- D3-symmetric 94s are impossible (mod 3). C3 and mirror searches are undecided, and unlikely anyway: no n = 18
+  record is symmetric.
+- One-line extension of the 10 gallery n = 17 records: 360/360 UNSAT. This repeats the earlier DP over all 255
+  perfect 17-line arrangements.
+- Two-line re-placement around high-k 93s: 50/50 UNSAT so far.
+- Seeded runs around the three bridge-carrying 93s and the seventeen k = 8, Z = 0 93s are in progress.
 
 ## Next steps for a future session
 

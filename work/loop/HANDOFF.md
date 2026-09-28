@@ -7,17 +7,23 @@
 refereed-fixed / refuted and the solver tag. Claims are in `work/loop/claims/Cnn.md` (A* = AutoLab 7+ stream,
 S* = engineering). Verdicts are in `work/loop/verdicts/`. Overview: `SUMMARY.md`.
 
-**Closed (refereed).** k ≤ 4 (C1–C4, C25); general position (Theorem H); k = 5 and k = 6 with β = 0 (C14–C33, solver
-cubes DRAT-verified); no centroid at k = 5 (C41) or k = 6 (C55–C59). 4-fold points: non-rich ones reduce to triple
-points (C51); rich ones never help (C52).
+**Closed (refereed).**
+- k ≤ 4 (C1–C4, C25).
+- General position (Theorem H).
+- **k = 5 for all β:** β = 0 by C14–C33 plus DRAT-verified cubes; β > 0 by the residue C37–C50, whose 28 graphs
+  are all killed by C62–C65.
+- k = 6 with β = 0.
+- No centroid at k = 5 (C41) or k = 6 (C55–C59).
+- 4-fold points: non-rich ones reduce to triple points (C51); rich ones never help (C52).
+- **C65:** no all-multiple face has two type-X vertices, so 2-F faces never occur.
 
 **Open frontier.**
-- k = 5, β > 0: 28 rigid graphs (work/t3/k5_exceptions.jsonl, refereed C37–C50). Every graph needs ≥ 1 local exception
-  (E2, C50 (ii), C50 (i)).
-  - Solver attempt: search/build_k5g.py + work/k5g/cubes.jsonl (35 exception-position cubes); see AUDIT_k5g.md.
-- k = 6, β > 0: 1,910 centroid-free graphs (kN_fixed2.py). C61 is proposed. 124 graphs survive all known credits.
-  - C35/C38 at k = 6 require k = 5 closed.
+- k = 6, β > 0: 1,910 centroid-free graphs (kN_fixed2.py); C62–C65 leave about 327.
+  - **C35/C38 at k = 6 are now valid**, since k = 5 is closed: every triple point has ≥ 2 triangles in each
+    alternating class, and 1-block points need bridges. C61 is proposed.
 - t ≥ 7: A01–A03 refereed-fixed, A04–A05 proposed (high-m residue; lower m open).
+- Solver lesson (k5L): labelled-graph cubes do not pin line indices, so they time out. Close families by theory,
+  then use SAT only when the line-level structure is pinned.
 
 **Tools.**
 - search/kobon_sat.py (signotope model: before(r,i,j) = ng[sorted] if i < j else pz[sorted]; left-to-right order).
