@@ -301,14 +301,15 @@ The generator proposed C10–C25, and the verifier refereed C6–C18. Verdicts a
 - **New refereed consequence: no 94 with exactly 4 triple points and no doubly used bridge
   (β = 0)**, from C8 and C12.
 
-**Proposed, not yet refereed: no 94 with exactly 4 triple points, for every β (C25).**
+**Refereed (01:10 UTC): no 94 with exactly 4 triple points, for every β (C25).** With k ≤ 3, this closes 0–4 triple points (no 4-fold points). C25's ingredients are listed below. The verifier flagged five SAT variants in C19–C23 as unsound; C25 does not use them, and none is encoded.
 - C19: no bridge triangle through a bent point.
 - C20: credits from unused first segments.
 - C21: at most two bent points per partner.
 - C22: no back-ray bridge.
 - C23: the case list, with Lemma K4 (four triple points cannot be pairwise consecutive).
 - C24: all-multiple faces.
-- Both subagents stopped at an API session limit before C19–C25 could be refereed.
+- Also: C18 (fixed) shows **k = 5, β = 0, B = 9 has no 94**. Only B = 10 remains for k = 5, β = 0.
+- **C26/C27 (proposed):** rigidity of the singleton ends, and a sector lemma. Together they cut C16 (A) from 3,668 wedge cases to **32** (recounted independently: 32).
 
 **Solver on k = 6, β = 0** (all encoded claims refereed: C5, C10, C14; C16/C17 for the
 split).
@@ -336,6 +337,29 @@ split).
     structure that fixes the axes and mutual pairs from S.
   - `search/cube_runner.py` (incremental CaDiCaL under assumptions, loading the formula once
     per worker) is ready for when the instance gets smaller. It has not been run yet.
+
+## k = 6 triple points, β = 0: closed (solver, on refereed claims; 02:05 UTC)
+
+The claims used are all refereed-correct: C5 (line 0 off the triple points), C10, C14 (Z = 0 structure),
+C16 (u ∈ {4, 6}), C17 (wedges), C26 (singleton rigidity) and C27 (sector lemma).
+- **Split.** `search/wedge_cubes.py` fixes all 36 line ends at infinity by the singleton set S, giving
+  4,118 cases.
+- **u = 6, sub-pattern (A).**
+  - C27 kills 3,636 of the 3,668 sets outright.
+  - Of the 32 left, the 16 with min S even contradict the 180° symmetry break χ(0,1,2) ≠ −1 at once:
+    line 0 would meet line 1 first. All 16 were solver-checked UNSAT (about 2 s each).
+  - The 16 with min S odd, with C26 (c) encoded (`search/wedge_cubes_c26.py`, one matching each), are
+    all UNSAT in 5–24 s.
+- **u = 4, sub-pattern (B).** All 450 cases are UNSAT:
+  - 225 genuine cases with the C26 (a)/(b) singleton-end shape (`search/wedge_cubes_single.py`, on
+    k6z3 with σ = 4), each ≤ 2.6 s;
+  - 225 min-S-even cases on plain k6z2.
+  - The generator also proves (B) impossible by hand (C28/C29, proposed). It agrees with the solver.
+- **Caveats.**
+  - These are solver claims. A DRAT check of the slowest (A) case is running: 3.9 s solve, 180 MB
+    proof.
+  - The verifier is auditing the encoding (build_k6z, wedge_cubes, wedge_cubes_c26, wedge_cubes_single).
+- **What is left for k = 6:** β > 0 (doubly used bridges).
 
 ## Next steps for a future session
 
@@ -368,7 +392,8 @@ these as carefully argued drafts, not published results.
 | **Exactly three triple points** (no 4-fold points) | **≤ 93** | **New: credit framework (Lemma A cap touch, Lemma B); `work/t3/notes.md`** | Referee: correct with two steps spelled out; 100,214 arrangements tested |
 | **Exactly two triple points** (no 4-fold points) | **≤ 93** | **New: axis lemma (case A) and cap lines through the other point (case B); `work/proof_k2.md`** | Hand proof; referee: correct after one fix; 17,038 two-triple-point 18-line arrangements tested |
 | **Exactly four triple points, no doubly used bridge (β = 0)** (no 4-fold points) | **≤ 93** | **New: C8 characterizes the only surviving pattern; C12 kills it with Lemma D (C11)** | Referee: C8 correct after a fix (β = 0 only), C11 and C12 correct; 173,381 lines tested for C11 |
-| Exactly four triple points, any β | ≤ 93 | C25 summary of C19–C24 | **Proposed, not refereed** |
+| **Exactly four triple points, any β** (no 4-fold points) | **≤ 93** | **New: C25 = C8 (β = 0) + C12 + centroid case + C23 (Lemma K4) + C24 + C19 (k = 4 form) + C21 + C22** | Referee: correct, checked by hand end to end; accounting inequality held on 2,981 k = 4 arrangements (min slack 3); the rarest configurations were hand-checked only |
+| Five triple points, β = 0, exactly 9 blocks (B = 9) | ≤ 93 | C18 (fixed) plus C11 on the shared line | Referee: correct after a fix (found while fixing C18) |
 | **Any number t of triple points, in general position** (no line through two multiple points), even n | T ≤ ⌊(2n² − 5n + 2t)/6⌋; so 94 at n=18 needs 3 ≤ t ≤ 6 | **New: Theorem G, `work/proof_general.md`** | Referee: correct; Λ ≥ n/2 − t tested on 82,975 arrangements |
 | A 94 whose deletion of some line leaves a *perfect* 17-line arrangement (85) | none | Exact one-line extension DP over all 255 perfect 17-line wiring diagrams, triple points allowed | DP validated against brute force and known optima; one base cross-checked with an independent exact counter |
 | One line away from any of the 3,016 known 93s | none | The same DP: every line of every gallery 93 deleted and re-inserted optimally (54,288 cases, all give 93) | As above |

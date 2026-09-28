@@ -31,6 +31,7 @@ def main():
     ap.add_argument("out")
     ap.add_argument("--c17", action="store_true")
     ap.add_argument("--c16", action="store_true")
+    ap.add_argument("--dump-ids", action="store_true", help="write <out>.ids.json with pz, ng, z, tri for all triples")
     a = ap.parse_args()
     cnf, z, pz, ng, tri, budget = build_defect(n, 94, k, alternate=True, card="cardnetwrk", exact_triple=True, blanc=True)
     pool = cnf.pool
@@ -151,6 +152,11 @@ def main():
         extra = {"c17f": {f"{L},{R}": v for (L, R), v in F.items()}, "c17l": {f"{L},{R}": v for (L, R), v in G.items()}}
     json.dump({"n": n, "pz": {f"{x},{y},{w}": v for (x, y, w), v in pz.items() if x == 0},
                "ng": {f"{x},{y},{w}": v for (x, y, w), v in ng.items() if x == 0}} | extra | extra16, open(spec, "w"))
+    if a.dump_ids:
+        key = lambda t: ",".join(map(str, t))
+        json.dump({"top": pool.top, "pz": {key(t): v for t, v in pz.items()}, "ng": {key(t): v for t, v in ng.items()},
+                   "z": {key(t): v for t, v in z.items()}, "tri": {key(t): v for t, v in tri.items()}},
+                  open(Path(a.out).with_suffix(".ids.json"), "w"))
     print(f"{a.out}: vars {pool.top}, clauses {len(cnf.clauses)}, C17 clauses {n17}")
 
 
