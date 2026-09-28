@@ -286,6 +286,57 @@ modes, and 16 non-trivial line-0 cases). No SAT was found. The constraints do no
 these instances enough. The next step is theory: exact credit analysis for 5 and 6 triple
 points, and a bidirectional encoding of "touches no unused segment" for k = 4.
 
+## Decoupled loop, rounds 3–8 (2026-09-28, 00:45 UTC)
+
+The generator proposed C10–C25, and the verifier refereed C6–C18. Verdicts are in
+`work/loop/verdicts/`, and the ledger (`work/loop/ledger.md`) is authoritative.
+
+**Refereed since the last update.**
+- *Correct:* C10 (Lemma A as a clause), C11 (Lemma D, parity through triple points), C12
+  (the k = 4 two-mutual-pairs pattern is impossible), C13 (axis parity), C14 (k = 5, 6 with
+  β = 0 force Z = 0 structure), C16 (k = 6, β = 0 leaves only u ∈ {4, 6}) and C17 (mutual
+  line ends are slope-adjacent "wedges at infinity").
+- *Fixed:* C6 (parity rule), C7 (bent-point bound), C8 (holds only for β = 0), C9 (budgets
+  true, with a new proof), C15 and C18.
+- **New refereed consequence: no 94 with exactly 4 triple points and no doubly used bridge
+  (β = 0)**, from C8 and C12.
+
+**Proposed, not yet refereed: no 94 with exactly 4 triple points, for every β (C25).**
+- C19: no bridge triangle through a bent point.
+- C20: credits from unused first segments.
+- C21: at most two bent points per partner.
+- C22: no back-ray bridge.
+- C23: the case list, with Lemma K4 (four triple points cannot be pairwise consecutive).
+- C24: all-multiple faces.
+- Both subagents stopped at an API session limit before C19–C25 could be refereed.
+
+**Solver on k = 6, β = 0** (all encoded claims refereed: C5, C10, C14; C16/C17 for the
+split).
+- *k6z, line-0 prefix splitting:* stopped at the budget after 19 minutes. 169 cases were
+  UNSAT, 0 SAT, and 6.9% of the space was closed. Timeouts persisted down to depth 5, and the
+  projection was over 100 h.
+- *k6z2 = k6z + C17 clauses* (`search/build_k6z.py --c17`): little gain alone. 1 of 16 k6z
+  timeouts closed.
+- *Wedge cubes* (`search/wedge_cubes.py`).
+  - By C16 and C17 every line end is either one of u ∈ {4, 6} cap-point ends or a wedge
+    with its cyclic neighbour at infinity. Choosing the cap-point set S therefore fixes all
+    36 line ends.
+  - The admissible S, with line 0 off the triple points, give a complete split into
+    **4,118 cases** (450 with u = 4 and 3,668 with u = 6).
+  - The position conventions were checked against 9 exact arrangements (3,996 first/last
+    literal checks, 113 mutual ends).
+  - Pilot: 8 of 16 random cases UNSAT in about 2 s; the other 8 timed out at 150 s and again
+    at 300 s.
+  - Adding τ counts (C16) and "the line of each cap-point end is a triple line" (k6z3) did
+    not help the hard cases.
+  - *Splitting a hard case one line-0 crossing deeper* gave the same pattern: 8 of 16
+    children UNSAT in about 2 s, and 8 timed out at 150 s. The easy half is refuted by
+    propagation; the hard half needs real search at every level. So a full run is not in
+    budget, and the next gain has to come from theory: closing C16 (A)/(B) by hand, or new
+    structure that fixes the axes and mutual pairs from S.
+  - `search/cube_runner.py` (incremental CaDiCaL under assumptions, loading the formula once
+    per worker) is ready for when the instance gets smaller. It has not been run yet.
+
 ## Next steps for a future session
 
 1. Read the fast referee's verdict on the three-triple-point claim and fix any gaps.
@@ -316,6 +367,8 @@ these as carefully argued drafts, not published results.
 | **General position** (no line through two multiple points), any number of triple and 4-fold+ points | **≤ 93** | **New: Theorem H, `work/t3/general.md`** | Referee: correct (hand-checked); 4-fold cases untested empirically |
 | **Exactly three triple points** (no 4-fold points) | **≤ 93** | **New: credit framework (Lemma A cap touch, Lemma B); `work/t3/notes.md`** | Referee: correct with two steps spelled out; 100,214 arrangements tested |
 | **Exactly two triple points** (no 4-fold points) | **≤ 93** | **New: axis lemma (case A) and cap lines through the other point (case B); `work/proof_k2.md`** | Hand proof; referee: correct after one fix; 17,038 two-triple-point 18-line arrangements tested |
+| **Exactly four triple points, no doubly used bridge (β = 0)** (no 4-fold points) | **≤ 93** | **New: C8 characterizes the only surviving pattern; C12 kills it with Lemma D (C11)** | Referee: C8 correct after a fix (β = 0 only), C11 and C12 correct; 173,381 lines tested for C11 |
+| Exactly four triple points, any β | ≤ 93 | C25 summary of C19–C24 | **Proposed, not refereed** |
 | **Any number t of triple points, in general position** (no line through two multiple points), even n | T ≤ ⌊(2n² − 5n + 2t)/6⌋; so 94 at n=18 needs 3 ≤ t ≤ 6 | **New: Theorem G, `work/proof_general.md`** | Referee: correct; Λ ≥ n/2 − t tested on 82,975 arrangements |
 | A 94 whose deletion of some line leaves a *perfect* 17-line arrangement (85) | none | Exact one-line extension DP over all 255 perfect 17-line wiring diagrams, triple points allowed | DP validated against brute force and known optima; one base cross-checked with an independent exact counter |
 | One line away from any of the 3,016 known 93s | none | The same DP: every line of every gallery 93 deleted and re-inserted optimally (54,288 cases, all give 93) | As above |
