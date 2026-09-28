@@ -69,3 +69,4 @@ rolled back.
 | A04 | (AutoLab) Interrupted cap gaps ⇒ 3C ≤ 2(σ−β), m+Z+⌈C/2⌉ ≤ 2t+6; proposes excluding t=7, m=18 and centroids at t=8, m=18; high-m residue explicit | work/loop/claims/A04.md | proposed | — |
 | A05 | (AutoLab) Canonical-segment SAT spec for the A04 residue (116 high-m profiles); spec only | work/loop/claims/A05.md | proposed | spec |
 | S01 | (AutoLab) End-circle symmetries and optional prefix lex leaders for kobon_sat (opt-in --lex-prefix) | work/loop/claims/S01.md | proposed (tests pass; speed-up unmeasured) | lex_prefix |
+| K5G | (solver) k=5, β>0 generic instance (search/build_k5g.py; AUDIT_k5g sound): Z≤5 canonical slack, Statement 2 with touches, 7≤B≤8, ≥1 exception; 35 exception-position cubes | verdicts/AUDIT_k5g.md | audited; all 35 cubes timeout (16 at >5 min, 19 at 150 s): generic constraints not rigid enough | k5g |

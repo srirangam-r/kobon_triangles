@@ -90,11 +90,8 @@ def add_dz(cnf, pool, z, tri, trip, bf, brs):
         cnf.append([-s_prev[m], G[9 + m]])
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("out")
-    ap.add_argument("--dz", action="store_true", help="C36 section 3: D - Z >= 9 with aggregated counters")
-    a = ap.parse_args()
+def build(dz=False):
+    """The k5b base (see module docstring); returns (cnf, pool, z, tri, pz, ng, trip, bf, brs)."""
     cnf, z, pz, ng, tri, budget = build_defect(n, 94, k, alternate=True, card="cardnetwrk", exact_triple=True, blanc=True)
     pool = cnf.pool
     trip = list(z)
@@ -145,7 +142,7 @@ def main():
                 cnf.extend([[-v, z[t1]], [-v, z[t2]], [-v, tri[S(r, p1, q1)]], [-v, tri[S(r, p2, q2)]]])
                 brs.append(v)
     cnf.append(brs)
-    if a.dz:
+    if dz:
         add_dz(cnf, pool, z, tri, trip, bf, brs)
     # C5: some line carries two triple points; line 0 avoids every triple point
     shared = []
@@ -169,6 +166,15 @@ def main():
             combos = [(first(L, R), first(R, L)), (last(L, R), last(R, L)), (first(L, R), last(R, L)), (last(L, R), first(R, L))]
         for c1, c2 in combos:
             cnf.append(sorted({-x for x in c1 + c2}))
+    return cnf, pool, z, tri, pz, ng, trip, bf, brs
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("out")
+    ap.add_argument("--dz", action="store_true", help="C36 section 3: D - Z >= 9 with aggregated counters")
+    a = ap.parse_args()
+    cnf, pool, z, tri, pz, ng, trip, bf, brs = build(a.dz)
     cnf.to_file(a.out)
     json.dump({"n": n, "pz": {f"{x},{y},{w}": v for (x, y, w), v in pz.items() if x == 0},
                "ng": {f"{x},{y},{w}": v for (x, y, w), v in ng.items() if x == 0}}, open(Path(a.out).with_suffix(".spec.json"), "w"))
