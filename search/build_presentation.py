@@ -4,6 +4,7 @@ the claims ledger (work/loop/ledger.md) and the live k6z solver snapshot.
     python3 search/build_presentation.py
 """
 import json
+import os
 import re
 import sys
 import time
@@ -101,7 +102,15 @@ def k6z():
             for i in range(len(r["prefix"])):
                 w /= 17 - i
             closed += w
-    return {"results": len(rs), "by_depth": {str(k): v for k, v in sorted(by_depth.items())},
+    running = False  # a python process whose own argv is "... prove.py work/k6z/k6z.cnf ..."
+    for d in filter(str.isdigit, os.listdir("/proc")):
+        try:
+            argv = open(f"/proc/{d}/cmdline", "rb").read().decode(errors="ignore").split("\0")
+        except OSError:
+            continue
+        if "python" in argv[0] and any(x.endswith("prove.py") for x in argv) and "work/k6z/k6z.cnf" in argv:
+            running = True
+    return {"running": running, "results": len(rs), "by_depth": {str(k): v for k, v in sorted(by_depth.items())},
             "closed_fraction": round(closed, 5), "elapsed_s": max((r["t"] for r in rs), default=0),
             "sat": sum(r["verdict"] == "SAT" for r in rs)}
 
