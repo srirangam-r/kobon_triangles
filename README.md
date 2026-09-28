@@ -4,6 +4,8 @@
 
 Proofs plus a SAT solver narrow where a 94-triangle, 18-line Kobon arrangement could exist.
 
+- **Presentation:** [`presentation.html`](presentation.html), a self-contained page with the problem, the loop, the
+  solver, results and live status (refresh with `python3 search/build_presentation.py`).
 - **Start here:** [`SUMMARY.md`](SUMMARY.md). It covers results, methods, each claim's
   verification status, and next steps.
 - **Proofs:**

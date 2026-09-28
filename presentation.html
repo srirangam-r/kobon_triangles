@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shrinking the Kobon Gap: theorems, solvers and AI referees on the 18-line problem</title>
+<style>
+:root {
+  --bg: #1a1a19; --card: #222221; --card2: #2a2a28; --hair: rgba(255,255,255,0.10); --grid: #2c2c2a;
+  --ink: #ffffff; --ink2: #c3c2b7; --muted: #898781;
+  --tri: #3987e5; --triple: #d95926; --unused: #199e70;
+  --good: #0ca30c; --warn: #fab219; --crit: #d03b3b;
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  --bg: #fcfcfb; --card: #f3f2ef; --card2: #ebeae6; --hair: rgba(11,11,11,0.10); --grid: #e1e0d9;
+  --ink: #0b0b0b; --ink2: #52514e; --muted: #6f6d67;
+  --tri: #2a78d6; --triple: #eb6834; --unused: #1baf7a;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink2); font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "DejaVu Sans", sans-serif; }
+h1, h2, h3, strong, b { color: var(--ink); }
+h1 { font-size: clamp(38px, 5.4vw, 68px); line-height: 1.05; margin: 0 0 12px; letter-spacing: -0.02em; }
+h2 { font-size: clamp(28px, 3.2vw, 42px); line-height: 1.12; margin: 0 0 8px; letter-spacing: -0.01em; }
+h3 { font-size: 19px; margin: 0 0 6px; }
+p { margin: 0 0 12px; }
+a { color: var(--ink); }
+code, .mono { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 0.92em; }
+.kicker { color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; font-size: 13px; margin-bottom: 14px; }
+.lede { font-size: 20px; color: var(--ink2); max-width: 60ch; }
+.sub { font-size: clamp(19px, 1.8vw, 24px); color: var(--ink2); margin-bottom: 18px; }
+.muted { color: var(--muted); }
+.slide { min-height: 100vh; padding: 7vh 6vw 9vh; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid var(--hair); }
+.inner { width: 100%; max-width: 1240px; margin: 0 auto; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; }
+.grid2.wide-left { grid-template-columns: 1.15fr 1fr; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+@media (max-width: 900px) { .grid2, .grid2.wide-left, .grid3, .grid4 { grid-template-columns: 1fr; } }
+.card { background: var(--card); border: 1px solid var(--hair); border-radius: 10px; padding: 16px 18px; }
+.card p:last-child, .card ul:last-child { margin-bottom: 0; }
+.card.tight { padding: 12px 14px; }
+ul { margin: 0 0 12px; padding-left: 20px; }
+li { margin: 3px 0; }
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+.tile { background: var(--card); border: 1px solid var(--hair); border-radius: 10px; padding: 14px 16px; }
+.tile .big { font-size: 40px; font-weight: 700; color: var(--ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.tile .lab { color: var(--ink2); font-size: 15px; }
+.eq { font-size: clamp(26px, 3vw, 40px); color: var(--ink); font-weight: 700; letter-spacing: 0.01em; margin: 6px 0 4px; font-variant-numeric: tabular-nums; }
+.eq.small { font-size: 24px; }
+.fig { background: var(--card); border: 1px solid var(--hair); border-radius: 12px; padding: 10px; }
+.fig svg { display: block; width: 100%; height: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; color: var(--ink2); margin: 8px 4px 2px; }
+.sw { display: inline-block; width: 13px; height: 13px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; }
+.sw.dot { border-radius: 50%; }
+.sw.bar { height: 4px; width: 18px; border-radius: 2px; vertical-align: 3px; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+button { font: inherit; font-size: 14px; color: var(--ink); background: var(--card2); border: 1px solid var(--hair); border-radius: 999px; padding: 6px 13px; cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--hair); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chip { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 13px; color: var(--ink2); border: 1px solid var(--hair); border-radius: 999px; padding: 2px 9px; background: var(--card2); }
+.chip i { font-style: normal; font-weight: 700; }
+.chip.good i { color: var(--good); } .chip.warn i { color: var(--warn); } .chip.crit i { color: var(--crit); } .chip.open i { color: var(--muted); } .chip.run i { color: var(--tri); }
+.cases { display: grid; gap: 8px; }
+#cases { gap: 5px; }
+.case { display: grid; grid-template-columns: 26px 360px 1fr auto; gap: 12px; align-items: center; background: var(--card); border: 1px solid var(--hair); border-radius: 8px; padding: 5px 12px; }
+.case .mark { font-size: 20px; font-weight: 700; text-align: center; }
+.case.closed .mark { color: var(--good); } .case.partial .mark { color: var(--warn); } .case.open .mark { color: var(--muted); } .case.solver .mark { color: var(--tri); }
+.case .what { color: var(--ink); font-weight: 600; font-size: 16px; }
+.case .how { font-size: 14px; line-height: 1.35; }
+.case .chips { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; }
+@media (max-width: 900px) { .case { grid-template-columns: 26px 1fr; } .case .how, .case .chips { grid-column: 2; justify-content: flex-start; } }
+.stages { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 0; font-size: 15.5px; }
+.stages dt { color: var(--ink); font-weight: 700; }
+.stages dd { margin: 0; }
+.cases .card.tight { font-size: 15.5px; }
+.sectionlabel { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; margin: 18px 0 8px; }
+.stepper { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.steptext { min-height: 7.5em; }
+.steptext h3 { margin-bottom: 4px; }
+.pill { display: inline-block; font-size: 12.5px; color: var(--muted); border: 1px solid var(--hair); border-radius: 999px; padding: 1px 8px; margin-left: 6px; }
+.meter { height: 12px; background: var(--card2); border-radius: 6px; overflow: hidden; border: 1px solid var(--hair); }
+.meter > div { height: 100%; background: var(--tri); border-radius: 6px 0 0 6px; }
+.callout { border-left: 3px solid var(--triple); padding: 6px 0 6px 14px; margin: 14px 0; color: var(--ink); }
+.note { font-size: 14px; color: var(--muted); }
+/* arrangement figures */
+.arr line.ln { stroke: var(--ink2); stroke-opacity: 0.5; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.arr polygon.tr { fill: var(--tri); fill-opacity: 0.9; stroke: var(--bg); stroke-width: 1.2; vector-effect: non-scaling-stroke; transition: fill-opacity .25s; }
+.arr circle.tp { fill: var(--triple); stroke: var(--bg); stroke-width: 2.2; vector-effect: non-scaling-stroke; }
+.arr line.sg { stroke-width: 0; vector-effect: non-scaling-stroke; stroke-linecap: round; transition: stroke-width .25s; }
+.arr[data-layer="S"] polygon.tr, .arr[data-layer="Z"] polygon.tr, .arr[data-layer="D"] polygon.tr, .arr[data-layer="t"] polygon.tr { fill-opacity: 0.35; }
+.arr[data-layer="S"] line.sg { stroke: var(--ink); stroke-width: 2.4; }
+.arr[data-layer="Z"] line.sg.u0 { stroke: var(--unused); stroke-width: 5; }
+.arr[data-layer="D"] line.sg.u2 { stroke: var(--ink); stroke-width: 5; }
+.arr[data-layer="D"] polygon.tr.nextD { fill-opacity: 0.95; }
+.arr[data-layer="t"] circle.tp { r: var(--rbig); }
+/* parity schematic */
+.par line.L { stroke: var(--ink); stroke-width: 3; }
+.par line.R { stroke: var(--ink2); stroke-opacity: 0.55; stroke-width: 1.6; }
+.par polygon.t { fill: var(--tri); fill-opacity: 0; transition: fill-opacity .35s; }
+.par text { fill: var(--ink2); font-size: 15px; font-family: inherit; }
+.par text.sign { font-size: 20px; font-weight: 700; fill: var(--ink); opacity: 0; transition: opacity .35s; }
+.par .hl { opacity: 0; transition: opacity .35s; }
+.par line.hlR { stroke: var(--triple); stroke-width: 4; }
+.par line.hlU { stroke: var(--unused); stroke-width: 6; stroke-linecap: round; }
+.par text.hlt { fill: var(--ink); font-size: 14.5px; }
+.par[data-step="1"] polygon.t, .par[data-step="2"] polygon.t, .par[data-step="3"] polygon.t { fill-opacity: 0.9; }
+.par[data-step="1"] text.sign, .par[data-step="2"] text.sign, .par[data-step="3"] text.sign { opacity: 1; }
+.par[data-step="1"] .s2, .par[data-step="2"] .s2, .par[data-step="2"] .s3, .par[data-step="3"] .s3, .par[data-step="3"] .s4 { opacity: 1; }
+.par[data-step="3"] polygon.t.gap { fill-opacity: 0.12; }
+.par[data-step="3"] text.sign.gap { opacity: 0; }
+/* diagrams */
+.dia text { fill: var(--ink2); font-family: inherit; font-size: 14px; }
+.dia text.nt { fill: var(--ink); font-size: 16px; font-weight: 700; letter-spacing: 0.04em; }
+.dia rect.node { fill: var(--card2); stroke: var(--hair); stroke-width: 1; }
+.dia rect.node.acc { stroke: var(--triple); stroke-width: 1.6; }
+.dia path.ar { fill: none; stroke: var(--muted); stroke-width: 1.6; }
+.dia path.ar.back { stroke-dasharray: 5 5; }
+.dia marker path { fill: var(--muted); }
+/* navigation */
+.hud { position: fixed; right: 16px; bottom: 12px; font-size: 13px; color: var(--muted); background: var(--card); border: 1px solid var(--hair); border-radius: 999px; padding: 4px 12px; z-index: 5; }
+.dots { position: fixed; right: 14px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 7px; z-index: 5; }
+.dots a { width: 8px; height: 8px; border-radius: 50%; background: var(--hair); display: block; }
+.dots a.on { background: var(--ink2); }
+.themebtn { position: fixed; right: 14px; top: 12px; z-index: 6; }
+@media (max-width: 900px) { .dots { display: none; } }
+@media print { .hud, .dots, .themebtn { display: none; } .slide { min-height: auto; page-break-after: always; } }
+</style>
+</head>
+<body>
+<button class="themebtn" id="themebtn" title="Toggle light/dark (T)">Light / dark</button>
+<nav class="dots" id="dots" aria-label="Slides"></nav>
+<main>
+
+<!-- 1 · Title -->
+<section class="slide" id="s-title">
+  <div class="inner grid2 wide-left">
+    <div>
+      <div class="kicker">Kobon triangles · 18 lines · AutoLab hill alejandrozu/kobon-triangles</div>
+      <h1>Shrinking the Kobon Gap</h1>
+      <div class="sub">Theorems, solvers and AI referees on the 18-line problem</div>
+      <p class="lede">Can 18 straight lines make 94 non-overlapping triangles? The best anyone has found is 93. We turned the question into one inequality. Then we ran a loop that proves away whole classes of arrangements, turns each proven fact into a SAT constraint, and searches only what is left.</p>
+      <div class="tiles">
+        <div class="tile"><div class="big">93</div><div class="lab">best known. Our own 93 is on the official leaderboard.</div></div>
+        <div class="tile"><div class="big">94?</div><div class="lab">the open question</div></div>
+        <div class="tile"><div class="big">96</div><div class="lab">classical upper bound (Tamura)</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="btns" role="group" aria-label="Arrangement">
+        <button data-hero="gallery" aria-pressed="true">Gallery 93: 3 triple crossings</button>
+        <button data-hero="own" aria-pressed="false">Our 93: no triple crossings</button>
+      </div>
+      <div class="fig"><svg class="arr" id="hero" role="img" aria-label="An 18-line arrangement with 93 triangles"></svg></div>
+      <div class="legend"><span><span class="sw" style="background:var(--tri)"></span>triangle</span><span><span class="sw dot" style="background:var(--triple)"></span>triple crossing (3 lines through one point)</span></div>
+      <p class="note" id="herocap"></p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Problem -->
+<section class="slide" id="s-problem">
+  <div class="inner grid2">
+    <div>
+      <div class="kicker">The problem</div>
+      <h2>Count the triangles no line cuts through</h2>
+      <p>Draw <b>n</b> straight lines. A <b>Kobon triangle</b> is a bounded triangular face of the drawing: a triangle with no other line passing through it. The task is to arrange the lines so that there are as many as possible.</p>
+      <ul>
+        <li><b>The hill:</b> submit n lines as integer triples [a, b, c], meaning ax + by + c = 0. An exact rational-arithmetic evaluator counts the faces, and each n has its own leaderboard. The default is n = 18.</li>
+        <li><b>Why it is hard:</b> there are astronomically many combinatorially different arrangements. Our solver estimates for the full 18-line problem ran to days or weeks.</li>
+      </ul>
+      <div class="callout">A 94 needs <b>triple crossings</b>, points where three or more lines meet. Blanc proved in 2008 that 93 is the limit without them. The case with them is open, and every record for even n uses them.</div>
+    </div>
+    <div>
+      <div class="fig"><svg id="gap" class="dia" viewBox="0 0 640 300" role="img" aria-label="Known bounds for 18 lines on a number line from 90 to 97"></svg></div>
+      <p class="note">Bounds for 18 lines. About 3,000 distinct 93s are known (the Utkin–Parpalak gallery), and none of them improves to 94.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Identity -->
+<section class="slide" id="s-identity">
+  <div class="inner grid2">
+    <div>
+      <div class="kicker">One identity</div>
+      <h2>Counting sides turns “≤&nbsp;93” into one inequality</h2>
+      <p>Each triangle has 3 sides, and every side is a <b>segment</b>: a piece of a line between two consecutive crossings. A segment borders at most two triangles, one on each side. Counting sides both ways gives</p>
+      <div class="eq">3T = S − Z + D</div>
+      <div class="eq small" id="eqlive"></div>
+      <ul>
+        <li><b>S</b> is the number of bounded segments. S = n(n−2) − Σ k(k−2), so each triple crossing removes 3.</li>
+        <li><b>Z</b> is the number of <b>unused</b> segments, which border no triangle. <b>D</b> is the number of <b>shared</b> segments, which border two.</li>
+      </ul>
+      <p>Rearranged, this is <b>3T = n(n−2) − Λ</b>, with Λ = Z − D + Σ<sub>P</sub> k<sub>P</sub>(k<sub>P</sub>−2). For 18 lines, n(n−2) = 288, so <b>T ≥ 94 ⟺ Λ ≤ 6</b>. Every known 93 has Λ = 9.</p>
+      <table>
+        <tr><th></th><th>S</th><th>Z</th><th>D</th><th>triple</th><th>Λ</th><th>T</th></tr>
+        <tr><td>Our 93</td><td class="num">288</td><td class="num">9</td><td class="num">0</td><td class="num">0</td><td class="num">9</td><td class="num">93</td></tr>
+        <tr><td>Gallery 93</td><td class="num">279</td><td class="num">6</td><td class="num">6</td><td class="num">3</td><td class="num">6 − 6 + 9 = 9</td><td class="num">93</td></tr>
+        <tr><td><b>A 94 would need</b></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">≥ 1</td><td class="num"><b>≤ 6</b></td><td class="num"><b>94</b></td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="btns" role="group" aria-label="Highlight">
+        <button data-layer="" aria-pressed="true">Triangles T</button>
+        <button data-layer="S" aria-pressed="false">Segments S</button>
+        <button data-layer="Z" aria-pressed="false">Unused Z</button>
+        <button data-layer="D" aria-pressed="false">Shared D</button>
+        <button data-layer="t" aria-pressed="false">Triple crossings</button>
+      </div>
+      <div class="fig"><svg class="arr" id="eight" role="img" aria-label="The 8-line record: 15 triangles, 2 triple crossings"></svg></div>
+      <div class="legend"><span><span class="sw" style="background:var(--tri)"></span>triangle</span><span><span class="sw dot" style="background:var(--triple)"></span>triple crossing</span><span><span class="sw bar" style="background:var(--unused)"></span>unused segment (Z)</span><span><span class="sw bar" style="background:var(--ink)"></span>shared segment (D, when selected)</span></div>
+      <p class="note">The 8-line record: 15 triangles, which needs 2 triple crossings. The geometry is exact, from its certificate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Parity -->
+<section class="slide" id="s-parity">
+  <div class="inner grid2 wide-left">
+    <div>
+      <div class="fig"><svg class="par" id="par" viewBox="0 0 800 330" data-step="0" role="img" aria-label="Blanc's parity argument along one line"></svg></div>
+      <div class="stepper"><button id="pprev">‹ Back</button><button id="pnext">Next ›</button><span class="muted" id="pcount"></span></div>
+    </div>
+    <div>
+      <div class="kicker">The engine</div>
+      <h2>Blanc’s parity argument</h2>
+      <div class="steptext" id="ptext"></div>
+      <p class="note">This is the step every theorem here builds on. SAT solvers are known to be weak at parity and counting arguments like this, which is why the theorems do this part of the work.</p>
+    </div>
+  </div>
+  <div class="inner">
+    <div class="sectionlabel">Our extensions to lines through triple crossings</div>
+    <div class="grid4">
+      <div class="card tight"><h3>Cap blocks</h3><p>A shared segment must have a triple crossing at one end. There, a single <i>cap line</i> is the first to cross three consecutive rays. This bounds D.</p></div>
+      <div class="card tight"><h3>Axis lemma</h3><p>If a triple crossing has two cap blocks, the line through their middle rays still claims an unused segment, by the same parity argument.</p></div>
+      <div class="card tight"><h3>Credits (Lemma A)</h3><p>Next to each cap point, the axis segment is unused unless a <i>mutual pair</i> of triple crossings occurs. That gives one extra unused segment.</p></div>
+      <div class="card tight"><h3>Parity through triple points</h3><p>Lemma D (C11): a line whose number of triple points plus cap roles is even must claim. This version has been refereed as correct.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Two engines -->
+<section class="slide" id="s-engines">
+  <div class="inner">
+    <div class="kicker">Two engines</div>
+    <h2>Proofs remove classes. Solvers finish rigid leftovers.</h2>
+    <div class="grid3" style="margin-top:18px">
+      <div class="card"><h3>Theorems</h3><ul><li>Remove whole classes of arrangements at once, for example all arrangements with at most 3 triple crossings.</li><li>Good at parity and counting, which solvers are provably bad at.</li><li>They stall on rigid, fiddly configurations.</li></ul></div>
+      <div class="card"><h3>SAT solver</h3><ul><li>Exhaustive search over a combinatorial model of line arrangements.</li><li>Grinds through case-by-case geometry that no one wants to do by hand.</li><li>An “impossible” answer comes with a proof log that an independent checker can replay.</li></ul></div>
+      <div class="card"><h3>Neither alone</h3><ul><li>The solver on the full problem: estimates ran to <b>days to weeks</b>.</li><li>The theorems alone stall at a handful of tight patterns.</li><li>Together: the proofs shrink the space, and the solver searches only the small, constrained remainder.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Loop -->
+<section class="slide" id="s-loop">
+  <div class="inner grid2 wide-left">
+    <div>
+      <div class="kicker">The loop</div>
+      <h2>Theorem → referee → constrain → solve → stop</h2>
+      <div class="fig"><svg id="loop" class="dia" viewBox="0 0 620 440" role="img" aria-label="The five-stage loop"></svg></div>
+    </div>
+    <div>
+      <dl class="stages">
+        <dt>Theorem</dt><dd>Literature plus reasoning, often by a math subagent, removes a class of arrangements.</dd>
+        <dt>Referee</dt><dd>A fresh subagent with no stake in the proof tries to break it, and tests every lemma on exact arrangements (100,000+).</dd>
+        <dt>Constrain</dt><dd>Each proven fact becomes a <i>sound</i> SAT clause, checked against real record arrangements.</dd>
+        <dt>Solve</dt><dd>Search only the residual space. Solve a random sample of cases first and extrapolate.</dd>
+        <dt>Stop</dt><dd>If the projection exceeds the budget, kill the run. What stalled points to the next lemma.</dd>
+      </dl>
+      <div class="sectionlabel">How it actually ran</div>
+      <div class="cases">
+        <div class="card tight"><b>≤ 1 triple crossing.</b> SAT projected 11+ days, so we <b>stopped</b>. Extending Blanc’s lemma to clean lines proved it by hand.</div>
+        <div class="card tight"><b>2 triple crossings.</b> The solver needed about 80 h per case, so we <b>stopped</b>. The axis lemma closed both cases. The referee found an overlap case, which we fixed.</div>
+        <div class="card tight"><b>3 triple crossings.</b> Lemma A (credits) killed the last tight configuration, refereed on 100,214 arrangements. It generalised to <b>Theorem H</b>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · Decoupled loop -->
+<section class="slide" id="s-decoupled">
+  <div class="inner grid2">
+    <div>
+      <div class="kicker">The loop now</div>
+      <h2>Decoupled: generate, verify and solve in parallel</h2>
+      <p>Refereeing was the bottleneck, so it now runs asynchronously. A generator agent keeps proposing lemmas, a verifier agent referees them in its own time, and the orchestrator encodes claims into the solver as soon as they arrive.</p>
+      <ul>
+        <li><b>Ledger.</b> Each claim has one status: proposed → encoded → sampled → refereed-correct, refereed-fixed or refuted.</li>
+        <li><b>Tags.</b> Every solver constraint carries the ID of the claim it came from, so a refuted claim rolls back cleanly.</li>
+        <li><b>Why this is safe:</b> an unrefereed claim can only make the solver <i>miss</i> a 94, never invent one. Any SAT answer is checked exactly. Every UNSAT result is conditional on the tags it used until those claims are refereed.</li>
+      </ul>
+      <p id="ledgersum" class="note"></p>
+    </div>
+    <div class="fig"><svg id="dec" class="dia" viewBox="0 0 650 450" role="img" aria-label="Decoupled loop: generator, ledger, verifier and solver"></svg></div>
+  </div>
+  <div class="inner">
+    <div class="sectionlabel">Who does what</div>
+    <div class="grid4">
+      <div class="card tight"><h3>Orchestrator</h3><p>The main agent. It plans, derives, encodes claims, runs and monitors the solver, applies the stop rule, and keeps the record honest.</p></div>
+      <div class="card tight"><h3>Generator</h3><p>A math subagent. It proposes lemma C<i>n</i> with a proof and a suggested SAT form, and never referees its own claims.</p></div>
+      <div class="card tight"><h3>Verifier</h3><p>An independent, sceptical referee. It writes its own test code, checks each lemma on exact arrangements, and fixes or refutes claims.</p></div>
+      <div class="card tight"><h3>Compute</h3><p>A 24-core laptop runs Kissat and CaDiCaL. AutoLab gave the official leaderboard score.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · SAT model -->
+<section class="slide" id="s-model">
+  <div class="inner">
+    <div class="kicker">The SAT model</div>
+    <h2>How an arrangement becomes a SAT problem</h2>
+    <div class="grid3" style="margin-top:14px">
+      <div class="card"><h3>Variables</h3><p>Sort the lines by slope. For every triple i &lt; j &lt; k, one three-valued sign records whether the crossing of lines i and k lies <b>above</b>, <b>on</b> or <b>below</b> line j. “On” means the three lines meet at one point. That is 816 signs for 18 lines, and they determine the whole arrangement.</p></div>
+      <div class="card"><h3>Consistency</h3><p>In 60,000 random 4-line arrangements, including forced concurrent ones, exactly <b>17</b> sign patterns occur. Every 4 lines must show one of them. This is a <i>relaxation</i>: every real arrangement satisfies it, so “impossible” carries over to straight lines.</p></div>
+      <div class="card"><h3>Derived structure</h3><p>Crossing order: on line r, i comes before j exactly when the sorted sign (r, i, j) is −1. Adjacency comes from “nothing in between”. A triangle means the three crossings are consecutive on all three lines, which is the evaluator’s rule. Target: at least 94 triangles.</p></div>
+    </div>
+    <div class="sectionlabel">Constraints from the theorems (each must be sound)</div>
+    <table>
+      <tr><th>Family</th><th>What it says</th><th>Source</th></tr>
+      <tr><td><b>A · Defect budget</b></td><td>Consecutive crossing pairs that are not triangle sides are at most n(n−2) + 3k + C(k,2) − 3T. That is 6 in total for a simple 18-line 94. This alone took 11 lines / 33 triangles from unsolved in 20 min to 3.3 s.</td><td>the identity</td></tr>
+      <tr><td><b>B · Opposite sides</b></td><td>Two consecutive segments of a line cannot both carry triangles on the same side unless three lines meet there.</td><td>geometry</td></tr>
+      <tr><td><b>C · Blanc claims</b></td><td>Every clean line must touch an unused, bounded piece of a neighbouring line. This hands the solver the parity argument.</td><td>Blanc · C1</td></tr>
+      <tr><td><b>D · Case deductions</b></td><td>Exactly k triple crossings with k ≥ 4. Some line passes through two of them (not general position). Budgets (C9), the Lemma A clause (C10), and for k6z: Z = 0, β = 0, every non-triple line a cap line (C14).</td><td>C2–C14</td></tr>
+      <tr><td><b>E · Symmetry</b></td><td>180° rotation fixes one sign. Rotating the plane lets any line be line 0, so line 0 avoids every triple crossing. A counting argument shows such a line exists.</td><td>model</td></tr>
+    </table>
+    <p class="note" style="margin-top:10px"><b>Soundness check:</b> real records with triple crossings (8/15, 10/25, 12/38, 14/54, 16/72, two different 18/93s and 20/117) are fixed into the model, which must stay satisfiable. This caught a harness bug. When the referee refuted two case-B statements, the constraints built on them were deleted.</p>
+  </div>
+</section>
+
+<!-- 9 · Engineering -->
+<section class="slide" id="s-eng">
+  <div class="inner grid2">
+    <div>
+      <div class="kicker">Solver engineering</div>
+      <h2>Making the solver useful</h2>
+      <table>
+        <tr><th>Change</th><th>Effect</th></tr>
+        <tr><td>Defect budget</td><td>11/33: from unsolved after 20 min to <b>3.3 s</b></td></tr>
+        <tr><td>Kissat instead of CaDiCaL</td><td>1.3–1.5× faster</td></tr>
+        <tr><td>Counting encodings</td><td>A totaliser blew up to 13.5M clauses; a counting network worked best</td></tr>
+        <tr><td>Split on line 0’s crossing order</td><td>Random sign splits: 0 of 8 solved in 8 min. A lookahead cuber hung. Crossing-order prefixes: 8 of 14 solved, and the cases cover everything automatically.</td></tr>
+        <tr><td>Adaptive splitting</td><td>A case that runs over the time limit is split one crossing deeper. Short limits beat long ones.</td></tr>
+        <tr><td>Proof logs</td><td>DRAT certificates checked by drat-trim. 10 lines / 26 with ≤ 1 triple crossing: 190 cubes plus coverage, all verified.</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="sectionlabel">Small cases the model settles</div>
+      <table>
+        <tr><th>Case</th><th>Result</th><th>Time</th></tr>
+        <tr><td>8 lines</td><td>15 found (needs 2 triple crossings); 16 impossible</td><td class="num">—</td></tr>
+        <tr><td>10 lines, 26, ≤ 2 triple</td><td>impossible</td><td class="num">379 s</td></tr>
+        <tr><td>11 lines, 33</td><td>impossible</td><td class="num">3.3 s</td></tr>
+        <tr><td>12 lines, 39, simple</td><td>impossible</td><td class="num">534 s</td></tr>
+      </table>
+      <div class="sectionlabel">The stop rule</div>
+      <div class="card tight"><p>Before any long run, solve a <b>random</b> sample of cases and extrapolate. Queue order misleads, because easy cases come first. We do not start runs projected past about 12 hours. Stopping is a result too: both big stops ended in hand proofs that took minutes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · Case map -->
+<section class="slide" id="s-map">
+  <div class="inner">
+    <div class="kicker">Where could a 94 hide?</div>
+    <h2>The space, class by class</h2>
+    <p class="muted">Statuses come live from the claims ledger. “Refereed” means an independent AI referee checked the argument and tested its lemmas on exact arrangements.</p>
+    <div class="cases" id="cases"></div>
+    <p class="note" style="margin-top:12px">Other evidence: no 94 is one line away from any of the 3,016 known 93s (54,288 delete-and-reinsert cases, solved exactly). No 94 comes from adding a line to a perfect 17-line arrangement (a DP over all 255 wiring diagrams). “Bridge” (β) means a shared segment joining two triple crossings.</p>
+  </div>
+</section>
+
+<!-- 11 · Results -->
+<section class="slide" id="s-results">
+  <div class="inner">
+    <div class="kicker">Results</div>
+    <h2>What is proven</h2>
+    <table>
+      <tr><th>Class of 18-line arrangements</th><th>Result</th><th>How</th><th>Checked</th></tr>
+      <tr><td>No triple crossings (simple)</td><td>≤ 93</td><td>Blanc’s theorem (arXiv 0801.2845)</td><td><span class="chip good"><i>✓</i>published</span></td></tr>
+      <tr><td>Exactly 1 triple crossing</td><td><b>≤ 93</b></td><td>Blanc’s lemma extended to clean lines; D ≤ 2</td><td><span class="chip good"><i>✓</i>refereed</span> 142,160 arrangements tested</td></tr>
+      <tr><td>Exactly 2 triple crossings</td><td><b>≤ 93</b></td><td>Axis lemma (case A); cap lines through the other point (case B)</td><td><span class="chip good"><i>✓</i>refereed (fixed)</span> 17,038 tested</td></tr>
+      <tr><td>Exactly 3 triple crossings</td><td><b>≤ 93</b></td><td>Credit framework: Lemma A (cap touch), Lemma B</td><td><span class="chip good"><i>✓</i>refereed</span> 100,214 tested</td></tr>
+      <tr><td>General position (no line through two multiple points), any number, 4-fold allowed</td><td><b>≤ 93</b></td><td>Theorem H: master inequality 2Λ ≥ n + Φ</td><td><span class="chip good"><i>✓</i>refereed</span> 4-fold cases hand-checked only</td></tr>
+      <tr><td>4 triple crossings, shared lines, no bridge</td><td><b>≤ 93</b></td><td>C8 characterises the pattern; C12 kills it using parity through triple points (C11)</td><td><span class="chip good"><i>✓</i>refereed</span></td></tr>
+      <tr><td><i>Any even n</i>, general position, t triple crossings</td><td>T ≤ ⌊(2n² − 5n + 2t)/6⌋</td><td>Theorem G. Each triple crossing adds at most ⅓ of a triangle beyond Blanc’s bound.</td><td><span class="chip good"><i>✓</i>refereed</span> 82,975 tested</td></tr>
+    </table>
+    <p class="note" style="margin-top:12px">Consequence for other n: with at most one triple crossing, T ≤ ⌊(2n² − 5n + 2)/6⌋. For n ≡ 2 (mod 6) that allows exactly one more than Blanc’s simple bound, which matches the known records 8/15, 14/54 and 20/117.</p>
+  </div>
+</section>
+
+<!-- 12 · Referees -->
+<section class="slide" id="s-ref">
+  <div class="inner grid2">
+    <div>
+      <div class="kicker">Separate the author from the checker</div>
+      <h2>What the referees caught</h2>
+      <p>The referee agents were told to <i>break</i> the proofs, and they found real errors. Every fix went back into both the write-up and the solver constraints.</p>
+      <div class="callout">Unrefereed claims still go into the solver, but tagged. A refuted claim would be rolled back, and so far none has been refuted outright. Several were <i>fixed</i>: the statement was narrowed or the proof repaired.</div>
+    </div>
+    <div class="cases">
+      <div class="card tight"><h3>Two triple crossings, case B</h3><p>The proof assumed cap blocks never overlap. The referee built explicit counterexamples on the ray toward the other point, then gave a simpler correct argument. The solver deductions that depended on the assumption were deleted.</p></div>
+      <div class="card tight"><h3>Per-line parity rule (C6)</h3><p>My statement was false: there were counterexamples among real 18-line 93s. The corrected rule is “K + j<sub>alt</sub> odd” with explicit hypotheses, which matches C11.</p></div>
+      <div class="card tight"><h3>Budgets (C9) and the 4-point pattern (C8)</h3><p>“At most 2 cap blocks per point” fails at centroid-type points. The budgets survive with a new argument. C8 holds only without bridges, so the solver restriction was scoped to β = 0.</p></div>
+      <div class="card tight"><h3>7+ triple crossings (C7) and mutual pairs (C15)</h3><p>A bent-point bound in Lemma C was wrong: an exact 7-line example reaches c = 2. The impossibility conclusions still hold. In C15, “the partner point is type X” is false (284 counterexamples), but the corollary used for k = 6 survives.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · Ledger -->
+<section class="slide" id="s-ledger">
+  <div class="inner">
+    <div class="kicker">Claims ledger (live)</div>
+    <h2>Every claim, its status, and its solver tag</h2>
+    <div style="max-height:68vh; overflow:auto; border:1px solid var(--hair); border-radius:10px">
+      <table id="ledger"><tr><th>ID</th><th>Claim</th><th>Status</th><th>Solver tag</th></tr></table>
+    </div>
+    <p class="note" style="margin-top:8px">Source: <code>work/loop/ledger.md</code>. Claims are in <code>work/loop/claims/</code> and verdicts in <code>work/loop/verdicts/</code>. Rebuild with <code>python3 search/build_presentation.py</code>.</p>
+  </div>
+</section>
+
+<!-- 14 · Solver now -->
+<section class="slide" id="s-now">
+  <div class="inner grid2">
+    <div>
+      <div class="kicker">The solver right now</div>
+      <h2>Six triple crossings, no bridges, nothing unused</h2>
+      <p>C14 <span data-chip="C14"></span> shows that a 94 with 6 triple crossings and no bridges needs <b>Z = 0</b>, 12 cap blocks, and every line that avoids the triple crossings acting as a cap line. That is the most constrained instance so far: <b>k6z</b>.</p>
+      <ul>
+        <li>Encoded: “every segment is used” (Z = 0), β = 0, cap lines, the Lemma A clause (C10), at least one shared line, and line 0 off every triple crossing.</li>
+        <li>1.5M variables and 8.1M clauses.</li>
+        <li>Pilot: <b>8 of 8</b> random depth-4 cases were UNSAT, in 1–233 s. The whole instance at once timed out at 300 s.</li>
+        <li>C16 <span data-chip="C16"></span> cuts this case down to two rigid sub-patterns. C17 <span data-chip="C17"></span> prunes both further. The generator is trying to kill them by hand.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="tiles" style="grid-template-columns:1fr 1fr; margin-top:0">
+        <div class="tile"><div class="big" id="k-unsat">–</div><div class="lab">cases closed (UNSAT)</div></div>
+        <div class="tile"><div class="big" id="k-split">–</div><div class="lab">cases split deeper (timed out)</div></div>
+        <div class="tile"><div class="big" id="k-sat">–</div><div class="lab">SAT candidates (a 94 would show here)</div></div>
+        <div class="tile"><div class="big" id="k-el">–</div><div class="lab">minutes of solving</div></div>
+      </div>
+      <div class="sectionlabel">Share of line-0 crossing orders closed</div>
+      <div class="meter"><div id="k-meter" style="width:0%"></div></div>
+      <p class="note" id="k-cap" style="margin-top:8px"></p>
+      <p class="note">An UNSAT result here is a solver claim, not yet backed by a DRAT proof. It is conditional on the claims the instance encodes (C10, C14), whose current statuses are shown above.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 15 · Status -->
+<section class="slide" id="s-status">
+  <div class="inner"><div class="kicker">Status</div><h2 style="margin-bottom:18px">Where this stands</h2></div>
+  <div class="inner grid3">
+    <div class="card">
+      <h3>Honest status</h3>
+      <ul>
+        <li><b>Refereed:</b> no 94 with ≤ 3 triple crossings, none in general position, and none with 4 triple crossings and no bridge. Theorem G holds for every even n.</li>
+        <li>“Refereed” means independent AI referees plus exact testing. There has been <b>no human expert review</b> and <b>no Lean formalisation</b> yet.</li>
+        <li><b>Open:</b> triple crossings on shared lines with bridges, 5 or 6 crossings (in progress), 7 or more, and 4-fold points on shared lines.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Lessons</h3>
+      <ul>
+        <li><b>Read first, compute second.</b> The decisive idea came from a 2008 paper.</li>
+        <li><b>Proofs remove classes; solvers finish rigid leftovers.</b></li>
+        <li><b>Separate the author from the checker.</b> The referees caught what the author missed.</li>
+        <li><b>Decide in advance when to stop.</b> Sample, extrapolate, then commit or kill.</li>
+        <li><b>Tag every constraint</b>, so an unrefereed claim is cheap to use and cheap to undo.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>What “done” looks like</h3>
+      <ul>
+        <li>The residual cases are closed by hand or by solver runs with DRAT proofs. Combined with the refereed theorems, that gives a complete proof that 94 is impossible.</li>
+        <li>Then: a Lean check of the counting and parity core, and expert review.</li>
+      </ul>
+      <h3 style="margin-top:14px">Links</h3>
+      <ul>
+        <li><a href="https://github.com/srirangam-r/kobon_triangles">github.com/srirangam-r/kobon_triangles</a></li>
+        <li><a href="https://app.autolab.ai/hills/alejandrozu/kobon-triangles">AutoLab hill</a></li>
+        <li><a href="https://arxiv.org/abs/0801.2845">Blanc, arXiv 0801.2845</a></li>
+        <li><a href="https://github.com/parpalak/kobon-solutions">Utkin–Parpalak gallery</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="inner"><p class="note" id="built" style="margin-top:16px"></p></div>
+</section>
+
+</main>
+<div class="hud" id="hud">← → to move · T theme</div>
+<script id="data" type="application/json">{"built":"2026-09-27 20:25 EDT","gallery":{"view":[5.4911,4.5464,7.33462],"lines":[[0.09090909090909091,-1.0,2.5753621257517003],[0.3076923076923077,-1.0,-1.0],[0.46153846153846156,-1.0,0.07692307692307693],[0.7142857142857143,-1.0,-3.7068523606933725],[1.0,-1.0,0.1369505478236991],[1.0,-0.6842105263157895,-3.4780701754385963],[1.0,-0.5,-2.5384615384615383],[1.0,-0.24390243902439024,-4.942989955397339],[1.0,-0.009548611111111112,-1.4694227371304642],[1.0,0.13846153846153847,-4.084615384615384],[1.0,0.2826086956521739,-2.7318840579710146],[1.0,0.42857142857142855,-6.436699111404816],[1.0,0.7142857142857143,-1.6483516483516483],[0.9230769230769231,1.0,-12.794028317645529],[0.6923076923076923,1.0,-3.0],[0.38461538461538464,1.0,-1.9230769230769231],[0.2222222222222222,1.0,3.8],[0.07692307692307693,1.0,0.875]],"tris":[[[16.4928,4.07471],[10.07772,3.49152],[11.20765,2.44851]],[[6.74107,3.18819],[5.69746,3.09331],[5.59115,2.65745]],[[6.74107,3.18819],[10.07772,3.49152],[9.18458,4.31596]],[[2.68225,2.8192],[3.68168,2.91006],[3.57118,3.70813]],[[2.68225,2.8192],[1.95387,2.75299],[2.09977,2.23672]],[[5.58772,3.08334],[5.69746,3.09331],[5.75446,3.32703]],[[5.58772,3.08334],[5.13299,3.042],[5.29723,2.65877]],[[4.00834,2.93976],[3.68168,2.91006],[3.7493,2.42169]],[[4.00834,2.93976],[5.13299,3.042],[4.63751,4.1981]],[[1.49531,2.7113],[1.95387,2.75299],[1.51068,4.32117]],[[1.49531,2.7113],[0.54217,2.62465],[1.48823,1.96969]],[[-0.17953,2.55904],[0.54217,2.62465],[-0.97826,3.67726]],[[-0.17953,2.55904],[-1.37172,2.45066],[0.37879,1.77739]],[[-20.36003,0.72445],[-20.55841,0.70642],[-20.13088,0.67353]],[[-7.0,-3.15385],[-5.28387,-2.62581],[-5.67,-2.54]],[[6.65739,1.04843],[6.06543,0.86629],[6.14441,0.68201]],[[6.65739,1.04843],[11.20765,2.44851],[10.07772,3.49152]],[[-1.64226,-1.50531],[-5.28387,-2.62581],[-3.22114,-3.08419]],[[-1.64226,-1.50531],[0.325,-0.9],[-0.93967,-0.80272]],[[3.53889,0.08889],[2.77333,-0.14667],[2.95,-0.77179]],[[3.53889,0.08889],[4.0,0.23077],[3.75298,0.40179]],[[2.40909,-0.25874],[2.77333,-0.14667],[2.66204,0.24715]],[[2.40909,-0.25874],[1.93694,-0.40402],[2.17195,-0.73303]],[[5.08035,0.56319],[6.06543,0.86629],[5.48475,2.22122]],[[5.08035,0.56319],[4.22222,0.29915],[4.94788,0.02005]],[[1.46418,-0.54948],[1.93694,-0.40402],[1.47178,0.2472]],[[1.46418,-0.54948],[0.325,-0.9],[1.46,-0.98731]],[[4.05051,0.24631],[4.0,0.23077],[4.05825,0.19045]],[[4.05051,0.24631],[4.22222,0.29915],[4.03313,0.37188]],[[14.97059,6.98643],[9.18458,4.31596],[10.07772,3.49152]],[[-0.11148,0.02547],[1.19835,0.63001],[0.90448,1.04143]],[[-0.11148,0.02547],[-1.76786,-0.73901],[-0.93967,-0.80272]],[[5.16026,2.45858],[3.82925,1.84427],[3.98253,0.73729]],[[5.16026,2.45858],[5.34624,2.54442],[5.29723,2.65877]],[[3.35,1.62308],[3.82925,1.84427],[3.7493,2.42169]],[[3.35,1.62308],[2.53333,1.24615],[3.0,0.92308]],[[5.59115,2.65745],[5.34624,2.54442],[5.48475,2.22122]],[[1.47666,0.75846],[1.19835,0.63001],[1.47178,0.2472]],[[1.47666,0.75846],[2.18182,1.08392],[1.48234,1.35295]],[[2.39744,1.18343],[2.53333,1.24615],[2.34234,1.37838]],[[2.39744,1.18343],[2.18182,1.08392],[2.45528,0.97874]],[[-5.67,-2.54],[-1.76786,-0.73901],[-20.13088,0.67353]],[[-13.45331,-13.31636],[-0.09946,-3.7779],[-3.22114,-3.08419]],[[1.84206,-2.3911],[1.44388,-2.67551],[1.44099,-2.97727]],[[1.84206,-2.3911],[2.84472,-1.67491],[2.58289,-1.30835]],[[1.06561,-2.9457],[1.44388,-2.67551],[1.44861,-2.1797]],[[1.06561,-2.9457],[-0.09946,-3.7779],[0.57462,-3.92769]],[[4.89096,-0.21331],[4.76815,-0.30103],[4.85492,-0.3611]],[[4.89096,-0.21331],[5.12324,-0.0474],[4.94788,0.02005]],[[4.18406,-0.71824],[4.76815,-0.30103],[4.05825,0.19045]],[[4.18406,-0.71824],[3.57915,-1.15032],[4.25105,-1.202]],[[3.14468,-1.46065],[2.84472,-1.67491],[3.44125,-2.51005]],[[3.14468,-1.46065],[3.57915,-1.15032],[3.04537,-1.10926]],[[6.14441,0.68201],[5.12324,-0.0474],[6.72026,-0.66164]],[[11.31062,11.44757],[6.58168,6.71863],[7.49696,5.87376]],[[5.21387,5.35082],[4.4646,4.60155],[4.63751,4.1981]],[[5.21387,5.35082],[6.58168,6.71863],[6.11375,7.15057]],[[1.48491,1.62186],[1.6918,1.82875],[1.48823,1.96969]],[[1.48491,1.62186],[1.28998,1.42693],[1.48234,1.35295]],[[3.57118,3.70813],[4.4646,4.60155],[2.96203,8.10756]],[[2.09977,2.23672],[1.6918,1.82875],[2.34234,1.37838]],[[0.90448,1.04143],[1.28998,1.42693],[0.37879,1.77739]],[[-0.0119,-5.10073],[0.76218,-3.96937],[0.57462,-3.92769]],[[5.75446,3.32703],[7.49696,5.87376],[6.58168,6.71863]],[[1.44099,-2.97727],[0.76218,-3.96937],[1.4301,-4.1178]],[[3.98253,0.73729],[3.79514,0.46341],[4.03313,0.37188]],[[2.95,-0.77179],[2.73542,-1.08542],[3.04537,-1.10926]],[[2.58289,-1.30835],[2.73542,-1.08542],[2.40552,-1.06004]],[[3.75298,0.40179],[3.79514,0.46341],[3.5,0.57692]],[[7.23302,9.38911],[6.11375,7.15057],[6.58168,6.71863]],[[1.44861,-2.1797],[2.02315,-1.03063],[1.46,-0.98731]],[[2.66204,0.24715],[2.93548,0.79404],[2.45528,0.97874]],[[2.17195,-0.73303],[2.02315,-1.03063],[2.40552,-1.06004]],[[3.0,0.92308],[2.93548,0.79404],[3.5,0.57692]],[[1.32789,-14.82189],[3.80967,-4.64659],[1.4301,-4.1178]],[[4.39545,-2.24491],[4.10435,-3.4384],[4.67043,-4.23092]],[[4.39545,-2.24491],[4.64247,-1.23211],[4.25105,-1.202]],[[3.91871,-4.19954],[4.10435,-3.4384],[3.44125,-2.51005]],[[3.91871,-4.19954],[3.80967,-4.64659],[4.06082,-4.70241]],[[4.85492,-0.3611],[4.64247,-1.23211],[6.29688,-1.35938]],[[1.63814,17.66901],[1.57768,11.33771],[2.6521,10.34593]],[[1.51068,4.32117],[1.57768,11.33771],[-1.19576,13.8978]],[[5.38399,-9.38438],[4.75714,-4.85714],[4.06082,-4.70241]],[[2.96203,8.10756],[2.6521,10.34593],[1.57768,11.33771]],[[4.67043,-4.23092],[4.75714,-4.85714],[5.18578,-4.95239]],[[-4.44127,25.38192],[-1.19576,13.8978],[1.57768,11.33771]],[[13.61922,-16.75922],[8.91425,-5.78094],[5.18578,-4.95239]],[[7.32406,-2.0705],[8.91425,-5.78094],[14.46545,-7.01455]],[[7.32406,-2.0705],[7.04392,-1.41684],[6.29688,-1.35938]],[[6.72026,-0.66164],[7.04392,-1.41684],[9.09375,-1.57452]],[[42.44079,-26.38208],[23.67685,-9.06152],[14.46545,-7.01455]],[[20.18891,-5.84189],[23.67685,-9.06152],[35.24211,-11.63158]],[[20.18891,-5.84189],[16.15431,-2.11764],[9.09375,-1.57452]]],"triples":[[10.07772,3.49152],[6.58168,6.71863],[1.57768,11.33771]],"stats":{"n":18,"T":93,"segments":279,"Z":6,"D":6,"t":3}},"own":{"view":[-0.60135,0.27599,3.32527],"lines":[[1.0,-0.3380647230095679,0.4786185173124631],[1.0,-0.15441632169782554,0.6632495971007679],[1.0,-0.676959417117196,-0.5821210074183448],[1.0,-0.4252109099746942,-3.4920141226254167],[1.0,0.359964687577698,0.49721685802317317],[0.35760943793814615,1.0,2.201792032279128],[1.0,0.05325520928531943,1.6517244744188446],[0.019269849239137635,-1.0,0.4218827154722296],[1.0,0.7070042526106464,-1.3720033788380408],[1.0,0.3951495692405466,-0.032186039634158926],[1.0,-0.5523299426093881,2.5691025151631934],[0.6789585287775026,-1.0,1.353359023347337],[1.0,-0.16006336025433418,3.538537362622074],[0.9865630642515218,1.0,-0.058650308757507014],[0.6307861815919968,-1.0,0.48975014045058585],[1.0,0.10886972969167108,-0.6512042609248362],[0.31063234353388425,1.0,-2.0294977842763293],[0.452674165614123,1.0,0.7680352020160774]],"tris":[[[-0.81849,-1.00535],[-1.09106,-1.81162],[-0.95074,-1.8618]],[[-0.81849,-1.00535],[-0.64028,-0.4782],[-0.73077,-0.43724]],[[-1.53676,-3.13],[-1.49208,-2.99782],[-1.48881,-3.05916]],[[-1.53676,-3.13],[-6.29009,-17.19042],[-4.81455,-7.97193]],[[-15.88183,-45.5629],[-6.29009,-17.19042],[-7.78272,-26.51562]],[[-0.48763,-0.02664],[-0.3979,0.23876],[-0.54888,0.14352]],[[-0.48763,-0.02664],[-0.64028,-0.4782],[-0.26372,-0.64865]],[[-1.09106,-1.81162],[-1.49208,-2.99782],[-1.56426,-1.6424]],[[-0.3382,0.41537],[-0.2431,0.69666],[-0.1335,0.41931]],[[-0.3382,0.41537],[-0.34404,0.39807],[-0.36113,0.41492]],[[0.12003,1.77081],[-0.02738,1.33477],[0.28052,1.54382]],[[0.12003,1.77081],[0.18777,1.97117],[-0.08055,2.05452]],[[-0.2431,0.69666],[-0.02738,1.33477],[-0.39628,1.0843]],[[2.81972,9.75653],[0.37599,2.52794],[0.12097,4.8704]],[[-0.34404,0.39807],[-0.3979,0.23876],[-0.26655,0.32162]],[[0.37599,2.52794],[0.18777,1.97117],[0.44531,1.89117]],[[-1.03127,-2.38329],[-0.95074,-1.8618],[-0.73135,-1.94025]],[[-1.03127,-2.38329],[-1.39824,-4.7598],[-1.48881,-3.05916]],[[-3.03272,-15.34471],[-1.39824,-4.7598],[-1.07921,-10.75048]],[[-0.61341,0.32278],[-0.59989,0.41032],[-0.64461,0.40946]],[[-0.61341,0.32278],[-0.65104,0.07908],[-0.54888,0.14352]],[[-0.59989,0.41032],[-0.56771,0.61873],[-0.36113,0.41492]],[[-0.29841,2.36267],[0.07635,4.78961],[-0.84058,3.12952]],[[-0.29841,2.36267],[-0.33385,2.1332],[-0.08055,2.05452]],[[-0.46785,1.26543],[-0.50747,1.00881],[-0.39628,1.0843]],[[-0.46785,1.26543],[-0.33385,2.1332],[-0.87748,2.30207]],[[0.07635,4.78961],[0.10767,4.99249],[0.12097,4.8704]],[[-0.50747,1.00881],[-0.56771,0.61873],[-0.77736,0.82556]],[[77.9605,509.16737],[0.10767,4.99249],[-1.04489,15.57912]],[[-0.65104,0.07908],[-0.73077,-0.43724],[-1.1609,-0.24253]],[[8.40691,11.55873],[2.7727,3.23591],[5.71838,5.2359]],[[-0.12253,-1.0409],[-0.73135,-1.94025],[0.33899,-2.32302]],[[-0.12253,-1.0409],[0.0476,-0.78958],[-0.26372,-0.64865]],[[0.87919,0.43882],[0.96849,0.57074],[1.0593,0.4423]],[[0.87919,0.43882],[0.64163,0.08791],[0.60401,0.43352]],[[0.96849,0.57074],[1.59457,1.49558],[0.70938,0.93722]],[[0.23488,-0.51295],[0.37283,-0.30917],[0.01477,0.04408]],[[0.23488,-0.51295],[0.0476,-0.78958],[0.4088,-0.95309]],[[-16.53462,-25.28474],[-4.81455,-7.97193],[-3.93411,-2.47137]],[[2.7727,3.23591],[1.61615,1.52747],[0.68325,1.81726]],[[0.37283,-0.30917],[0.64163,0.08791],[0.72241,-0.65405]],[[1.59457,1.49558],[1.61615,1.52747],[1.63556,1.52144]],[[1.33165,-5.08069],[1.23029,-5.31907],[1.14914,-4.57365]],[[2.21845,-2.99513],[1.69871,-4.21745],[1.0507,-2.57753]],[[2.21845,-2.99513],[2.4776,-2.38566],[3.59397,-3.48703]],[[3.70173,0.49321],[2.69583,-1.87245],[1.0593,0.4423]],[[3.70173,0.49321],[3.84687,0.83454],[4.87301,0.51578]],[[2.69583,-1.87245],[2.65449,-1.96966],[2.81636,-2.04293]],[[2.4776,-2.38566],[2.65449,-1.96966],[1.54842,-1.46897]],[[5.0565,3.67932],[3.84687,0.83454],[1.63556,1.52144]],[[0.33899,-2.32302],[1.14914,-4.57365],[0.927,-2.5333]],[[-1.85219,3.76417],[-2.43605,5.38619],[-1.89804,4.62521]],[[-1.85219,3.76417],[-1.38233,2.45889],[-1.78941,2.58535]],[[-0.64461,0.40946],[-0.79105,0.81627],[-1.41199,0.39467]],[[-2.43605,5.38619],[-2.60243,5.84838],[-2.63204,5.66339]],[[-5.91336,15.04632],[-2.60243,5.84838],[-2.50913,6.43127]],[[-1.31472,2.27107],[-0.80377,0.85162],[-1.64198,1.67857]],[[-1.31472,2.27107],[-1.38233,2.45889],[-1.23607,2.41346]],[[-0.79105,0.81627],[-0.80377,0.85162],[-0.77736,0.82556]],[[-1.56426,-1.6424],[-2.72314,-1.22797],[-1.62328,-0.53419]],[[-6.96158,0.28773],[-3.6803,-0.88568],[-3.48175,0.35479]],[[3.9197,-3.60352],[3.59397,-3.48703],[4.39853,-4.28078]],[[3.9197,-3.60352],[15.0819,-7.59522],[2.81636,-2.04293]],[[1.0507,-2.57753],[0.927,-2.5333],[0.88661,-2.16228]],[[-3.16089,-1.07143],[-3.42973,-0.97529],[-2.91461,-0.62554]],[[-3.16089,-1.07143],[-2.72314,-1.22797],[-3.52763,-1.73543]],[[-3.42973,-0.97529],[-3.6803,-0.88568],[-3.72695,-1.17708]],[[-1.67248,0.38965],[-1.7324,1.51486],[-2.36122,0.37638]],[[-1.67248,0.38965],[-1.66364,0.22381],[-1.41199,0.39467]],[[-1.89804,4.62521],[-1.91402,4.92524],[-1.66549,4.29629]],[[-1.91402,4.92524],[-2.12277,8.84505],[-2.50913,6.43127]],[[-1.7324,1.51486],[-1.74661,1.7818],[-1.64198,1.67857]],[[-1.66364,0.22381],[-1.65061,-0.02084],[-1.87463,0.08056]],[[-2.12277,8.84505],[-3.85696,41.40877],[-1.04489,15.57912]],[[-1.74661,1.7818],[-1.78941,2.58535],[-2.91575,2.93523]],[[-1.62328,-0.53419],[-1.65061,-0.02084],[-1.1609,-0.24253]],[[-0.1335,0.41931],[-0.11098,0.41974],[-0.12915,0.40829]],[[-2.36122,0.37638],[-2.52131,0.3733],[-2.3946,0.31594]],[[-3.48175,0.35479],[-2.52131,0.3733],[-3.4141,0.77744]],[[-0.11098,0.41974],[0.60401,0.43352],[0.55946,0.84265]],[[-1.66549,4.29629],[-0.84058,3.12952],[-1.05269,2.74548]],[[0.28052,1.54382],[0.52001,1.20508],[0.46918,1.67192]],[[0.70938,0.93722],[0.52001,1.20508],[0.55946,0.84265]],[[-1.05269,2.74548],[-0.87748,2.30207],[-1.23607,2.41346]],[[0.01477,0.04408],[-0.12915,0.40829],[-0.26655,0.32162]],[[0.88661,-2.16228],[0.4088,-0.95309],[0.77291,-1.11791]],[[-2.91461,-0.62554],[-2.3946,0.31594],[-1.87463,0.08056]],[[-3.93411,-2.47137],[-3.52763,-1.73543],[-3.84874,-1.93798]],[[-3.72695,-1.17708],[-17.92748,-10.81866],[-3.84874,-1.93798]],[[0.46918,1.67192],[0.68325,1.81726],[0.44531,1.89117]],[[-3.04785,3.06555],[-3.06147,2.98049],[-2.91575,2.93523]],[[-3.06147,2.98049],[-3.4141,0.77744],[-19.69514,8.14744]],[[0.72241,-0.65405],[1.54842,-1.46897],[0.77291,-1.11791]]],"triples":[],"stats":{"n":18,"T":93,"segments":288,"Z":9,"D":0,"t":0}},"eight":{"view":[1.46728,5.2413,35.64738],"lines":[[0.0,-1.0,0.7274818222288173],[0.5,-1.0,13.5],[1.0,-0.6666666666666666,-7.5273284859276846],[1.0,-0.2857142857142857,-0.866300638076866],[1.0,0.11764705882352941,-16.294117647058822],[1.0,0.5,-5.67788247514468],[1.0,1.0,-8.73979818964238],[0.5,1.0,5.5]],"tris":[[[-25.54504,0.72748],[-12.45496,0.72748],[-19.0,4.0]],[[8.01232,0.72748],[16.20853,0.72748],[14.9791,11.17766]],[[8.01232,0.72748],[5.31414,0.72748],[6.4705,-1.58524]],[[1.07415,0.72748],[5.31414,0.72748],[2.61597,6.12383]],[[1.07415,0.72748],[-12.45496,0.72748],[-0.61699,-5.19151]],[[16.20853,0.72748],[8.01232,0.72748],[17.30136,-8.56156]],[[5.31414,0.72748],[8.01232,0.72748],[2.61597,6.12383]],[[24.79099,25.8955],[13.88889,20.44444],[14.9791,11.17766]],[[5.51068,16.25534],[13.88889,20.44444],[11.79434,38.24813]],[[5.51068,16.25534],[-0.85769,13.07115],[2.61597,6.12383]],[[-0.85769,13.07115],[-3.17347,11.91327],[2.61597,6.12383]],[[-4.12947,-17.4852],[2.8955,-6.94775],[-0.61699,-5.19151]],[[6.4705,-1.58524],[2.8955,-6.94775],[11.23718,-11.11859]],[[19.56065,-27.76554],[18.0,-14.5],[11.23718,-11.11859]],[[17.30136,-8.56156],[18.0,-14.5],[28.4796,-19.7398]]],"triples":[[8.01232,0.72748],[2.61597,6.12383]],"stats":{"n":8,"T":15,"segments":42,"Z":1,"D":4,"t":2},"segs":[[-25.54504,0.72748,-12.45496,0.72748,1],[-12.45496,0.72748,1.07415,0.72748,1],[1.07415,0.72748,5.31414,0.72748,1],[5.31414,0.72748,8.01232,0.72748,2],[8.01232,0.72748,16.20853,0.72748,2],[-25.54504,0.72748,-19.0,4.0,1],[-19.0,4.0,-3.17347,11.91327,0],[-3.17347,11.91327,-0.85769,13.07115,1],[-0.85769,13.07115,5.51068,16.25534,1],[5.51068,16.25534,13.88889,20.44444,1],[13.88889,20.44444,24.79099,25.8955,1],[-4.12947,-17.4852,2.8955,-6.94775,1],[2.8955,-6.94775,6.4705,-1.58524,1],[6.4705,-1.58524,8.01232,0.72748,1],[8.01232,0.72748,14.9791,11.17766,1],[14.9791,11.17766,24.79099,25.8955,1],[-4.12947,-17.4852,-0.61699,-5.19151,1],[-0.61699,-5.19151,1.07415,0.72748,1],[1.07415,0.72748,2.61597,6.12383,1],[2.61597,6.12383,5.51068,16.25534,1],[5.51068,16.25534,11.79434,38.24813,1],[11.79434,38.24813,13.88889,20.44444,1],[13.88889,20.44444,14.9791,11.17766,1],[14.9791,11.17766,16.20853,0.72748,1],[16.20853,0.72748,17.30136,-8.56156,1],[17.30136,-8.56156,18.0,-14.5,1],[18.0,-14.5,19.56065,-27.76554,1],[-0.85769,13.07115,2.61597,6.12383,2],[2.61597,6.12383,5.31414,0.72748,2],[5.31414,0.72748,6.4705,-1.58524,1],[6.4705,-1.58524,11.23718,-11.11859,1],[11.23718,-11.11859,19.56065,-27.76554,1],[-3.17347,11.91327,2.61597,6.12383,1],[2.61597,6.12383,8.01232,0.72748,1],[8.01232,0.72748,17.30136,-8.56156,1],[17.30136,-8.56156,28.4796,-19.7398,1],[-19.0,4.0,-12.45496,0.72748,1],[-12.45496,0.72748,-0.61699,-5.19151,1],[-0.61699,-5.19151,2.8955,-6.94775,1],[2.8955,-6.94775,11.23718,-11.11859,1],[11.23718,-11.11859,18.0,-14.5,1],[18.0,-14.5,28.4796,-19.7398,1]]},"ledger":[{"id":"C1","claim":"No 94 with ≤ 1 triple point (Blanc extension)","status":"refereed-correct","tag":"exact_triple / --blanc"},{"id":"C2","claim":"No 94 with exactly 2 triple points","status":"refereed-fixed","tag":"--case2 A (case B deductions removed)"},{"id":"C3","claim":"Theorem G: even n, general position, Λ ≥ n/2 − t","status":"refereed-correct","tag":"—"},{"id":"C4","claim":"No 94 with exactly 3 triple points","status":"refereed-correct (two steps spelled out)","tag":"exact k ≥ 4"},{"id":"C5","claim":"Theorem H: n=18, general position ⇒ T ≤ 93","status":"refereed-correct (hand only; 4-fold untested)","tag":"shared-line constraint"},{"id":"C6","claim":"Per-line parity rule: a claim-free line has (#triple points on it) + (#cap roles) odd","status":"refereed-fixed","tag":"not encoded"},{"id":"C7","claim":"t ≥ 7 impossible without bridges / bent / centroid / all-multiple faces / ≥3-bridge-end points (Lemma C)","status":"refereed-fixed (both impossibility statements correct; bent-point bound in Lemma C corrected, see verdicts/C07.md)","tag":"not encoded"},{"id":"C8","claim":"k = 4 open pattern = two disjoint consecutive pairs; then Z ≤ 2, claims ≤ 4","status":"refereed-fixed","tag":"k4 pattern, us ≤ 2, U ≤ 4"},{"id":"C9","claim":"Budgets: unused simple segments + ℓ ≤ 6+2k; claims + 2ℓ ≤ 12+4k","status":"refereed-fixed","tag":"us+h, U+2h"},{"id":"C10","claim":"Lemma A as clause: z(abc)∧tri(abC)∧tri(acC)∧tri(aCN) ⇒ z(bCN)∨z(cCN)","status":"refereed-correct","tag":"lemmaA clause"},{"id":"C11","claim":"Lemma D: non-cap line, single entries at its triple points, j+q even ⇒ claims (non-axis shared lines with even #points claim)","status":"refereed-correct","tag":"parity-through-triple"},{"id":"C12","claim":"k=4 two-mutual-pairs pattern impossible (via C11 on m, m′) — closes C8's pattern","status":"refereed-correct","tag":"k4 pattern + C11"},{"id":"C13","claim":"Axis lemma through other triple points: j′+q even ⇒ axis claims (kills R2 even case)","status":"refereed-correct","tag":"axis-parity"},{"id":"C14","claim":"k=6, β=0 ⇒ B=12, Z=0, all type X & killed, every non-triple line a cap, zero defects; k=5, β=0 ⇒ B≥9, Z≤B−9 (+ forced sub-structure)","status":"refereed-correct; encoded as k6z (Z=0 via correct \"segment used\" form, beta=0, non-triple lines are caps). Sample: 8/8 random depth-4 cubes UNSAT (1–233 s), whole instance timeout 300 s; adaptive depth-2 run started in work/k6z/prove","tag":"defect-0 / budget"},{"id":"C15","claim":"Mutual pair shape (P,Q consecutive on m, X=a_P∩a_Q, face PQX); β=0 ⇒ mutual line m with even #points, no axis on it, not a cap, claims ⇒ k=6 collinear zigzag impossible","status":"refereed-fixed","tag":"mutual-line parity"},{"id":"C16","claim":"k=6, β=0 ⇒ only sub-patterns (A) u=6 (3 mutual pairs, all points 2nd on axis, 3≤σ≤6) or (B) u=4, μ=σ=4; via end-pairing + line parity j_L+ρ_L odd","status":"refereed-correct","tag":"k6z: end-pairing, parity XOR, u∈{4,6}"},{"id":"C17","claim":"Mutual end points join slope-adjacent lines (wedges at infinity; unconditional); Z=0 ⇒ every singly-used line end is a wedge. Does NOT kill C16 (A)/(B) alone (5412/576 admissible singleton patterns)","status":"proposed","tag":"first/last adjacency clauses"},{"id":"C18","claim":"k=5, B=9, β=0 ⇒ line-end/parity structure as C16; σ=2, μ=2, h=0, every type-X point 2nd on its axis, 5 non-triple lines cap the 5 non-mutual blocks one each","status":"proposed","tag":"σ=2, caps, parity"},{"id":"C19","claim":"Bent P→Q with extra bridge [P,R]: R∈{V0,V4,V5} and Q,R never consecutive ⇒ no bridge triangle through a bent point; kills C08's −6 configuration","status":"proposed","tag":"bent ∧ dblbridge ⇒ ¬cons"},{"id":"C20","claim":"Z_tr credits: 1-block point without bridges on r1,r3,r5 has an unused/ray first segment among r2–r4; bent point with V0,V4 simple has unused/ray back segment","status":"proposed","tag":"unused-or-ray clauses"}],"k6z":{"results":252,"by_depth":{"2":{"UNSAT":17,"timeout":16,"SAT":0},"3":{"UNSAT":24,"timeout":32,"SAT":0},"4":{"UNSAT":55,"timeout":25,"SAT":0},"5":{"UNSAT":40,"timeout":15,"SAT":0},"6":{"UNSAT":28,"timeout":0,"SAT":0}},"closed_fraction":0.0694,"elapsed_s":1081,"sat":0}}</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+
+/* ---------- arrangements ---------- */
+function drawArrangement(svg, g) {
+  svg.innerHTML = '';
+  if (!g || !g.view) return;
+  const [cx, cy, h] = g.view, big = h * 6;
+  svg.setAttribute('viewBox', `${cx - h} ${cy - h} ${2 * h} ${2 * h}`);
+  svg.style.setProperty('--rbig', (h * 0.034) + 'px');
+  const gl = el('g', {}, svg), gt = el('g', {}, svg), gs = el('g', {}, svg), gp = el('g', {}, svg);
+  for (const [a, b, c] of g.lines) {
+    const d = a * cx + b * cy + c, nn = a * a + b * b;
+    const px = cx - d * a / nn, py = cy - d * b / nn, L = Math.hypot(a, b);
+    const dx = -b / L, dy = a / L;
+    el('line', {class: 'ln', x1: px - big * dx, y1: py - big * dy, x2: px + big * dx, y2: py + big * dy}, gl);
+  }
+  const key = (x1, y1, x2, y2) => [x1, y1, x2, y2].map(v => v.toFixed(3)).join(',');
+  const dsegs = new Set((g.segs || []).filter(s => s[4] === 2).map(s => key(...s.slice(0, 4))));
+  for (const t of g.tris) {
+    const p = el('polygon', {class: 'tr', points: t.map(v => v.join(',')).join(' ')}, gt);
+    // mark triangles bordering a shared segment (to emphasise them in the D view)
+    for (let i = 0; i < 3; i++) for (let j = i + 1; j < 3; j++) {
+      const [a, b] = [t[i], t[j]];
+      if (dsegs.has(key(...a, ...b)) || dsegs.has(key(...b, ...a))) p.classList.add('nextD');
+    }
+  }
+  for (const s of (g.segs || [])) el('line', {class: 'sg u' + s[4], x1: s[0], y1: s[1], x2: s[2], y2: s[3]}, gs);
+  for (const [x, y] of g.triples) el('circle', {class: 'tp', cx: x, cy: y, r: h * 0.019}, gp);
+}
+function setHero(which) {
+  const g = DATA[which];
+  drawArrangement(document.getElementById('hero'), g);
+  document.querySelectorAll('[data-hero]').forEach(b => b.setAttribute('aria-pressed', b.dataset.hero === which));
+  if (g && g.stats) {
+    const s = g.stats;
+    document.getElementById('herocap').textContent = which === 'gallery'
+      ? `Exact certificate from the Utkin–Parpalak gallery: ${s.T} triangles, ${s.t} triple crossings (they happen to be collinear). S = ${s.segments}, Z = ${s.Z}, D = ${s.D}. Zoomed to the dense core; outer triangles run off the frame.`
+      : `Found by our own unseeded simulated annealing and scored on the official leaderboard: ${s.T} triangles, no triple crossings. S = ${s.segments}, Z = ${s.Z}, D = ${s.D}. Zoomed to the dense core.`;
+  }
+}
+document.querySelectorAll('[data-hero]').forEach(b => b.addEventListener('click', () => setHero(b.dataset.hero)));
+setHero('gallery');
+
+const eightSvg = document.getElementById('eight');
+drawArrangement(eightSvg, DATA.eight);
+function setLayer(layer) {
+  eightSvg.dataset.layer = layer;
+  document.querySelectorAll('[data-layer]').forEach(b => { if (b.tagName === 'BUTTON') b.setAttribute('aria-pressed', b.dataset.layer === layer); });
+  const s = (DATA.eight || {}).stats || {T: 15, segments: 42, Z: 1, D: 4, t: 2};
+  const parts = {'': `T = ${s.T} triangles`, S: `S = ${s.segments}`, Z: `Z = ${s.Z}`, D: `D = ${s.D}`, t: `${s.t} triple crossings: S = 8·6 − ${s.t}·3 = ${s.segments}`};
+  document.getElementById('eqlive').innerHTML = `3 × ${s.T} = ${s.segments} − ${s.Z} + ${s.D} <span class="pill">${parts[layer]}</span>`;
+}
+document.querySelectorAll('button[data-layer]').forEach(b => b.addEventListener('click', () => setLayer(b.dataset.layer)));
+setLayer('');
+
+/* ---------- bounds number line ---------- */
+(function gap() {
+  const s = document.getElementById('gap');
+  const X = v => 60 + (v - 90) * 75, y = 150;
+  el('line', {x1: X(90), y1: y, x2: X(97), y2: y, stroke: 'var(--muted)', 'stroke-width': 1.5}, s);
+  for (let v = 90; v <= 97; v++) { el('line', {x1: X(v), y1: y - 5, x2: X(v), y2: y + 5, stroke: 'var(--muted)'}, s); el('text', {x: X(v), y: y + 26, 'text-anchor': 'middle'}, s).textContent = v; }
+  el('rect', {x: X(93), y: y - 9, width: X(96) - X(93), height: 18, rx: 4, fill: 'var(--triple)', 'fill-opacity': 0.18}, s);
+  el('text', {x: X(93.6), y: y + 52, 'text-anchor': 'middle', fill: 'var(--ink)'}, s).textContent = 'the gap: is 94 possible?';
+  const mark = (v, up, t1, t2, fill) => {
+    const yy = up ? y - 70 : y + 90;
+    el('line', {x1: X(v), y1: y + (up ? -10 : 10), x2: X(v), y2: up ? yy + 26 : yy - 18, stroke: 'var(--hair)', 'stroke-width': 1.5}, s);
+    el('circle', {cx: X(v), cy: y, r: 7, fill, stroke: 'var(--bg)', 'stroke-width': 2}, s);
+    const anc = v === 95 ? 'middle' : 'end', lx = X(v) + (v === 95 ? 0 : 12);
+    const a = el('text', {x: lx, y: yy, 'text-anchor': anc, fill: 'var(--ink)', 'font-weight': 700}, s); a.textContent = t1;
+    const b = el('text', {x: lx, y: yy + 18, 'text-anchor': anc}, s); b.textContent = t2;
+  };
+  mark(93, true, '93 best known', 'Blanc’s max if no triple crossings', 'var(--tri)');
+  mark(95, false, '95', 'Clément–Bader (informal)', 'var(--muted)');
+  mark(96, true, '96', 'Tamura: ⌊n(n−2)/3⌋', 'var(--muted)');
+  el('text', {x: X(94), y: y - 22, 'text-anchor': 'middle', fill: 'var(--triple)', 'font-weight': 700}, s).textContent = '94?';
+})();
+
+/* ---------- parity schematic ---------- */
+const STEPS = [
+  ['A line with an even number of segments', 'Take a line <b>L</b> whose crossings are all simple (two lines each). Here it has 7 crossings, so 6 bounded segments; at 18 lines a line has 16. The two ends are rays, which carry no triangle.'],
+  ['Mark where the triangles sit', 'Write <b>+</b> if a triangle sits above a segment and <b>−</b> if below. If no neighbouring piece of another line is unused, triangles must <b>alternate</b>: two neighbours on the same side would share a piece and force a triple crossing. With 6 segments that gives + − + − + −.'],
+  ['Look at the two end lines', 'The first triangle is above. For L to claim nothing at the first crossing, the first line <b>R₁</b> must have <i>all</i> its other crossings above L. The last triangle is below, so the last line <b>R₇</b> must have all its crossings below L.'],
+  ['Contradiction, so L claims', 'But R₁ and R₇ still cross each other somewhere, and that point cannot be both above and below L. So the pattern must break: some piece next to L is <b>unused</b>, and L <b>claims</b> it. Each unused segment can be claimed at most twice, so Z ≥ (claiming lines) / 2. With every line claiming, Blanc gets Z ≥ 9 and T ≤ 93.'],
+];
+(function parity() {
+  const s = document.getElementById('par');
+  const yL = 165, xs = [100, 200, 300, 400, 500, 600, 700], ks = [1.2, 1.0, 1.3, 0.9, 1.15, 1.05, 1.25], H = 110;
+  // R1, R3, R5, R7 rise to the right ("/"); R2, R4, R6 fall to the right ("\")
+  const rises = i => i % 2 === 0;
+  for (let i = 0; i < 7; i++) {
+    const dx = H / ks[i], up = rises(i) ? 1 : -1;       // top end is right of the crossing for "/" lines
+    el('line', {class: 'R', x1: xs[i] - up * dx, y1: yL + H, x2: xs[i] + up * dx, y2: yL - H}, s);
+    el('text', {x: xs[i] + up * dx, y: yL - H - 8, 'text-anchor': 'middle'}, s).textContent = 'R' + '₁₂₃₄₅₆₇'[i];
+  }
+  el('line', {class: 'L', x1: 30, y1: yL, x2: 770, y2: yL}, s);
+  el('text', {x: 776, y: yL + 5}, s).textContent = 'L';
+  for (let i = 0; i < 6; i++) {             // triangle over segment i, between crossings i and i+1
+    const above = i % 2 === 0, a = xs[i], b = xs[i + 1], ka = ks[i], kb = ks[i + 1];
+    const x = (ka * a + kb * b) / (ka + kb), h = ka * (x - a), y = above ? yL - h : yL + h;   // apex
+    el('polygon', {class: 't' + (i === 3 ? ' gap' : ''), points: `${a},${yL} ${b},${yL} ${x},${y}`}, s);
+    el('text', {class: 'sign' + (i === 3 ? ' gap' : ''), x: (a + b) / 2, y: above ? yL + 26 : yL - 12, 'text-anchor': 'middle'}, s).textContent = above ? '+' : '−';
+    if (i === 3) { // once the pattern breaks here, R5's piece below L is unused: L claims it
+      el('line', {class: 'hl s4 hlU', x1: b, y1: yL, x2: x, y2: y}, s);
+      el('text', {class: 'hl s4 hlt', x: x + 22, y: y + 30}, s).textContent = 'unused piece: L claims it';
+    }
+  }
+  el('line', {class: 'hl s3 hlR', x1: xs[0], y1: yL, x2: xs[0] + H / ks[0], y2: yL - H}, s);   // R1 above L
+  el('line', {class: 'hl s3 hlR', x1: xs[6], y1: yL, x2: xs[6] - H / ks[6], y2: yL + H}, s);   // R7 below L
+  el('text', {class: 'hl s2 hlt', x: 30, y: 318}, s).textContent = '6 segments (even): + − + − + −, so the first and last triangles are on opposite sides';
+  const text = document.getElementById('ptext'), cnt = document.getElementById('pcount');
+  let step = 0;
+  const show = () => {
+    s.dataset.step = step;
+    text.innerHTML = `<h3>${STEPS[step][0]}</h3><p>${STEPS[step][1]}</p>`;
+    cnt.textContent = `step ${step + 1} of ${STEPS.length}`;
+  };
+  document.getElementById('pnext').onclick = () => { step = Math.min(STEPS.length - 1, step + 1); show(); };
+  document.getElementById('pprev').onclick = () => { step = Math.max(0, step - 1); show(); };
+  show();
+})();
+
+/* ---------- loop diagrams ---------- */
+function arrowDefs(svg, id) {
+  const d = el('defs', {}, svg), m = el('marker', {id, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse'}, d);
+  el('path', {d: 'M0,0 L10,5 L0,10 z'}, m);
+}
+function node(svg, x, y, w, h, title, lines, acc) {
+  el('rect', {class: 'node' + (acc ? ' acc' : ''), x: x - w / 2, y: y - h / 2, width: w, height: h, rx: 10}, svg);
+  el('text', {class: 'nt', x, y: y - (lines.length ? 8 * lines.length : -5), 'text-anchor': 'middle'}, svg).textContent = title;
+  lines.forEach((t, i) => { el('text', {x, y: y + 14 + 17 * i - 8 * (lines.length - 1), 'text-anchor': 'middle'}, svg).textContent = t; });
+}
+(function loop() {
+  const s = document.getElementById('loop'); arrowDefs(s, 'am1');
+  const P = [[310, 62, 'THEOREM', ['remove a class']], [530, 190, 'REFEREE', ['try to break it']], [445, 370, 'CONSTRAIN', ['sound SAT clauses']], [175, 370, 'SOLVE', ['sample, extrapolate']], [90, 190, 'STOP', ['budget check']]];
+  const W = 170, Hh = 64;
+  const edge = (a, b, cls, bend) => {
+    const [x1, y1] = a, [x2, y2] = b, ang = Math.atan2(y2 - y1, x2 - x1);
+    const off = (x, y, ang2) => { const r = Math.min((W / 2 + 6) / Math.max(1e-6, Math.abs(Math.cos(ang2))), (Hh / 2 + 6) / Math.max(1e-6, Math.abs(Math.sin(ang2)))); return [x + Math.cos(ang2) * r, y + Math.sin(ang2) * r]; };
+    const [sx, sy] = off(x1, y1, ang), [ex, ey] = off(x2, y2, ang + Math.PI);
+    const mx = (sx + ex) / 2 - Math.sin(ang) * bend, my = (sy + ey) / 2 + Math.cos(ang) * bend;
+    el('path', {class: 'ar ' + (cls || ''), d: `M${sx},${sy} Q${mx},${my} ${ex},${ey}`, 'marker-end': 'url(#am1)'}, s);
+  };
+  for (let i = 0; i < 5; i++) edge(P[i], P[(i + 1) % 5], i === 4 ? 'back' : '', -28);
+  P.forEach(([x, y, t, l], i) => node(s, x, y, W, Hh, t, l, i === 0));
+  el('text', {x: 310, y: 205, 'text-anchor': 'middle', fill: 'var(--ink)', 'font-weight': 700}, s).textContent = 'each pass shrinks the space';
+  el('text', {x: 310, y: 226, 'text-anchor': 'middle'}, s).textContent = 'where a 94 could hide';
+  el('text', {x: 118, y: 92, 'text-anchor': 'middle'}, s).textContent = 'the stall names';
+  el('text', {x: 118, y: 109, 'text-anchor': 'middle'}, s).textContent = 'the next lemma';
+})();
+(function dec() {
+  const s = document.getElementById('dec'); arrowDefs(s, 'am2');
+  const arrow = (d, cls, label, lx, ly, anchor) => {
+    el('path', {class: 'ar ' + (cls || ''), d, 'marker-end': 'url(#am2)'}, s);
+    (label || []).forEach((t, i) => { el('text', {x: lx, y: ly + i * 16, 'text-anchor': anchor || 'middle'}, s).textContent = t; });
+  };
+  arrow('M185,100 L252,198', '', ['new claims', '“proposed”'], 205, 150, 'end');
+  arrow('M368,198 L436,100', '', ['next claim', 'to referee'], 382, 150, 'end');
+  arrow('M462,100 L394,198', '', ['verdicts'], 440, 158, 'start');
+  arrow('M320,262 L320,366', '', ['encode, tagged', 'with the claim ID'], 332, 310, 'start');
+  arrow('M205,405 C80,405 55,210 118,102', 'back', ['stalls and the', 'UNSAT map guide', 'the next lemma'], 110, 286, 'start');
+  arrow('M585,86 C640,170 628,385 437,405', 'back', ['refuted ⇒', 'roll back its tag'], 580, 296, 'end');
+  node(s, 150, 70, 190, 56, 'GENERATOR', ['proposes lemmas'], false);
+  node(s, 490, 70, 190, 56, 'VERIFIER', ['referees, async'], false);
+  node(s, 320, 230, 220, 60, 'LEDGER', ['status + tag per claim'], true);
+  node(s, 320, 400, 230, 60, 'SOLVER', ['k6z · adaptive cubes'], false);
+})();
+
+/* ---------- ledger-driven parts ---------- */
+function chip(status) {
+  const s = (status || '').toLowerCase();
+  if (s.startsWith('refereed-correct')) return ['good', '✓', 'refereed'];
+  if (s.startsWith('refereed-fixed')) return ['good', '✓', 'refereed (fixed)'];
+  if (s.startsWith('refuted')) return ['crit', '✗', 'refuted'];
+  if (s.includes('encoded') || s.includes('sampled')) return ['warn', '◐', 'proposed · in solver'];
+  if (s.startsWith('proposed')) return ['warn', '◐', 'proposed'];
+  return ['open', '○', status || 'open'];
+}
+const chipHTML = (c, prefix = '') => `<span class="chip ${c[0]}"><i>${c[1]}</i>${prefix}${esc(c[2])}</span>`;
+const L = Object.fromEntries((DATA.ledger || []).map(r => [r.id, r]));
+const chipFor = id => L[id] ? chipHTML(chip(L[id].status), id + ' ') : `<span class="chip open"><i>○</i>${id}</span>`;
+
+const CASES = [
+  ['closed', 'No triple crossings (simple)', 'Blanc 2008: every line claims, so Z ≥ 9', '<span class="chip good"><i>✓</i>published</span>'],
+  ['closed', '1 triple crossing', 'Blanc’s lemma extended to clean lines', ['C1']],
+  ['closed', '2 triple crossings', 'Axis lemma; cap lines through the other point', ['C2']],
+  ['closed', '3 triple crossings', 'Credit framework: Lemma A cap touch, Lemma B', ['C4']],
+  ['closed', 'General position (any number)', 'Theorem H: no line passes through two multiple points; 4-fold points allowed', ['C5']],
+  ['closed', '4 on shared lines, no bridge', 'Only one pattern survives (C8), and parity through triple points kills it (C11, C12)', ['C8', 'C11', 'C12']],
+  ['partial', '4 on shared lines, with a bridge', 'C19 kills the worst bent-point configuration and C20 adds credits. Several bent-point cases are still open.', ['C19', 'C20']],
+  ['partial', '5 on shared lines', 'Budgets (C9), the β = 0 structure (C14), and the C16 carry-over for B = 9 (C18)', ['C9', 'C14', 'C18']],
+  ['solver', '6 on shared lines, no bridge', 'Z = 0 is forced (C14), leaving two rigid sub-patterns (C16) that C17 prunes. The k6z solver run is in progress.', ['C14', 'C16', 'C17']],
+  ['open', '6 on shared lines, with a bridge', 'open', []],
+  ['partial', '7 or more (needs ≥ t − 6 bridges)', 'Lemma C rules out the bridge-free and several mixed cases', ['C7']],
+  ['open', '4-fold or higher points on shared lines', 'open', []],
+];
+document.querySelectorAll('[data-chip]').forEach(e => { const r = L[e.dataset.chip]; e.outerHTML = r ? chipHTML(chip(r.status)) : ''; });
+document.getElementById('cases').innerHTML = CASES.map(([state, what, how, ids]) => {
+  const mark = {closed: '✓', partial: '◐', open: '○', solver: '⚙'}[state];
+  const chips = Array.isArray(ids) ? ids.map(chipFor).join('') : ids;
+  return `<div class="case ${state}"><div class="mark" aria-label="${state}">${mark}</div><div class="what">${esc(what)}</div><div class="how">${esc(how)}</div><div class="chips">${chips}</div></div>`;
+}).join('');
+
+const lt = document.getElementById('ledger');
+for (const r of (DATA.ledger || [])) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="num"><b>${esc(r.id)}</b></td><td>${esc(r.claim)}</td><td>${chipHTML(chip(r.status))}</td><td class="muted">${esc(r.tag)}</td>`;
+  lt.appendChild(tr);
+}
+(function sum() {
+  const rows = DATA.ledger || [];
+  const ref = rows.filter(r => /^refereed/.test(r.status)).length, prop = rows.filter(r => /^proposed/.test(r.status)).length;
+  const refu = rows.filter(r => /^refuted/.test(r.status)).length;
+  document.getElementById('ledgersum').textContent = rows.length
+    ? `Ledger at build time: ${rows.length} claims. ${ref} refereed, ${prop} proposed, ${refu} refuted.` : '';
+})();
+
+/* ---------- solver snapshot ---------- */
+(function k6z() {
+  const k = DATA.k6z || {}, bd = k.by_depth || {};
+  let u = 0, t = 0;
+  for (const d in bd) { u += bd[d].UNSAT; t += bd[d].timeout; }
+  document.getElementById('k-unsat').textContent = u;
+  document.getElementById('k-split').textContent = t;
+  document.getElementById('k-sat').textContent = k.sat || 0;
+  document.getElementById('k-el').textContent = Math.round((k.elapsed_s || 0) / 60);
+  const f = 100 * (k.closed_fraction || 0);
+  document.getElementById('k-meter').style.width = f.toFixed(1) + '%';
+  const depths = Object.entries(bd).map(([d, v]) => `depth ${d}: ${v.UNSAT} closed, ${v.timeout} split`).join(' · ');
+  document.getElementById('k-cap').textContent = `${f.toFixed(1)}% of line 0’s crossing orders are closed so far. ${depths}. Snapshot from ${DATA.built || 'build time'}.`;
+  document.getElementById('built').textContent = `Built ${DATA.built || ''} from the project files. Arrangement geometry is exact, from the certificates.`;
+})();
+
+/* ---------- navigation + theme ---------- */
+const slides = [...document.querySelectorAll('.slide')];
+const dots = document.getElementById('dots'), hud = document.getElementById('hud');
+slides.forEach((sl, i) => { const a = document.createElement('a'); a.href = '#' + sl.id; a.title = `Slide ${i + 1}`; dots.appendChild(a); });
+let cur = 0;
+const io = new IntersectionObserver(es => {
+  for (const e of es) if (e.isIntersecting) {
+    cur = slides.indexOf(e.target);
+    [...dots.children].forEach((d, i) => d.classList.toggle('on', i === cur));
+    hud.textContent = `${cur + 1} / ${slides.length} · ← → to move · T theme`;
+  }
+}, {threshold: 0.5});
+slides.forEach(s => io.observe(s));
+const go = i => { cur = Math.max(0, Math.min(slides.length - 1, i)); slides[cur].scrollIntoView({behavior: 'smooth'}); };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input, textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key) || (e.key === 'ArrowDown' && e.altKey)) { e.preventDefault(); go(cur + 1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+  else if (e.key === 'Home') { e.preventDefault(); go(0); }
+  else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+  else if (e.key === 't' || e.key === 'T') toggleTheme();
+});
+function toggleTheme() { const r = document.documentElement; r.dataset.theme = r.dataset.theme === 'dark' ? 'light' : 'dark'; }
+document.getElementById('themebtn').onclick = toggleTheme;
+</script>
+</body>
+</html>
