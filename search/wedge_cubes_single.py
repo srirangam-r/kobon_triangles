@@ -9,7 +9,9 @@ with axis l, P's blocks sit at X_1 (capped by C) and at X_3 = l∩D (capped by D
 For u = 4 cubes on the k6z3 base, also the unit sel_u4 (C16 (B): sigma = 4, so exactly 14 triple lines) and
 tl[l] for every singleton line (an axis passes through its point).
 
-    uv run --no-project --with python-sat python search/wedge_cubes_single.py <ids.json> <spec3.json> <cubes.jsonl> <out.jsonl>
+    uv run --no-project --with python-sat python search/wedge_cubes_single.py <ids.json> <spec3.json> <cubes.jsonl> <out.jsonl> <base.cnf>
+New variables start after the base CNF's declared nv (an earlier version started after the known ids only,
+which collided with k6z3's C16 counter auxiliaries; see work/loop/verdicts/AUDIT_k6z.md).
 """
 import json
 import sys
@@ -19,10 +21,11 @@ from pysat.card import CardEnc, EncType
 from pysat.formula import IDPool
 
 
-def main(ids_path, spec3_path, cubes_path, out):
+def main(ids_path, spec3_path, cubes_path, out, base_cnf):
     ids = json.load(open(ids_path))
     spec3 = json.load(open(spec3_path))
-    top0 = max(ids["top"], max(spec3["tl"]), max(spec3["sel"].values()))
+    with open(base_cnf) as fh:
+        top0 = int(fh.readline().split()[2])  # declared nv of the base the cubes will be added to
     S3 = lambda *t: ",".join(map(str, sorted(t)))
     pz, ng, z, tri = ids["pz"], ids["ng"], ids["z"], ids["tri"]
     before = lambda r, i, j: ng[S3(r, i, j)] if i < j else pz[S3(r, i, j)]
@@ -59,4 +62,4 @@ def main(ids_path, spec3_path, cubes_path, out):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:5])
+    main(*sys.argv[1:6])

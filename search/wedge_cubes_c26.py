@@ -8,7 +8,8 @@ For a matched pair of singleton ends (l, e) <-> (l', e'), counting from the sing
     3rd vertex: tri(l, b, l') and tri(l, c, l')  [C26 (a), (b), (c)].
 Matched singletons are at cyclic distance <= 5 and on different lines (C27, C26 (c)).
 
-    uv run --no-project --with python-sat python search/wedge_cubes_c26.py <ids.json> <cubes.jsonl> <out.jsonl>
+    uv run --no-project --with python-sat python search/wedge_cubes_c26.py <ids.json> <cubes.jsonl> <out.jsonl> [base.cnf]
+New variables start after max(ids top, the base CNF's declared nv). Only for u = 6 (sub-pattern (A)) cubes.
 """
 import json
 import sys
@@ -31,16 +32,21 @@ def matchings(S):
                 yield [(a, b)] + m
 
 
-def main(ids_path, cubes_path, out):
+def main(ids_path, cubes_path, out, base_cnf=None):
     ids = json.load(open(ids_path))
+    top0 = ids["top"]
+    if base_cnf:
+        with open(base_cnf) as fh:
+            top0 = max(top0, int(fh.readline().split()[2]))
     S3 = lambda *t: ",".join(map(str, sorted(t)))
     pz, ng, z, tri = ids["pz"], ids["ng"], ids["z"], ids["tri"]
     before = lambda r, i, j: ng[S3(r, i, j)] if i < j else pz[S3(r, i, j)]
     n = 0
     with open(out, "w") as fh:
         for c in map(json.loads, open(cubes_path)):
+            assert c["u"] == 6, "the (A) perfect matching is unsound for u = 4 (B) shapes"
             for M in matchings(sorted(c["S"])):
-                pool = IDPool(start_from=ids["top"] + 1)
+                pool = IDPool(start_from=top0 + 1)
                 units, clauses = list(c["units"]), []
                 for p, q in M:
                     for (pa, pb) in ((p, q), (q, p)):
@@ -64,4 +70,4 @@ def main(ids_path, cubes_path, out):
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:4])
+    main(*sys.argv[1:5])

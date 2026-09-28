@@ -350,16 +350,36 @@ C16 (u ∈ {4, 6}), C17 (wedges), C26 (singleton rigidity) and C27 (sector lemma
     line 0 would meet line 1 first. All 16 were solver-checked UNSAT (about 2 s each).
   - The 16 with min S odd, with C26 (c) encoded (`search/wedge_cubes_c26.py`, one matching each), are
     all UNSAT in 5–24 s.
-- **u = 4, sub-pattern (B).** All 450 cases are UNSAT:
-  - 225 genuine cases with the C26 (a)/(b) singleton-end shape (`search/wedge_cubes_single.py`, on
-    k6z3 with σ = 4), each ≤ 2.6 s;
-  - 225 min-S-even cases on plain k6z2.
-  - The generator also proves (B) impossible by hand (C28/C29, proposed). It agrees with the solver.
-- **Caveats.**
-  - These are solver claims. A DRAT check of the slowest (A) case is running: 3.9 s solve, 180 MB
-    proof.
-  - The verifier is auditing the encoding (build_k6z, wedge_cubes, wedge_cubes_c26, wedge_cubes_single).
+- **u = 4, sub-pattern (B): closed by hand**, C28 + C29 (both refereed-correct). No admissible 4-set
+  pairs its singletons at cyclic distance ≤ 5.
+  - **Correction:** an earlier "225 (B) cubes UNSAT in about 2 s" solver result was **invalid**.
+    `wedge_cubes_single.py` numbered its new variables from the known ids, not from the k6z3 header nv,
+    so they collided with k6z3's C16 counter auxiliaries. The verifier's audit found this
+    (`work/loop/verdicts/AUDIT_k6z.md`).
+  - Fixed: all generators now start after the base header nv, and `wedge_cubes_c26.py` asserts u = 6.
+    With correct numbering the (B) cubes take minutes each (9 of 225 re-run by the verifier, all UNSAT).
+    The rerun is not needed, since (B) is closed by hand.
+  - The 225 min-S-even (B) cubes (plain k6z2, no new variables) are valid and UNSAT.
+- **Audit** (`AUDIT_k6z.md`): symmetry breaks, the cube cover, the build_k6z base, and the wedge_cubes /
+  wedge_cubes_c26 clauses are sound. On 721 real axis-end configurations there were 0 failures.
+  - (A)'s 16 C26 sub-cubes were re-run by the verifier: UNSAT in 3–12 s.
+- **DRAT.** All 32 (A) cases (16 C26 + 16 even) and 150 of the 225 even (B) cases are
+  **DRAT-verified** by drat-trim, each in about 12 s. The rest is running.
 - **What is left for k = 6:** β > 0 (doubly used bridges).
+
+## k = 5 triple points, β = 0, B = 10 (03:20 UTC)
+
+Refereed-correct: C30 (Z = 0 impossible; Z = 1 splits into four rigid sub-cases) and C31 (clean = 2
+dead; clean ≤ 1 with K = 4 leaves 48 end patterns, 32 avoiding positions 0 and 18).
+- **Instance.** C32 spec (proposed), built by `search/build_k5.py` into work/k5/k5.cnf (1.66M
+  variables, 8.64M clauses).
+  - It adds one slack s = u₀ with Σs = 1 and guards, type X at every triple point, Σ clean ≤ 1,
+    11 ≤ τ ≤ 13, and C17 with Statement 2 weakened at u₀.
+- **Cases.** `search/k5_cubes.py` makes one cube per C32 (c) row: 192 rows over 32 end sets.
+- **Result:** **all 192 cubes are UNSAT** (median 2.5 s; no timeouts, no SAT). The base alone times out
+  at 200 s. A DRAT pass is running, and the verifier is auditing the k5 encoding.
+- **Still open:** C32 (d), the clean = 0, K = 3 shared-axis configuration, which is not yet encoded.
+  When that closes, k = 5, β = 0 is done (B = 9 is dead by C18).
 
 ## Next steps for a future session
 
