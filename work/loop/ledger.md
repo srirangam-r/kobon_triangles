@@ -21,3 +21,4 @@ rolled back.
 | C13 | Axis lemma through other triple points: j′+q even ⇒ axis claims (kills R2 even case) | work/loop/claims/C13.md | proposed (untested) | axis-parity |
 | C14 | k=6, β=0 ⇒ B=12, Z=0, all type X & killed, every non-triple line a cap, zero defects; k=5, β=0 ⇒ B≥9, Z≤B−9 (+ forced sub-structure) | work/loop/claims/C14.md | proposed; encoded as k6z (Z=0 via correct "segment used" form, beta=0, non-triple lines are caps) | defect-0 / budget |
 | C15 | Mutual pair shape (P,Q consecutive on m, X=a_P∩a_Q, face PQX); β=0 ⇒ mutual line m with even #points, no axis on it, not a cap, claims ⇒ k=6 collinear zigzag impossible | work/loop/claims/C15.md | proposed | mutual-line parity |
+| C16 | k=6, β=0 ⇒ only sub-patterns (A) u=6 (3 mutual pairs, all points 2nd on axis, 3≤σ≤6) or (B) u=4, μ=σ=4; via end-pairing + line parity j_L+ρ_L odd | work/loop/claims/C16.md | proposed | k6z: end-pairing, parity XOR, u∈{4,6} |

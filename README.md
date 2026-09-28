@@ -1,5 +1,7 @@
 # Shrinking the Kobon Gap: Theorems, Solvers and AI Referees on the 18-Line Problem
 
+![18 lines, 93 triangles, 3 triple crossings](assets/thumbnail.png)
+
 Proofs plus a SAT solver narrow where a 94-triangle, 18-line Kobon arrangement could exist.
 
 - **Start here:** [`SUMMARY.md`](SUMMARY.md). It covers results, methods, each claim's
