@@ -49,7 +49,8 @@ rolled back.
 | C41 | No centroid at k=5 (β>0): Ps 3 arms + cevian triangle give 2β−σ ≤ e(R); master costs kill every type of the fifth point R ⇒ 36 centroid-free multisets / 168 graphs remain | work/loop/claims/C41.md | refereed-correct | no centroid k=5 |
 | C42 | k=5 β>0: 2-F face third vertex is O1b (C35); isolated plain X gives +1 (L4 or new x pair), non-isolated raises σ ⇒ 21 centroid-free multisets; global: no 3-block, ≤3 one-block, ≤1 zero-block, ≤2 bent, ΣB∈[7,9] | work/loop/claims/C42.md | refereed-correct | profile caps |
 | C43 | Second-apex credit: in a 2-F face the non-mutual F vertex gives a Lemma-A touch unless (E1) the 5th point sits at V=b_Q∩m_PR or (E2) it is 2nd on its axis; reduces (F,F,V,O1b,O1b), (F,F,F,O1b,O1b) to E1/E2 residues | work/loop/claims/C43.md | refereed-fixed | E1∨E2 per 2-F face |
-| C44 | Hall (C38) on a 2-F face ⇒ an extra triangle: second face at P or R, or Q bridge on m_QR beyond Q (collinear with R); filter gain small (20 centroid-free multisets / 70 graphs) | work/loop/claims/C44.md | proposed | face Hall |
-| A01 | (AutoLab) Bridge-line lemma for t ≥ 7: β ≤ σ = 3t − m, plane bridge graph; B ≥ m + Z − 6 etc. | work/loop/claims/A01.md | proposed | — |
-| A02 | (AutoLab) Block-cap charging: a multiple first vertex of a block puts (P, cap) in x | work/loop/claims/A02.md | proposed | — |
-| A03 | (AutoLab) Residue system for t ≥ 7 plus SAT spec; at t = 7: m + Z ≤ 20, B ≥ m + Z − 6 | work/loop/claims/A03.md | proposed | spec |
+| C44 | Hall (C38) on a 2-F face ⇒ an extra triangle: second face at P or R, or Q bridge on m_QR beyond Q (collinear with R); filter gain small (20 centroid-free multisets / 70 graphs) | work/loop/claims/C44.md | refereed-correct | face Hall |
+| A01 | (AutoLab) Bridge-line lemma for t ≥ 7: β ≤ σ = 3t − m, plane bridge graph; B ≥ m + Z − 6 etc. | work/loop/claims/A01.md | refereed-fixed (SAT: use ≥) | — |
+| A02 | (AutoLab) Block-cap charging: a multiple first vertex of a block puts (P, cap) in x | work/loop/claims/A02.md | refereed-correct | — |
+| A03 | (AutoLab) Residue system for t ≥ 7 plus SAT spec; at t = 7: m + Z ≤ 20, B ≥ m + Z − 6 | work/loop/claims/A03.md | refereed-fixed (3 SAT-spec fixes) | spec |
+| C45 | k=5 β>0: bent extra-bridge neighbour W and partner Q are adjacent non-consecutive on a cap (σ+1 each); a bent partner Q of a 2-F face cannot supply C44 (ii) ⇒ 13 centroid-free multisets / 43 graphs remain | work/loop/claims/C45.md | refereed-fixed (gap only for V0/V4; 44 graphs) | bent gap, C44 fix |
