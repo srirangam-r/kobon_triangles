@@ -211,3 +211,43 @@ units, so the assembly in §4c is unchanged.
   2-chains in conservative mode. This is the follow-up task. Lattices carry a large margin.
 - (d) 4-fold points: to be added, either in SAT with allow_fourfold or by hand. c_P = 8 − D_P − β_P/2; caps
   through bridge far ends are not pure.
+
+
+## 8. Planarity form of the unit lemma (bridged units)
+
+N_P is the number of rays at P that are neither blocks nor bridges, so N_P + D_P + β_P = 6. Then:
+
+  **conservative slack(K) = Σ_{P∈K} (N_P − 2D_P) + nb + U + Upc − PC.**
+
+This is exact. Per point:
+- X: 0;
+- O1: +3;
+- O0: +6;
+- W6 hub: 0;
+- W6 rim (1,3): 0;
+- (1,5): −2;
+- (2,2): −2;
+- (2,1): −1;
+- C (3,3): −6.
+
+Only bridged points can be negative.
+
+**Bridge graph.** Bridges are segments between consecutive vertices, so they do not cross. The bridge graph is a plane
+graph, and its rotation comes from the ray order.
+
+*Data:* every bounded face of every bridge graph is an arrangement triangle (4,800 faces), with κ_f = 0 and no
+blocks.
+
+Then, for a bridge component C with outer boundary length deg:
+- Σ_{outer corners}(a_c − 3) = 6. This is exact, from Euler.
+- Σ_{P∈C}(N_P − 2D_P) = Σ_corners (a_c − 1 − 3D_c) = 2·deg + 6 − 3·B_out.
+
+*Data:* 3·B_out ≤ 2·deg + 6 for every component. Equality holds for W6 (6, 6) and for (12, 10) and (18, 14).
+
+**Local credits at deficit corners.**
+- A reflex corner (a = 2) holding a block has its cap cross both bounding bridge rays at their far ends Q0, Q2.
+  Hence Q0, X, Q2 are consecutive on the cap: a non-bridge link (+1), and the cap is not pure.
+- Proof route for bridged units:
+  - a finite corner case analysis (a ≤ 6, N/B pattern, credits), checkable by small SAT;
+  - plus the Euler identity;
+  - plus a lemma that bounded bridge faces are arrangement triangles (or κ_f ≤ 0 with no blocks).
