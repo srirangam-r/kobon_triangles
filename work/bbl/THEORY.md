@@ -251,3 +251,39 @@ Then, for a bridge component C with outer boundary length deg:
   - a finite corner case analysis (a ≤ 6, N/B pattern, credits), checkable by small SAT;
   - plus the Euler identity;
   - plus a lemma that bounded bridge faces are arrangement triangles (or κ_f ≤ 0 with no blocks).
+
+
+## 9. Decomposition of the unit lemma (2026-09-29, 13:00)
+
+Conservative slack = Σ over bridge components of val(C) + Σ over unbridged points of (N − 2D + links/2 + U-credits − pure caps).
+
+**(A) Bridge components.**
+- Local value: val(C) = Σ_{P∈C}(N_P − 2D_P) + (non-bridge links at C)/2 + U(C) + Upc(C) − PC(C).
+- Data: **val(C) ≥ 1 for all 6,461 components**. So no bridge component can occur in a 94.
+- Proof route:
+  - turning identity Σ(a_c − 3) = 6 on the outer boundary (bounded bridge faces are arrangement triangles in all data);
+  - 15 corner types, 2 of them deficit: (2,'B') and (5,'BNNB');
+  - nearest-positive discharging along the boundary cycle closes every component with reach ≤ 5 corners.
+- Remaining work: prove the window lemmas (local SAT) and the "bounded bridge faces are triangles" lemma.
+
+**(B) Unbridged points.**
+- Values:
+  - X: links/2 + U + Upc − PC. Isolated (U,U) gives 2; (I,U) gives 0; (Ip, M) gives −1/2; (M,M) gives +1; (M,U) gives +3/2.
+  - O1: ≥ 2.
+  - O0: 6.
+- A mutual X-chain of m points totals m − 3, so only m = 2 is short (−1).
+- A mutual partner inside a bridge component has val ≥ 1 to spare.
+
+**(C) (I,I) 2-chain.** Needs the extended form (portions): T14, s = 2.
+
+**(D) 4-fold points.**
+- Own share: 3c_P − 4 − PC ≥ 1/2 in the worst case (D=3, β=5, PC=3). In all other cases it is ≥ 2.
+- A block adjacent to a bridge ray has its cap through the bridge far end, so that cap is not pure.
+- Always positive. Still to add to the corner analysis, which currently assumes 6 rays.
+
+**Tight case (n = 18, Λ = 6).**
+- Every piece must be tight.
+- Bridge components (≥ 1) and 4-fold points (> 0) are excluded.
+- X-chains of length ≥ 4 have slack > 0.
+- A length-3 (I,I) chain is conservatively tight; T14 checks its extended slack.
+- What remains is single (I,U) X units, hence a = 3, general position, and Theorem H.
