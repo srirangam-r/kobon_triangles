@@ -401,3 +401,64 @@ Strictness at ε = 0 (a lighter alternative to ε > 0):
 - (b) No triple point has all its 1-hop lines at exactly 0. 0 of 105,136.
 
 (a) + (b) ⇒ 3Λ − n > 0 whenever a triple point exists, with far fewer negative lines than ε = 1/6.
+
+## 12. Order-free parity lemmas and the Hall-layer experiments (2026-09-29, 17:45)
+
+**Lemmas (search/parity_lemmas.py).** Let L be a line with no multiple point on it. Then all its vertices are simple
+and, by L1, no segment of L is doubly used.
+- **P1 (parity).** If no bounded segment of L is unused, then σ_first ⊕ σ_last = (n − 3) ⊕ #{vertices where L caps a
+  block} (mod 2). Here σ is the side of the triangle on an end segment.
+  - *Proof.* Each segment carries exactly one triangle. At an interior vertex V = L ∩ W:
+    - two consecutive triangles on the same side share W's segment from V on that side;
+    - so that segment is doubly used, its far end is multiple (L1), and it is a block with cap L;
+    - conversely, a block capped at V puts both triangles on its side.
+  - So the side flips exactly at interior vertices that L does not cap. An end vertex is never capped: one of the two
+    faces there is unbounded. Telescoping over the n − 3 interior vertices gives the formula.
+- **P2 (ends).** At a simple end vertex V = L ∩ N, suppose the end segment carries a triangle on side s only. Then
+  N's first segment from V on side −s is unused (a touch on L) or unbounded.
+  - *Proof.* Its two faces are the side −s face of L's end segment (not a triangle) and the face on L's unbounded ray.
+- Encoded order-free: σ_first/σ_last are defined at the end vertices with no positions, and the cap XOR runs over
+  labels.
+- Soundness check: 448 real arrangements (n = 10–18, with triple points) stay satisfiable with the lemmas.
+  Side-literal check: 0 mismatches in 39,486 rays (search/parity_check.py; T14's before() runs against the sweep).
+
+**Effect on L3** (clean line with no portion; UNSAT for even n):
+
+| n | plain | end parity only | P1 + P2 |
+|---|---|---|---|
+| 10 | 7.6 s | 5.0 s | 2.6 s |
+| 12 | 72 s | 22 s | 12 s (7 s via parity_lemmas) |
+| 14 | 626 s | 79 s | 22–29 s |
+| 16 | — | — | 64 s |
+| 18 | ~13 h projected | — | **155 s** |
+
+- The general order-free XOR for all lines (P1g/P2g, with triple-point classes expanded) is sound but **slower**:
+  828 s at n = 14, with n = 16 and 18 timing out at 1200 s. Dropped.
+
+**Pure caps with p = 0** (the dominant negative family). From P1, P2 and the definitions, a pure cap C with p_C = 0
+(n even):
+- both end triangles lie on the same side, and the end lines have no vertices on the other side. If the end triangles
+  were on opposite sides, the end lines would have to meet on both sides of C;
+- C caps an odd number of blocks;
+- every capped block has status **I**. A U-block would give a touch on C. An M-block's partner would be a triple point
+  on C;
+- every capped block is unserved, since its flankers lie on the pure cap.
+
+**Hall-layer experiments.**
+- CP-SAT (frozen copy of T15's model) at n = 8: 110 s at ε = 1/6, 80 s at strict ε = 0. The lemmas do not help at n = 8.
+- Pure SAT with flat thermometers (search/hall_pure.py) is sound (planted ε = 1 is SAT and re-checks) but has 3M
+  clauses at n = 8 and takes 233 s.
+- T16's cube "line 0 simple and capping a block" (the pure-cap family) was UNKNOWN after 3600 s at n = 10. That cube
+  is now being tried with the lemmas.
+- Pure-cap cube (line 0 simple and capping a block), strict ε = 0, n = 10: UNSAT in 1285 s with free S, and in 117 s
+  with S = {line 0}. The lemmas make no difference here.
+- Explicit rules (data): the pure cap takes its unit from the best line through each capped I-block's point. This
+  leaves 0 donors negative; the remaining negatives are axes. A greedy second rule (the axis takes from the lines
+  through its points and the caps of its blocks) gives **0 negative lines on 35,335 even-n arrangements**. Making it
+  structural (no value comparisons) is task T18.
+- The minimising Hall set is a single line whenever the Hall sum is ≤ 2. Multi-line minimisers have sum ≥ 3.
+- The single-donor sufficient condition fails for about 0.6% of negative lines, so full Hall (or explicit rules) is
+  needed.
+- Tightness query (b) (search/tight_run.py): n = 8 decisive UNSAT (5 cubes, 41–81 s).
+- Local queries grow about 5× per two lines. Workers: T17 per-ray value model, T18 explicit rules, T19 decisive cubes
+  at n = 10–16.

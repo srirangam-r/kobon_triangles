@@ -87,6 +87,42 @@ def add_positions(m, alternation=False):
     return pos, side, used
 
 
+def add_end_parity(m):
+    """order-free parity lemma for line 0 (clean, all bounded segments used, n even): the triangles on its first and
+    last segments lie on opposite sides. side_first / side_last are defined locally at the two ends; no positions."""
+    f, n, R = m.f, m.n, range(m.n)
+    oth = [i for i in R if i != 0]
+    first = {M: f.AND([m.before(0, M, j) for j in oth if j != M]) for M in oth}
+    last = {N: f.AND([m.before(0, j, N) for j in oth if j != N]) for N in oth}
+    up_f, up_l, any_f, any_l = [], [], [], []
+    for M in oth:
+        for M2 in oth:
+            if M2 == M:
+                continue
+            t = m.tri3(0, M, M2)
+            up_f.append(f.AND([first[M], m.A[0, M, M2], t, m.before(M, 0, M2)]))
+            any_f.append(f.AND([first[M], m.A[0, M, M2], t]))
+            up_l.append(f.AND([last[M], m.A[0, M2, M], t, m.before(M, 0, M2)]))
+            any_l.append(f.AND([last[M], m.A[0, M2, M], t]))
+    sf, sl, uf, ul = f.OR(up_f), f.OR(up_l), f.OR(any_f), f.OR(any_l)
+    # both end segments carry a triangle (they are used: no own unused segment) -> sides differ
+    f.add([-uf, -ul, sf, sl])
+    f.add([-uf, -ul, -sf, -sl])
+    if ENDS2:
+        # BBL end lemma (local, order-free): if the end triangle at the end vertex V = 0 n X lies on one side, the first
+        # segment of X from V on the other side is unused (a touch on 0) unless unbounded. With no touch on 0: along X,
+        # direction +1 from V goes above line 0, so "above" -> X's ray below V is unbounded (0 is X's first vertex).
+        for N in oth:
+            f.add([-last[N], -ul, -sl, m.last[N, 0, -1]])
+            f.add([-last[N], -ul, sl, m.last[N, 0, 1]])
+        for M in oth:
+            f.add([-first[M], -uf, -sf, m.last[M, 0, -1]])
+            f.add([-first[M], -uf, sf, m.last[M, 0, 1]])
+
+
+ENDS2 = "--ends2" in sys.argv
+
+
 def main():
     n = int(sys.argv[1])
     solver = sys.argv[sys.argv.index("--solver") + 1] if "--solver" in sys.argv else "cadical195"
@@ -104,6 +140,18 @@ def main():
         rng.shuffle(sig)
         for x, y in zip(sig, sig[1:]):
             m.f.add([m.before(0, x, y)])
+    if "--ends" in sys.argv or "--ends2" in sys.argv:
+        add_end_parity(m)
+    if "--lemmas" in sys.argv:            # general order-free lemmas P1, P2 (search/parity_lemmas.py) for all lines
+        from parity_lemmas import add_parity_lemmas
+        add_parity_lemmas(m)
+    if "--glem" in sys.argv:              # general order-free lemmas P1g, P2g for all lines
+        from parity_lemmas import add_general_parity, add_general_ends
+        add_general_parity(m)
+        add_general_ends(m)
+    if "--lemmas0" in sys.argv:           # the same, line 0 only
+        from parity_lemmas import add_parity_lemmas
+        add_parity_lemmas(m, lines=[0])
     from pysat.solvers import Solver
     s = Solver(name=solver, bootstrap_with=list(m.f.clauses()))
     t1 = time.time()
