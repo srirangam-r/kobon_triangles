@@ -23,6 +23,23 @@ default is 18.
 
 ## What the literature says
 
+- **Literature check (2026-09-29): the published "94" is a bound for simple arrangements only.**
+  - Bartholdi–Blanc–Loisel (arXiv 0706.0723) Theorem 1.1, ⌊n(n−7/3)/3⌋ = 94 at n=18, is stated for simple
+    arrangements ("Our sole interest is with simple arrangements, i.e. arrangements without multiple
+    intersections"), and its proof uses simplicity. Blanc (2008) then gives 93 for simple arrangements at n=18.
+  - OEIS A006066, Wikipedia and MathWorld list 94 without that qualifier. OEIS's "exact" labels for n=14, 16 and 20
+    rest on the same simple-only bound, although the n=14 and n=20 records use triple points and beat Blanc's
+    simple bound (54 > 53, 117 > 116).
+  - For arrangements with triple points the bounds are Tamura 96 and Clément–Bader 95 (unpublished). So K(18) is
+    known only to lie in [93, 95/96].
+  - Newer items checked:
+    - Liu–Zhang 2026 (K(22), K(28)): simple arrangements only; reproduces Blanc's bound.
+    - Zarzuelo 2026 ("New Lower Bounds for Even Kobon Numbers", the hill owner): extension principle
+      K(2m+2) ≥ K(2m+1) + m; lower bounds only, general position.
+    - Anottra 2026: a new asymmetric 93 at n=18; the PDF could not be fetched (rate limit); probably simple.
+    - Parpalak–Utkin 2026: simple arrangements, odd n.
+
+
 - **Simple arrangements (no three lines through a point): 93 is proven optimal.**
   Blanc (arXiv 0801.2845) shows at most ⌊n(n−5/2)/3⌋ triangles for even *n*, which is
   93 at 18 lines. The "94" in Wikipedia's table is an older bound for simple
