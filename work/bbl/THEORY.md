@@ -287,3 +287,68 @@ Conservative slack = Σ over bridge components of val(C) + Σ over unbridged poi
 - X-chains of length ≥ 4 have slack > 0.
 - A length-3 (I,I) chain is conservatively tight; T14 checks its extended slack.
 - What remains is single (I,U) X units, hence a = 3, general position, and Theorem H.
+
+
+## 10. Per-line form and the two-hop Hall lemma (2026-09-29, 15:00)
+
+This replaces the unit lemma, whose units are unbounded, by a statement about one line and its two-hop neighbourhood.
+The reference implementation and spec is search/bbl_hall.py.
+
+**Ray split (exact).** Each triple point splits 3c_P = (3/2)(N_P − D_P) over its rays: an N ray carries +3/2, a
+block ray −3/2, a bridge ray 0. With portions this gives
+
+  **3Λ − n = Σ_L v_L + waste,  v_L = p_L − 1 + (3/2)(#N rays along L − #B rays along L)**
+
+(search/bbl_line.py). The lattice interior is automatically neutral: bridge rays are 0, and a lattice line gets +3/2
+at each end where it leaves the patch. Grouped per line, the zigzag boundaries of §8/§9 are positive (+3 per
+reflex/convex pair), because each line carries the N ends of the far boundary to the blocks at the near one.
+
+**Structural facts used by the rules** (proved by the triangle argument of §8):
+- Two blocks at a triple point are never adjacent, and an N ray flanks at most one block.
+- A block's flankers lie on its cap: F1, X, F2 are consecutive on C.
+- The ray of C at a flanker toward X (a gap-end ray) never flanks a block.
+- So the gap credit T1 and the flank credit F never compete for the same ray.
+
+**Rules.**
+- **T1 (cap gap):** a block whose flankers are both triple takes the gap-end N rays of its cap (3/2 each).
+- **F:** an unserved block takes 1 from each N flank ray.
+  - For X points this is the uniform split: each line gets c_P = 1.
+  - For X-chains, each connector keeps 1 and pays the adjacent pure end cap.
+- After T1 + F the only negative lines are:
+  - pure caps of I-blocks;
+  - axes in mutual structures.
+
+  Their deficit is always covered by spare charge within two hops. search/bbl_s1.py has the fair-share version, which
+  gives 0 negative lines on all data.
+
+**Two-hop Hall lemma HL(ε).**
+- Setup:
+  - Relations between lines: a common triple point; axis ↔ cap; pure cap ↔ lines through the blocked point.
+  - N2 = distance ≤ 2.
+  - d_L = v_L − ε·[L through a triple point].
+- Statement: every set S of negative lines has Σ_S d + Σ_{N2(S), d>0} d ≥ 0.
+- By max-flow/min-cut this is equivalent to covering all deficits by transfers within two hops.
+- Consequences:
+  - HL(0) ⇒ Λ ≥ n/3.
+  - HL(ε > 0) and a triple point ⇒ 3Λ − n > 0, so at n = 18 Λ ≥ 9 and T ≤ 93.
+  - Simple arrangements are covered by Theorem H.
+
+**Evidence.**
+- 0 violations for ε = 0, 1/12, 1/6 on 128,827 arrangements:
+  - all phi sets, n = 10–22, T up to 93;
+  - adversarial sets (bad.jsonl, lineadv/pilot.jsonl).
+- 0 violations at even n in the Hall-targeted annealing walks (search/bbl_lineadv.py HALL:1/6), which reach
+  k = 29–32 triple points at n = 16, 18.
+- ε = 1 fails (the single (I,U) X unit has total slack 1 over 3 lines). This is the planted test.
+- **HL is false for odd n**, already for simple arrangements: BBL's end argument needs n − 2 even. The walks find these
+  at n = 11, 13, as expected.
+- By comparison, fixed typed LP weights (search/bbl_linelp.py) fit the training data but are broken by the adversary
+  within about 150 moves. The principled rules plus two-hop Hall are not broken.
+
+**Verification.**
+- T15 (search/hall_sat.py, Sonnet 5.5 worker) encodes v_L, T1, F, the relations and ∃S on T14's UnitModel.
+- Query: ∃ arrangement ∃ S ∋ line 0 violating HL(1/6), for even n = 10–18.
+- UNSAT at n = 18 proves T ≤ 93 for pseudoline arrangements with triple points only. Still open:
+  - points of multiplicity ≥ 4: each line through an m-fold point gets a bonus 3(m − 3) in the ray split, but the
+    model and rules must be extended;
+  - an audit of the encoding.

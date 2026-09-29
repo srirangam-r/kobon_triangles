@@ -1,0 +1,783 @@
+[
+ {
+  "key": [
+   "C<",
+   "uIt/NsNt"
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "C<",
+   "uUt/NsRt"
+  ],
+  "w": 1.5
+ },
+ {
+  "key": [
+   "C<",
+   "uMt/NtRt"
+  ],
+  "w": 1.5
+ },
+ {
+  "key": [
+   "C<",
+   "uIt/NsRt"
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "C<",
+   "uUt/NsNt"
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "C<",
+   "uUt/NsNs"
+  ],
+  "w": 0.75
+ },
+ {
+  "key": [
+   "C<",
+   "uMt/NsRt"
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "C>",
+   "uIp/NsNs"
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "C>",
+   "cMt/NtRt"
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "C>",
+   "cMt/RtRt"
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNsRNtNs",
+   1,
+   0
+  ],
+  "w": 3.5
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNsBMutNtNs",
+   1,
+   0
+  ],
+  "w": 3.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsBUupNsNt",
+   2,
+   0
+  ],
+  "w": 3.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtRNtNt",
+   1,
+   0
+  ],
+  "w": 2.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsBMutNtNt",
+   1,
+   0
+  ],
+  "w": 2.25
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsBUutNsNt",
+   2,
+   0
+  ],
+  "w": 2.25
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNsBUupNsNs",
+   1,
+   0
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsBMutNtNs",
+   2,
+   0
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsBMutNtNs",
+   1,
+   0
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNsBMutNtNs",
+   2,
+   0
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtBMutNsNt",
+   1,
+   0
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtBMutNsNt",
+   2,
+   0
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNsBUutNtNs",
+   2,
+   0
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNsNsNtNs",
+   2,
+   0
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsBMutNtNt",
+   2,
+   0
+  ],
+  "w": 2.0
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsBMutRR",
+   2,
+   0
+  ],
+  "w": 1.75
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtRNsNt",
+   2,
+   0
+  ],
+  "w": 1.75
+ },
+ {
+  "key": [
+   "P",
+   "BUupNsNsBUupNsNs",
+   1,
+   0
+  ],
+  "w": 1.75
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNtRNtNs",
+   1,
+   0
+  ],
+  "w": 1.75
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNsBUutNsNs",
+   1,
+   0
+  ],
+  "w": 1.625
+ },
+ {
+  "key": [
+   "P",
+   "BMctNtNsBMutRR",
+   1,
+   0
+  ],
+  "w": 1.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsNsNsR",
+   1,
+   0
+  ],
+  "w": 1.5
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNsRNsNs",
+   1,
+   0
+  ],
+  "w": 1.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsRNtNt",
+   1,
+   0
+  ],
+  "w": 1.5
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsBMutRR",
+   1,
+   0
+  ],
+  "w": 1.25
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsNsNtR",
+   1,
+   0
+  ],
+  "w": 1.25
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsRNsNs",
+   1,
+   0
+  ],
+  "w": 1.25
+ },
+ {
+  "key": [
+   "P",
+   "BMctNtNsBUupNsNt",
+   1,
+   0
+  ],
+  "w": 1.25
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNtRBMctR",
+   1,
+   0
+  ],
+  "w": 1.25
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsRRR",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsRRR",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtRRR",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtRRR",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNoNsNsNt",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsBUupNsNt",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsRNsNt",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsRNsNt",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsNsRR",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsNsNsNt",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNsNsNsNs",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNtBMctNtNs",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsNoNsR",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsBUupNsNs",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNoNoNsR",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNtRRR",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtNsNsR",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsNoNoNt",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNoNsNsNs",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtNsRR",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsNsNtNs",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsRNtNs",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNtBMctRR",
+   1,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtBUutNsNt",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMctNtNsBMutNtNt",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BIupNsNoNsNtNs",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsNsNtNt",
+   2,
+   0
+  ],
+  "w": 1.0
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtRNsNt",
+   1,
+   0
+  ],
+  "w": 0.75
+ },
+ {
+  "key": [
+   "P",
+   "BUupNsNsRNtNs",
+   2,
+   0
+  ],
+  "w": 0.75
+ },
+ {
+  "key": [
+   "P",
+   "BUupNsNsRNtNs",
+   1,
+   0
+  ],
+  "w": 0.75
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsNsNoNt",
+   1,
+   0
+  ],
+  "w": 0.75
+ },
+ {
+  "key": [
+   "P",
+   "BUupNsNsBUutNsNs",
+   1,
+   0
+  ],
+  "w": 0.625
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsRRR",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsRRR",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMctNtNsRRR",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMctNtNsBMutRR",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "NsNtRRRR",
+   1,
+   2
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNoNsRR",
+   1,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNoNsRR",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNsBUutRR",
+   1,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNoNoNtR",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BUupNsNsRNsNs",
+   1,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNsNsNsNs",
+   1,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNoNoNsNt",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNtBMctRR",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNtNsNsNsR",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNtNsNtR",
+   2,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNtRNtNs",
+   1,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BIutNsNoNsRR",
+   1,
+   0
+  ],
+  "w": 0.5
+ },
+ {
+  "key": [
+   "P",
+   "BMutNsNoNoNtR",
+   1,
+   0
+  ],
+  "w": 0.25
+ }
+]
