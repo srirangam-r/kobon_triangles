@@ -16,7 +16,7 @@ import os
 import sys
 import time
 from itertools import combinations
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -29,41 +29,33 @@ def jobs_for(seeds):
     out = []
     for si, s in enumerate(seeds):
         for R in combinations(range(n), n - s["n0"]):
+            # keep the model's chi(0,1,2) != -1 break: without it, placements with a new line among lines 0-2 run
+            # ~40x slower (measured: 2000 s vs 51 s); with it, those placements need both base orientations
             for sg in ((1, -1) if set(R) & {0, 1, 2} else (None,)):
                 out.append((si, R, sg))
     return out
 
 
-def worker(w, nw, seeds, jobs, outdir, deadline, kmax, blanc=True):
+def worker(w, q, seeds, outdir, deadline, kmax, blanc=True):
     from kobon_sat import build_defect, count_general
     from pysat.solvers import Solver
-    cnf, z, pz, ng, tri, _ = build_defect(n, 94, kmax, alternate=True, card="cardnetwrk", blanc=blanc)
+    cnf, z, pz, ng, tri, _ = build_defect(n, int(os.environ.get("EXT_TARGET", "94")), kmax, alternate=True, card="cardnetwrk", blanc=blanc)
     trip = list(combinations(range(n), 3))
-    done_all = set()
     part = Path(outdir) / f"part_{w}.jsonl"
-    for other in Path(outdir).glob("part_*.jsonl"):  # resume across any worker count
-        for l in open(other):
-            d0 = json.loads(l)
-            done_all.add((d0["seed"], tuple(d0["R"]), d0["sign"]))
-    done = set()
-    if part.exists():
-        done = {(d["seed"], tuple(d["R"]), d["sign"]) for d in map(json.loads, open(part))}
     chis = {}
     with Solver(name="cadical153", bootstrap_with=cnf.clauses) as sv, open(part, "a") as log:
-        for ji, (si, R, sg) in enumerate(jobs):
-            if ji % nw != w or (si, R, sg) in done or (si, R, sg) in done_all:
-                continue
-            if time.time() > deadline:
+        while time.time() < deadline:
+            job = q.get()
+            if job is None:
                 break
+            si, R, sg = job
             n0 = seeds[si]["n0"]
-            if si not in chis:
-                chis[si] = chi_from_word(seeds[si]["gens"], n0)
+            if si not in chis:  # seeds give a wiring word ("gens") or an explicit sign vector ("chi")
+                chis[si] = ({tuple(map(int, k.split(","))): v for k, v in seeds[si]["chi"].items()} if "chi" in seeds[si]
+                            else chi_from_word(seeds[si]["gens"], n0))
             chi0 = chis[si]
             old = [x for x in range(n) if x not in R]
-            if sg is None:  # (0,1,2) are old lines 0,1,2: pick the orientation the model allows
-                f = -1 if chi0[0, 1, 2] == -1 else 1
-            else:
-                f = sg
+            f = 1 if sg == 0 else (sg if sg is not None else (-1 if chi0[0, 1, 2] == -1 else 1))
             assum = []
             for t in combinations(range(n0), 3):
                 v = f * chi0[t]
@@ -97,20 +89,33 @@ def main():
         seeds = [s for s in seeds if s["beta"] > 0]
     elif a.select == "nobridges":
         seeds = [s for s in seeds if s["beta"] == 0]
-    seeds.sort(key=lambda s: (-s["beta"], -s["k"]))
+    seeds.sort(key=lambda s: (-s.get("beta", 0), -s.get("T0", 0), -s.get("k", 0)))
     Path(a.out).mkdir(parents=True, exist_ok=True)
     jobs = jobs_for(seeds)
     deadline = time.time() + 60 * a.deadline_min
     print(f"{len(seeds)} seeds: {len(jobs)} calls on {a.workers} workers", flush=True)
-    ps = [Process(target=worker, args=(w, a.workers, seeds, jobs, a.out, deadline, a.kmax, not a.no_blanc)) for w in range(a.workers)]
+    prev = set()
+    for f_ in Path(a.out).glob("part_*.jsonl"):
+        for l in open(f_):
+            d0 = json.loads(l)
+            prev.add((d0["seed"], tuple(d0["R"]), d0["sign"]))
+    isdone = lambda j: j in prev or (j[0], j[1], 0) in prev
+    pending = [j for j in jobs if not isdone(j)]
+    print(f"{len(jobs) - len(pending)} already done, {len(pending)} pending", flush=True)
+    q = Queue()
+    for j in pending:
+        q.put(j)
+    for _ in range(a.workers):
+        q.put(None)
+    ps = [Process(target=worker, args=(w, q, seeds, a.out, deadline, a.kmax, not a.no_blanc)) for w in range(a.workers)]
     for p in ps:
         p.start()
     for p in ps:
         p.join()
     recs = [json.loads(l) for w in range(a.workers) if (Path(a.out) / f"part_{w}.jsonl").exists()
             for l in open(Path(a.out) / f"part_{w}.jsonl")]
-    got = {(d["seed"], tuple(d["R"]), d["sign"]) for d in recs}
-    remaining = [j for j in jobs if (j[0], j[1], j[2]) not in got]
+    prev = {(d["seed"], tuple(d["R"]), d["sign"]) for d in recs}
+    remaining = [j for j in jobs if not isdone(j)]
     sats = [{k: d[k] for k in ("name", "R", "sign", "T")} for d in recs if d["res"] == "SAT"]
     summary = {"select": a.select, "seeds": len(seeds), "calls": len(jobs), "done": len(recs),
                "UNSAT": sum(d["res"] == "UNSAT" for d in recs), "SAT": len(sats), "sat": sats,
