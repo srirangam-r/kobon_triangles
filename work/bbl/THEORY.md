@@ -462,3 +462,39 @@ and, by L1, no segment of L is doubly used.
 - Tightness query (b) (search/tight_run.py): n = 8 decisive UNSAT (5 cubes, 41–81 s).
 - Local queries grow about 5× per two lines. Workers: T17 per-ray value model, T18 explicit rules, T19 decisive cubes
   at n = 10–16.
+
+## 13. Plan: n-independent proof via explicit rules and a line automaton (2026-09-29, 19:00)
+
+**Why SAT alone won't reach n = 18.** Every full-arrangement query grows about 10× per two lines:
+- Hall, fixed S, pure-cap cube: 60–117 s at n = 10, and more than 32 min at n = 12;
+- the tightness query (b): 40–80 s at n = 8, and more than 10 min at n = 10;
+- L3 without lemmas.
+
+The per-ray model (T17) and portfolios give only constant factors. A single CP-SAT worker is faster than 8 on the
+loaded machine.
+
+**Structure used by the plan (verified on data).**
+- Per-ray net values after T1 and F:
+  - N rays end at 0, 1/2 or 3/2;
+  - served blocks end at 0 or 3/2;
+  - unserved blocks with two N flanks end at +1/2; with one R flank, −1/2; with two R flanks, −3/2.
+- Hence v_L ≥ −1 + p_L − ½·#(unserved NR blocks on L) − 3/2·#(unserved RR blocks on L).
+- Unconditional structural rule for pure caps: every unserved I-block with a pure cap pays 1/k_C to it, from the axis,
+  or from the connector when P's other block is M. No pure cap stays negative, and donors can pay without knowing the
+  cap's p.
+- Adding a greedy axis rule gives 0 negative lines on 35,335 even-n arrangements. T18 is making this rule structural.
+
+**Proof plan.**
+1. Explicit rules with local triggers (T18). A trigger on another line is taken worst-case by the donor.
+2. Line automaton (T20):
+   - exhaustive vertex types (an over-approximation), with local facts proven by hand;
+   - a shortest-path DP gives the minimum final value of any line, for every length;
+   - "final ≥ 0 for all lines" for all even n gives Λ ≥ n/3: T ≤ 54 at n = 14, 72 at n = 16, 94 at n = 18.
+3. **Strictness at n = 18 by tight-type exclusion.**
+   - Λ = 6 forces waste = 0 and final = 0 on every line.
+   - The automaton marks the tight vertex types: those lying on some final-0 path of the right length.
+   - A triple point's type is one configuration seen by all three of its lines. If no triple-point type can be tight on
+     all three lines at once, a 94 has no triple point, and Theorem H excludes simple arrangements.
+   - Data warning: value-greedy rules create zero points (93 triple points whose lines all end at 0). The rules must be
+     structural for this step.
+4. Multiplicities ≥ 4: extend the vertex types (bonus 3(m − 3) per line through an m-fold point).
