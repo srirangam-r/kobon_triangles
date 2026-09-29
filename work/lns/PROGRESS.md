@@ -69,3 +69,8 @@
 - 11:30 T9 and T10 died on the account session limit. T9's calibration: best trial calE rediscovered 4/17 held-out bridged 72s and found 52 new bridged-72 classes (the old generator found 0).
 - 11:30 **T9 production (8 chains x 60 min at n=18, about 1.4M exact moves): no 94.** Capture-recapture: 93 classes 26,206 seen (Chao1 133k, coverage 0.20); **bridge-rich 93 (b>=3): 126 seen, Chao1 137, coverage 0.92; realizable range (k 6-9, b>=3): 94 seen, Chao1 98, coverage 0.96.** The reachable bridge-rich plateau is small and nearly exhausted, so no GPU is needed. The remaining risk is reach: n=16 held-out reach was only 4/17.
 - 11:34 **All-rank 2-line sweep of T9's 126 bridge-rich 93 classes: 19,278 cores x 153 placements, 0 reach 94, 0 errors.** Total so far: ~49.6k bridge-rich cores, ~7.6M exact placements.
+- 12:06 T10 done ($3.07): compiled walk search/dpwalk_c.py + search/walkc (0 mismatches on 1,113 words), 1,012 exact moves/s/core (x8.7). Launched 12-chain, 60-min n=18 coverage run (work/dpwalkc/run1, ~40M exact moves), seeded from gallery 93s + all bridge-rich classes. T13 (exact three-line solver) launched in parallel.
+- 12:11 **T12 done ($1.43): master-inequality accounting (search/phi.py) on 260,561 exactly evaluated arrangements, all identities 0 failures.**
+  - **Phi >= -1 at n=18 everywhere (-2 at n=16); a 94 needs Phi <= -6.** A proof needs only Phi >= -5, a margin of 4.
+  - Tight families (T12 report section 7): A shared-line all-X (closed by general.md section 5); B Z=0 bridge-rich with Cred=0 (only sigma and x pay); C wheel W6 (O0 hub, 6 bridges, 6 faces); D dense O1b/O0 lattices k=15-21; E single-bridge mixtures (Lemma A must give 2-4).
+  - In the bridge-rich 93s, sigma and x supply ~90% of the slack.
