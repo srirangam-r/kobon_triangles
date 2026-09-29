@@ -25,3 +25,40 @@
   - Told the agent via `autolab say` and resumed it.
 - 02:52 **Runner lesson:** dropping the chi(0,1,2) != -1 break made placements with a new line among lines 0-2 about 40x slower (about 2,000 s vs 51 s). Kept the break (both orientations there). Kept the shared job queue. Re-validated: n=17 base at 94 gives 21/21 UNSAT, max 61 s.
 - 02:52 Encoding A/B on extension calls (3 ranks away from 0-2): Blanc/break variants are all 27-42 s total, so Blanc is roughly neutral on extensions and 1.8x faster on re-placement.
+- 03:10 Selector one-call test (201 placements, one n=16 seed): no answer after 3 h vs ~2 h for separate calls; abandoned. Reduced model (search/fastext.py): 720/720 agreement with the full model; 1.3-4x faster on hard 2-line calls (solve-dominated).
+- 03:27 Engineering push: 5 headless Sonnet 5.5 workers (T1 exact two-line DP, T2 compiled one-line DP, T3 solver benchmark, T4 local-search generator, T5 realizability); briefs in work/eng/. New runner run_ext_fast.py (reduced model): n=17 control 21/21 UNSAT, mean 2.4 s (vs up to 61 s). k=8 run paused (resumable) to free cores.
+- 03:28 AutoLab paused: rented nodes repeatedly failed workspace prep (node_unhealthy); queued experiments used the old slow runner. Cancelled them, rentals stopped (compute spend ~$4). Will resubmit with the fast runner if remote compute is still useful.
+- 03:45 T2 done (Sonnet 5.5, $0.75): compiled one-line DP search/dp1fast, exact vs Python on 740 cases, ~27x faster (~6 ms per 17-line base). **Sweep: 44,547 distinct near-optimal 17-line arrangements (T 82-85, from T4's local search) completed exactly by one line: max 93, never 94** (60 s on 6 cores). T4 ended early (headless); relaunched as T4b to scale the generator plus sweep.
+- 03:47 Held the SAT cores batch (chain2) so the cores go to DP-based work: T1's exact two-line DP should do it far faster. Fallback: run_lns_fast/run_ext_fast (the fast LNS control passed, 153/153 placements reach 93). Launched T6 (Sonnet 5.5): exact DP ruin-and-recreate walk at n=18.
+- 04:07 **Coverage measured (capture-recapture + external check):**
+  - First generator run: 3 chains, band T >= 82: 39,042 classes up to symmetry; Chao1 64k (coverage 0.61, LP 0.80-0.88).
+  - Calibrated at T=85: the 255-word perfect-17 census = 10 classes, all 10 found.
+  - **But of the 1,150 real 17-line cores of the gallery 93s (T17 80-84) the generator had sampled only 6.1% (84), 2.9% (83), 0% (82-80).**
+  - So the generator's basin misses where real cores live: implied P(detect a 94) ~ 1.5%.
+  - Fix in progress: 3 chains seeded from 575 real cores; reach is measured on 575 held-out cores (search/reach.py).
+- 04:12 **Approach re-think:**
+  - By the D-count a 94 needs Λ = 6 against Λ = 9 for every known 93, so it needs about 3 or more doubly used bridges. Bridges are essentially absent from the known 93s (3/2,376 have one).
+  - So record neighbourhoods and "reach of 93-like cores" target the wrong region. The held-out 93-core metric (~1.9%) measures the wrong distribution.
+  - Bridge-rich optima do exist nearby: n=12 (6 bridges), n=16 (17 records with bridges, up to 4).
+  - **New plan:**
+    1. Calibrate a bridge-biased generator at n=16: start only from bridge-free records, hold out the 17 bridge records, measure reach.
+    2. Map the frontier T_max(beta) at n=17/18 with bridge-biased generation plus exact one-line DP completion, and the DP walk with a bridge bias.
+    3. Decide on the frontier: if bridge-rich n=18 arrangements plateau well below 93, a 94 is implausible; if bridge-rich 93s appear, concentrate there.
+- 04:13 **T1 done (Sonnet 5.5, $3.86): exact two-line extension, search/extend2_dp.py.** Branch-and-bound over first lines plus exact second line by the one-line DP. Validated by brute force (n0=6,8), SAT on both sides (132 checks, n0=9-12) and witness recount. Target-94 mode: 0.1-0.9 s per rank pair (~100-300x faster than SAT).
+  - All 17 bridge-carrying n=16 records x 153 rank pairs: no 94.
+  - **Exact 2-line max from an n=16 record is only ~88-89 (+17 on 72)**: records are rigid, confirming record-based extension is the wrong family.
+- 04:13 93-core-seeded generator chains: held-out reach ~0% (seeding alone does not move the basin); superseded by the bridge-family plan. T3 (solver bench) and T5 (realize) died of OAuth expiry; T3 is superseded by the DP tools, T5 deferred until a hit exists.
+- 04:26 **Calibration at n=16 FAILED for the flip-based generator (pls.py, bridge bonus 1.0):** frontier bridges>=1 tops at 71 and it never found any of the 17 known bridged 72s (0/17). Its n=17/18 frontier chains stopped as uninformative.
+- 04:26 **Planted audits pass:** one-line DP 300/300, two-line solver 20/20 (0 false negatives at n0=16/17). Independent auditor A1 (Sonnet 5.5, --effort high) is checking the two-line pruning argument.
+- 04:26 **Key finding, T6's exact DP walk (delete a line, exact best re-insertion) at n=18:** ~50 exact moves/s/core, **30,824 distinct 93s** (gallery: 3,016), best 93, never 94.
+  - Includes **198 bridge-rich 93s** (>= 3 bridges): families (k,beta) = (21,39) x18, (20,36) x14, (19,32-36) x17, (18,31), (15-17, 24-28), (7,12) x63, (8,12) x20, and more.
+  - So bridge-rich 18-line arrangements DO reach 93, and the search concentrates there.
+- 04:26 Running: exact 2-line same-rank sweep over all 153 deleted pairs of the 198 bridge-rich 93s (work/b93/, ~0.05 s per core).
+- 04:39 Stopped T4b (flip-based generator improvements) and its run: that generator failed the n=16 calibration and the exact DP walk supersedes it. Samples so far are kept in work/pls/.
+- 04:52 T6 done ($0.66): 584,656 exact moves (54/s/core), 543,630 distinct states, 56,044 93-words, no 94 via any 1-line or greedy 2-line move. Launched T9 (Sonnet 5.5, effort high): bridge/Z-targeted calibrated DP walk (n=16 held-out bridged 72s first, then 8-chain n=18 production with capture-recapture).
+- 04:53 **Bridge-rich 93s, exact 2-line re-placement at the same ranks: all 153 pairs x 198 seeds = 30,294 cores, 0 reach 94.**
+- 05:18 **Realizability** (search/realize.py; exact chi reproduction plus the hill counter):
+  - Gallery control (k=5) realized.
+  - **Bridge-rich 93 with 7 triple points and 12 bridges REALIZED by 18 integer lines**: hill eval count_triangles = 93, exactly 7 triple points (work/realize/k7b12.solution.json). A new straight-line 93 family; no public 93 has more than 1 bridge.
+  - The (21 triple points, 39 bridges) 93 was not realized in 21 min (inconclusive).
+- 05:18 T9 calibration trial A at n=16: the new walk found 32 bridged 72 classes it was never shown (k 5-11, up to 14 bridges) and 1/17 held-out. The old generator found none. T8's C ports are in validation: planted audits clean, 100-500x on two-line exact max; 4 C-vs-Python mismatches at n0=11 under investigation (tools not switched yet).
