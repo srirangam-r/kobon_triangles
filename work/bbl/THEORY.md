@@ -165,3 +165,49 @@ Plan: characterize the zero-slack structures, then run decisive pinned SAT on ea
 - It can be verified for n = 16 and 18 by SAT on the full pseudoline model with a local objective ("line 0 ends
   below 1/3"). That needs no hand proof of each rule.
 - Soundness of the charging identity is algebra (Section 1).
+
+
+## 7. Status of the unit lemma (2026-09-29, afternoon)
+
+**Conservative form is false.**
+- The adversarial walks (search/bbl_adversary.py) found mutual 2-chains of X points with both free sides I,
+  at n = 10 and 11 (T = 17–20).
+- Their conservative slack is −1.
+- All their lines still reach 1/3 once every portion is counted.
+
+**Extended form (the one the assembly needs).** For every unit K:
+
+  3·Σ_{P∈K} c_P + Σ_{L∈D(K)} p_L ≥ |D(K)|
+
+where p_L is the number of portions line L receives: own unused segments + touches. Portions are disjoint across
+units, so the assembly in §4c is unchanged.
+
+**Evidence for the extended form.**
+- 0 violations in 1.33M arrangements and about 750k adversarial states (n = 8–18).
+- The minimum extended slack observed is 1 (in thirds).
+- **No unit is ever extended-tight.** If that is proved, Λ = 6 forces no units at all, hence a simple arrangement,
+  hence Blanc.
+- Lattice-like units (6+ bridges) have extended slack ≥ 7.
+
+**Conservative slack by unit size (all data plus adversarial).**
+
+| size | min conservative slack |
+|---|---|
+| 1 | 0 (single (I,U) X) |
+| 2 | −1 ((I,I) chain only) |
+| 3–7 | ≥ 1 |
+| 8+ | ≥ 3 |
+
+**Point-level discharging (search/bbl_dischargelp.py).**
+- An LP over typed edges (mutual pair / bridge / link / shared pure cap) finds 50 rules.
+- They put every point of 126k training arrangements within budget.
+- On 1.15M held-out classes about 1.9% of points still end over budget, all in lattice patches.
+- So typed local rules work for chains but not for lattices, where the balance is global along the patch boundary.
+
+**Proof plan.**
+- (a) Units of 1 point: proven by hand from Lemma A.
+- (b) Units of ≤ 3–4 points: T14 SAT (search/unit_sat.py), decisive, at n = 10–18.
+- (c) Units of any size: CP-SAT over closed sets S of unbounded size at n = 16 and 18, excluding (I,I)
+  2-chains in conservative mode. This is the follow-up task. Lattices carry a large margin.
+- (d) 4-fold points: to be added, either in SAT with allow_fourfold or by hand. c_P = 8 − D_P − β_P/2; caps
+  through bridge far ends are not pure.
