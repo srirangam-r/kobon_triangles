@@ -1,0 +1,13 @@
+{
+ "select": "beta>0",
+ "r": 2,
+ "seeds": 3,
+ "calls": 603,
+ "done": 603,
+ "UNSAT": 603,
+ "SAT": 0,
+ "sat": [],
+ "remaining": 0,
+ "max_secs": 146.86,
+ "mean_secs": 34.38
+}
