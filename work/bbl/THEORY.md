@@ -345,10 +345,59 @@ reflex/convex pair), because each line carries the N ends of the far boundary to
 - By comparison, fixed typed LP weights (search/bbl_linelp.py) fit the training data but are broken by the adversary
   within about 150 moves. The principled rules plus two-hop Hall are not broken.
 
+**More evidence (15:00).**
+- Held-out: 0 violations of HL(1/6) on all 1,151,216 dpwalkc classes (n = 18). Together with the phi sets that is
+  about 1.28M arrangements.
+- Points of multiplicity ≥ 4 (search/bbl_hallm.py):
+  - the word format now takes `g**` for a 4-fold point;
+  - work/t3/mutate.push_through moves a line through a multiple point;
+  - the ray split gives a bonus 3(m − 3) to each line through an m-fold point;
+  - the exact identity 3Λ − n = Σ v + waste was asserted on every tested arrangement;
+  - 0 even-n violations on about 47,000 arrangements with 4-fold points, and in multiplicity-aware annealing walks.
+
 **Verification.**
 - T15 (search/hall_sat.py, Sonnet 5.5 worker) encodes v_L, T1, F, the relations and ∃S on T14's UnitModel.
+- T16 (search/multi_sat.py) does the same for any multiplicity. It validates against bbl_hallm.py with multiplicities
+  up to 11.
 - Query: ∃ arrangement ∃ S ∋ line 0 violating HL(1/6), for even n = 10–18.
 - UNSAT at n = 18 proves T ≤ 93 for pseudoline arrangements with triple points only. Still open:
   - points of multiplicity ≥ 4: each line through an m-fold point gets a bonus 3(m − 3) in the ray split, but the
     model and rules must be extended;
   - an audit of the encoding.
+
+## 11. SAT verification status and the order-parity obstacle (2026-09-29, 16:00)
+
+**Workers.**
+- T14 (search/unit_sat.py) is done: validated, decisive only for small cells (ext s=1 up to n=14).
+- T15 (search/hall_sat.py): validated (0 mismatches on 738 arrangements, symtest 256/0, planted 85/85). But free solves
+  are too slow: n=8 cubes take 20–46 s, and n=10/11 end UNKNOWN after 1200 s.
+- T16 (search/multi_sat.py): validated for multiplicities up to 11. Its n=8 runs take 393–592 s.
+
+**Diagnosis (search/l3_sat.py).** Even the simplest per-line fact is exponential for CDCL. The fact is L3: a clean line
+of an even arrangement has a portion (BBL's end argument).
+
+| n | free crossing order | line 0's crossing order fixed |
+|---|---|---|
+| 10 | 7.6 s | 0.0 s |
+| 12 | 72 s | 0.1 s |
+| 14 | 626 s | 0.1–0.2 s (also for 6 random orders) |
+
+About 9× per two lines. So the cost is BBL's alternation-parity argument along a path whose order is itself a
+variable. Explicit rank/position variables for line 0, with per-segment side variables and alternation clauses, did not
+help (48–60 s at n=12). Any per-line or per-unit objective contains this parity reasoning, for the target line and for
+every donor line.
+
+**Consequence.** HL(ε) at n=18 cannot be certified by plain SAT on the χ model. Options:
+1. **Axis encoding.** Cut the arrangement along line 0 into upper and lower wiring diagrams of pseudo-rays with
+   complementary crossing sets. Labelling by crossing order on line 0 is then WLOG, and line 0's parity becomes trivial.
+   Donor lines are still arbitrary.
+2. **Hybrid proof.** Split the per-line parity arguments into local lemmas (fast SAT) plus a hand induction along the
+   line. Needs a hand skeleton for HL: a classification of negative lines (pure I-caps with p = 0; axes with 2 blocks)
+   and their donors.
+3. **Other.** Direct proof or special-purpose DP along lines (1-D transfer matrices) for the line-global parts.
+
+Strictness at ε = 0 (a lighter alternative to ε > 0):
+- (a) Every nonempty set of negative lines has Hall sum ≥ 1. Min 1 on 76,584 even-n arrangements.
+- (b) No triple point has all its 1-hop lines at exactly 0. 0 of 105,136.
+
+(a) + (b) ⇒ 3Λ − n > 0 whenever a triple point exists, with far fewer negative lines than ε = 1/6.

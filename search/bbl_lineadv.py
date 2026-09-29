@@ -22,12 +22,16 @@ import bbl_linelp  # noqa: E402
 from cluster import records  # noqa: E402
 
 
-def hall_score(a, eps):
+def hall_score(a, eps, multi=False):
     """(violation?, score): score = -10 * Hall deficit + min over negative lines L of (d_L + spare within 2 hops)"""
-    import bbl_hall
-    ch = Charge(a)
-    dfc, val, d = bbl_hall.hall_deficit(ch, eps, 2)
-    rel = bbl_hall.relation(ch, 2)
+    if multi:
+        import bbl_hallm as bh
+        ch = bh.Multi(a)
+    else:
+        import bbl_hall as bh
+        ch = Charge(a)
+    dfc, val, d = bh.hall_deficit(ch, eps, 2)
+    rel = bh.relation(ch, 2)
     loc = [d[L] + sum(d[M] for M in rel[L] if d[M] > 0) if d[L] < 0 else d[L] for L in d if ch.onl[L] or d[L] < 0]
     return dfc > 0, -10 * dfc + (min(loc) if loc else F(20))
 
@@ -62,7 +66,9 @@ def main():
     srcs = [s for s in srcs if not s.isdigit()]
     bbl_linelp.KINDS.clear()
     bbl_linelp.KINDS.update(kinds.split(","))
-    if rules.startswith("HALL"):
+    if rules.startswith("HALLM"):
+        W = ("HALLM", F(rules.split(":")[1]) if ":" in rules else F(0))
+    elif rules.startswith("HALL"):
         W = ("HALL", F(rules.split(":")[1]) if ":" in rules else F(0))
     elif rules == "S1f":  # canonical scheme: T1 + F + one round of two-hop fair sharing, no ordered rescue/pool
         import bbl_s1
@@ -83,21 +89,27 @@ def main():
         g = r["gens"] if isinstance(r["gens"], str) else " ".join(r["gens"])
         try:
             a = Arr(g, r.get("n"))
-            cur = hall_score(a, W[1])[1] if isinstance(W, tuple) else score(finals(a, W))
+            cur = hall_score(a, W[1], W[0] == "HALLM")[1] if isinstance(W, tuple) else score(finals(a, W))
         except (AssertionError, ValueError):
             continue
         n = a.n
         low = None
         for it in range(steps):
-            w = random_move(a, rng, p_collapse=0.35, p_expand=0.25)
+            multi = isinstance(W, tuple) and W[0] == "HALLM"
+            if multi and rng.random() < 0.15:
+                from mutate import push_through
+                ms = [P for P, ev in enumerate(a.events) if len(ev) >= 3]
+                w = push_through(a, rng.choice(ms), rng.randrange(n)) if ms else None
+            else:
+                w = random_move(a, rng, p_collapse=0.35, p_expand=0.25)
             if w is None:
                 continue
             try:
                 b = Arr(w, n)
-                if any(len(ev) > 3 for ev in b.events):
+                if not multi and any(len(ev) > 3 for ev in b.events):
                     continue
                 if isinstance(W, tuple):
-                    viol, s = hall_score(b, W[1])
+                    viol, s = hall_score(b, W[1], multi)
                     fin = {0: F(-1) if viol else s}
                 else:
                     fin = finals(b, W)

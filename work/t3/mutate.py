@@ -35,7 +35,7 @@ def sweep(seqs, n):
                 continue
             if block != sorted(block):
                 return None
-            toks.append(str(g) + ('*' if w == 3 else ''))
+            toks.append(str(g) + '*' * (w - 2))
             for x in block:
                 ptr[x] += 1
             wires[g:g + w] = list(reversed(block))
@@ -75,6 +75,28 @@ def collapse(a, f):
     seqs = local_sequences(a)
     for x, e, _ in f:
         seqs[x][e:e + 2] = [lines]
+    return sweep(seqs, a.n)
+
+
+def push_through(a, P, w):
+    """move line w through the multiple point P (lines S): allowed when w's crossings with S are consecutive on w and
+    each of them is adjacent to P on its line of S. The result has the point S + {w}. None if not allowed."""
+    S = a.events[P]
+    if w in S:
+        return None
+    seqs = local_sequences(a)
+    cr = {frozenset((w, s)) for s in S}
+    idx = [i for i, pt in enumerate(seqs[w]) if pt in cr]
+    if len(idx) != len(S) or max(idx) - min(idx) != len(S) - 1:
+        return None
+    for s in S:
+        i, j = seqs[s].index(S), seqs[s].index(frozenset((w, s)))
+        if abs(i - j) != 1:
+            return None
+    new = S | {w}
+    seqs[w][min(idx):max(idx) + 1] = [new]
+    for s in S:
+        seqs[s] = [new if pt == S else pt for pt in seqs[s] if pt != frozenset((w, s))]
     return sweep(seqs, a.n)
 
 

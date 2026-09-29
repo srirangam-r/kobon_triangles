@@ -23,7 +23,7 @@ def build(gens, n):
     faces = []
     for tok in gens.split():
         g = int(tok.rstrip("*"))
-        w = 3 if tok.endswith("*") else 2
+        w = 2 + tok.count("*")                 # "g" crossing, "g*" triple point, "g**" 4-fold point, ...
         W = wires[g:g + w]
         eid = len(events)
         events.append(frozenset(W))
@@ -50,7 +50,7 @@ def build(gens, n):
 class Arr:
     def __init__(self, gens, n=None):
         if n is None:
-            n = 1 + max(int(t.rstrip("*")) + (2 if t.endswith("*") else 1) for t in gens.split())
+            n = 1 + max(int(t.rstrip("*")) + 1 + t.count("*") for t in gens.split())
         self.n = n
         self.rows, self.events, faces = build(gens, n)
         self.faces = faces
@@ -115,10 +115,10 @@ def side_of(a, V, L):
 
 
 def rays(a, P):
-    """6 rays at triple point P in circular (counterclockwise) order: (line, dir)."""
+    """2m rays at an m-fold point P in circular (counterclockwise) order: (line, dir)."""
     # recover slot order before the event: sorted labels = top-to-bottom order (block is sorted)
-    w0, w1, w2 = sorted(a.events[P])
-    return [(w0, -1), (w1, -1), (w2, -1), (w0, +1), (w1, +1), (w2, +1)]
+    ws = sorted(a.events[P])
+    return [(w, -1) for w in ws] + [(w, +1) for w in ws]
 
 
 def first_seg(a, P, ray):
