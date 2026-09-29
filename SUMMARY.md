@@ -420,6 +420,33 @@ dead; clean ≤ 1 with K = 4 leaves 48 end patterns, 32 avoiding positions 0 and
 - Two-line re-placement around high-k 93s: 50/50 UNSAT so far.
 - Seeded runs around the three bridge-carrying 93s and the seventeen k = 8, Z = 0 93s are in progress.
 
+## Constructive search for a 94 (2026-09-29): tools, results, coverage
+
+**Tools** (exact, audited):
+- One-line extension DP: compiled in search/dp1fast2 (0.4-0.7 ms per 17-line base).
+- Two-line extension: search/extend2_fast.py (C; 0.43 s per 16-line core over all 153 rank pairs).
+  - Its Python original search/extend2_dp.py was independently audited sound: 37k brute-force checks, 8.7k SAT-verified rank pairs, 2.6k planted cases.
+  - Use --complete on words with parallel pairs.
+- The exact DP walk: search/dpwalk.py and dpwalk2.py (delete a line, exact best re-insertion; ~50 moves/s/core).
+- Capture-recapture coverage: search/coverage.py. Integer realizer: search/realize.py.
+- Planted audits (search/audit_planted.py): 0 false negatives.
+
+**Results (all pseudoline-exact; no 94 anywhere):**
+- A 94 needs Λ = Z − D + 3k = 6, while every 93 has Λ = 9. By the D-count, a 94 must carry doubly used bridges; the known gallery 93s have at most 1.
+- DP walks found ~57k 93-words, including **a new family of bridge-rich 93s**: 126 classes up to symmetry, 3-39 bridges, 6-21 triple points.
+  - 8 families with 6-9 triple points and 3-12 bridges are **realized by integer straight lines**.
+  - Example: `work/realize/k7b12.solution.json`, 7 triple points and 12 bridges, hill count 93; figure `assets/new93_k7b12.png`.
+  - No public 93 has more than one bridge.
+- **No 94** within any one-line move of ~543k + 1.4M walk states, or any two-line move (all slope ranks) of the 49.6k 16-line cores of the bridge-rich 93s (~7.6M exact placements).
+- Coverage within the walks' reach:
+  - bridge-rich 93 plateau: Chao1 ~137 classes, **92-96% covered**; two independent runs give Lincoln-Petersen 126;
+  - full 93 plateau: >= 130k-320k classes, ~11-20% covered.
+- Reach is the open caveat: at n=16 the walk rediscovers only 4 of 17 held-out bridged records (calibration). The worker T11 is working on this.
+- The whole explored plateau sits on Λ = 9 (Z, D and k trade off exactly); 25 bridge-rich classes already have Z = 0.
+- Earlier constructive work: record-based extensions (n=16/17 plus lines) cannot reach 94. The exact 2-line max from an n=16 record is only ~88-89.
+
+**Log:** work/lns/PROGRESS.md.
+
 ## Next steps for a future session
 
 1. Read the fast referee's verdict on the three-triple-point claim and fix any gaps.
