@@ -959,3 +959,13 @@ X-point cells with others.)
 - (c) Audit.
 
 Simple arrangements are covered by Theorem H, and also by (a)'s complement, since there every line is clean.
+
+**NC strict status (T25 note 13).**
+- Uniform ε with the portion split free: infeasible already on C2. The core is the isolated X-point cluster: a pure-cap
+  zigzag at v = −1 plus two X-point line paths with base v = 0, where the SV/TRI/PT routes cancel exactly. All four
+  paths are real.
+- The axis path's value at a = 0 hides its ≥ 2 own unused segments (X-axis lemma). Since the NC case has no clean
+  lines, a = ⅓ is free there. Next test: NC with SV/TRI/PT and a fixed at ⅓.
+- FD24 full-corpus check: 6.2M lines, zero negative, all columns conserved.
+- T25 has started the multiplicity ≥ 4 extension (M frames, apex class ≥ 4, facts guarded to exactly-triple
+  neighbours).
