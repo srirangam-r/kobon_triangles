@@ -1353,3 +1353,37 @@ are both (3,3) or both (4,4). So two "parallel" hexagon lines on opposite sides 
 - Summing: 3Λ = Σ_L p_L + waste + Σ_L (ray terms along L). Hence 3Λ − n = Σ_L v_L + waste, with
   v_L = p_L − 1 + ray terms + transfers (transfers sum to 0).
 - With the portion split a, the same holds with waste_a ≥ 0.
+
+## 24. Perturbation lemma: only "bad" 4-fold points survive (lead, 2026-09-30)
+
+**Lemma (local perturbation).**
+- Setup: P is an m-fold point with sectors 0..2m−1, and Tri is the set of its sectors whose face is a triangle with
+  apex P. Replace a small disk around P by any local arrangement W of the m pseudolines with the same boundary order:
+  a wiring word of w0 in S_m, with multi-crossing letters allowed.
+- This gives a pseudoline arrangement with strictly more vertices. Faces away from P are unchanged.
+- The face in sector s gains e_s ≥ 0 sides. It stays a triangle iff it was one and e_s = 0; non-triangles stay
+  non-triangles.
+- W's bounded faces are new faces, t_loc of them triangles. So ΔT = t_loc − |{s ∈ Tri : e_s > 0}|.
+
+**Computation** (work/eng/pert/: pert.py computes the face extras exactly; cover6.py; search_m.py).
+- m = 4: exhaustive (24 words, 16 options). Every sector pattern has a perturbation with ΔT ≥ 0 except, up to the
+  dihedral group, these three:
+  - 11101110 (6 triangles, the 2 non-triangles opposite);
+  - 11111110 (7 triangles);
+  - 11111111 (8 triangles).
+  Their best ΔT is −1, −1 and −2 respectively.
+- m = 5: exhaustive (1,210 words). Every pattern has ΔT ≥ 0. The pentagram gives t_loc = 5 with 5 affected sectors.
+- m = 6: 765 sampled options (including multi-letter words) cover all 4,096 patterns with ΔT ≥ 0.
+- 7 ≤ m ≤ 17: an explicit simple W_m has t_loc − #affected sectors ≥ 1 (search_m.py), so it is lossless for every
+  pattern.
+- m = 18: a pencil has T = 0.
+
+**Corollary.** Take a counterexample (T ≥ 94) with the maximum number of vertices. All its multiple points are triple
+points or *bad* 4-fold points (sector patterns 11101110, 11111110, 11111111 up to symmetry).
+- For a bad point, c_P = N_P + β_P/2 with N_P = 4, 2, 0 respectively. So c_P ≥ 4, ≥ 2 and ≥ β_P/2.
+- In an all-8 point, each cap line covers ≤ 3 consecutive octagon edges. So at least 3 first vertices are multiple, and
+  c_P ≥ 3/2.
+
+**Use.** The multiplicity ≥ 4 automaton needs only:
+- M4 frames with the bad sector patterns (no M5+ frames);
+- exact 8-sector coupling at 4-fold points.
