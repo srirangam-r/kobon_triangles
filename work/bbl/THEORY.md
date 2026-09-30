@@ -1387,3 +1387,13 @@ points or *bad* 4-fold points (sector patterns 11101110, 11111110, 11111111 up t
 **Use.** The multiplicity ≥ 4 automaton needs only:
 - M4 frames with the bad sector patterns (no M5+ frames);
 - exact 8-sector coupling at 4-fold points.
+
+**T27 note 8 (after §24).**
+- Automaton: M4 frames only, restricted to the 3 bad sector words, with PT4/MB/TRI coupling. Facts: guarded K3 and F4′
+  only.
+- Acceptance: 0 bad lines on real data.
+- CEGAR progress: DP minimum −1.0 → −0.09 by iteration 70 (it was −10 to −20 before the reduction). Still converging.
+- The kite-chain family's minimal core is 4 elements and is exactly F4′ at m = 4 (a run of B rays ≤ m − 2). It is now
+  built into the automaton.
+- Plan after FC-M: since multiplicity ≤ 3 is closed, only one strict statement is needed: an arrangement with a bad
+  4-fold point has Σ final > 0. Target (a): every M4 path has final ≥ δ. Fallback (b): T26-style per-pattern credits.
