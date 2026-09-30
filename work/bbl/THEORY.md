@@ -1042,3 +1042,21 @@ FD24, FC, FS1, FS2, FS3; each line must be tight under all of them. Consequences
 i.e. keeps every path through it at final ≥ δ. If no triple-point window survives, a 94 has no triple point, and
 Theorem H applies. If only types without a non-bridge 3-run survive, no bridge component has an extreme point, which
 is again a contradiction.
+
+**Always-tight set, first pass (T25 note 19; work/eng/T25/group_results.txt).**
+- Method: for each (point configuration, role) group of intersection-tight T windows, one LP asks for final ≥ 1/1000
+  on every path through the group (a DP flag), final ≥ 0 elsewhere, FC columns. Feasible means that point type cannot
+  occur in a 94: under that certificate its line is strict, contradicting Σ final = 0.
+- **9 of the 13 jointly tight types are excluded.**
+- Survivors:
+  - NNNNNN/111111 (ring RRRRRR, c = 0);
+  - NNNSSS/111011 (ring RRRNNB, c = ½);
+  - two X variants NSSNSS/011011 and NSSSSS/011011 (c = 1).
+- The strictness margins have so far been checked in floating point only; exact verification is pending.
+
+**Endgame.**
+- A component made only of RRRRRR points has no extreme point, so it is impossible.
+- If RRRNNB is excluded (per-window tests running), every triple point is an isolated X point. Then Σ c_P = 6 gives
+  k = 6 with β = 0, which is excluded by the old refereed result; general position is Theorem H.
+- Otherwise, the turning identity gives each component at least 6 RRRNNB corners (Σ c ≥ 3 per component), leaving a
+  short list of structures.
