@@ -1397,3 +1397,13 @@ points or *bad* 4-fold points (sector patterns 11101110, 11111110, 11111111 up t
   built into the automaton.
 - Plan after FC-M: since multiplicity ≤ 3 is closed, only one strict statement is needed: an arrangement with a bad
   4-fold point has Σ final > 0. Target (a): every M4 path has final ≥ δ. Fallback (b): T26-style per-pattern credits.
+
+**6-X-point case re-checked independently (T28).** This covers the case that relied on the old C26 result.
+- Model: positional (no line names), with Z = 0 and exactly 6 triple points, all of type X.
+  - Constraints: the strong block lemma and end lemmas E2–E5, each re-derived by hand from Z = 0.
+  - Symmetry handling: cubes are rotation-canonical; there is no line-0 anchor and no sign-flip break.
+- Cubes: the singleton end sets S ⊂ Z_36 with even gaps, u = |S| ≤ 6. There are 2,841 of them (u = 0:1, 2:9, 4:245,
+  6:2586). **All are UNSAT** (cadical 1.9.5).
+- Scripts: work/eng/T28/x6_cubes.py, x6_pass2.py, x6_drat.py.
+- DRAT proofs (kissat + drat-trim) are in progress, with 0 failures so far.
+- So the 6-X branch no longer depends on C26.
