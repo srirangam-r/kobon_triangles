@@ -838,3 +838,21 @@ the third corner of the triangle over a segment of L is a simple vertex.
    §17 instead of a uniform ε.
 5. Keep the CEGAR loop and the exact cell domains for the payer looseness.
 6. Fallback: for residual ring types, a SAT search for tight structures at n = 18.
+
+**Status and consequences (2026-09-30, 02:40).**
+- The uniform strict target (every line ≥ ⅓ + ε) is infeasible on the real 93 rows (3,168 arrangements).
+  - Targeted τ-credits, even keyed on full point configurations, also give ε = 0.
+  - Blocking set: 11 real lines in 7 arrangements (a pure cap and a flank line at an X point; BNNRRR/BNNBRR bridge
+    lines).
+  - The sums are not the obstruction (each 93 has Σ ≥ 7.5); the slack is unroutable in SigCatalogue.
+- **Clean-line bound.** Fix the portion split at a = 0. If the certificate holds (all lines ≥ ⅓), L3 gives every
+  clean line ≥ ½. Hence **Λ ≥ 6 + c/6**, where c is the number of clean lines. So any n = 18 arrangement with a clean
+  line has Λ > 6, i.e. T ≤ 93. Only arrangements in which every line meets a triple point or caps a block need a
+  separate strict argument. (T25 is running the C2 certificate at a = 0.)
+- Full class:
+  - each of the 7 non-C2 ring types alone makes the exact-17 LP infeasible;
+  - CEGAR stalled with a DP minimum of −8 to −14, and after projecting away the I-flag u its violators are real
+    18-line arrangements;
+  - next: a batch real-row LP on the whole n = 18 corpus, which decides whether SigCatalogue hits a wall on real data.
+- Disproved by data: "every non-C2 arrangement has a triangle face with three triple vertices" (BNNRBR-type points,
+  for example, can avoid one).
