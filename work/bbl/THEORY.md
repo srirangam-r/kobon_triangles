@@ -1011,3 +1011,34 @@ Real rows allow ε ≈ 0.1–0.18 each time. The per-line relaxation cannot rout
 - The tight lines form a regular language, the tight edges of the DP.
 - Plan: intersect the tight window sets of several certificates. A 94 must consist entirely of always-tight lines.
   If that set is small, exclude it by counting or by a targeted SAT search. T25 is running the census.
+
+## 21. Structure of a hypothetical 94 (multiplicity ≤ 3), from joint tightness (T25 note 18)
+
+In a 94, every line is exactly tight (final = 0) under every ε = 0 certificate. Take the five exact certificates
+FD24, FC, FS1, FS2, FS3; each line must be tight under all of them. Consequences:
+- **Z = 0.** On jointly tight paths, the number of own unused segments is exactly 0 and so is the number of touches.
+  So a 94 has no unused bounded segment. Hence 3T = S + D with S = 288 − 3t, so **D = 3t − 6** and **Σ_P c_P = 6**.
+- **No clean lines** (FD24), and all k_L ∈ {0, …, 8} occur on jointly tight paths.
+- **Only 13 jointly tight point types**, i.e. each of the three lines has a tight window.
+
+  | type | ring | c_P |
+  |---|---|---|
+  | X | NNBNNB | 1 (two variants) |
+  | | RNNBNN | 3/2 |
+  | | RRRRNN | 1 |
+  | | RRRNNB | ½ (two variants) |
+  | | RRBNNB | 0 (two variants) |
+  | | NNRBRB | 0 |
+  | | RRRRRR | 0 |
+  | | BRRRRR | −½ |
+  | | RRRBRB | −1 |
+  | | RBRBRB | −3/2 |
+
+- Types with a run of three consecutive non-bridge rays, i.e. those that can be the extreme point of a bridge
+  component: RRRNNB, RRBNNB, X, RNNBNN, NNRBRB.
+- Old refereed results still apply: k ≥ 6 triple points, not in general position, and β > 0 if k = 6.
+
+**Next.** Compute the exact always-tight window set. For each window, ask whether some certificate makes it strict,
+i.e. keeps every path through it at final ≥ δ. If no triple-point window survives, a 94 has no triple point, and
+Theorem H applies. If only types without a non-bridge 3-run survive, no bridge component has an extreme point, which
+is again a contradiction.
