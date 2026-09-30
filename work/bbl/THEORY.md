@@ -906,3 +906,29 @@ plus a uniform ε, which is already shown infeasible on real rows. Nothing new.
   - **SV cells**: at a simple vertex, keyed on its 4 face bits, which both lines see;
   - **TRI cells**: at a triangle, keyed on its 3 vertex multiplicities, which all three side lines see through the
     enriched apex flags.
+
+## 20. KEY RESULT: full-class certificate at n = 18 (T25, 2026-09-30, 05:00)
+
+**Certificate.**
+- Command: `search/rule_lp_t25.py lp --class full --split --alpha --celldom --wr --sv --tri --pt --eps 0`
+- Defaults: F4′, K1\*, K2, K2g, K3, T1″, F5\*, exact weight 17.
+- Exact: denominator D = 16, layered-DP minimum of D(2·final + 2) = 32 = 2D.
+- Parameters: a = 0, α′ = ½. Rules: work/eng/T25/rules_FC_full.json (60 block cells plus 7 SV/TRI/PT rules).
+- **Theorem (computer-assisted).** Every pseudoline arrangement of 18 lines with points of multiplicity ≤ 3 has every
+  line at final ≥ 0. Hence Λ ≥ 6, i.e. **T ≤ 94**.
+- **With a clean line.** Since a = 0, L3 gives every clean line ≥ ½, so Λ ≥ 6 + c/6 > 6. Every such arrangement with
+  at least one clean line has **T ≤ 93**.
+
+**The decisive ingredient.** The exact-coupling families, whose cells are fully visible to every party:
+- SV cells at simple vertices (4 face bits);
+- TRI cells per triangle side (vertex multiplicities);
+- PT cells at triple points (6 sector bits).
+
+With facts P000–P009 but without these families the LP is infeasible; with them and without those facts it is
+feasible. (An earlier "infeasible" result for single additions came from the ring,oth key projection, which merged
+X-point cells with others.)
+
+**Remaining for K(18) = 93.**
+1. Arrangements with no clean line (the strict step). Next: the NC strict LP with the new families.
+2. Points of multiplicity ≥ 4 (T22 automaton extension, or a separate counting argument).
+3. Validation and audit. T25 is running a planted test, the full corpus with exact weights, and an independent DP.
