@@ -1167,3 +1167,26 @@ and F2, whose 9-line families are disjoint (so they use all 18 lines).
 Remaining:
 - 2 flowers sharing lines (then some lines are pure caps);
 - 1 flower + 3 X points.
+
+**f = 2 closed; f = 1 structure forced (T25, work/eng/T25/elim/ilp5*).**
+- Refined ILP (1,708 line types with cfg/role assignments, plus adjacency rules for consecutive triple frames from
+  the flower reduction):
+  - f = 2 with shared lines: **infeasible**;
+  - f = 2 disjoint: only 12 A + 6 B, killed by the counting lemma.
+- **f = 1** is feasible (more than 400 multisets), but its shape is forced:
+  - 9 pure flower lines;
+  - one line M\* through all three X points consecutively (a flank line at each: NSSSSS, NSSNSS, NSSSSS);
+  - 6 lines through one X point each;
+  - 2 pure caps.
+
+**Z = 0 end-vertex identity (lead).** Setting: n = 18, triple points only, Z = 0.
+- A simple vertex with no doubly used segment has exactly 2 opposite triangles if all 4 of its edges are bounded.
+- If exactly one line ends there, Z = 0 is impossible without a doubly used segment at it.
+- If two lines end there, it has exactly 1 triangle.
+- Summing triangle corners: 3T = 306 − Σ_P (6 − t_P) − e2′ + Σ_{V_d} (t_v − 2), where e2′ counts the two-line end
+  vertices with no doubly used segment.
+- Consequences:
+  - lines never end at the 4 surviving point types;
+  - single ends sit only at simple endpoints of doubly used segments;
+  - for 1 flower + 3 X points (Σ_P (6 − t_P) = 12) at least 12 wedge vertices, where two lines end together.
+- Passed to T28 as pinning constraints for case B.
