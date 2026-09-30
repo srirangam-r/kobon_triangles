@@ -1144,3 +1144,26 @@ Next, in parallel:
     conserved columns, T = 94.
   - An ILP over the 1,608 types decides whether any integer "line multiset" is possible (T25).
   - T28 runs pinned SAT for the flower cases.
+
+**Integer test (T25, work/eng/T25/elim/ilp2.py): feasible.**
+- Solutions: 6 X points (t = 6, closed by C16/C26/C29); 1 flower + 3 X points (t = 10, 11 line types); 2 flowers
+  (t = 14) with only two line types, 12 × A (ℓ-lines) + 6 × B (m-lines).
+- In the 2-flower solution each flower sits at one end of all 9 of its lines.
+
+**Lemma (2 flowers with disjoint line families are impossible).** Setting: a 94 whose triple points form two flowers F1
+and F2, whose 9-line families are disjoint (so they use all 18 lines).
+1. D = 3t − 6 = 36. The flowers' own doubly used segments (6 spokes, 6 hexagon edges and 6 corner blocks each) account
+   for all 36. So the only simple vertices with a doubly used segment are the 12 star tips.
+2. Triangles with a triple vertex: each flower has exactly 18 sector triangles (6 inner, 6 outer, 6 corner extras),
+   so there are at most 36.
+3. All-simple triangles. Two of the three side lines lie in the same family, so the triangle has a vertex at an
+   intra-family simple crossing. Per flower there are 36 pairs, of which 21 meet at triple points, 6 at tips and 9 at
+   "far" crossings.
+   - A tip has at most 1 all-simple triangle: of its 4 faces, the outer triangle and its 2 neighbours touch a corner.
+   - A far crossing has no doubly used segment, so its triangles are pairwise non-adjacent: at most 2.
+   - Hence at most 12·1 + 18·2 = 48 all-simple triangles.
+4. So T ≤ 36 + 48 = 84 < 94. Contradiction.
+
+Remaining:
+- 2 flowers sharing lines (then some lines are pure caps);
+- 1 flower + 3 X points.
