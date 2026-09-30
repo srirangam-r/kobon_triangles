@@ -806,3 +806,35 @@ the third corner of the triangle over a segment of L is a simple vertex.
 - **P005** and **P008** follow from K3 if the middle apex is triple, and from K1\*/F-T3 if it is simple.
 - **P006** and **P009** are K1\*.
 - **P007** is F4′.
+
+## 19. Revised plan (2026-09-30): margin, F5*, one strict LP
+
+**Diagnosis.**
+- The ⅓-per-line accounting gives Λ ≥ n/3 = 6 at n = 18, which is exactly the 94 bound. With zero margin, a
+  separate and delicate strict step is needed.
+- The per-line LP must also hold for arbitrarily poor arrangements, where real lines go down to −7/2.
+- The empirical truth, Λ ≈ n/2 − 1, and Theorem H's ½ per line both come from Blanc's L3 (every clean line has a
+  touch). Our automaton could not derive L3 locally.
+
+**Fact F5\* (proved, 2 bits of state along L).**
+- Statement: two different vertices of L cannot carry unbounded-ray flags on opposite sides.
+- Proof: this is Blanc's step 5. If R_i has no crossing on side −s and R_j none on side s, they must meet on L, which
+  is impossible for different vertices. At a single triple point both flags can occur, since its two lines meet there.
+- F5 was the special case of the two end vertices only.
+- Data: 0 violations on 1.07M lines (work/eng/f5star_check.py).
+- **With F5\*, the automaton proves L3.** Clean lines at even n have at least 1 touch; at odd n the minimum is 0, as
+  expected. Before, the minimum was 0 at even n too.
+
+**Plan.**
+1. Add F5\* to the LP automata. It is global along L, so it also tightens non-clean lines, whose stretch and parity
+   arguments now see one-sidedness.
+2. Portion split a as an LP variable. Each unused segment gives a to its owner and (1 − a)/2 to each touched line,
+   with a ∈ [0, ⅓]. With a = 0, clean lines get at least ½ through L3. This is the master-inequality accounting,
+   with a margin of ⅙ per clean line.
+3. Triangle-count direction α′. The quantity 3s_L − 1 − v_L, with s_L = n − 2 − tri_L, sums to the waste, which is
+   ≥ 0. So adding α′·(3s − 1 − v) to every line is valid for any α′ ≤ 1. This gives a free LP column.
+4. **One strict LP at n = 18.** Require every line to end with final ≥ 3ε, i.e. q ≥ ⅓ + ε. Feasibility gives
+   Λ > 6, hence T ≤ 93, with no separate strict step. If it fails only on tight non-clean lines, use the τ-credits of
+   §17 instead of a uniform ε.
+5. Keep the CEGAR loop and the exact cell domains for the payer looseness.
+6. Fallback: for residual ring types, a SAT search for tight structures at n = 18.
