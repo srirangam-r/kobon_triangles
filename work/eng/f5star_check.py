@@ -30,7 +30,8 @@ class G5(LA.Graph):
             prev, cur, par, cls, flag, role, cp = x
             u = node_id[x]
             if role == 1:
-                terms.append((u, wmin(prev, cur, None), flag, par, cp)); continue
+                fl_t = 1 if (flag or (self.feat and self.feat(prev, cur, None))) else 0
+                terms.append((u, wmin(prev, cur, None), fl_t, par, cp)); continue
             for nxt in self.by_bin[cur.bout]:
                 if not LA.edge_ok(cur, nxt) or not self.edge_allow(cur, nxt):
                     continue
@@ -40,7 +41,8 @@ class G5(LA.Graph):
                     if (cls[0] and nxt.ub[1]) or (cls[1] and nxt.ub[0]): continue
                     c2 = (cls[0] | nxt.ub[0], cls[1] | nxt.ub[1])
                     ni = nxt.info_next(bool(last))
-                    y = (cur.info_prev(prev is None), nxt, (par + (nxt.kind == "S")) % 2, c2, flag, last, cp)
+                    fl2 = 1 if (flag or (self.feat and self.feat(prev, cur, ni))) else 0
+                    y = (cur.info_prev(prev is None), nxt, (par + (nxt.kind == "S")) % 2, c2, fl2, last, cp)
                     if y not in seen:
                         seen.add(y); stack.append(y)
                     nid(y)

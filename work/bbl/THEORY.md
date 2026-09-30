@@ -885,3 +885,13 @@ plus a uniform ε, which is already shown infeasible on real rows. Nothing new.
 - T25 is running the automaton version (C2 first).
 - Consequence if feasible: C2 needs both cases, and both would then be settled, giving T ≤ 93 at n = 18 for the whole
   C2 class. Note that the "no clean line" arrangements are about 7% of the real 93s.
+
+**NC strict core and the X-axis lemma (2026-09-30, 03:40).**
+- The NC C2 uniform-strict LP is infeasible with a tiny core, all of one family: a pure cap zigzag with p = 0 and
+  v = −1 caps the I-block of an isolated X point, whose lines' paths are tight.
+- Every core path is realizable, and the real rows give a large ε. So this is payer/receiver decoupling.
+- **X-axis lemma (automaton-proved with F5\*).** A line whose only multiple points are X-axis points, and which caps
+  nothing, has ≥ 2 portions at even n. Without F5\* the automaton bound is 1.
+- Data: isolated X axes with an I-block always have p ∈ {2, 3} (20k cases); without an I-block, p ≥ 3.
+- So the axis can pay the pure cap, provided own portions are valued (a > 0; in the NC case there are no clean lines
+  to protect). Scripts: work/eng/xaxis_dp.py, work/eng/f5star_check.py.
