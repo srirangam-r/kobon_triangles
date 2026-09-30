@@ -1259,3 +1259,11 @@ are both (3,3) or both (4,4). So two "parallel" hexagon lines on opposite sides 
 - The 48 of 76 incidence patterns that were run (X points on flower lines) are all UNSAT; the batch is not needed after
   the lemma.
 - T28 is now re-checking the 6-X-point case (k = 6, β = 0) independently.
+
+**Multiplicity ≥ 4 soundness note (T27).**
+- In rule_lp_t25m.py, K1\* (its second disjunct), K2, K2g and K3 were applied where an apex or far end is ≥ 4-fold
+  (apex class 3). Their ring proofs assume exactly triple points.
+- 17 of 5,005 real 4-fold lines were therefore not automaton paths. All M results so far are void (S3, MFC, M9–M12).
+- This does not affect the multiplicity ≤ 3 chain, which has no class-3 apexes.
+- Fix: turn off the unneeded facts (FC needs only K3), guard K3, drop celldom for M, and require 100% path coverage of
+  T22's real lines before accepting any LP result.
