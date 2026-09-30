@@ -552,3 +552,58 @@ record; logs and data are in work/eng/T22/.
   - Lines with no triple point have raw v_L ≥ −1.
 - **Consequence.** Multiplicity ≥ 4 folds into the triple-point analysis. A rule set that closes the triple-point case
   and is expressible in these windows closes all multiplicities.
+
+## 16. Rule LP obstructions, fact K1*, and SAT-proved local facts (2026-09-30)
+
+**T21 interim (work/eng/T21/INTERIM.md).**
+- Block-local rules (roles axis/cap/flank; 115 weights) in an LP whose separation oracle is the automaton DP: infeasible.
+- The enriched automaton records the multiplicity of each triangle apex. It is validated on 127,673 arrangements.
+- Main cut: the (2,4) "kite" `S[(1,1)(1,1)] | T[(1,1)(1,1) h(1,1)]`, with 2v = −6 per triple point. The lattice 2-cycles
+  (zero-value payers) cannot fund it.
+- Even with only the 5,421 windows seen in data allowed, the LP is infeasible with that catalogue. So window-level
+  realizability is not enough. Either longer-range facts or richer rules are needed.
+
+**Data (2.14M real lines, 127k even-n arrangements).**
+- 2v_L ≥ −4 always.
+- Unserved RR blocks occur on about 5 lines in total, never two on one line.
+- #RN ≤ 4 per line.
+
+So the automaton's unbounded deficits come from over-approximation.
+
+**Fact K1\* (proved).** Setting: a triple point P on L with h[s] = 1. The sector (E s, W s) is a triangle P Y Z,
+where Y and Z are the far ends of E s and W s. Its third side lies on a line c. Define
+- rf(s) := bout[s] ∧ (Y simple ∨ (next vertex simple ∧ triangle on side s of its outgoing segment)),
+- lf(s) := bin[s] ∧ (Z simple ∨ (previous vertex simple ∧ triangle on side s of its incoming segment)).
+
+Then rf(s) ∧ lf(s) is impossible.
+
+*Proof.*
+- c avoids P and meets b at Y and a at Z. So it crosses L exactly once, either before Z or after Y.
+- Case Y simple, on lines b and f. The ring at Y puts the h-triangle's side on f's other ray, so c = f. Since f
+  passes through the next vertex X, c crosses L right of P.
+- Case X simple with a triangle above [X, V′]. Then Y is triple, on b, C = W_X and c (F-T2). In the ring at Y, the
+  rays of c flank both Y→P and Y→X. So the triangle X V′ Y has its side [Y, V′] on c, and c crosses L at V′.
+- The left side is symmetric. Having both forcings would make c cross L twice.
+
+The case where Y and Z are both simple is F-T3; the other three combinations are new. Data: 0 violations in 678k
+occurrences of h[s] = 1. K1\* kills the (2,4)-kite cut and the (2,2)-kite cuts.
+
+Consequence: an unserved RR block at P forces:
+- X to be a 4-triangle simple vertex;
+- the next vertex V′ to be triple, on c ∋ Y, Z and d ∋ Y′, Z′;
+- at most one unserved RR block per triple point.
+
+**Restriction principle (proof tool for local facts, all n).**
+- Setting: a local pattern w along L, made of consecutive vertices with multiplicities, triangular faces, far-end
+  multiplicities and unbounded flags. Let S be its witness lines: L, the lines through its vertices, the sides of its
+  triangles, and the lines through its specified far ends.
+- In the restriction A|S (drop all lines not in S), the positive part w⁺ survives. Consecutiveness, multiplicities,
+  triangle faces, first vertices and unboundedness are all preserved.
+- Hence: if w⁺ is unrealizable on K′ pseudolines for every K′ ≤ |S|, w is impossible for every n. Non-triangle and
+  N information is dropped, which is sound.
+- This turns small SAT queries into facts valid for all n. T23 is building search/automaton_facts.py to generate them
+  from the LP cuts and from k-grams never seen in data. K1\* (≤ 8 witness lines) is its regression test.
+
+**New rule family proposed (T1′, per-flanker serve).** Each triple flanker F of a block whose gap-end ray along C toward
+X is N gives 3/2 from C to the axis. F and X are consecutive on C for any flanker, because the triangle P X F has its
+side [X, F] on C.
