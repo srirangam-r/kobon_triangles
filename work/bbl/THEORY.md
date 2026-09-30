@@ -1060,3 +1060,16 @@ is again a contradiction.
   k = 6 with β = 0, which is excluded by the old refereed result; general position is Theorem H.
 - Otherwise, the turning identity gives each component at least 6 RRRNNB corners (Σ c ≥ 3 per component), leaving a
   short list of structures.
+
+**Single-window tests (T25, 153 LPs, work/eng/T25/single_results.txt).** No role of the four surviving types is fully
+excluded:
+- RRRNNB: r0 28/52 windows strictable, r1 0/16, r2 24/40;
+- X variants: 16/24 on one role, 0 on the others;
+- RRRRRR: 0/7.
+
+**Decisive next LP (restricted to P5).**
+- A certificate excluding a 94 only needs validity on the lines that can occur in a 94: P5, the paths tight under all
+  five certificates, which is the common-tight subgraph (3,574 edges, 161 terminals).
+- LP: final ≥ 0 on P5 and final ≥ δ on P5 paths with a triple point. Feasible means a 94 has no triple point, and
+  Theorem H applies.
+- Otherwise iterate: new certificates shrink P5, then retest.
