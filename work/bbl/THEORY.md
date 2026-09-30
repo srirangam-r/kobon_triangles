@@ -874,3 +874,14 @@ the third corner of the triangle over a segment of L is a simple vertex.
 
 **Remark.** Adding "T ≥ 94" to the primal gives a column d·(tri − 47/3) + δ. This is the same as the α′ direction
 plus a uniform ε, which is already shown infeasible on real rows. Nothing new.
+
+**Strict step: the no-clean split (2026-09-30, 03:10).**
+- Case (i), at least one clean line: the a = 0 certificate plus L3 gives Λ ≥ 6 + c/6 > 6.
+- Case (ii), no clean line: clean paths cannot occur. Delete them from the automaton and require every remaining line
+  to end with final ≥ 3ε, using separate weights.
+- Necessary test on real rows (T ≥ 93, n = 18, no clean line; script work/eng/T25/nc_eps_lead.py):
+  - C2: 106 distinct rows, max ε = 1/15;
+  - full class: 254 rows, max ε ≈ 0.027.
+- T25 is running the automaton version (C2 first).
+- Consequence if feasible: C2 needs both cases, and both would then be settled, giving T ≤ 93 at n = 18 for the whole
+  C2 class. Note that the "no clean line" arrangements are about 7% of the real 93s.
