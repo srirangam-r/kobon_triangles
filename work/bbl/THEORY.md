@@ -1073,3 +1073,25 @@ excluded:
 - LP: final ≥ 0 on P5 and final ≥ δ on P5 paths with a triple point. Feasible means a 94 has no triple point, and
   Theorem H applies.
 - Otherwise iterate: new certificates shrink P5, then retest.
+
+**Restricted strict LP over P5: infeasible** (cores of 5–8 jointly tight, real paths). The per-line method is
+exhausted; the remaining step is 2-D.
+
+**Flower reduction (lead, 2026-09-30).** In a 94 (multiplicity ≤ 3), the bridge components use only RRRRRR (all 6
+sectors triangles) and RRRNNB (sectors 111011) points; X points have no bridges.
+- Let R(K) be the union of the triangles between consecutive bridges at the points of a component K.
+  - RRRRRR has 6 such sectors, so it is an interior vertex (t = 6).
+  - RRRNNB has exactly 2 adjacent ones, so it is a boundary vertex with t = 2 (no pinches).
+- Gauss–Bonnet for triangulated surfaces: Σ_int (6 − t) + Σ_bdry (3 − t) = 6χ. Every boundary term is +1 and
+  every interior term is 0, so χ = 1 (a disk) and **exactly 6 boundary RRRNNB points**.
+- Counting for a disk triangulation with 6 degree-3 boundary vertices and I interior degree-6 vertices: the interior
+  subgraph has 3I − 3 edges, and planarity (≤ 3I − 6 for I ≥ 3, or ≤ C(I, 2)) forces I = 1.
+- So every bridge component is a **flower**: a centre O of type RRRRRR and six RRRNNB corners P_i, using 9 lines
+  (3 through O, 6 hexagon-edge lines ℓ_i ∋ P_i, P_{i+1}). Its Σ c = 3.
+- With Σ c_P = 6: either **6 X points** (closed: C16/C26/C29), **1 flower + 3 X points**, or **2 flowers**.
+- Data: no real arrangement (about 8,200 components) has a component made only of these two types.
+- The tight set contains only chiral centre windows: opposite corners on each line through O have their outer single
+  triangle on opposite sides.
+- Next: a finite consistency problem. Choose jointly tight windows for all 21 line–vertex incidences of a flower,
+  consistent along lines and at shared points, each extendable to a full P5 path. If this is infeasible, flowers are
+  impossible and multiplicity ≤ 3 is closed.
