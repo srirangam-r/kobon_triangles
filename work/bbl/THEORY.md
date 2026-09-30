@@ -673,3 +673,50 @@ Hence **Λ ≥ n/3 for these classes**. Files: work/eng/T21/rules_rfree.json, ru
   adjacent bridge sides, L and C at −1 each).
 - Its rule families had no key that moves the surplus of the kite's N sides to L and C, so KR was added as an explicit
   family.
+
+## 17. T21 final: class certificates (2026-09-30)
+
+The subagent could not write REPORT.md, so this section is the record. Commands and status are in
+work/eng/T21/certificates.json; code in search/rule_lp.py (rule family `SigCatalogue`) and search/rule_ref.py.
+
+**Theorem (automaton-certified, all even n).** Take a pseudoline arrangement with simple and triple points only, all of
+whose triple points have ring types in one of the classes below. Then every line ends with final ≥ 0 after the listed
+rules, so Λ ≥ n/3. In particular T ≤ 54 at n = 14, T ≤ 72 at n = 16 and T ≤ 94 at n = 18.
+
+| class | ring types | rules | facts needed |
+|---|---|---|---|
+| bridge-free | NNNNNN, BNNNNN, BNNBNN | 15, denominator 12 | none |
+| NB0 (no bridge next to a block) | 10 types | 18, denominator 12 | none |
+| C2 | NB0 + BNNNNR, BNNNRR, BRNNNR, BNNRRR, BRNNRR (15 types) | 46, denominator 6 | K1\*, K2 |
+
+- **Checks.** The DP minimum of D·(2·final + 2) equals 2D exactly. Three independent verifications (exact
+  Bellman–Ford, a layered DP to length 90, an SCC negative-cycle check). Every single-weight decrement is detected.
+- **Data.**
+  - 0 negative lines on 126k in-class phi/adv arrangements (99% of that corpus) and 266k in-class n = 18 dpwalkc
+    arrangements.
+  - Outside C2: 737 of 1,349 phi arrangements and 392 of 492 dpwalkc arrangements still have negative lines under these
+    rules.
+- **Rule family `SigCatalogue`.**
+  - Payer and receiver are each one of the block's roles: axis, cap, or one of the two flank lines.
+  - A rule cell is the full block signature.
+  - What a role cannot see becomes a hidden variable of its own window, minimised adversarially.
+
+**Remaining ring types:**
+- c_P ≥ 0: BNNNBR, BNNBRR, BNNRBR;
+- lattice defects with c_P < 0: BRRRRR, BRBRRR, BRRBRR, BRBRBR.
+
+Full class with F4′, K1\*, K2, K2g and K3: infeasible, 239 cuts. The minimal core has 10 cuts (core_k123_full.txt):
+- lattice payer cycles of BRRRRR/BRRBRR points;
+- short deficit paths.
+
+The c_P ≥ 0 union is infeasible too, with a 10-cut core on BNNBRR, BNNRBR and BNNRRR (core_k123_cge0.txt).
+
+**Realizability (T23, pattern SAT, work/eng/T23/patsat.py).**
+- K1 and K2 are UNSAT with 8 lines in 0.3 s. On 300 data k-grams: 298 SAT, 2 timeouts, 0 UNSAT.
+- Unrealizable (exact whole-line SAT): cut 109 (n = 8, killed by K3) and cut 147 (n = 12). Cut 232 is also UNSAT.
+- **Realizable:** cut 32 of the c ≥ 0 core, an n = 10 line with v_L = −3 (the data minimum is −2, so this is a large-n
+  effect missing from the corpus). Witness `3 2 1 3* 2 1 0 5 4 3 7 6 5 4 3 1* 3 7* 5* 4 2* 0* 5 6* 5 4 2* 8 7`.
+  - Line 0 passes through two (2,2) points of type BNNBRR, both of whose end segments are I-blocks.
+  - Every other line has v ≥ 3. The third side of the h-triangles at both points (line 9) has v = 6.
+  - So this family needs genuine payments. Even with T1′, T1″ and full N-flank residuals, line 0 stays at −1.
+- Cuts 93 and 217 are also realizable, with v = 0 in their witnesses.
