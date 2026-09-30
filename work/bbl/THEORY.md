@@ -1190,3 +1190,21 @@ Remaining:
   - single ends sit only at simple endpoints of doubly used segments;
   - for 1 flower + 3 X points (Σ_P (6 − t_P) = 12) at least 12 wedge vertices, where two lines end together.
 - Passed to T28 as pinning constraints for case B.
+
+**T25 finished (2026-09-30).**
+- Deliverables:
+  - search/rule_lp_t25.py;
+  - work/eng/T25/elim/{elim, pathelim, ilp*}.py and the fixed-point state prep_2.pkl / paths_2.pkl / state_2.pkl
+    (60 exact certificates);
+  - work/eng/T25/flower/.
+- All 1,608 fixed-point lines are individually non-strictable.
+
+**Status of K(18) = 93.**
+- Proven (computer-assisted, exact):
+  - multiplicity ≤ 3: T ≤ 94 (FC), and T ≤ 93 with a clean line (FD24);
+  - a 94 is 6 X points (old refereed C16/C26/C29, with C26 a solver claim), or 1 flower + 3 X points in the forced
+    shape; 2 flowers are excluded.
+- Open:
+  - case B (T28 pinned SAT);
+  - multiplicity ≥ 4 (T27);
+  - audits (LP code, the SAT encodings of C26 and T28).
