@@ -1417,3 +1417,15 @@ points or *bad* 4-fold points (sector patterns 11101110, 11111110, 11111111 up t
 - The same shape occurs locally in the square grid with both diagonals, as a diagonal line.
 - Global note: each all-8 point has c_P = β/2 ≥ 3/2. Four such points on one line already use Σ c ≥ 6 = Λ(94).
 - Next: T27 extracts the minimal core and tests realizability with the real-row LP.
+
+**T27 pre-check (M-strict on real rows): feasible.** The real-row LP satisfies final ≥ 0 on all 129,706 real n = 18
+lines (T22 data plus 590 SAT-realised worst paths). It also gives final ≥ δ on all 1,753 lines through a bad 4-fold
+point, for δ ≤ 1/6.
+- So the per-line route to "a bad 4-fold point forces Σ final > 0" is not blocked by real lines. The exact-17
+  obstruction is automaton looseness.
+- Next: CEGAR rounds with --mstrict 1/24.
+- Data context: n = 18 arrangements with a 4-fold point reach T = 92, but those with a bad 4-fold point reach only 74.
+  All-8 points never occur in the data.
+- Triangle-surface identity (lead): gluing triangles along doubly used segments gives a planar surface. Euler plus
+  3T = S − Z + D gives T = D + χ − F, with F the number of full vertices (all sectors triangles) and χ the surface's
+  Euler characteristic. This is a possible 2-D fallback.
