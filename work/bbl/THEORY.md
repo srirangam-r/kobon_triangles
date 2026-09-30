@@ -1431,3 +1431,13 @@ point, for δ ≤ 1/6.
 - Triangle-surface identity (lead): gluing triangles along doubly used segments gives a planar surface. Euler plus
   3T = S − Z + D gives T = D + χ − F, with F the number of full vertices (all sectors triangles) and χ the surface's
   Euler characteristic. This is a possible 2-D fallback.
+
+**§24 validation.** On 597 real 4-fold points (26 sector patterns), each of the 24 local words was spliced into the
+wiring word and T recomputed directly (work/eng/pert/validate_pert.py). The best ΔT equals pert.py's prediction in
+597/597 cases.
+
+**T28 closed (hand-back).** Case B is closed by the tip lemma, DRAT-checked for all 8 chirality classes. The 6-X case
+is closed: 2,841/2,841 cubes are UNSAT and DRAT-verified. Weakest point: the cube-defining lemmas E2–E5 and the block
+lemma are hand-derived and cannot be tested on data, since no real arrangement has Z = 0.
+
+**Open:** multiplicity ≥ 4, i.e. bad 4-fold points only (T27 CEGAR with --mstrict).
