@@ -752,3 +752,30 @@ Consequences:
     points (ring type BNNRRR).
 
   So the weights must be re-optimised jointly with τ; C2's weights alone do not suffice.
+
+## 18. Exact n = 18 loop (T25) and real deficits (2026-09-30)
+
+**T23 facts.** search/automaton_facts.py holds 9 SAT-proved facts, P000–P008. They include K1\*, K2, F4′, and a
+4-slot K3; the rest are simple-apex variants. Validation: 0 violations on 2.32M real lines.
+- Sweeps: 2,899 unseen 2-gram patterns (789 UNSAT) and 1,195 cut windows (84 UNSAT). All reduce to the 9 facts.
+- They kill only 1–3 cuts per LP core, so the remaining obstruction is payment, not local realizability.
+
+**Deficit census.**
+- Real lines with v ≤ −2 (after T1 + F): 28 at n = 8 (minimum −3) and 321 at n = 10.
+- The dominant local type is a (2,2) point BNNBRR/BRRBNN, with L's two blocks pointing at a mutual pair.
+- With T1″ a line with one such point sits at −½ in the rf case. Otherwise the point gives L +2.
+- F′ (F takes all 3/2) is not a fixed option: about 38% of lines whose triple-point rays are all N have p = 0 and need
+  the ½ residual.
+
+**T25 (search/rule_lp_t25.py; flags --t1pp, --exactw 17).**
+- The exact-weight-17 LP (n = 18 lines only) with all facts is infeasible, with or without T1″: 508 cuts, and 183 of
+  them are negative at w = 0.
+- Exact whole-line SAT at K = 18 (about 7 s each): 137 of 179 are real. Real 18-line arrangements have lines as low as
+  v_L = −7/2 (after T1 + F + T1″). Stored in work/eng/T25/real_deficits.jsonl.
+- An LP over the exact rows of 113 of these real arrangements (all 18 lines each) is **feasible** with 22 SigCatalogue
+  rules. So real deficits are payable. The relaxed infeasibility comes from unrealizable words and loose hidden
+  completions.
+- Next: a CEGAR loop.
+  - Real violated paths add all rows of their witness arrangement.
+  - UNSAT paths give positive cores (window filters, or lead-generalised facts).
+  - Frames-SAT but hidden-UNSAT cases give hidden-domain facts.
