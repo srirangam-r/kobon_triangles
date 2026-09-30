@@ -933,3 +933,14 @@ X-point cells with others.)
 1. Arrangements with no clean line (the strict step). Next: the NC strict LP with the new families.
 2. Points of multiplicity ≥ 4 (T22 automaton extension, or a separate counting argument).
 3. Validation and audit. T25 is running a planted test, the full corpus with exact weights, and an independent DP.
+
+**Validation of FC (T25, work/eng/T25/full_check.py, planted_test.py).**
+- Exact weights on all 345,073 triple-point n = 18 arrangements of the corpus (6,211,314 lines): minimum final 0,
+  zero negative lines.
+- Every rule column is conserved in every arrangement, and Σ_L final ≤ 3Λ − n holds everywhere.
+- Planted test: 68/68 single-weight decrements (−1/D) are detected. A second DP implementation gives the same per-n
+  minima.
+- δ (minimum final over clean paths) = 0 at the FC weights. The zigzag clean line pays SV/TRI rules.
+- Next:
+  - re-solve with clean paths ≥ δ > 0 (runs FD: δ = 1/6; FD24: δ = 1/24);
+  - the no-clean strict runs (ε = 1/60, 1/120, 1/240).
