@@ -734,3 +734,21 @@ Consequences:
 - A purely local exclusion of tight points fails, since real 93s contain zero points.
 - The strict step therefore needs either re-optimised weights, or a global argument for tight lattice-type clusters
   (compare §9A: every bridge component has val ≥ 1 in data).
+
+**Strict step plan: the extreme-point credit LP.**
+- Sweep geometry. In a wiring diagram, let P be the leftmost point of a bridge component (minimum event id). All
+  bridges at P point right, so its three left rays, which are consecutive in the ring, are non-bridge.
+  Likewise for the rightmost point.
+- Joint LP. Find rule weights w and credits τ(config, role) ≥ 0 such that:
+  - every "extreme-type" configuration (three consecutive non-bridge rays) has Σ over its three lines of τ ≥ 1;
+  - every line satisfies final_L ≥ ε·Σ_{P∈L} τ(P, L), with ε fixed, say 1/100.
+
+  Both conditions are linear, and the automaton DP remains the separation oracle.
+- Why it works. In a 94, every final is 0, so every τ on a line through an extreme point is 0, which contradicts
+  Σ τ ≥ 1. Hence a 94 has no triple point, and Theorem H excludes simple arrangements.
+- Data check (C2 weights, n = 18, T ≥ 92, in class):
+  - singleton components (about 28k): at least one line is always > 0;
+  - multi-point components (565): exactly one 7-point component has all three lines at 0 at both of its extreme
+    points (ring type BNNRRR).
+
+  So the weights must be re-optimised jointly with τ; C2's weights alone do not suffice.
