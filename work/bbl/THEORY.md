@@ -1405,7 +1405,9 @@ points or *bad* 4-fold points (sector patterns 11101110, 11111110, 11111111 up t
 - Cubes: the singleton end sets S ⊂ Z_36 with even gaps, u = |S| ≤ 6. There are 2,841 of them (u = 0:1, 2:9, 4:245,
   6:2586). **All are UNSAT** (cadical 1.9.5).
 - Scripts: work/eng/T28/x6_cubes.py, x6_pass2.py, x6_drat.py.
-- DRAT proofs (kissat + drat-trim) are in progress, with 0 failures so far.
+- DRAT: **all 2,841 cubes verified** (kissat + drat-trim), 0 failures. The hardest cube, u = 2 with S = (0,17), was
+  split into 17 sub-cubes, all verified. Summary: work/eng/T28/x6cert/summary.json. The DRAT files are deleted but can be
+  regenerated with x6_drat.py.
 - So the 6-X branch no longer depends on C26.
 
 **T27 note 9: wall for the multiplicity ≥ 4 LP.** The exact-weight-17 LP is infeasible after 1,591 cuts
