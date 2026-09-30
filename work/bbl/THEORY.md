@@ -525,3 +525,30 @@ the record. **Verdict: no soundness bug.**
   So Blanc's lemma (every line touches another line's unused segment) is not a consequence of the local facts. The
   route stays at 1/3 per line plus the n = 18 strictness step. The empirical Λ ≥ n/2 − 1 pattern (all even records up
   to n = 50) would need global arguments.
+
+## 15. Line automaton for any multiplicity (T22, 2026-09-30)
+
+search/line_automaton_m.py imports T20 unchanged. The subagent could not write its REPORT.md, so this section is the
+record; logs and data are in work/eng/T22/.
+- **Model.**
+  - M frames are (bin, bout, hE, hW): 256 frames, valid for all m ≥ 4.
+  - m enters only through the bonus 6(m−3) (halves) and the parity of m − 1. Classes m ≥ 6 are dominated by m − 2, so
+    m = 4, 5 cover everything.
+  - E and W sides are relaxed to be independent (sound).
+- **Facts.**
+  - F4 fails for m ≥ 4. F4′ (a run of consecutive blocks has length ≤ m − 2) is proven but not needed.
+  - F3′ at m-fold points and the gap-ray facts are proven (module docstring).
+- **Soundness: 0 failures.**
+  - Structured even-n data: 122,680 lines, 39,367 through 4-fold points, 11,416 through 5-fold.
+  - Random words with m ≤ 10: 237,934 lines; all 344 frames occur.
+  - Triple-only regression: 357,546 lines. The M-side model equals T20 on 563,634 triple windows.
+  - 11/11 mutations detected; an independent layered DP agrees.
+- **Certified, all n, any multiplicity.**
+  - M1 unchanged.
+  - **v_L + ½·#RN3 + 3/2·#RR3 ≥ −1**, where RN3 and RR3 count unserved blocks at triple points. Blocks at m-fold points
+    need no compensation.
+  - Every m-fold vertex adds ≥ 3(m − 4) to v_L. Lines through an m-fold point with m ≥ 5 have
+    v_L + comp ≥ 3m − 13.
+  - Lines with no triple point have raw v_L ≥ −1.
+- **Consequence.** Multiplicity ≥ 4 folds into the triple-point analysis. A rule set that closes the triple-point case
+  and is expressible in these windows closes all multiplicities.
