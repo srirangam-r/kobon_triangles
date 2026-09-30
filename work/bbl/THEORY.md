@@ -498,3 +498,24 @@ loaded machine.
    - Data warning: value-greedy rules create zero points (93 triple points whose lines all end at 0). The rules must be
      structural for this step.
 4. Multiplicities ≥ 4: extend the vertex types (bonus 3(m − 3) per line through an m-fold point).
+
+## 14. Independent audit of the line automaton (A20, 2026-09-29, 23:15)
+
+Tool: search/audit_automaton.py. Logs: work/eng/A20/. The subagent could not write its REPORT.md, so this section is
+the record. **Verdict: no soundness bug.**
+- **Local facts.** F1–F8 are sound for multiplicity ≤ 3; each proof was re-derived by hand, window formulas included.
+  - Load-bearing: F3′ (forced sig) for M2 and F5 (end compatibility) for M1. M1 and M2 are unchanged with F2, F3, F4,
+    F6, F7 dropped.
+  - g = 0 fixing is sound for objectives whose v2 coefficient is ≥ 0 (all current uses).
+  - ub-normalisation at interior triple frames is a coarsening, hence sound.
+- **M1** holds for even n ≥ 4. The only failure is the trivial n = 2, where the line has one vertex. It was also
+  re-derived by hand from F3 and F5. **M2** holds for all n.
+- **Evidence.**
+  - Exhaustive n = 2..7 (all 253,108 arrangements at n = 7, 1.8M lines).
+  - About 0.15M sampled arrangements at n = 8..14, plus 6 Metropolis runs of 300k steps.
+  - An independent exact-rational straight-line oracle up to n = 18 (44k arrangements) agrees with values().
+  - 9/9 planted over-restrictions detected.
+  - An independent block-centric DP matches all 59,772 windows. Bellman–Ford and potential certificates reproduce
+    M1 = 1/0 and M2 = 0 halves. The −∞ cases come with explicit weight −4 cycles.
+- **Caveats.** Soundness is relative to bbl_hall.values() as the spec. The window formulas are hand-derived and
+  tested, not machine-checked. Multiplicity ≥ 4 is covered separately (T22).
