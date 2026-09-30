@@ -993,3 +993,21 @@ Simple arrangements are covered by Theorem H, and also by (a)'s complement, sinc
 - T25 found that only K3 is needed among the facts for the ε = 0 certificate. F4′, K1\*, K2, K2g, F5\* and P000–P009
   are each removable. This simplifies the multiplicity extension.
 - Previously refereed (old route): no 94 with k ≤ 5 triple points, in GP, or with k = 6 and β = 0.
+
+**NC strict: per-line credits exhausted; switch to tight structure (2026-09-30).**
+
+Three per-line strict formulations fail in the automaton, each on a zero-slack cluster of real paths:
+
+| credit | blocking cluster |
+|---|---|
+| uniform ε | X-point cluster |
+| τ at extreme-point configurations | X-point cluster (rich vs. tight lines share a column) |
+| lines with k ≥ 2 | bridge-pair lines (two consecutive BNNRRR points) |
+
+Real rows allow ε ≈ 0.1–0.18 each time. The per-line relaxation cannot route the strictness.
+
+**New approach.**
+- In a 94, Σ final = 0, so every line is exactly tight under FD24, under FC, and under every ε = 0 certificate.
+- The tight lines form a regular language, the tight edges of the DP.
+- Plan: intersect the tight window sets of several certificates. A 94 must consist entirely of always-tight lines.
+  If that set is small, exclude it by counting or by a targeted SAT search. T25 is running the census.
