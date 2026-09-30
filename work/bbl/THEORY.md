@@ -982,3 +982,14 @@ Simple arrangements are covered by Theorem H, and also by (a)'s complement, sinc
   for a = 0 and a = ⅓ alike (uniform ε gave 0.067 and 0.027).
 - T25 is running the automaton version: NC, all families, τ-credits.
 - Validity: an NC arrangement has a triple point, hence a bridge component, hence an extreme point.
+
+**NC strict, attempt 3: credit on lines through ≥ 2 triple points.**
+- τ-credits at point configurations fail in the automaton, because the credit column cannot tell a rich line from a
+  tight X-axis line in the same configuration.
+- New key: the path-level feature k_L ≥ 2, a DP counter. Validity: an NC arrangement in general position is excluded by
+  Theorem H; otherwise some line has k ≥ 2.
+- Real test (NC 93s, all non-GP; work/eng/T25/nc_k2_lead.py): max ε = 0.159 (C2) and 0.109 (full). The variant
+  crediting k_L − 1 gives 0.064 and 0.045.
+- T25 found that only K3 is needed among the facts for the ε = 0 certificate. F4′, K1\*, K2, K2g, F5\* and P000–P009
+  are each removable. This simplifies the multiplicity extension.
+- Previously refereed (old route): no 94 with k ≤ 5 triple points, in GP, or with k = 6 and β = 0.
