@@ -1208,3 +1208,41 @@ Remaining:
   - case B (T28 pinned SAT);
   - multiplicity ≥ 4 (T27);
   - audits (LP code, the SAT encodings of C26 and T28).
+
+## 22. Case B closed: pure flowers cannot occur in a 94 (T28 + lead audit, 2026-09-30)
+
+**Tip lemma.** Take a flower in a 94, with corner chiralities c_i ∈ {3, 4} and c_i = c_{i+3}. The chirality c_i = 3
+means P_i's block goes toward Y_i; c_i = 4 means it goes toward Y_{i−1}. At a tip Y_j:
+- (c_j, c_{j+1}) = (3, 4): a mutual pair;
+- (3, 3): only P_j's block (axis l_{j−1}) arrives. It is not mutual, since P_{j+1}'s sector 3 is a non-triangle and
+  the far end of P_j's ext m_j is simple. By Lemma A and Z = 0, **l_{j−1} ends at Y_j**;
+- (4, 4): symmetrically, **l_{j+1} ends at Y_j**.
+
+**Antipodal pair.** A 3-periodic sequence over {3, 4} has some j with c_j = c_{j+1}. Then the tips Y_j and Y_{j+3}
+are both (3,3) or both (4,4). So two "parallel" hexagon lines on opposite sides of the flower both end at their tips.
+
+**9-line obstruction.**
+- These two end conditions plus the flower's positive structure are UNSAT among 9 pseudolines (T28,
+  search/flower_sat.py, work/eng/T28/n9_tips.py). Each condition alone is SAT.
+- Checks: 240 real (flower, tip) pairs agree with an independent computation; in 6,000 random real flowers the two
+  conditions never hold together, while each holds alone about 50% of the time.
+- Transfer to 18 lines by the restriction principle: a line ending at a vertex still ends there after deleting lines,
+  and the flower's faces survive.
+- Pending: DRAT proofs, and confirmation that only restriction-preserved facts are used.
+
+**Consequence.**
+- Case B (1 flower + 3 X points, forced by the ILP to have pure flower lines) is impossible.
+- 2 flowers are impossible, again independently of the counting lemma.
+
+**K(18) chain for multiplicity ≤ 3** (computer-assisted; audits pending):
+1. FC and FD24 certificates: T ≤ 94, and a 94 has no clean line.
+2. Joint tightness plus exact iterated elimination: Z = 0, the 1,608 line types, and 4 point types.
+3. Flower reduction (Gauss–Bonnet): the cases are 6 X points, 1 flower + 3 X points, or 2 flowers.
+4. 6 X points (k = 6, β = 0): old refereed C14/C16/C26/C29. C26 is a solver claim whose encoding audit is pending.
+5. 2 flowers: the ILP (shared lines) and the counting lemma (disjoint), plus the tip lemma.
+6. 1 flower + 3 X points: the ILP-forced shape plus the tip lemma.
+7. Simple arrangements: Theorem H.
+
+**Remaining:**
+- multiplicity ≥ 4 (T27);
+- audits: the LP/certificate code, the ILP constraints, the DRAT for the tip lemma, C26.
