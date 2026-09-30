@@ -1095,3 +1095,16 @@ sectors triangles) and RRRNNB (sectors 111011) points; X points have no bridges.
 - Next: a finite consistency problem. Choose jointly tight windows for all 21 line–vertex incidences of a flower,
   consistent along lines and at shared points, each extendable to a full P5 path. If this is infeasible, flowers are
   impossible and multiplicity ≤ 3 is closed.
+
+**Multiplicity ≥ 4 (T27, search/rule_lp_t25m.py).**
+- Sanity check without the ≥ 4-fold apex class (`--nomult --noapex3`): reproduces FC exactly (D = 16).
+- With apex class 3, i.e. triangle apexes that are ≥ 4-fold, the LP was infeasible. The witnesses were pure caps whose
+  block has a ≥ 4-fold apex, with no rules available there.
+- Fix: TRI cells with three vertex classes S/T/M. Triangles with two or more M vertices carry no transfer.
+- With the fix, `--nomult` including apex class 3 is feasible: exact, D = 32 (work/eng/T27/rules_S3.json).
+- Running now: the full multiplicity graph with M4/M5 frames, then the FD24 target and a conservation check on T22
+  data.
+
+**Flower check (T25).** At the window level it is satisfiable: 8 solutions, with the chirality free per antipodal pair
+of corners. Next: cross-line consistency at the six star tips Y_i = ℓ_{i−1} ∩ ℓ_{i+1}. By Lemma A with Z = 0, each
+corner's block at a tip is either mutual with the adjacent corner (opposite chirality) or its axis ends there.
