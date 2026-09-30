@@ -916,8 +916,9 @@ plus a uniform ε, which is already shown infeasible on real rows. Nothing new.
 - Parameters: a = 0, α′ = ½. Rules: work/eng/T25/rules_FC_full.json (60 block cells plus 7 SV/TRI/PT rules).
 - **Theorem (computer-assisted).** Every pseudoline arrangement of 18 lines with points of multiplicity ≤ 3 has every
   line at final ≥ 0. Hence Λ ≥ 6, i.e. **T ≤ 94**.
-- **With a clean line.** Since a = 0, L3 gives every clean line ≥ ½, so Λ ≥ 6 + c/6 > 6. Every such arrangement with
-  at least one clean line has **T ≤ 93**.
+- **With a clean line.** Since a = 0, L3 gives every clean line a *base* value ≥ ½. The SV/TRI rules can make clean
+  lines pay, so the bound needs δ := the minimum final over clean paths to be > 0. Then Λ ≥ 6 + cδ/3 > 6 and every
+  such arrangement with a clean line has **T ≤ 93**. (δ is being checked by T25.)
 
 **The decisive ingredient.** The exact-coupling families, whose cells are fully visible to every party:
 - SV cells at simple vertices (4 face bits);
