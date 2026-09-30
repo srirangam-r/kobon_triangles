@@ -720,3 +720,17 @@ The c_P ≥ 0 union is infeasible too, with a 10-cut core on BNNBRR, BNNRBR and 
   - Every other line has v ≥ 3. The third side of the h-triangles at both points (line 9) has v = 6.
   - So this family needs genuine payments. Even with T1′, T1″ and full N-flank residuals, line 0 stays at −1.
 - Cuts 93 and 217 are also realizable, with v = 0 in their witnesses.
+
+**Zero points under the C2 weights (n = 18 data, for the strict step).**
+- Sample: about 14,100 in-class 93-arrangements, about 20,700 triple points. Every line ends with final ≥ 0.
+- 46% of the lines through triple points end at exactly 0.
+- About 29 zero points occur, i.e. triple points whose three lines all end at 0. They lie in about 17 arrangements.
+  There are none at T = 92.
+- Every zero point has type BNNRRR (c = ½) or RRRRRR (lattice interior, c = 0), and all are linked to other triple
+  points. Isolated X points are never zero points.
+
+Consequences:
+- An ε-margin per line through a triple point is far off with these weights.
+- A purely local exclusion of tight points fails, since real 93s contain zero points.
+- The strict step therefore needs either re-optimised weights, or a global argument for tight lattice-type clusters
+  (compare §9A: every bridge component has val ≥ 1 in data).
