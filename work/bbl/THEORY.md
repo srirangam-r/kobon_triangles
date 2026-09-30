@@ -519,3 +519,9 @@ the record. **Verdict: no soundness bug.**
     M1 = 1/0 and M2 = 0 halves. The −∞ cases come with explicit weight −4 cycles.
 - **Caveats.** Soundness is relative to bbl_hall.values() as the spec. The window formulas are hand-derived and
   tested, not machine-checked. Multiplicity ≥ 4 is covered separately (T22).
+- **Blanc-strength test** ($CLAUDE_JOB_DIR/tmp/blanc_auto.py, T20's automaton with a touches-only objective):
+  - a clean line can have 0 *touches* for even n (the witness uses own unused segments instead);
+  - its touches + own is ≥ 1.
+  So Blanc's lemma (every line touches another line's unused segment) is not a consequence of the local facts. The
+  route stays at 1/3 per line plus the n = 18 strictness step. The empirical Λ ≥ n/2 − 1 pattern (all even records up
+  to n = 50) would need global arguments.
