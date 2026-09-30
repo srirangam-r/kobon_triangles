@@ -1462,3 +1462,22 @@ lemma are hand-derived and cannot be tested on data, since no real arrangement h
 - Exact real rows with M-strict δ = 1/24: feasible.
 - Projecting for all roles kills even FC. So the per-role-pair split is essential.
 - Running: the full M DP (exact 17, --mstrict 1/24, --projc, reduced model, 4 CEGAR patterns).
+
+**T27 closed (final hand-back): FC-M is not certified.**
+- Per-line state: exact real rows are feasible, but the DP (hidden-variable automaton) is infeasible. The 44-path core
+  at wmax 1000 is in work/eng/T27/cegar/core_Q3_w1000.txt.
+- Remaining adversary: the `oth` completion in the A–L/A–R cells of X points with M neighbours.
+  - The window SAT filter removes only 8% of these completions.
+  - An OTH coupling cannot tie two lines in a per-line DP.
+- Kept: K3-only FC for multiplicity ≤ 3 at D = 4 with cap-visible keys (w_E7.pkl, rules_E7.json).
+
+**§25. Optimality facts (lead).** Let the counterexample be lexicographically maximal in (T, V) among 18-line
+arrangements with T = K(18).
+- Then no local rearrangement has ΔT > 0, or ΔT = 0 with ΔV > 0.
+- This is a new source of facts, beyond realizability. Any local configuration with such a rearrangement is excluded.
+  §24 is the one-point case.
+- Pair case: bad 4-fold P with an adjacent triple Q on one of its lines (window k = 6, 658 words, 50 options;
+  work/eng/pert2/window.py, pair_PQ.py).
+  - Of 272 face-degree assignments with P bad, 167 have a lossless rearrangement and 105 are irreducible.
+  - The irreducible ones are listed in pair_PQ.out, e.g. P 11111111 with Q ∈ {111111, 110111, 101111, 100111}. X points
+    (Q = 011011) survive only next to P = 10111111 / 10111011.
