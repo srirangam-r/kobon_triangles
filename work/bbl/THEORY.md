@@ -895,3 +895,14 @@ plus a uniform ε, which is already shown infeasible on real rows. Nothing new.
 - Data: isolated X axes with an I-block always have p ∈ {2, 3} (20k cases); without an I-block, p ≥ 3.
 - So the axis can pay the pure cap, provided own portions are valued (a > 0; in the NC case there are no clean lines
   to protect). Scripts: work/eng/xaxis_dp.py, work/eng/f5star_check.py.
+
+**Routing wall and exact-coupling rule families (2026-09-30, 04:40).**
+- T25 plugged in all facts (P000–P009, K4 = P000). Adding any single non-C2 type to C2 is still infeasible. The minimal
+  cores have 11 (BNNNBR) to 61 (BNNBRR) cuts.
+- The core paths are real 18-line lines (exact SAT with the DP's own sig choice). So the obstruction is routing: e.g.
+  the cell (RXXXR, pR = 1, tL = tR = 1) is paid by T-chain lines and received by S-T-S caps, with opposite signs.
+- NC C2 strict with a = ⅓: the X-point core disappears, but the next core is BNNRRR chains, again decoupling.
+- Fix under test, adding routes without adding looseness:
+  - **SV cells**: at a simple vertex, keyed on its 4 face bits, which both lines see;
+  - **TRI cells**: at a triangle, keyed on its 3 vertex multiplicities, which all three side lines see through the
+    enriched apex flags.
