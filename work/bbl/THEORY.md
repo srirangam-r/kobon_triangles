@@ -1451,3 +1451,14 @@ lemma are hand-derived and cannot be tested on data, since no real arrangement h
   adversarial cap/axis cell completions.
 - CEGAR round 1 found 4 patterns, including a soundly guarded K2. Next: a SAT filter on window-level cap cells, with
   4-fold points allowed.
+
+**T27: cap-visible keys (--projc ring,oth0).**
+- Change: transfers involving the cap (C↔A, C↔L, C↔R) use the cell projected to what the cap sees (ring5 →
+  (fR,X,X,X,fL), no oth). A/L/R transfers among themselves keep the full cell.
+- Soundness: every party to a transfer computes the same projected key, so conservation holds. The cap's value no
+  longer depends on cells it cannot see, which removes the DP's adversarial completion.
+- Multiplicity ≤ 3, exact 17, K3 only: feasible with denominator 4 (|w|_1 = 9, 101 cuts; work/eng/T27/w_E7.pkl,
+  rules_E7.json). Before: D = 16 with 376 cuts.
+- Exact real rows with M-strict δ = 1/24: feasible.
+- Projecting for all roles kills even FC. So the per-role-pair split is essential.
+- Running: the full M DP (exact 17, --mstrict 1/24, --projc, reduced model, 4 CEGAR patterns).
