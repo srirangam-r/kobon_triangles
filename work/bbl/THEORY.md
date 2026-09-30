@@ -1280,3 +1280,12 @@ are both (3,3) or both (4,4). So two "parallel" hexagon lines on opposite sides 
 - Membership test: 0 bad lines out of 543k real T22 lines (4- to 10-fold).
 - The M-free sanity check needs only K3 (exact, D = 16).
 - Full M LP runs in progress.
+
+**Audit A30, item 2 (elimination certificates): PASS with a reproducibility fix.**
+- Checked with A30's own exact-integer DP (work/eng/A30/elim/dplib.py). All 60 stored certificates are valid and
+  their strictness margins hold. The 5 initial certificates reproduce state_0 exactly.
+- Gap: state_2.pkl stored only 55 of the 1,014 round-1 strict certificates (truncation in elim.py), so the stored
+  set alone leaves 213 windows, not 205.
+- A30 re-derived 8 more strict certificates and verified them. **The 68 certificates in
+  work/eng/A30/elim/certs68.pkl jointly give exactly the fixed point (205 windows, 380 edges, 24 terminals).** This is
+  sufficient, since a 94's lines must be tight under every one of them.
