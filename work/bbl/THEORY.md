@@ -1441,3 +1441,13 @@ is closed: 2,841/2,841 cubes are UNSAT and DRAT-verified. Weakest point: the cub
 lemma are hand-derived and cannot be tested on data, since no real arrangement has Z = 0.
 
 **Open:** multiplicity ≥ 4, i.e. bad 4-fold points only (T27 CEGAR with --mstrict).
+
+**T27: exact real rows are feasible, strictness included.**
+- Built exact rows (true hidden f1/f2/g and exact block cells from geometry; work/eng/T27/exact_blocks.py,
+  real_lp.py --exact) over 97,962 distinct rows (T22 data plus about 1,000 SAT-realised worst paths).
+- With them the LP is feasible for FC and for M-strict final ≥ δ on every bad-4-fold row, even with δ = 1
+  (|w|_1 = 8).
+- With adversarial window minima the same rows are infeasible. So the remaining obstruction is only the DP's
+  adversarial cap/axis cell completions.
+- CEGAR round 1 found 4 patterns, including a soundly guarded K2. Next: a SAT filter on window-level cap cells, with
+  4-fold points allowed.
