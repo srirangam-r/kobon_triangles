@@ -1246,3 +1246,16 @@ are both (3,3) or both (4,4). So two "parallel" hexagon lines on opposite sides 
 **Remaining:**
 - multiplicity ≥ 4 (T27);
 - audits: the LP/certificate code, the ILP constraints, the DRAT for the tip lemma, C26.
+
+**Tip lemma certified (T28, work/eng/T28/cert/).**
+- The 9-line CNF uses only restriction-preserved facts: signotope axioms (no 4-fold point), concurrency of the 7
+  flower points, the triangle faces, and the two "Y is extreme on the line" conditions. Plus symmetry breaking (global
+  sign flip, free slope labelling). There are no non-triangle facts and no cardinality on the triple points.
+- DRAT proofs (kissat + drat-trim) are verified for all 8 chirality classes, and for the minimal CNF of both tip types.
+- **Minimal statement:** among 9 pseudolines, the 7 concurrences of a flower plus its 6 inner triangles
+  O P_i P_{i+1}, plus "l_{j−1} ends at Y_j and l_{j+2} ends at Y_{j+3}" (or the mirror (4,4) version), are
+  unsatisfiable. The instance has 1,668 variables and 23.6k clauses; files lemma_*.cnf and *.drat.xz, generator
+  work/eng/T28/n9_cert.py.
+- The 48 of 76 incidence patterns that were run (X points on flower lines) are all UNSAT; the batch is not needed after
+  the lemma.
+- T28 is now re-checking the 6-X-point case (k = 6, β = 0) independently.
