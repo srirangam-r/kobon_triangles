@@ -1108,3 +1108,17 @@ sectors triangles) and RRRNNB (sectors 111011) points; X points have no bridges.
 **Flower check (T25).** At the window level it is satisfiable: 8 solutions, with the chirality free per antipodal pair
 of corners. Next: cross-line consistency at the six star tips Y_i = ℓ_{i−1} ∩ ℓ_{i+1}. By Lemma A with Z = 0, each
 corner's block at a tip is either mutual with the adjacent corner (opposite chirality) or its axis ends there.
+
+**Flower check v2 (T25).**
+- It stays satisfiable after adding the 12 simple vertices around a flower: star tips, and the third outer-triangle
+  apexes Y_i. Lines must agree on sectors, far-end kinds, ub flags and apex flags at every vertex. All 8 chirality
+  classes remain satisfiable.
+- The geometry code was validated on a real 9-line flower.
+- Removing every window with an exact strictness certificate (414 of 1,154) leaves the automaton prep_exact.pkl
+  (470 nodes, 789 edges, 71 terminals). **Every line of a 94 is a path in it.** The flower survives in it.
+- T-counts: flower lines admit 0, 2 or 4 extra triple points. Two disjoint flowers on 18 lines are locally consistent.
+
+Next, in parallel:
+- iterated elimination on the reduced graph (T25);
+- pinned SAT of the two cases, 2 flowers (t = 14) and 1 flower + 3 X points (t = 10), with Z = 0 and T = 94
+  (T28: search/flower_sat.py, work/eng/T28_flower_sat.md).
