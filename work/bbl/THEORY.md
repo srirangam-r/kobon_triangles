@@ -969,3 +969,16 @@ Simple arrangements are covered by Theorem H, and also by (a)'s complement, sinc
 - FD24 full-corpus check: 6.2M lines, zero negative, all columns conserved.
 - T25 has started the multiplicity ≥ 4 extension (M frames, apex class ≥ 4, facts guarded to exactly-triple
   neighbours).
+
+**NC strict: switch to targeted credits (2026-09-30).**
+- Uniform ε fails even at a = ⅓. The zero-slack combination is pure caps (v = −1), tight flank lines, and a rich line
+  (v = 6.5) through six X points that pays six caps. Uniform ε would force every one of them strict.
+- A strict step only needs one positive line per extreme point.
+- Necessary test with extreme-point τ-credits (fine keys) on no-clean real 93s (script
+  work/eng/T25/nc_rows_tau_lead.py plus real_tau_lp.py):
+  - C2: max ε = 0.176;
+  - full: max ε = 0.128;
+
+  for a = 0 and a = ⅓ alike (uniform ε gave 0.067 and 0.027).
+- T25 is running the automaton version: NC, all families, τ-credits.
+- Validity: an NC arrangement has a triple point, hence a bridge component, hence an extreme point.
