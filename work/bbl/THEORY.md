@@ -655,3 +655,21 @@ Hence **Λ ≥ n/3 for these classes**. Files: work/eng/T21/rules_rfree.json, ru
 - The mirror statement holds on the W side.
 - This is the lattice 2-cycle with alternating apexes (T21's cut 1). Its blocks are served, so its flank line owes
   nothing. Data: 12 occurrences, 0 violations.
+
+**Fact K3 (runs, proved; generalizes K1\*).**
+- An s-link joins consecutive triple vertices T_i, T_{i+1} such that:
+  - the triangle on side s of [T_i, T_{i+1}] has a triple apex A;
+  - h[s] = 1 at both T_i and T_{i+1}.
+- Shared third side. The ring at A puts the third sides of both h-triangles on A's third line f. So a maximal run of
+  s-links shares one third-side line f, and f crosses L outside the run.
+- Consequence: lf(s) anywhere in the run and rf(s) anywhere in the run are incompatible.
+- Automaton form: one flag bit per side, carried along links.
+- Data: 0 violations in about 660k runs, about 10k of them of length 2–8.
+- K3 kills T21's deficit line cut 109 (n = 8). There the h-triangle at T3 would need a line through the two triple
+  points W4∩W5∩a3 and W1∩a2∩b3, which share no line.
+
+**Kite rule is required explicitly.**
+- T21's core after K2g contains the kite deficits (cuts 11 and 66: two kites per period, each in the K2 case with two
+  adjacent bridge sides, L and C at −1 each).
+- Its rule families had no key that moves the surplus of the kite's N sides to L and C, so KR was added as an explicit
+  family.
