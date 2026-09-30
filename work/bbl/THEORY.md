@@ -779,3 +779,30 @@ Consequences:
   - Real violated paths add all rows of their witness arrangement.
   - UNSAT paths give positive cores (window filters, or lead-generalised facts).
   - Frames-SAT but hidden-UNSAT cases give hidden-domain facts.
+
+**Hand proofs of T23's SAT facts P000–P009** (search/automaton_facts.py).
+
+The facts' proofs no longer depend on the patsat encoding.
+
+Notation. At a triple point P, the lines are L, b (rays E+ and W−) and a (rays W+ and E−). "Apex simple" means that
+the third corner of the triangle over a segment of L is a simple vertex.
+
+- **P000** (T[h−] T[h+], [A,B] doubly used, both apexes simple).
+  - The apexes are Q = b_A∩a_B above L and Q′ = a_A∩b_B below L.
+  - The ring at the simple point Q puts the third side of h+(B) on b_A. So b_A meets b_B above L.
+  - The ring at Q′ puts the third side of h−(A) on b_B. So b_A meets b_B again below L. Contradiction.
+- **P001** (S T[h−], [X,P] doubly used, bottom apex simple).
+  - The bottom apex is Z′ = b∩C (C is X's other line), and the ring at Z′ puts the third side of h−(P) on C. So C
+    meets a below L.
+  - The top triangle over [X,P] has its apex on C and on a, above L. Contradiction.
+- **P002** is F-T3 (two adjacent blocks W−, E−).
+- **P003** (T[h−] T[h(1,1)] T[h+], two doubly used segments, top apex of [A,B] and bottom apex of [B,C] simple).
+  - The simple apexes force b_A∩b_B = S above L and b_B∩b_C = R below L.
+  - R is also the bottom apex of [A,B], so R = a_A∩b_B∩b_C. The ring at R puts the third side of h−(A) on b_C, so b_A
+    meets b_C below L.
+  - Symmetrically, S = b_A∩b_B∩a_C, and the ring at S puts the third side of h+(C) on b_A, so b_A meets b_C above L.
+    Contradiction.
+- **P004** is K2.
+- **P005** and **P008** follow from K3 if the middle apex is triple, and from K1\*/F-T3 if it is simple.
+- **P006** and **P009** are K1\*.
+- **P007** is F4′.
