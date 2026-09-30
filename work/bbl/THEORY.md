@@ -635,3 +635,23 @@ In the 2-bridge case the split is L −1, C −1, c +1, d +1.
 - L and C see all four side statuses in their window at X.
 - The side's line sees 3 of the 4 triangles, so it pays in the worst case. That is affordable: without the 4th triangle
   both of its blocks are served, and it pays no F.
+
+**T21 status (2026-09-30).** Exact rule certificates (denominator 12, DP minimum 2·final + 2 = 2 on all paths and
+cycles) exist for two classes:
+- bridge-free (rings NNNNNN, BNNNNN, BNNBNN; 16 rules);
+- NB0 (no bridge ray adjacent to a block ray; 10 ring types).
+
+Hence **Λ ≥ n/3 for these classes**. Files: work/eng/T21/rules_rfree.json, rules_nb0_.json, search/rule_ref.py.
+- Full class with K1\* + K2: still infeasible (139 cuts). The core is zero-value lattice T–T cycles, whose flank line
+  pays at every vertex, plus two small deficit lines.
+- Bounded length (n − 1 ≤ 17) does not help.
+
+**Fact K2g (from K2; forces the hidden gap-end bit).**
+- Setting: a triple point A on L with bin[s] = bout[s] = h[s] = 1. Suppose E s is a block toward a simple Q, the far
+  end R of W s is triple, and the next vertex B is triple with h[s](B) = 1 and bout[s](B) = 1.
+- Claim: the block is served.
+- Proof. Q has three triangles: ABQ, AQR and BQS. A 4th would make Q a kite whose opposite sides [B,S] and [R,A]
+  both have outer triangles, which K2 forbids. So the gap-end ray [R,Q] is N.
+- The mirror statement holds on the W side.
+- This is the lattice 2-cycle with alternating apexes (T21's cut 1). Its blocks are served, so its flank line owes
+  nothing. Data: 12 occurrences, 0 violations.
