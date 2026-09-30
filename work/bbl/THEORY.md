@@ -1122,3 +1122,25 @@ Next, in parallel:
 - iterated elimination on the reduced graph (T25);
 - pinned SAT of the two cases, 2 flowers (t = 14) and 1 flower + 3 X points (t = 10), with Z = 0 and T = 94
   (T28: search/flower_sat.py, work/eng/T28_flower_sat.md).
+
+**Rigorous iterated elimination (T25, work/eng/T25/elim/).**
+- **Correction:** the earlier strictness "exact certificate" lines (group_results, single_results) were stale: they
+  showed min = 2D, which is not strict. Discard prep_exact.pkl and excl_*.pkl.
+- New pipeline: exact rational LP vertices (python-flint), each accepted certificate re-checked in exact integer
+  arithmetic.
+
+| round | tests | removed | remaining |
+|---|---|---|---|
+| 0 | — | — | 1,154 jointly tight windows |
+| 1 | 1,235 | 949 windows (1,014 strict tests) | 205 windows, 380 edges, 24 terminals |
+| 2 | 217 | none (all tight) | fixed point |
+
+- The same 4 point types survive: 56 corner windows, 7 centre windows, and the X variants.
+- **Every line of a 94 (multiplicity ≤ 3) is one of 1,608 enumerable line types** (work/eng/T25/elim/paths_2.pkl).
+  T-count distribution k = 0…7: 16, 56, 220, 364, 560, 300, 84, 8.
+- The flower check is still satisfiable on the fixed-point graph.
+- **Next: integrality.**
+  - The strict LP fails because of a fractional line combination. A 94 is an integer combination: 18 lines,
+    conserved columns, T = 94.
+  - An ILP over the 1,608 types decides whether any integer "line multiset" is possible (T25).
+  - T28 runs pinned SAT for the flower cases.
