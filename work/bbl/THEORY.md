@@ -1267,3 +1267,16 @@ are both (3,3) or both (4,4). So two "parallel" hexagon lines on opposite sides 
 - This does not affect the multiplicity ≤ 3 chain, which has no class-3 apexes.
 - Fix: turn off the unneeded facts (FC needs only K3), guard K3, drop celldom for M, and require 100% path coverage of
   T22's real lines before accepting any LP result.
+
+**Audit A30, item 1 (tip lemma): PASS.**
+- All 10 of T28's DRAT proofs re-verified with A30's own drat-trim build.
+- An independent CNF (work/eng/A30/tip_cnf.py: weak-order local-sequence encoding, no T28 code) is UNSAT with a
+  verified DRAT proof in 4 variants, and SAT when either end condition is dropped.
+- Its axioms were validated on about 4,950 exact real arrangements.
+- It uses only restriction-preserved facts.
+
+**Multiplicity ≥ 4 (T27).**
+- Fact base: K3 and F4′ guarded (exactly-triple points involved), everything else off.
+- Membership test: 0 bad lines out of 543k real T22 lines (4- to 10-fold).
+- The M-free sanity check needs only K3 (exact, D = 16).
+- Full M LP runs in progress.
