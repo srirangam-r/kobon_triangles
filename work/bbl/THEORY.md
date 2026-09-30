@@ -1407,3 +1407,13 @@ points or *bad* 4-fold points (sector patterns 11101110, 11111110, 11111111 up t
 - Scripts: work/eng/T28/x6_cubes.py, x6_pass2.py, x6_drat.py.
 - DRAT proofs (kissat + drat-trim) are in progress, with 0 failures so far.
 - So the 6-X branch no longer depends on C26.
+
+**T27 note 9: wall for the multiplicity ≥ 4 LP.** The exact-weight-17 LP is infeasible after 1,591 cuts
+(work/eng/T27/cuts_R5.json), for any weight bound.
+- Top witness: a line L through four all-8 4-fold points alternating with simple vertices (kites), with capped
+  triple-apex blocks.
+- It is locally realizable at n = 18 (SAT). Its value is v = −1: eight B rays cancel the four bonuses. So L needs +1
+  from rules.
+- The same shape occurs locally in the square grid with both diagonals, as a diagonal line.
+- Global note: each all-8 point has c_P = β/2 ≥ 3/2. Four such points on one line already use Σ c ≥ 6 = Λ(94).
+- Next: T27 extracts the minimal core and tests realizability with the real-row LP.
