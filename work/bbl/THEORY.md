@@ -607,3 +607,31 @@ Consequence: an unserved RR block at P forces:
 **New rule family proposed (T1′, per-flanker serve).** Each triple flanker F of a block whose gap-end ray along C toward
 X is N gives 3/2 from C to the axis. F and X are consecutive on C for any flanker, because the triangle P X F has its
 side [X, F] on C.
+
+**Fact K2 (kite, proved).**
+- Setup. Let X be a simple vertex whose 4 faces are all triangles (on L: frame `S[(1,1)(1,1)]`). Then its
+  neighbours form a complete quadrilateral with diagonals L and C:
+  - P = a∩b and V′ = c∩d on L;
+  - Y = b∩C and Y′ = a∩C on C.
+
+  All four are triple.
+- Kite sides and their outer triangles: [P,Y] ↔ h+(P), [Y,V′] ↔ h+(V′), [V′,Y′] ↔ h−(V′), [Y′,P] ↔ h−(P).
+- Claim: the outer triangles of two opposite sides cannot both exist.
+- Proof. The ring at Y puts the third side of the outer triangle on [P,Y] on c, with corner a∩c above L. The ring at
+  Y′ puts the third side of the outer triangle on [V′,Y′] on a, with corner a∩c below L. Two lines meet only once.
+- Frame form: at `S[(1,1)(1,1)]` between two triple frames, forbid prev.h[±] ∧ next.h[∓].
+
+**Kite budget under K2** (per-ray nets after T1+F):
+
+| bridge sides | kite total |
+|---|---|
+| 0 | +6 |
+| 1 | +3 |
+| 2 (adjacent) | 0 |
+
+In the 2-bridge case the split is L −1, C −1, c +1, d +1.
+
+**Kite rule KR.** Each N kite side gives 1/2 from its line to L and 1/2 to C. Visibility:
+- L and C see all four side statuses in their window at X.
+- The side's line sees 3 of the 4 triangles, so it pays in the worst case. That is affordable: without the 4th triangle
+  both of its blocks are served, and it pays no F.
