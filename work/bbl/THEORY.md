@@ -1069,7 +1069,7 @@ excluded:
 
 **Decisive next LP (restricted to P5).**
 - A certificate excluding a 94 only needs validity on the lines that can occur in a 94: P5, the paths tight under all
-  five certificates, which is the common-tight subgraph (3,574 edges, 161 terminals).
+  five certificates, which is the common-tight subgraph (3,464 edges, 161 terminals).
 - LP: final ≥ 0 on P5 and final ≥ δ on P5 paths with a triple point. Feasible means a 94 has no triple point, and
   Theorem H applies.
 - Otherwise iterate: new certificates shrink P5, then retest.
@@ -1318,3 +1318,38 @@ are both (3,3) or both (4,4). So two "parallel" hexagon lines on opposite sides 
 - The worst DP paths at the real-LP weights are one spurious family: a line alternating four 4-fold points (all 8
   sectors triangles) with kites. Exact n = 18 SAT with 4-fold points allowed: UNSAT.
 - Next: its minimal core as a proven fact, then CEGAR.
+
+## 23. Audit A30 (complete) and the base identity
+
+**A30 verdicts** (work/eng/A30/):
+
+| item | verdict |
+|---|---|
+| 1. tip lemma | PASS (two independent certified encodings) |
+| 2. elimination | PASS (68 certificates reproduce the fixed point) |
+| 3. certificates | PASS (130k random arrangements, 0 violations) |
+| 4. ILP | PASS |
+| 5. proof reviews | PASS with minor notes |
+
+- Item 4 detail: the identity families are validated on 16k arrangements, and CP-SAT agrees with HiGHS. f = 2 with
+  shared lines is infeasible, and the f = 1 shape is forced. The unrestricted (centre, corner, X) counts are only
+  (0,0,6), (1,6,3) and (2,12,0).
+- The exact validity condition for the special columns is α′ + wr + 1.5a ≤ 3/2 (with B = C exactly). All 68
+  certificates satisfy it. Any future certificate must include it.
+- Minor fixes: "3,574 edges" should read 3,464 (corrected above). In §22 the simple far end is that of P_j's ext m_j.
+- Unaudited: the C26 encoding (T28 is re-checking the 6-X case) and the base identity, now proved below.
+
+**Base identity (proof).** Setting: n pseudolines, multiplicity ≤ 3, t triple points.
+- Let S be the number of bounded segments, Z the number of unused ones, and D the number of doubly used ones.
+- Counting triangle sides gives 3T = (S − Z) + D. Each triangle has 3 sides, and each bounded segment borders 0, 1 or 2
+  triangles.
+- A line through k_L triple points has n − 1 − k_L vertices. So S = Σ_L (n − 2 − k_L) = n(n − 2) − 3t.
+- By L1, a doubly used segment has a multiple endpoint. Blocks have exactly one (counted by D_P). Bridges have two,
+  each end counted in β_P. So D = Σ_P D_P + ½ Σ_P β_P.
+- Hence Λ = n(n − 2) − 3T = 3t + Z − D = Z + Σ_P c_P, with c_P = 3 − D_P − β_P/2.
+- Portions: each unused segment gives 3 portions (its own line, and the other line at each simple endpoint; one at a
+  multiple endpoint is lost). So 3Z = Σ_L p_L + waste.
+- Ray split: with N_P = 6 − D_P − β_P, 3c_P = (3/2)(N_P − D_P), which is ±3/2 per N/B ray and 0 per R ray.
+- Summing: 3Λ = Σ_L p_L + waste + Σ_L (ray terms along L). Hence 3Λ − n = Σ_L v_L + waste, with
+  v_L = p_L − 1 + ray terms + transfers (transfers sum to 0).
+- With the portion split a, the same holds with waste_a ≥ 0.
