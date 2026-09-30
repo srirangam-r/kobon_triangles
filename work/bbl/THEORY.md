@@ -1289,3 +1289,12 @@ are both (3,3) or both (4,4). So two "parallel" hexagon lines on opposite sides 
 - A30 re-derived 8 more strict certificates and verified them. **The 68 certificates in
   work/eng/A30/elim/certs68.pkl jointly give exactly the fixed point (205 windows, 380 edges, 24 terminals).** This is
   sufficient, since a 94's lines must be tight under every one of them.
+
+**Multiplicity ≥ 4, necessary test (T27): feasible.**
+- The rule LP is feasible on the exact rows of all 208k real n = 18 lines from T22's data (4- to 10-fold points), with
+  small weights (|w|₁ = 9.9).
+- So there is no catalogue wall. The DP obstruction is automaton looseness around M frames.
+- Prime suspect: T22's M frame treats the E and W sides of an M vertex as independent and hides the middle sectors.
+- Plan:
+  - a coupled M4 frame, with the relaxed frame kept only for m ≥ 5, whose lines are rich (v_L + comp ≥ 3m − 13 ≥ 2);
+  - PT-type cells at 4-fold points if needed.
