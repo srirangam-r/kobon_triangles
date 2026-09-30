@@ -856,3 +856,21 @@ the third corner of the triangle over a segment of L is a simple vertex.
   - next: a batch real-row LP on the whole n = 18 corpus, which decides whether SigCatalogue hits a wall on real data.
 - Disproved by data: "every non-C2 arrangement has a triangle face with three triple vertices" (BNNRBR-type points,
   for example, can avoid one).
+
+**Partial theorem (2026-09-30, T25).**
+- **Certificate.** C2 at exact weight 17 is feasible with the portion split fixed at a = 0 (with F5\*, cell domains
+  and α′ = ¼). It is exact: D = 8, DP minimum 16 = 2D, 64 rules (work/eng/T25/rules_C2_a0.json).
+- **Consequence.** Every n = 18 pseudoline arrangement with simple and triple points only, all of C2 ring types, and
+  **at least one clean line**, has Λ ≥ 6 + c/6 > 6, hence T ≤ 93.
+- Caveats: multiplicity ≥ 4 is not included, and the LP code is unaudited.
+- **Remaining for C2.** Arrangements in which every line meets a triple point or caps a block. These are about 7% of
+  the real n = 18 93s, so the case is not rare.
+
+**Batch real-row LP.**
+- All 345k triple-point n = 18 arrangements of the corpus (dpwalkc run1, work/phi) plus 521 SAT-generated deficit
+  arrangements reduce to only 8,586 distinct rows. That LP is feasible in SigCatalogue (full class, ε = 0).
+- So the catalogue has no wall on real data. The DP at those weights finds violators down to −8.3; most are real lines
+  outside the corpus (poor arrangements). CEGAR continues from these rows.
+
+**Remark.** Adding "T ≥ 94" to the primal gives a column d·(tri − 47/3) + δ. This is the same as the α′ direction
+plus a uniform ε, which is already shown infeasible on real rows. Nothing new.
