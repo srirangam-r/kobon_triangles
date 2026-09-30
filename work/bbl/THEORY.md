@@ -1298,3 +1298,23 @@ are both (3,3) or both (4,4). So two "parallel" hexagon lines on opposite sides 
 - Plan:
   - a coupled M4 frame, with the relaxed frame kept only for m ≥ 5, whose lines are rich (v_L + comp ≥ 3m − 13 ≥ 2);
   - PT-type cells at 4-fold points if needed.
+
+**Audit A30, item 3 (certificate soundness beyond the corpus): PASS.**
+- A30's own exact DP gives FC/FS1/FS2/FS3/FD24 minima = 2D, and FD24's clean-only minimum = 1/24. Planted single
+  decrements: all detected (68/68, 132/132).
+- 129,924 random or mutated n = 18 arrangements (multiplicity ≤ 3, T from 10 to 93+; 2.34M lines;
+  work/eng/A30/soundness.py): every line is an automaton path with DP value ≤ its true value; final ≥ 0; clean lines
+  ≥ 1/24; all columns conserved; Σ final ≤ 3Λ − n. **Zero violations.**
+- **Finding.** The LP box for the special columns (α′ ≤ 1, wr + 1.5a ≤ 3/2) is not a sufficient validity condition.
+  The correct one is stricter, e.g. a + α′ + (2/3)·wr ≤ 1. All 68 certificates satisfy it (maximum 0.656; the 5
+  initial ones have a = wr = 0 and α′ ≤ ½), so the chain is unaffected.
+- The needed inequality B ≤ 1.5·C follows from B = waste^{(1/3)} = C, using the exact identities Σ s_L = Λ and
+  Σ v_L = 3Λ − n − waste.
+- Future certificates must use the stricter condition.
+
+**Multiplicity ≥ 4 (T27).**
+- Refined M model: a junction node with an exact W side, and exact M4 frames with shared ±2 rays. 543k real lines,
+  0 bad.
+- The worst DP paths at the real-LP weights are one spurious family: a line alternating four 4-fold points (all 8
+  sectors triangles) with kites. Exact n = 18 SAT with 4-fold points allowed: UNSAT.
+- Next: its minimal core as a proven fact, then CEGAR.
