@@ -944,3 +944,18 @@ X-point cells with others.)
 - Next:
   - re-solve with clean paths ≥ δ > 0 (runs FD: δ = 1/6; FD24: δ = 1/24);
   - the no-clean strict runs (ε = 1/60, 1/120, 1/240).
+
+**FD24: the clean-line half of the strict step is DONE (T25, 2026-09-30).**
+- Certificate: full class, exact weight 17, final ≥ 0 on every path **and final ≥ 1/24 on every clean path**.
+- Exact: D = 144, main DP minimum 288 = 2D, clean-only DP minimum 300 (so the minimum clean final is 1/24).
+- Rules: work/eng/T25/rules_FD24_full.json (123 block rules + 8 SV/TRI/PT rules, α′ = 11/24, a = 0).
+- Command: `rule_lp_t25.py lp --class full --split --alpha --celldom --wr --sv --tri --pt --eps 0 --cleandelta 1/24`.
+- **Theorem (computer-assisted).** Every 18-line pseudoline arrangement with points of multiplicity ≤ 3 and at least
+  one clean line has 3Λ − 18 ≥ 1/24. Hence Λ ≥ 9 and **T ≤ 93**.
+
+**Remaining for K(18) = 93:**
+- (a) Arrangements with no clean line (NC strict LP running; ε = 1/240 is at DP minimum −0.04).
+- (b) Multiplicity ≥ 4.
+- (c) Audit.
+
+Simple arrangements are covered by Theorem H, and also by (a)'s complement, since there every line is clean.
