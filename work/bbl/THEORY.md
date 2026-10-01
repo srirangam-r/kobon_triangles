@@ -1525,3 +1525,14 @@ arrangements with T = K(18).
 - The A30 identities (B = C, A = 1.5C, waste ≥ 0) hold on 2,021 clean arrangements, 298 of them with M points.
 - T27 found its earlier M runs used the weak LP box. The strict row α′ + wr + 1.5a ≤ 3/2 is now enforced.
 - Running: (δ, ε) = (1/6, 1/25) and (1/24, 1/100).
+
+**Planar component identity (lead; verified on 6,424 real components, 0 failures).**
+- Setup: K is a bridge component (multiplicity ≤ 4), viewed as a plane graph with V points and E bridges. The bridges
+  form a simple plane graph.
+- Identity: Σ_{P∈K} c_P = (V − E/3) + Σ_{triple P} (N_P − 2D_P)/3 + Σ_{4-fold P} (13 + N_P − 2D_P)/3.
+- Planarity gives V − E/3 ≥ 2 for V ≥ 3 (E ≤ 3V − 6), with V − E/3 = 1 for V = 1 and 5/3 for V = 2.
+- Consequences:
+  - Bad 4-fold points contribute ≥ +1 each (all-8: N = 0, D ≤ 5), ≥ +7/3 (7-type) and ≥ +3 (6-type).
+  - The only negative contributions are triple points with 2D > N, i.e. many blocks (e.g. BRRRRR −2/3, RBRBRB −2).
+- A 2-D fallback would charge each block at a triple point to its simple far end (a kite centre receives 4 blocks)
+  and show a component with an all-8 point costs > 6. Not attempted yet.
