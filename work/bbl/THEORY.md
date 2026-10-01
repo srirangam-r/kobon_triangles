@@ -1759,3 +1759,16 @@ role-0 lines, 15/8 each); all-8 δ = 0, margin −9/2. These are the true optima
   The sufficient row is δ − 18ε0 − 4EPSM − 8EPSA ≥ margin > 0.
 - Model: BADWORDS=78, sound since 6-type arrangements are already excluded. Credits for words 7 and 8 (MWORD=78).
   Running lp_all8x.
+
+**RESULT: 7-type points are excluded from a 94 when no all-8 point is present (lead).**
+- Certificate w_mw7_no8x (work/eng/oth/, log lp_mw7_no8x.log): exact, D = 288, DP min 520 ≥ target 518.4.
+  Model BADWORDS=67 (sound: no all-8 point), guarded, PAIRLEM, CEGAR patterns.
+- Every path: final ≥ −1/10 + credits; TAU(11111110, role 0) = 5/4 on the 2 role-0 lines, so δ = 5/2.
+- Margin 5/2 − 18/10 = 7/10 > 0. Validity row α′ = 7/12 ≤ 3/2.
+
+**Status of the M-94 case.**
+- 6-type present: excluded.
+- 7-type present and no all-8: excluded.
+- Remaining: arrangements with at least one all-8 point (and no 6-type point).
+- First per-incidence run (lp_all8x): exact certificate with EPSM = 7/3, EPSA = 17/12, δ = 12 (at the cap), ε0 = 0,
+  but margin −26/3. Rerunning with the cap raised (DELTAMAX=200, lp_all8y).
