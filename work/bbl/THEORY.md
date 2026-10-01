@@ -1821,3 +1821,7 @@ role-0 lines, 15/8 each); all-8 δ = 0, margin −9/2. These are the true optima
 **Core-window cell domains under the class (lead):** the 13 joint flank groups of the 4 all-8 core paths (lazy_groups
 of lp_all8z), class SAT at K = 18: 0 completions removed (5 unknown). The adversarial cell completions are locally
 realisable. Only their joint combination along a line is not, so window filtering cannot close the all-8 case.
+
+**T29 launched (user-approved):** a hidden-state DP extension (hidden cell completions and sig carried in the node
+state, so windows agree along a line), validated on 543k real lines. Then the all-8 margin LP, then witness-validated
+class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
