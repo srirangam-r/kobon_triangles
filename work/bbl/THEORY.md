@@ -1685,3 +1685,15 @@ patterns (work/eng/pert2/validate_pair2.py).
   expressed as frame patterns.
 - Next (stage 1): put sig/g into the graph state (consistent along the line) and measure the new ε0*. Stage 2 (cells)
   only if ε0* drops materially.
+
+**G20 core diagnostics (T27).**
+- sig is NOT the loose part: with the DP's argmin sig imposed, the true-sig window minimum equals the DP value on all 8
+  witness realisations. So stage 1 (sig in the state) is skipped.
+- The loose part is the flank cell's `oth` completion in A–L/A–R cells: L receives the min over oth variants while the
+  axis books the true one. Example: STTTTTTTSS has DP −0.2227 but exact +0.333 in 12 class realisations.
+- Witness with cells imposed: 5 SAT, in which real class lines attain the DP value exactly, so they are real
+  constraints; 1 WIT_UNSAT; 6 TIMEOUT.
+- The in-class real-row LP (38,286 lines, 1,518 through an M) stays feasible at ε0 = 0.
+- The T ≤ 94 package is cegar/CERT_FCM25.txt, independently re-verified with the current code (verify_exact_cert.py).
+- Next (cheap): retest the oth projection (othp/othq) on in-class rows. The earlier rejection (Z11) used out-of-class
+  arrangements. If feasible, run the DP at ε0 = 0 with the projection.
