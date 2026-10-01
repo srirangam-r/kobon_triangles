@@ -1937,3 +1937,8 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - kissat UNSAT (exit 20) and drat-trim **s VERIFIED** for all four (251 / 384 / 254 / 731 s).
   - Entry 4 is a hand fact.
   - The CNFs are regenerable; the proofs were discarded.
+- **Pair lemma independently re-derived (lead):**
+  - work/eng/pert2/faces_indep.py computes the window faces by explicit planar embedding and half-edge tracing. It
+    agrees with window.faces on all 1,945 words (m = 4, 5 single points; the PQ and PS pair windows), 0 mismatches.
+  - pair_indep.py redoes the exclusion check in plain Python on these independent face counts: 2,080 patterns,
+    2,032 excluded, 48 allowed, identical to pair_PQ_all.json.

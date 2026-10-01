@@ -38,6 +38,7 @@ the pair lemma.
 - DONE (2026-10-01): DRAT certificates (kissat + drat-trim, s VERIFIED) for T27's four CEGAR frame patterns
   (work/eng/oth/drat_pats/regen.py) and for the class-UNSAT all-8 core pattern (work/eng/oth/core4/r_cnf).
   The SAT encodings themselves (patsat_m, classsat) are validated, not formally verified.
-- An independent re-derivation of the pair-lemma enumeration (code-validated only).
+- DONE (2026-10-01): independent re-derivation of the pair-lemma enumeration (faces by half-edge tracing,
+  plain-Python exclusion check): identical 2,032 excluded / 48 allowed (work/eng/pert2/faces_indep.py, pair_indep.py).
 - Hand proofs of the guarded facts at 4-fold apexes (validated on 543k real lines).
 - An independent audit of the multiplicity ≥ 4 certificates (A30 covered multiplicity ≤ 3 only).
