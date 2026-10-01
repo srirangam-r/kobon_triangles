@@ -1945,3 +1945,11 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
 - **Perturbation lemma (§24) independently re-checked (faces_indep):** m = 4, 5 via the 1,945-word agreement; m = 6:
   686 independent options cover all 4,096 sector patterns losslessly; 7 ≤ m ≤ 17: lossless simple words exist (best
   t_loc − #affected = 0, 1, 3, 4, 6, 8, 8, 13, 15, 18, 18) (work/eng/pert2/pert_indep.py).
+- **Celldom independence (lead; env NOCELLDOM=1).** The SAT-derived cell domains (celldom) were computed without
+  4-fold points, so their use in M arrangements was a soundness question. Both exclusion certificates hold WITHOUT
+  celldom (the other guarded facts are kept). w_FCM25 never used it.
+  - 6-type: work/eng/oth/w_mw6_nocdy.pkl, exact D = 16, DP min 32 = target, ε0 = 1/4, Σ_roles TAU(11101110) = 45/8.
+    Margin Σ TAU − 18ε0 = 9/8 > 0. (After rounding, the nominal DELTA = 91/16 slightly exceeds Σ TAU; the proof uses
+    Σ TAU directly.) α′ = 1/2.
+  - 7-type without all-8: work/eng/oth/w_mw7_no8x_nocd.pkl, exact D = 288, ε0 = 1/10, Σ TAU = 5/2, margin 7/10.
+    α′ = 7/12.

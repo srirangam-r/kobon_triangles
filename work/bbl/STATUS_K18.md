@@ -16,8 +16,8 @@ contain an *all-8 point*, a point where exactly 4 lines meet with all 8 angles t
 | Only triple and *bad* 4-fold points in a (T, V)-maximal counterexample | perturbation lemma (exhaustive local re-drawings) | THEORY §24 | work/eng/pert/ (validated on 597 real points; independently re-derived, pert_indep.py) |
 | (4-fold, triple) neighbours: only 48 of 2,080 patterns | pair optimality lemma | THEORY §25 | work/eng/pert2/pair_PQ_all.json (validated on 770 real pairs) |
 | T ≤ 94 with 4-fold points | per-line LP, slack 1/4 (Σ final + waste is a multiple of 9) | THEORY §26 | work/eng/T27/cegar/w_FCM25.pkl (D = 16), CERT_FCM25.txt |
-| No 94 with a 6-type bad point (11101110) | per-word credit certificate, margin 3 | THEORY §26 | work/eng/oth/w_mw6.pkl (D = 16) |
-| No 94 with a 7-type point (11111110) and no all-8 point | per-word credit, margin 7/10 | THEORY §26 | work/eng/oth/w_mw7_no8x.pkl (D = 288) |
+| No 94 with a 6-type bad point (11101110) | per-word credit certificate, margin 3 (9/8 without celldom) | THEORY §26 | work/eng/oth/w_mw6.pkl, w_mw6_nocdy.pkl (D = 16) |
+| No 94 with a 7-type point (11111110) and no all-8 point | per-word credit, margin 7/10 (also without celldom) | THEORY §26 | work/eng/oth/w_mw7_no8x.pkl, w_mw7_no8x_nocd.pkl (D = 288) |
 | No 94 without (triple, 4-fold) adjacency | strict certificate | THEORY §25 | work/eng/T27/cegar/w_TMXs.pkl (D = 48) |
 | Gauss–Bonnet identity, touch lemma, star subcase | outside contribution (sol), checked by the lead | THEORY §27 | work/bbl/ALL8_GB_NOTE.md |
 | U-UB lemma | proof checked | THEORY §26 notes | search/rule_lp_t25m.py --uub |
