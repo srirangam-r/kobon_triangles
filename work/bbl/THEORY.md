@@ -1564,3 +1564,13 @@ arrangements with T = K(18).
   variables).
 - Unproven inputs to discharge later: DRAT for the 5 CEGAR patterns and for the PAIRLEM computation (the latter is
   exhaustive enumeration code, validated on 127 real pairs).
+
+**§26 update.**
+- FC-M thresholds: exact certificates at ε0 = 9/20 (D = 120), 0.30 (D = 48) and **1/4 (D = 16, 15 columns;
+  w_FCM25.pkl)**. ε0 = 0.20 is infeasible.
+- Strictness: with LP-chosen δ and ε0 and credits TAU′, δ − 18ε0 ≥ 0 is infeasible (core 45, dominated by
+  11111111:111111). So per-line strictness at 94 fails in the current model.
+- Real rows stay feasible (878 clean M rows), but they cover the cluster poorly; the lattice files are the main
+  cluster data.
+- Next: the star-coupled key PT4N, i.e. the first-vertex classes of all 8 rays at P in the exactly coupled key, with
+  transfers among the 4 lines through P.
