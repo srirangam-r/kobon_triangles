@@ -1506,3 +1506,11 @@ arrangements with T = K(18).
 - Test data: exact straight-line n = 18 arrangements in the §24 class that contain the cluster
   (work/eng/lattice/lattice18.jsonl and lattice_family.jsonl, T 49–74; converter lines2gens.py, checked against the
   hill's exact counter). They go to T27 to decide between DP looseness and a genuine per-line obstruction.
+
+**Lattice test: exact rows feasible, so it is DP looseness again (T27).**
+- With the 24 lattice arrangements added (30,628 clean exact rows, 869 through an M), FC and M-strict 1/24 are both
+  feasible (|w| ≈ 0.7).
+- The real lattice lines do contain the cluster (222 lines through all-8 points).
+- No single T–M pattern is the whole obstruction: dropping 11111111:111111 alone, or allowing only it, is still
+  infeasible. 12 of the 44 PAIR-core paths have no M at all.
+- Next: path-level SAT CEGAR (adversarial cells included, PAIRLEM on).
