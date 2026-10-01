@@ -1891,3 +1891,5 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
 - Checks: 350k real lines, 0 violations; uub_test.py rejects 95k synthetic violations. It explains all 5 whole-line
   UNREAL cores, and 149 of the 1,349 mm1 cuts (11%) are refuted by it alone.
 - Cost: 1.84M nodes, 118M edges, 27 GB peak. The true-margin LP is running (run/lp_uub1.log).
+- True max margin with --uub (full DP, MARGINOBJ; lp_uub1): −2.2909 (δ = 0, ε0 = 0.018, EPSM = 0.491, EPSA = 0),
+  up from −2.4361 (the −2.0 was on a cut subset). Slow progress: each lemma or round gains ≈ 0.15–0.4.
