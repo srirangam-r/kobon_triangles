@@ -1801,3 +1801,13 @@ role-0 lines, 15/8 each); all-8 δ = 0, margin −9/2. These are the true optima
   - any arrangement with no T–M adjacency (TMXs).
 - Open: an in-class 94 containing an all-8 point. It is reduced to the lattice-plus-height-line family, which needs a
   2-D (patch-boundary) argument or a hidden-state automaton.
+
+**Class CEGAR on the all-8 core (lead).**
+- Class SAT (K = 18, bad words everywhere, pair lemma, no m ≥ 5; work/eng/T27/class_run.py) on the 4 core paths of
+  lp_all8z:
+  - cut 78 is UNSAT, with a 6-frame minimal core; the CNF is in work/eng/oth/core4/r_cnf and needs DRAT later;
+  - cuts 99 and 141 are SAT (real);
+  - cut 126 timed out at 3000 s.
+- The UNSAT core is added as a pattern (work/eng/oth/pats_c1.json).
+- Automated loop: work/eng/oth/loop/driver.sh (LP with margin ≥ 1/100 → core → class SAT → patterns), with a
+  max-margin progress run (lp_all8c1).
