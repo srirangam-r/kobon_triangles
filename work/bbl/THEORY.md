@@ -1536,3 +1536,14 @@ arrangements with T = K(18).
   - The only negative contributions are triple points with 2D > N, i.e. many blocks (e.g. BRRRRR −2/3, RBRBRB −2).
 - A 2-D fallback would charge each block at a triple point to its simple far end (a kite centre receives 4 blocks)
   and show a component with an all-8 point costs > 6. Not attempted yet.
+
+**Credit runs (T27, --mcredit; PAIRLEM, strict special row): all infeasible, very shallow.**
+- (δ, ε0) = (1/6, 1/120): t* = 0.00033. (1/2, 1/40): t* = 0.014. (1/2, 1/200) with ε1 an LP variable: t* = 0.008.
+- At t* the LP spreads the all-8 credit evenly over the 4 lines.
+- The shallow depth suggests a near-tight family: lattice-like lines through all-8 clusters, which are tight up to
+  finite-n effects. Per-line strictness may be structurally unavailable there, as in the multiplicity ≤ 3 case, where
+  the 2-D flower step was needed.
+- TMXs (no T–M adjacency, strict special row): exact certificate, denominator 48, α′ = 1/2, a = wr = 0
+  (cegar/w_TMXs.pkl).
+- Running: credit runs at the limits ε0 → δ/18; FC-M only with ε0 = 1/7 (T ≤ 94 for M), as the fallback toward a
+  joint-tightness and 2-D step.
