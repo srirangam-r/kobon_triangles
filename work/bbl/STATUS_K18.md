@@ -35,8 +35,9 @@ the pair lemma.
   neighbours); closed star subcase; U-UB lemma; hidden-state DP (sound, no effect on the optimum).
 
 ## Verification debts (before claiming a complete proof)
-- DRAT certificates for the solver-derived patterns: CEGAR patterns, class patterns
-  (work/eng/oth/core4/r_cnf, work/eng/T27/cegar/class).
+- DONE (2026-10-01): DRAT certificates (kissat + drat-trim, s VERIFIED) for T27's four CEGAR frame patterns
+  (work/eng/oth/drat_pats/regen.py) and for the class-UNSAT all-8 core pattern (work/eng/oth/core4/r_cnf).
+  The SAT encodings themselves (patsat_m, classsat) are validated, not formally verified.
 - An independent re-derivation of the pair-lemma enumeration (code-validated only).
 - Hand proofs of the guarded facts at 4-fold apexes (validated on 543k real lines).
 - An independent audit of the multiplicity ≥ 4 certificates (A30 covered multiplicity ≤ 3 only).
