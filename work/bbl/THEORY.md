@@ -1673,3 +1673,15 @@ patterns (work/eng/pert2/validate_pair2.py).
 - The obstruction is the DP's per-window adversarial hidden choices and cells.
 - Class SAT is slow: about 60% of calls time out at 240 s.
 - Next: witness-exact SAT, i.e. realise the DP path with its chosen hidden options, then CEGAR.
+
+**Witness-exact SAT (T27).**
+- The DP's argmin hidden choices (sig) imposed with the class constraints: the same 8 of 12 G20 core paths are SAT.
+- Gap decomposition on the realisations at wstar (DP / true-sig window-min / exact):
+  - STMTTSMTS: −0.2227 / −0.1165 / +0.1492;
+  - STMSMSMTS: −0.2227 / −0.0104 / −0.0104;
+  - SSMTMTMSS: −0.2227 / −0.2227 / −0.2129;
+  - pure triple chain: no gap.
+- The looseness is the per-window independent min over hidden choices (sig/g and cells). Joint UNSATs cannot be
+  expressed as frame patterns.
+- Next (stage 1): put sig/g into the graph state (consistent along the line) and measure the new ε0*. Stage 2 (cells)
+  only if ε0* drops materially.
