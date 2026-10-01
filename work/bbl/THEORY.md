@@ -1772,3 +1772,13 @@ role-0 lines, 15/8 each); all-8 δ = 0, margin −9/2. These are the true optima
 - Remaining: arrangements with at least one all-8 point (and no 6-type point).
 - First per-incidence run (lp_all8x): exact certificate with EPSM = 7/3, EPSA = 17/12, δ = 12 (at the cap), ε0 = 0,
   but margin −26/3. Rerunning with the cap raised (DELTAMAX=200, lp_all8y).
+
+**All-8 case, per-incidence slack with the credit cap raised to 200 (lp_all8y):**
+- Result: δ = 200 and EPSM = 49.17 grow together (the credit is cancelled by the M4 slack); EPSA = 17/12; the margin
+  plateaus at −8.
+- So the binding deficit is on the cap lines of triangles with an all-8 apex (class-3 apex flags), not on the lines
+  through P.
+- Real in-class data: all 131 in-class arrangements with an all-8 point have Λ ≥ 66, with Z = 32–48, Σc(all-8) =
+  5.5–17, and negative triple costs of only −1 to −3.5.
+- Next: the core with a positive margin required (lp_all8z), to characterise the loose cap-line windows. The facts
+  K1*, K2, K2g and celldom are off at class-3 apexes; sound versions for bad-word apexes are the candidate fix.
