@@ -1931,3 +1931,9 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   variants, with --uub) died after ~86 min (memory/time). Without the labelled patterns the U-UB model built in
   under 30 min. The loop is stopped. The engineering route needs a redesign (label states only where patterns can
   match) before more rounds. Best certified true margin: −2.29 (lp_uub1).
+- DRAT for T27's CEGAR frame patterns (work/eng/T27/cegar/pats.json, entries 0–3):
+  - CNFs regenerated with work/eng/oth/drat_pats/regen.py (patsat_m.build at K = 18, 4-fold allowed, core elements
+    as unit clauses);
+  - kissat UNSAT (exit 20) and drat-trim **s VERIFIED** for all four (251 / 384 / 254 / 731 s).
+  - Entry 4 is a hand fact.
+  - The CNFs are regenerable; the proofs were discarded.
