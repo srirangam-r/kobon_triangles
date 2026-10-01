@@ -1942,3 +1942,6 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
     agrees with window.faces on all 1,945 words (m = 4, 5 single points; the PQ and PS pair windows), 0 mismatches.
   - pair_indep.py redoes the exclusion check in plain Python on these independent face counts: 2,080 patterns,
     2,032 excluded, 48 allowed, identical to pair_PQ_all.json.
+- **Perturbation lemma (§24) independently re-checked (faces_indep):** m = 4, 5 via the 1,945-word agreement; m = 6:
+  686 independent options cover all 4,096 sector patterns losslessly; 7 ≤ m ≤ 17: lossless simple words exist (best
+  t_loc − #affected = 0, 1, 3, 4, 6, 8, 8, 13, 15, 18, 18) (work/eng/pert2/pert_indep.py).
