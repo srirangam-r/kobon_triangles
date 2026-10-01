@@ -1825,3 +1825,10 @@ realisable. Only their joint combination along a line is not, so window filterin
 **T29 launched (user-approved):** a hidden-state DP extension (hidden cell completions and sig carried in the node
 state, so windows agree along a line), validated on 543k real lines. Then the all-8 margin LP, then witness-validated
 class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
+- T29 milestone 1: `--hidstate` level 1 ("F4 link").
+  - After --projall, the only hidden quantity still reaching a flank's LP vector is the joint (u, pO) completion of
+    two opposite flank blocks. pO is the face F4 beyond the simple apex X of a segment triangle.
+  - Both end vertices of that segment see the same F4, but the DP chose it independently per window. pO is now
+    carried on the edge.
+  - Data check (work/eng/T29/hs_check.py): 40.5k arrangements, 7,057 links, 0 mismatches.
+  - The first all-8 margin LP with --hidstate is running.
