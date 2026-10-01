@@ -1643,3 +1643,12 @@ case must follow the same route; the hours spent on M-strict/credit variants rep
 **Pair lemma re-validated (lead):** on the lattice-based clean arrangements (mixed_all + lattice files), 643/643 real
 (4-fold, triple) pairs with an excluded pattern are directly reducible, with 0 failures; 2,943 more pairs have allowed
 patterns (work/eng/pert2/validate_pair2.py).
+
+**Reverse-perturbation search for a 94 with a 4-fold point (lead).**
+- By §24, a 94 with a 6/7-type bad point is a 4-line merge of a multiplicity ≤ 3 93 that gains +1. With an all-8
+  point it is a merge of a 92 that gains +2.
+- merge4.py tries every merge of 4 lines whose 6 crossings form a contiguous local block (after commuting). It was
+  checked on a split-and-restore test.
+- Run on all 42,331 distinct T ≥ 92 arrangements in the corpus (phi/pls18_93, bridge93, near18, gallery18,
+  dpwalk2/*/cls_w*): 4,737 mergeable blocks; ΔT = −2 for 4,619 and −1 for 118; **no merge gains**, no 94.
+- This is evidence, not proof: the corpus is not exhaustive.
