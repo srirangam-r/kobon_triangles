@@ -1855,3 +1855,6 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
 - Witness SAT on the mm1 core (hidden state imposed, class K = 18): 4 WIT_UNSAT, 4 WIT_SAT so far of 9. UNSAT
   witnesses are now expressible as hidden-state patterns, so CEGAR proceeds.
 - The baseline true margin without hidstate (lp_mm0) is running.
+- Real in-class rows (2,338 distinct; MWORD=78 BADWORDS=78, guarded, PAIRLEM) are FEASIBLE with credit δ = 12 at
+  ε0 = 0, so real data supports margin ≥ 12. The DP model is at −2.4. Speed-ups sent to T29: witness-SAT all
+  violating paths per round, warm starts, 18 workers, true margin tracked per round.
