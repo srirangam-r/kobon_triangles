@@ -1697,3 +1697,15 @@ patterns (work/eng/pert2/validate_pair2.py).
 - The T ≤ 94 package is cegar/CERT_FCM25.txt, independently re-verified with the current code (verify_exact_cert.py).
 - Next (cheap): retest the oth projection (othp/othq) on in-class rows. The earlier rejection (Z11) used out-of-class
   arrangements. If feasible, run the DP at ε0 = 0 with the projection.
+
+**oth projection (lead, PROJ_AL=u,far,othv): no help.**
+- In-class real rows: feasible at ε0 = 0 with or without the projection, with an identical solution (the oth columns
+  are unused).
+- DP-LP FC-M with the projection (guarded, PAIRLEM): infeasible at ε0 = 0 (core 88) and at ε0 = 0.1 (core 45).
+  work/eng/oth/lp_oth_*.log.
+- T27 has been stopped by the user.
+- Running (lead): a pilot of class-constrained window domains (work/eng/oth/class_cells_pilot.py: K = 18, bad words
+  everywhere, lazy pair lemma, 36 random joint flank groups). Decision rule: if ≥ 33% of completions are removed, run
+  the full set; otherwise this direction is closed.
+- Caveat: the window patterns encode M neighbours as T slots, so pilot removals at such groups are not sound until
+  re-checked with real 4-fold slots.
