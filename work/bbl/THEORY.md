@@ -1626,3 +1626,16 @@ case must follow the same route; the hours spent on M-strict/credit variants rep
   - Values at the depth weights: −0.2227 (floor −0.2).
 - Pending: exact real-row LP including the clean G20 realisations, to see whether real lines refute per-line
   nonnegativity.
+
+**Decisive real-row test on the G20 core (T27): the per-line method is NOT refuted.**
+- The exact real-row LP over 31,207 clean, pair-allowed rows (670 through an M; T22 + lattice + mixed + all SAT
+  arrays) is feasible at ε0 = 0 and at 0.2.
+- The 3 M-free core paths have clean realisations at exactly the DP value (−0.2227 at wstar), but other weights handle
+  them.
+- The 9 M core paths have NO clean realisation. Every realisation is pair-bad: another line through the 4-fold point
+  has a disallowed T neighbour. With stronger constraints they are UNSAT.
+- Diagnosis: the DP enforces the class constraints (bad words, pair lemma) only on L, but they hold for every point and
+  pair of the arrangement.
+- Next: CEGAR with class-constrained path SAT (4-fold anywhere, bad words everywhere, pair lemma on every consecutive
+  (4-fold, triple) pair). Targets FC-M at ε0 = 0, then M-strict.
+- Fresh PAIR (ε0 = 0, M-strict 1/24) is infeasible (core 91). The guarded ε0 threshold is in (0.22, 0.25].
