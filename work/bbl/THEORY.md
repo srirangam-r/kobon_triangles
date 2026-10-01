@@ -1849,3 +1849,9 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
     simple-apex triangle on the segment and the M sector across the M ray to X a triangle; an F4 triangle forces
     f2[s] = 1 at M.
   - Graph +7.5% edges. Rationalisation patched for weights > 100 (work/eng/T29/rationalize_w.py).
+- True margin, all-8 case with hidstate (MARGINOBJ, lp_mm1): −2.4 (δ = 0, EPSM = 0.6, or EPS0 = 0.03 with
+  EPSA = 0.24). Margin 1/1000 runs (hs5, hs6): infeasible, cores 191 and 162.
+- T29's core-threshold estimate (≈ 0.0099) applied to a cut subset; the full DP keeps finding new paths.
+- Witness SAT on the mm1 core (hidden state imposed, class K = 18): 4 WIT_UNSAT, 4 WIT_SAT so far of 9. UNSAT
+  witnesses are now expressible as hidden-state patterns, so CEGAR proceeds.
+- The baseline true margin without hidstate (lp_mm0) is running.
