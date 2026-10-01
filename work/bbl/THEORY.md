@@ -1811,3 +1811,9 @@ role-0 lines, 15/8 each); all-8 δ = 0, margin −9/2. These are the true optima
 - The UNSAT core is added as a pattern (work/eng/oth/pats_c1.json).
 - Automated loop: work/eng/oth/loop/driver.sh (LP with margin ≥ 1/100 → core → class SAT → patterns), with a
   max-margin progress run (lp_all8c1).
+- After the first class pattern the max margin is unchanged at −8.0 (EPSA cap-line bound). The loop's round-1 core
+  has 38 cuts; class SAT is running.
+- The cap-line chain (cut 99, STTTTTTTSS-type) is SAT in the class. Its DP value is attained only through the
+  adversarial cell completion: T27 found the real value +0.333 in all 12 realisations, against the DP's −0.2227.
+  Path-level CEGAR cannot remove this, so the decisive fix is exact cell domains on cap-line windows next to all-8
+  apex triangles.
