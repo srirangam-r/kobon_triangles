@@ -1481,3 +1481,16 @@ arrangements with T = K(18).
   - Of 272 face-degree assignments with P bad, 167 have a lossless rearrangement and 105 are irreducible.
   - The irreducible ones are listed in pair_PQ.out, e.g. P 11111111 with Q ∈ {111111, 110111, 101111, 100111}. X points
     (Q = 011011) survive only next to P = 10111111 / 10111011.
+
+**§25 continued: the multiplicity ≥ 4 obstruction is exactly T–M adjacency.**
+- **TMX diagnostic (T27).** Forbid every triple vertex consecutive to an M4 vertex on a line (env TMX=1). Then the
+  full M DP-LP (FC plus M-strict 1/24, projall keys, CEGAR patterns, K3) is FEASIBLE: exact denominator 48, converged
+  in 67 iterations (work/eng/T27/cegar/lp_TMX.log). Not a certificate yet, since the ban is unproved.
+- **Pair lemma, all patterns** (work/eng/pert2/pair_PQ_all.py → pair_PQ_all.json).
+  - For a 4-fold P consecutive on a line with a triple Q, 2,080 canonical sector patterns occur.
+  - 2,032 are excluded by optimality. All 48 allowed patterns have P bad. The Q patterns are 100111, 101101, 101111,
+    110011, 110111, 111001, 111011, 111101, 111111, 110110, 111100 and 111110, depending on P.
+  - Validation: 127/127 real pairs with an excluded pattern are directly reducible (validate_pair.py).
+- **Retraction (T27).** The earlier "real-row infeasible" verdicts (H0/HM/HT/HB/Z11) were artefacts of arrangements
+  outside the §24 class. On clean arrangements all those LPs are feasible.
+- Next: replace TMX with the sound 48-pattern filter and rerun.
