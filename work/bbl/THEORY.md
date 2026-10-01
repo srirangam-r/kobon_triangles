@@ -1735,3 +1735,14 @@ threshold.
 - Consequence: a class arrangement with a 6-type point has Σ final ≥ 3 > 0, so Λ ≥ 9 and T ≤ 93.
 - The other words in the same runs (mvarobj 1): 7-type margin −0.75 (δ = 15/4), all-8 margin −4.5 (δ = 0).
   Rerunning both with the margin weighted 100 (lp_mw7b, mw8b).
+
+**Per-word optima (margin-prioritised, mvarobj 100):** 7-type δ = 15/4 at ε0 = 1/4, margin −3/4 (credit on the two
+role-0 lines, 15/8 each); all-8 δ = 0, margin −9/2. These are the true optima in the model.
+
+**Case split by the bad words present (lead; env BADWORDS in search/rule_lp_t25m.py restricts the allowed M4 words).**
+- Some 6-type point: excluded (w_mw6).
+- No all-8 point but some 7-type point: model with BADWORDS=67 (sound in this case, since no line has an all-8
+  frame). Running the word-7 credit maximisation (lp_mw7_no8) and plain FC-M at ε0 = 0 (lp_fc_no8).
+- Some all-8 point: open core.
+- Observation: an all-8 point's budget 3c_P = 1.5β ≥ 4.5 equals 18·(1/4). At ε0 = 1/4, an all-8 point with β = 3 can at
+  best break even. This is consistent with ε0* = 1/4.
