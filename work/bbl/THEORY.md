@@ -1817,3 +1817,7 @@ role-0 lines, 15/8 each); all-8 δ = 0, margin −9/2. These are the true optima
   adversarial cell completion: T27 found the real value +0.333 in all 12 realisations, against the DP's −0.2227.
   Path-level CEGAR cannot remove this, so the decisive fix is exact cell domains on cap-line windows next to all-8
   apex triangles.
+
+**Core-window cell domains under the class (lead):** the 13 joint flank groups of the 4 all-8 core paths (lazy_groups
+of lp_all8z), class SAT at K = 18: 0 completions removed (5 unknown). The adversarial cell completions are locally
+realisable. Only their joint combination along a line is not, so window filtering cannot close the all-8 case.
