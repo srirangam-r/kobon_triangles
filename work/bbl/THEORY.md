@@ -1839,3 +1839,13 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
     least-infeasible slack t* = −1e−5 at wmax 1e3, +0.043 at 1e5, +4.3 at 1e7. Running at wmax 1e7 (run/lp_hs3.log).
   - Correction: the lead's "max-margin" runs (−8) were not true maxima. EPSM/EPSA had objective weight 1, not 4/8.
     New env MARGINOBJ=1 gives the true margin objective.
+- T29 milestone 3:
+  - At wmax 1e7, margin ≥ 1/100: infeasible after 540 cuts, core 132.
+  - The core is infeasible only by a hair. Least-infeasible slack: −0.31 at m = 0.5, −0.057 at 0.1, −2e−5 at 0.01,
+    +0.0057 at 0.001, +0.0063 at 0. The core's threshold margin is ≈ 0.0099 > 0, and any margin > 0 suffices.
+  - Running margin 1/1000 (run/lp_hs5, lp_hs6 with path slack for exact rounding).
+  - w_mw6 and w_FCM25 re-verify exactly on the hidstate graph.
+  - New lemma --hidm (2.5k real T–M links, 0 violations; follows from L1): a T next to an exactly 4-fold M, with a
+    simple-apex triangle on the segment and the M sector across the M ray to X a triangle; an F4 triangle forces
+    f2[s] = 1 at M.
+  - Graph +7.5% edges. Rationalisation patched for weights > 100 (work/eng/T29/rationalize_w.py).
