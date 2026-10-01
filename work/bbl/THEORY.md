@@ -1927,3 +1927,7 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   constraints with the lazy pair-lemma clauses included) was proved UNSAT by kissat and the proof VERIFIED by
   drat-trim (604k core lemmas, 947 s). The proof was regenerated and discarded (1 GB). The encoding correctness rests
   on classsat/patsat_m, validated on 160+ pinned cases.
+- The restarted CEGAR round 2 failed twice: the graph build with hidden-label patterns (16 patterns incl. symmetric
+  variants, with --uub) died after ~86 min (memory/time). Without the labelled patterns the U-UB model built in
+  under 30 min. The loop is stopped. The engineering route needs a redesign (label states only where patterns can
+  match) before more rounds. Best certified true margin: −2.29 (lp_uub1).
