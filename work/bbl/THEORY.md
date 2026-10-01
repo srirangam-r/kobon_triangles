@@ -1709,3 +1709,18 @@ patterns (work/eng/pert2/validate_pair2.py).
   the full set; otherwise this direction is closed.
 - Caveat: the window patterns encode M neighbours as T slots, so pilot removals at such groups are not sound until
   re-checked with real 4-fold slots.
+
+**Class window-domain pilot: closed.** 36 joint flank groups: 10/148 completions removed (7%, the same as without
+class constraints), 31 calls unknown at 90 s. Even if every unknown were removed, the total stays below the 33%
+threshold.
+
+**Per-word credit certificates (lead; env MWORD in search/rule_lp_t25m.py, backup in work/eng/oth/).**
+- Idea: each bad word W ∈ {6, 7, 8 triangle sectors} gets its OWN certificate w_W, with credits only at W points.
+- Path constraint: final ≥ −ε0 + Σ_{W-frames on the path} TAU′(role).
+- Rows: Σ_roles TAU′ ≥ δ per W.
+- Summing over the 18 lines: Σ final ≥ (#W points)·δ − 18ε0 ≥ δ − 18ε0 whenever a W point exists.
+- So if max(δ − 18ε0) > 0 for each W separately, every class arrangement with a bad point has Σ final > 0, i.e.
+  T ≤ 93.
+- The earlier global credit runs forced one weight vector for all words at once (optimum −9/2). Per word is strictly
+  weaker as a requirement.
+- Running: lp_mw6 / mw7 / mw8 (guarded, PAIRLEM, --mvar --mvarobj 1).
