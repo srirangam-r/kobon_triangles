@@ -1639,3 +1639,7 @@ case must follow the same route; the hours spent on M-strict/credit variants rep
 - Next: CEGAR with class-constrained path SAT (4-fold anywhere, bad words everywhere, pair lemma on every consecutive
   (4-fold, triple) pair). Targets FC-M at ε0 = 0, then M-strict.
 - Fresh PAIR (ε0 = 0, M-strict 1/24) is infeasible (core 91). The guarded ε0 threshold is in (0.22, 0.25].
+
+**Pair lemma re-validated (lead):** on the lattice-based clean arrangements (mixed_all + lattice files), 643/643 real
+(4-fold, triple) pairs with an excluded pattern are directly reducible, with 0 failures; 2,943 more pairs have allowed
+patterns (work/eng/pert2/validate_pair2.py).
