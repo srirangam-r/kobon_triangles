@@ -1603,3 +1603,14 @@ case must follow the same route; the hours spent on M-strict/credit variants rep
 - Prerequisite: FC-M at ε0 = 0 exactly (now 1/4).
 - Half the infeasible cores are M-free paths; the M model switched off K1*/K2/K2g/F5*/celldom/P000–P009 globally.
   Their guarded versions (T27, in progress) are the first lever.
+
+**Guarded facts (T27, --guarded), validated with 0 failures on 542,930 real T22 lines (dirty included).**
+- K1*: only on sides whose apex has class 1 or 2.
+- K2: all four apexes of class 1 or 2.
+- celldom: T windows only, with no M neighbour and no class-3 apex.
+- F5*.
+- P000–P009 with a span guard: no class-3 apex flag anywhere in the matched span. The unguarded patterns fail on 3.6%
+  of lines, all with a class-3 flag inside the span.
+- K2g stays off: 4 real lines contradict it.
+- The CEGAR patterns have 0 matches on the lines of the 13.4k clean arrangements.
+- Running: FC-M at ε0 = 0 and ε0 = 0.2 with the guarded facts (cegar/lp_G0.log, lp_G20.log).
