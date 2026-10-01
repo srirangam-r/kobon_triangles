@@ -1547,3 +1547,20 @@ arrangements with T = K(18).
   (cegar/w_TMXs.pkl).
 - Running: credit runs at the limits ε0 → δ/18; FC-M only with ε0 = 1/7 (T ≤ 94 for M), as the fallback toward a
   joint-tightness and 2-D step.
+
+## 26. MILESTONE: T ≤ 94 for every 18-line arrangement (T27, 2026-09-30 22:xx)
+
+- **FC-M, relaxed (T27).** Multiplicity ≥ 4 class: bad 4-fold points only (§24), pair lemma filter PAIRLEM (§25),
+  guarded K3 and F4′, 5 CEGAR patterns, strict special row.
+  - Exact certificate: every path has final ≥ −9/20 (identity units). Denominator D = 120, 11 columns,
+    α′ = 19/60, a = wr = 0. Files: work/eng/T27/cegar/w_FCM45.pkl, lp_FCM45.log; checked with verify_cert.py.
+  - Σ final + waste = 3Λ − 18 is a multiple of 9, and 18·(9/20) = 8.1 < 9. So Λ ≥ 6, i.e. T ≤ 94.
+- Combined with FC for multiplicity ≤ 3 (§20): **K(18) ≤ 94** for pseudoline arrangements with arbitrary
+  multiplicities (via §24 and the projective treatment of parallels).
+- The ε0 threshold lies between 0.17 and 0.30 (infeasible at 1/6).
+- Real-row test (T27): exact rows feasible for FC-M at −1/6 and for credits (δ = 1/6, ε0 = 1/120), on T22, all CEGAR
+  realisations (1,315 arrangements) and the lattice files. Caveat: only 123 rows through an M remain after --pairarr.
+- Open: exactly 94 with a bad 4-fold point. Next LP: maximise δ − 18ε0 with per-pattern credits TAU′ (ε0 and δ as
+  variables).
+- Unproven inputs to discharge later: DRAT for the 5 CEGAR patterns and for the PAIRLEM computation (the latter is
+  exhaustive enumeration code, validated on 127 real pairs).
