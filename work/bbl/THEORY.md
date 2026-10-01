@@ -1832,3 +1832,10 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
     carried on the edge.
   - Data check (work/eng/T29/hs_check.py): 40.5k arrangements, 7,057 links, 0 mismatches.
   - The first all-8 margin LP with --hidstate is running.
+- T29 milestones 2–3 (--hidstate F4 link):
+  - Soundness: 0 failures on 349k real in-model lines (membership_hs.py). Graph 476k nodes / 30.1M edges.
+  - The old 4-cut core (78/99/126/141) is RESOLVED: it was structural before (infeasible for every wmax).
+  - With hidstate the margin ≥ 1/100 LP has a 219-cut core that is infeasible only because of the weight box:
+    least-infeasible slack t* = −1e−5 at wmax 1e3, +0.043 at 1e5, +4.3 at 1e7. Running at wmax 1e7 (run/lp_hs3.log).
+  - Correction: the lead's "max-margin" runs (−8) were not true maxima. EPSM/EPSA had objective weight 1, not 4/8.
+    New env MARGINOBJ=1 gives the true margin objective.
