@@ -1652,3 +1652,16 @@ patterns (work/eng/pert2/validate_pair2.py).
 - Run on all 42,331 distinct T ≥ 92 arrangements in the corpus (phi/pls18_93, bridge93, near18, gallery18,
   dpwalk2/*/cls_w*): 4,737 mergeable blocks; ΔT = −2 for 4,619 and −1 for 118; **no merge gains**, no 94.
 - This is evidence, not proof: the corpus is not exhaustive.
+
+**Class-constrained path SAT (T27: classsat.py, class_path.py, class_run.py).**
+- Encoding: no m ≥ 5; a bad word at every 4-fold point; the 48-pattern pair lemma on every consecutive (4-fold, triple)
+  pair, added lazily as sound clauses.
+- Validated against the Arr classification: clean ⇒ SAT; pair-bad, non-bad 4-fold, m ≥ 5 ⇒ UNSAT; 26/26 sector words
+  match.
+- **Most lattice/mixed test arrangements are outside the class:** only 2/6, 4/18 and 14/120 are in, the rest violate the
+  pair lemma. Earlier real-row "feasible" verdicts that used them must be redone on in-class data.
+- G20 core under class SAT: 8 SAT (5 of them M paths, realised in clean in-class arrangements), 4 TIMEOUT, 0 UNSAT.
+  The realised M lines have exact values −0.2129, −0.1137 and −0.0104 at the depth weights (DP −0.2227). So the core
+  is REAL in the class; path-level class CEGAR cannot remove it.
+- Fixed: the pattern automaton's state was reset at M arrivals.
+- Pending (decisive): the exact real-row LP on in-class rows only, at ε0 = 0.
