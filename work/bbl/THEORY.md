@@ -1868,3 +1868,12 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - Machinery: patterns with hidden labels, wit2.py, round.py (work/eng/T29/rounds/summary.log). The rounds are
     running with the stop rule.
   - Expect slow growth.
+- T29 status:
+  - Round 1 was killed (graph build 25 GB: unanchored whole-line patterns). Fix: anchor them at the first vertex.
+  - After killing 5 UNREAL binding paths the max margin is −2.0. The REAL binding paths alone give unbounded margin,
+    so only unreal paths pin it.
+  - The UNREAL cores are always {flank completion u = 1 (axis ends at X), ub flag on the opposite side} and need all
+    18 lines. In real in-class n = 18 data, u = 1 occurs in 14 of 32.7k lines and the combination 0 times in 1,802
+    arrangements.
+  - Plan: batch-witness all near-binding paths with the combination, and test a local K = 18 UNSAT version that
+    would be a family-wide pattern.
