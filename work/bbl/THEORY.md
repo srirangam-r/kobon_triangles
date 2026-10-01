@@ -1782,3 +1782,22 @@ role-0 lines, 15/8 each); all-8 δ = 0, margin −9/2. These are the true optima
   5.5–17, and negative triple costs of only −1 to −3.5.
 - Next: the core with a positive margin required (lp_all8z), to characterise the loose cap-line windows. The facts
   K1*, K2, K2g and celldom are off at class-3 apexes; sound versions for bad-word apexes are the candidate fix.
+
+**All-8 case: the positive-margin LP is infeasible with a 4-path core (lp_all8z, cuts 78/99/126/141).**
+- Cut 78: a line through 1 all-8 point, with 5 class-3 apex flags.
+- Cut 99: an M-free chain of full triples with apex classes alternating 3/2, with 6 flags.
+- Cut 126: through 2 all-8 points, with kite spacers and (3,3) apex flags.
+- Cut 141: through 2 all-8 points, with T–M adjacency.
+- All four are line types of the infinite triangular lattice plus height lines. Their positive combination balances
+  every conservation column with margin < 0. Per-line accounting cannot see the boundary of a finite patch, where all
+  the slack is: every real in-class all-8 arrangement has Λ ≥ 66.
+
+**State of the proof (2026-10-01, 03:xx).**
+- K(18) ≤ 94 holds for all pseudoline arrangements.
+- A 94 is excluded for:
+  - multiplicity ≤ 3;
+  - any arrangement with a 6-type bad 4-fold point (w_mw6, margin 3);
+  - any arrangement with a 7-type point and no all-8 point (w_mw7_no8x, margin 7/10);
+  - any arrangement with no T–M adjacency (TMXs).
+- Open: an in-class 94 containing an all-8 point. It is reduced to the lattice-plus-height-line family, which needs a
+  2-D (patch-boundary) argument or a hidden-state automaton.
