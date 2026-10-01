@@ -1858,3 +1858,13 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
 - Real in-class rows (2,338 distinct; MWORD=78 BADWORDS=78, guarded, PAIRLEM) are FEASIBLE with credit δ = 12 at
   ε0 = 0, so real data supports margin ≥ 12. The DP model is at −2.4. Speed-ups sent to T29: witness-SAT all
   violating paths per round, warm starts, 18 workers, true margin tracked per round.
+- T29 correction:
+  - The F4-link hidstate does NOT move the true optimum: −2.4361 with and without (identical weights). The earlier
+    +0.0088 was a cut-subset artefact.
+  - The optimum is pinned by 9 cuts, kite-chain lines (S^12 TT S, STSSSS…, S^9 TMT S).
+  - Witness class SAT: 4 real and 4 UNREAL. The UNREAL cores are tiny (flank unb plus a ub flag) and specific to the
+    n = 18 line count.
+  - Killing those 4 lifts the max margin to −2.0.
+  - Machinery: patterns with hidden labels, wit2.py, round.py (work/eng/T29/rounds/summary.log). The rounds are
+    running with the stop rule.
+  - Expect slow growth.
