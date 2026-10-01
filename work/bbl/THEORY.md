@@ -1614,3 +1614,15 @@ case must follow the same route; the hours spent on M-strict/credit variants rep
 - K2g stays off: 4 real lines contradict it.
 - The CEGAR patterns have 0 matches on the lines of the 13.4k clean arrangements.
 - Running: FC-M at ε0 = 0 and ε0 = 0.2 with the guarded facts (cegar/lp_G0.log, lp_G20.log).
+
+**Correction (T27): summary-script bug.**
+- The kind strings and T–M tallies of all earlier cores skipped the frame after each M. So M-then-T adjacencies were
+  missing from the summaries, and the warm filter of the PAIR runs (lp_PAIR, PAIRv1/v3, driver round 1) kept M-then-T
+  cuts that the lemma forbids. Those PAIR verdicts are VOID; a fresh PAIR rerun is in progress.
+- All other runs were fresh starts and stand: G0/G20, FCM, credit, star, TMX.
+- Corrected G20 core (12 paths, all SAT as whole lines at n = 18):
+  - 9 contain an M; 6 of these have T–M adjacency, all with P = 11111111 and Q ∈ {111111, 110111}.
+  - 3 are M-free.
+  - Values at the depth weights: −0.2227 (floor −0.2).
+- Pending: exact real-row LP including the clean G20 realisations, to see whether real lines refute per-line
+  nonnegativity.
