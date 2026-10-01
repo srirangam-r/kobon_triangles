@@ -1746,3 +1746,16 @@ role-0 lines, 15/8 each); all-8 δ = 0, margin −9/2. These are the true optima
 - Some all-8 point: open core.
 - Observation: an all-8 point's budget 3c_P = 1.5β ≥ 4.5 equals 18·(1/4). At ε0 = 1/4, an all-8 point with β = 3 can at
   best break even. This is consistent with ε0* = 1/4.
+
+**No-all-8 model (BADWORDS=67), float LP.**
+- FC-M at ε0 = 0 is feasible, so all-8 points alone cause the ε0 = 1/4 floor.
+- The word-7 credit optimum is δ = 2.80 at ε0 = 0.105, margin +0.91.
+- Exact rerun at ε0 = 1/10, δ = 5/2 (margin 7/10), --margin 0.02: running (lp_mw7_no8x).
+
+**All-8 case (lead): per-incidence slack (env EPSX).**
+- Columns: EPSM per M4 vertex on a path; EPSA per side of an outgoing S/T segment whose triangle has a ≥ 4-fold apex.
+- Path constraint: final ≥ −ε0 − EPSM·#M4 − EPSA·#flags + credits.
+- A bad point lies on 4 lines and is the apex of ≤ 8 triangles. So Σ_L final ≥ Σ_bad P (δ − 4 EPSM − 8 EPSA) − 18ε0.
+  The sufficient row is δ − 18ε0 − 4EPSM − 8EPSA ≥ margin > 0.
+- Model: BADWORDS=78, sound since 6-type arrangements are already excluded. Credits for words 7 and 8 (MWORD=78).
+  Running lp_all8x.
