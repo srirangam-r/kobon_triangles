@@ -1494,3 +1494,15 @@ arrangements with T = K(18).
 - **Retraction (T27).** The earlier "real-row infeasible" verdicts (H0/HM/HT/HB/Z11) were artefacts of arrangements
   outside the §24 class. On clean arrangements all those LPs are feasible.
 - Next: replace TMX with the sound 48-pattern filter and rerun.
+
+**Sound pair filter (PAIRLEM=1): still infeasible, with a narrow core.**
+- Calibration of frames against canon(): 3,863/3,863 pairs agree.
+- With only the 48 allowed T–M patterns the DP-LP is infeasible (core 44; cegar/lp_PAIR.log). The core's T–M patterns
+  are dominated by 11111111:111111 (23 paths) and 11111111 with a one-hole triple (110111, 101111, 101101): an all-8
+  4-fold point next to a full triple point.
+- Geometry: the triangular lattice plus "height" lines. Lattice points on a height line are all-8, the other lattice
+  points are full triple points, and edge midpoints are kite centres. Every face is a triangle, so local
+  rearrangements cannot remove it.
+- Test data: exact straight-line n = 18 arrangements in the §24 class that contain the cluster
+  (work/eng/lattice/lattice18.jsonl and lattice_family.jsonl, T 49–74; converter lines2gens.py, checked against the
+  hill's exact counter). They go to T27 to decide between DP looseness and a genuine per-line obstruction.
