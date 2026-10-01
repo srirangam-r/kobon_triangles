@@ -1514,3 +1514,14 @@ arrangements with T = K(18).
 - No single T–M pattern is the whole obstruction: dropping 11111111:111111 alone, or allowing only it, is still
   infeasible. 12 of the 44 PAIR-core paths have no M at all.
 - Next: path-level SAT CEGAR (adversarial cells included, PAIRLEM on).
+
+**Relaxed strict target for multiplicity ≥ 4 (lead).**
+- Suppose every line has final ≥ −ε, and every line through a bad 4-fold point has final ≥ δ (identity units:
+  Σ final + waste = 3Λ − 18).
+- An arrangement with a bad point then has Σ final ≥ 4δ − 14ε. If ε < 2δ/7 this is > 0, so Λ ≥ 9 and T ≤ 93.
+- Per-line nonnegativity is NOT needed for the M class.
+- T27 path-level CEGAR round 1: 37/44 core paths are SAT-realisable even with their adversarial cells. The infeasibility
+  depth is only t* ≈ 0.004 in 2·final + 2 (target 2), independent of wmax: shallow.
+- The A30 identities (B = C, A = 1.5C, waste ≥ 0) hold on 2,021 clean arrangements, 298 of them with M points.
+- T27 found its earlier M runs used the weak LP box. The strict row α′ + wr + 1.5a ≤ 3/2 is now enforced.
+- Running: (δ, ε) = (1/6, 1/25) and (1/24, 1/100).
