@@ -1893,3 +1893,30 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
 - Cost: 1.84M nodes, 118M edges, 27 GB peak. The true-margin LP is running (run/lp_uub1.log).
 - True max margin with --uub (full DP, MARGINOBJ; lp_uub1): −2.2909 (δ = 0, ε0 = 0.018, EPSM = 0.491, EPSA = 0),
   up from −2.4361 (the −2.0 was on a cut subset). Slow progress: each lemma or round gains ≈ 0.15–0.4.
+
+## 27. Outside contribution (sol, GPT 6.1, via the user): work/bbl/ALL8_GB_NOTE.md; checked by the lead
+
+- **Exact identity (multiplicity ≤ 4):** Λ = Z − 6χ + 2A + J + B, where:
+  - A = #all-8 points, J = #7-type points, χ = Euler characteristic of the normalised triangle surface;
+  - B = Σ_{non-full triples} (3 + (7r − 3t)/2) + 2s1 + s2/2 − s3, with s_k = boundary fans of length k at simple
+    vertices.
+  Derivation (checked step by step):
+  - costs c = N/2 − D/2 (+4 at 4-fold points);
+  - b = 4K + s2 + 2s3 (every block has exactly one simple endpoint);
+  - Gauss–Bonnet 6χ = 2K − 2A + Σ_{non-full mult}(3r − t) + 2s1 + s2;
+  - eliminate K.
+  Full triples and kite centres drop out. The checker work/bbl/all8_boundary_check.py passes 1,069 identity checks.
+- **Touch lemma (checked):** an all-8 point with exactly three multiple first vertices, all triple, and n ≥ 8 gives
+  Z ≥ 1.
+  - Proof: the boundary is a triangle Δ with P inside, and the a_i are distinct (two pseudolines meet once). The
+    blocks opposite the corners are non-mutual (the partner's third vertex would be the corner Q_i, on the wrong side
+    of P).
+  - An outside line avoids Δ and meets three consecutive pencil rays, hence some X-ray. So the segment beyond X_i is
+    bounded and unused by Lemma A.
+- **Closed subcase:** a bridge component {all-8 P + exactly 3 triples} costs exactly 6, and Z ≥ 1. So Λ ≥ 7 if the
+  rest costs ≥ 0. An explicit 18-line witness has component cost exactly 6, so Z cannot be dropped.
+- **Missing inequality (8):** Z + B ≥ 6χ + 7 − 2A − J. Equivalently, in raw form,
+  Z + Σ_triples N/2 + 4A + 5J ≥ 7 + b/2: every block must be paid by touches, N rays, or 4-fold budgets. Blocks
+  split into touch blocks (paid by Z, 1/2 each), mutual blocks (kites, 3-fans) and end blocks (axis ends at X, as in
+  U-UB). The unpaid ones are the crux.
+- T29 was stopped by the user. Hidstate and U-UB are in search/rule_lp_t25m.py; the best true margin was −2.29.
