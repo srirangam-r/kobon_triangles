@@ -1665,3 +1665,11 @@ patterns (work/eng/pert2/validate_pair2.py).
   is REAL in the class; path-level class CEGAR cannot remove it.
 - Fixed: the pattern automaton's state was reset at M arrivals.
 - Pending (decisive): the exact real-row LP on in-class rows only, at ε0 = 0.
+
+**Decisive in-class real-row test (T27): FEASIBLE at ε0 = 0.**
+- Data: 14,175 arrangements; only in-class rows kept (10,879 dirty and 1,234 pair-bad skipped). 32,617 rows, 1,289 through
+  a bad 4-fold point. Includes 115 class SAT realisations of DP core paths and variants.
+- No real in-class line refutes per-line FC-M at ε0 = 0, so the joint-tightness route stays open.
+- The obstruction is the DP's per-window adversarial hidden choices and cells.
+- Class SAT is slow: about 60% of calls time out at 240 s.
+- Next: witness-exact SAT, i.e. realise the DP path with its chosen hidden options, then CEGAR.
