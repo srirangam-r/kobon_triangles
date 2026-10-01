@@ -1574,3 +1574,12 @@ arrangements with T = K(18).
   cluster data.
 - Next: the star-coupled key PT4N, i.e. the first-vertex classes of all 8 rays at P in the exactly coupled key, with
   transfers among the 4 lines through P.
+
+**Star key (PT4N, F2/F3): no effect.**
+- The LP-chosen optimum of δ − 18ε0 stays at −9/2 (δ = 0, ε0 = 1/4) with or without the star key, and the LP uses
+  zero PT4N columns. So ε0* = 1/4 is not caused by missing coupling between the 4 lines through P.
+- Half the infeasible cores are M-free paths.
+- Diagnosis (lead): the M model switches off K1*, K2, K2g, F5*, celldom and P000–P009 globally, so the model is loose on
+  M-free and M-adjacent lines.
+- Next (T27): guarded versions that fire only when every vertex and apex they mention is simple or triple. Validate on
+  543k real lines, then rerun FC-M at ε0 = 0 / 0.2 and the δ − 18ε0 maximisation.
