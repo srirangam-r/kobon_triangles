@@ -27,22 +27,23 @@ def canon(bits):
     return "".join(map(str, best))
 
 BAD = {"11111111", "11111110", "11101110"}
-pat = Counter(); badcomp = Counter(); ex = []
-for f in sys.argv[1:]:
-    for line in open(f):
-        d = json.loads(line)
-        a = Arr(d["gens"], d.get("n"))
-        if max(len(ev) for ev in a.events) < 4: continue
-        c, ring, comps, Lam = analyse(a)
-        for K in comps:
-            nb = 0
-            for P in K:
-                if len(a.events[P]) == 4:
-                    cp = canon(tri_sectors(a, P)); pat[cp] += 1
-                    if cp in BAD: nb += 1
-            if nb:
-                s = sum(c[P] for P in K); badcomp[(nb, s)] += 1
-                ex.append((s, nb, a.n, a.T(), f))
-print("4-fold sector patterns (canonical):", pat.most_common(12))
-print("components with bad points: (#bad, cost) ->", sorted(badcomp.items())[:20])
-ex.sort(); print(ex[:5])
+if __name__ == "__main__":
+    pat = Counter(); badcomp = Counter(); ex = []
+    for f in sys.argv[1:]:
+        for line in open(f):
+            d = json.loads(line)
+            a = Arr(d["gens"], d.get("n"))
+            if max(len(ev) for ev in a.events) < 4: continue
+            c, ring, comps, Lam = analyse(a)
+            for K in comps:
+                nb = 0
+                for P in K:
+                    if len(a.events[P]) == 4:
+                        cp = canon(tri_sectors(a, P)); pat[cp] += 1
+                        if cp in BAD: nb += 1
+                if nb:
+                    s = sum(c[P] for P in K); badcomp[(nb, s)] += 1
+                    ex.append((s, nb, a.n, a.T(), f))
+    print("4-fold sector patterns (canonical):", pat.most_common(12))
+    print("components with bad points: (#bad, cost) ->", sorted(badcomp.items())[:20])
+    ex.sort(); print(ex[:5])

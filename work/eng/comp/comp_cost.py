@@ -33,24 +33,25 @@ def analyse(a):
     assert abs(Lam - (a.Z() + sum(c.values()))) < 1e-9, (Lam, a.Z(), sum(c.values()))
     return c, ring, comps, Lam
 
-files = sys.argv[1:]
-dist = Counter(); worst = []; n_arr = 0; mcomp = Counter()
-for f in files:
-    for line in open(f):
-        d = json.loads(line)
-        try:
-            a = Arr(d["gens"], d.get("n"))
-        except Exception as ex:
-            continue
-        n_arr += 1
-        c, ring, comps, Lam = analyse(a)
-        for K in comps:
-            s = sum(c[P] for P in K); dist[s] += 1
-            has4 = any(len(a.events[P]) >= 4 for P in K)
-            if has4: mcomp[s] += 1
-            worst.append((s, len(K), a.n, a.T(), sorted(Counter(len(a.events[P]) for P in K).items()), f))
-worst.sort()
-print("arrangements", n_arr)
-print("component cost distribution (low end):", sorted(dist.items())[:15])
-print("components with a >=4-fold point, cost dist:", sorted(mcomp.items())[:15])
-for w in worst[:10]: print("  ", w)
+if __name__ == "__main__":
+    files = sys.argv[1:]
+    dist = Counter(); worst = []; n_arr = 0; mcomp = Counter()
+    for f in files:
+        for line in open(f):
+            d = json.loads(line)
+            try:
+                a = Arr(d["gens"], d.get("n"))
+            except Exception as ex:
+                continue
+            n_arr += 1
+            c, ring, comps, Lam = analyse(a)
+            for K in comps:
+                s = sum(c[P] for P in K); dist[s] += 1
+                has4 = any(len(a.events[P]) >= 4 for P in K)
+                if has4: mcomp[s] += 1
+                worst.append((s, len(K), a.n, a.T(), sorted(Counter(len(a.events[P]) for P in K).items()), f))
+    worst.sort()
+    print("arrangements", n_arr)
+    print("component cost distribution (low end):", sorted(dist.items())[:15])
+    print("components with a >=4-fold point, cost dist:", sorted(mcomp.items())[:15])
+    for w in worst[:10]: print("  ", w)

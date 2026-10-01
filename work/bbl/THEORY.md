@@ -1583,3 +1583,23 @@ arrangements with T = K(18).
   M-free and M-adjacent lines.
 - Next (T27): guarded versions that fire only when every vertex and apex they mention is simple or triple. Validate on
   543k real lines, then rerun FC-M at ε0 = 0 / 0.2 and the δ − 18ε0 maximisation.
+
+**§26 validation (lead): the T ≤ 94 certificate on real clean M arrangements.**
+- Test set: 1,074 clean arrangements in the §24 class, each with a bad 4-fold point:
+  - 1,045 lattice cores plus random lines (gen_mixed.py);
+  - 24 lattice arrangements;
+  - 5 cleaned T22 arrangements (all other T22 M arrangements are dirty).
+- Result for w_FCM25: 19,332 exact rows, 6,096 through an M; all 15 certificate columns are in the catalogue.
+  - Min line final 0.875, against the floor −1/4.
+  - 0 arrangements with Σ final > 3Λ − 18.
+  - 3Λ − 18 − Σ final ≥ 3Z − portions (the waste) in every arrangement: equal in 562, more by multiples of 0.75
+    (α′ = 1/2 slack) in the rest.
+- "M nodes 0" in the logs counts only the dummy loops for m ≥ 5 (none after §24), not 4-fold frames.
+- Real lines through bad points sit far above the floor. The ε0 = 1/4 floor comes only from DP paths.
+
+**Reflection on the M-94 strategy.** For multiplicity ≤ 3, per-line strictness never worked in the no-clean case. The
+94 was excluded by exact ε0 = 0 certificates, then joint tightness, then 2-D (flowers), then SAT (tip lemma). The M
+case must follow the same route; the hours spent on M-strict/credit variants repeated a known dead end.
+- Prerequisite: FC-M at ε0 = 0 exactly (now 1/4).
+- Half the infeasible cores are M-free paths; the M model switched off K1*/K2/K2g/F5*/celldom/P000–P009 globally.
+  Their guarded versions (T27, in progress) are the first lever.
