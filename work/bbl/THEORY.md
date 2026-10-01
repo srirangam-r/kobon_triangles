@@ -1923,3 +1923,7 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
 - (Lead, after T29 was stopped.) Restarted T29's witness-CEGAR loop (work/eng/T29/round.py from round 2, 6 rounds,
   pats_local1.json, --prev run/cuts_uub1.json; log rounds/driver3.log, summary rounds/summary.log). DRAT for the
   class-UNSAT pattern (core4 r_0.cnf) is running.
+- DRAT: the class-UNSAT pattern CNF work/eng/oth/core4/r_cnf/r_0.cnf (cut 78's 6-frame core; K = 18, class
+  constraints with the lazy pair-lemma clauses included) was proved UNSAT by kissat and the proof VERIFIED by
+  drat-trim (604k core lemmas, 947 s). The proof was regenerated and discarded (1 GB). The encoding correctness rests
+  on classsat/patsat_m, validated on 160+ pinned cases.
