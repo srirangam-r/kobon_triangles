@@ -1724,3 +1724,14 @@ threshold.
 - The earlier global credit runs forced one weight vector for all words at once (optimum −9/2). Per word is strictly
   weaker as a requirement.
 - Running: lp_mw6 / mw7 / mw8 (guarded, PAIRLEM, --mvar --mvarobj 1).
+
+**RESULT: 6-type bad 4-fold points (11101110) cannot occur in a 94 (lead, per-word certificate).**
+- Certificate w_mw6 (work/eng/oth/w_mw6.pkl, log lp_mw6.log): exact, D = 16, DP min 32 = target 32. Guarded facts,
+  PAIRLEM, 5 CEGAR patterns, keys --projall AC,AL,LC,LR.
+- Every path: final ≥ −1/4 + (credits at word-6 frames).
+- Credits: TAU(11101110, role 0) = 15/4 on the 2 role-0 lines; role 2 gets 0. Σ = 15/2 = δ.
+- Margin δ − 18ε0 = 15/2 − 9/2 = 3 > 0, checked exactly.
+- Validity row: α′ = 5/8, a = wr = 0, so 5/8 ≤ 3/2.
+- Consequence: a class arrangement with a 6-type point has Σ final ≥ 3 > 0, so Λ ≥ 9 and T ≤ 93.
+- The other words in the same runs (mvarobj 1): 7-type margin −0.75 (δ = 15/4), all-8 margin −4.5 (δ = 0).
+  Rerunning both with the margin weighted 100 (lp_mw7b, mw8b).
