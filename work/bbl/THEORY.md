@@ -1877,3 +1877,17 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
     arrangements.
   - Plan: batch-witness all near-binding paths with the combination, and test a local K = 18 UNSAT version that
     would be a family-wide pattern.
+
+**U-UB lemma (T29, proof checked by the lead; search/rule_lp_t25m.py --uub).**
+- Statement: let P be a triple vertex of a line L with a flank block whose axis A ends at its simple far end X
+  (u = 1: A has no vertex beyond X), X on side s of L. Let W be a line crossing L at v ≠ P with no vertex on its
+  side-(1−s) ray. Then W is the block's cap C, and v = Y1(P), P's neighbour on L in the triangle P–Y1–X.
+- Proof:
+  1. W meets A at a vertex Z ∉ L. (Z ∈ L would force Z = P, but W meets L only at v ≠ P.)
+  2. W has no vertex on side 1−s, so Z is on side s.
+  3. A's only vertex on side s is X (the first vertex from P, and u = 1). So Z = X.
+  4. X is simple (lines A and C), and W ≠ A, so W = C. C meets L at Y1.
+  The argument holds for all n.
+- Checks: 350k real lines, 0 violations; uub_test.py rejects 95k synthetic violations. It explains all 5 whole-line
+  UNREAL cores, and 149 of the 1,349 mm1 cuts (11%) are refuted by it alone.
+- Cost: 1.84M nodes, 118M edges, 27 GB peak. The true-margin LP is running (run/lp_uub1.log).
