@@ -2116,3 +2116,7 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - §9: an 18-line class arrangement (with optimality) has 2Q = 11 and component cost 5. So Q ≥ 7 and
     "component ≥ 6" are false at n = 18.
   - **Open (sol's (12)):** 2π + 2U + Σ S_P° + 2K_3 + 4K_4 + Δ ≥ 13 when π ≤ 6.
+- **BBL from the forest identity (lead).** For a simple 18-line arrangement, interior lines of the bad-wedge forest
+  (both ends bad) must carry an unused segment (sol §7 with t_L = f_L = 0). So Z ≥ 18 − 2π, and
+  Λ = π + ½(2Z − 2π) ≥ max(π, 18 − 2π) ≥ 6. The class case needs a charging of free parity defects: triples,
+  bridges and blocks along L, and I-centre cap steps. Sent to sol as work/bbl/SOL_TASK4.md.
