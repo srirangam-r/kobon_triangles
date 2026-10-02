@@ -1996,3 +1996,22 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - §10: triple optimality. Each of the two resolutions of a triple point gives ΔT = 1 − (alternating sector sum).
     So in a (T, V)-maximal 94 both alternating sums are ≥ 2 (16 allowed words).
   - Global SAT (T = 94) and Q ≥ 7 probes: UNKNOWN (no information).
+- **K_1 payment lemma (lead, 2026-10-01; checker work/bbl/k1_pay_check.py: 3,445 arrangements, 238 case-A and
+  1 case-B kites, 0 failures).** Let X be a kite with exactly one quadruple corner P, and triple corners Q, R, S
+  (Q, S adjacent to P; PX is a kite block at ray i of P, with PQ and PS at rays i ± 1).
+  - Case A: some cap edge e ∈ {PQ, PS, QR, RS} is singly used. Its two endpoint tokens are N rays whose segment's
+    unique triangle is a kite triangle of X. X is a K_1 kite, not a K_0 kite, 3-fan or 2-fan. So §4 never selects
+    them, and distinct kites use distinct triangles. Pay 2 tokens.
+  - Case B: all four cap edges doubly used. Then:
+    - the exterior apexes are Y_QR = PQ ∩ RS (beyond Q and R) and Y_RS = QR ∩ SP (beyond R and S);
+    - Y_PQ is the first vertex on ray i + 2, on QR beyond Q, and Y_SP is the first vertex on ray i − 2.
+    If the sector of P after ray i + 2 is a triangle and Y_PQ is simple, that triangle's third side runs along QR
+    beyond Y_PQ and would meet ray i + 3 = PS−. But QR meets SP only at Y_RS, on the S side of P. So Y_PQ is
+    multiple, or the ray is single. Either way, rays i ± 2 (and i ± 1) are not blocks.
+    Under the injection "kite block j ↦ ray j + 1" (§6), rays i − 1 and i + 2 are never hit. Two case-B kites at one
+    P are ≥ 3 apart; at distance 3 the ray word is forced (D = k = 2, S_P = 4). So S_P ≥ 2·#(case-B kites at P).
+    Pay 2 units of S_P.
+  - **Consequence (exact, every term ≥ 0):**
+        2Λ = 2R + N_*° + 2U_3 + I_3 + U_4 + Σ_quad S_P° + 2K_3 + 4K_4,
+    where N_*° = N_* − (case-A tokens) and S_P° = S_P − 2·#(case-B kites at P). **Open: this sum is ≥ 14 when
+    n = 18 and A ≥ 1** (in a 94 it equals 12).
