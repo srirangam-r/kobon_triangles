@@ -2041,3 +2041,19 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - Hence at β = 4 (word RBRBRBRB) with four triple corners, at most 2 kite blocks, and they are adjacent: S_P ≥ 2.
   - At β = 3, k ≤ 1 (only the 2-segment side can hold a kite block): S_P ≥ 2. At β ≥ 6, S_P ≥ 4.
   - Open: β = 5 can give S_P° = 0 (blocks i, i+3, i+5 all kites, with i a case-B K_1 kite).
+- **Local optimality around all-8 points is weak (lead, work/eng/star).**
+  - The window enumerator wdp.py replaces all_words by a memoised sweep DP. Its outcome sets match all_words on the
+    4 reference windows.
+  - The n = 10 SAT witness (Λ = 8, all-8 P with 5 triple corners): no redraw of any window, up to the full star
+    (P plus all 8 neighbours, 10 tracks, 12 events), gains (best dT, dV = 0, 0). So no window lemma of this size
+    can exclude all-8 points.
+  - Pair lemmas, same criterion as §25:
+    - (triple, triple): 55 allowed = exactly the pairs of individually optimal triples. Nothing beyond §10.
+    - (4-fold, simple): nothing excluded.
+    - (4-fold, 4-fold): 2 of 26 excluded (both 7-type pairs).
+- **TRIOPT in the per-line DP (lead).** Sol's §10 triple optimality (both alternating sector sums ≥ 2) was not used
+  by the DP.
+  - Frame filter (env TRIOPT=1): drop T frames with bin0 + bout0 + h1 < 2 or h0 + bin1 + bout1 < 2.
+  - Mapping validated on 1,758 real triple incidences (gallery18): 0 mismatches, 54 non-optimal caught.
+  - It cuts T frames 121 → 20 and enriched frames 1,620 → 783. The all-8 margin LP (uub configuration) is running
+    with it (work/eng/T29/run/lp_trio1.log).
