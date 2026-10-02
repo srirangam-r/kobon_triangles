@@ -35,11 +35,11 @@ Every SAT model was turned into a wiring word and re-checked with arr.py and the
 |---|---|
 | 8 | no in-class arrangement with an all-8 point at all (UNSAT for every Λ) |
 | 9 | Λ ≤ 6 UNSAT (also without optimality); minimum Λ = 9 (T = 18). The record K(9) = 21 has Λ = 0. |
-| 10 | Λ ≤ 6 UNSAT; minimum Λ = 8 (T = 24). The record K(10) = 25 has Λ = 5. |
+| 10 | Λ ≤ 6 UNSAT (also without optimality, 2,280 s); minimum Λ = 8 (T = 24). The record K(10) = 25 has Λ = 5. |
 | 11 | Λ = 9 attained (T = 30); Λ ≤ 6 running. The record K(11) = 32 has Λ = 3. |
 | 12 | Λ = 9 attained (T = 37); Λ ≤ 6 running. The record K(12) = 38 has Λ = 6. |
 | 13 | Λ = 11 attained (T = 44). The record K(13) = 47 has Λ = 2. |
-| 14–18 | running |
+| 14, 16, 18 | Λ ≤ 12, 14, 12 (and Λ ≤ 9 at n = 18): UNKNOWN after 2,400 s. SAT no longer reaches these sizes. |
 
 Identity (6) on the minimisers (2Λ = sum of terms):
 - n = 9, Λ = 9: `0 4 5 3* 2 1 7 5* 2** 5 6* 0* 4* 2* 4 6 5 6 1`
