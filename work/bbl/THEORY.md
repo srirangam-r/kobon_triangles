@@ -1953,3 +1953,18 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
     Σ TAU directly.) α′ = 1/2.
   - 7-type without all-8: work/eng/oth/w_mw7_no8x_nocd.pkl, exact D = 288, ε0 = 1/10, Σ TAU = 5/2, margin 7/10.
     α′ = 7/12.
+- **sol, ALL8_BLOCK_NOTE.md (checked by the lead).**
+  - Exact payment decomposition: blocks are U (touch), I (end) or M (mutual); b = U + I + 2H + 4K;
+    R = Z − U/2 ≥ 0; Λ = R + Q with Q = Σ_triples N/2 + 4A + 5J − 2K − H − I/2.
+  - **Pencil-touch lemma (proof checked).** Let E(P) be the non-mutual block rays at an m-fold point P, and h(P) the
+    minimum of |E(P) ∩ (m consecutive rays)|. If some line W misses P and all cap lines of E(P) (automatic for
+    n = 18, m ≤ 4), then Z ≥ h(P).
+    - Proof: W meets m consecutive pencil rays. On each such non-mutual block ray it crosses strictly beyond the
+      simple far end X. So the continuation is bounded, and by Lemma A unused. The unused edges are distinct because
+      they lie on distinct pencil lines.
+    - Corollary: the end-block rays lie in m consecutive rays.
+  - At an all-8 point with Z = 0, at most 3 blocks are non-mutual. The star subcase strengthens to Λ ≥ 8 + outside
+    costs.
+  - Checks: 3,446 arrangements and 18,979 points, 0 failures.
+  - sol's global SAT probe (an all-8 point present, T = 94, class constraints): UNKNOWN after 2,611 s, which proves
+    nothing. ALL8_NOTE2.md is in progress.
