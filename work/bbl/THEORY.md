@@ -2015,3 +2015,21 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
         2Λ = 2R + N_*° + 2U_3 + I_3 + U_4 + Σ_quad S_P° + 2K_3 + 4K_4,
     where N_*° = N_* − (case-A tokens) and S_P° = S_P − 2·#(case-B kites at P). **Open: this sum is ≥ 14 when
     n = 18 and A ≥ 1** (in a 94 it equals 12).
+- **Line-end lemma (lead; work/bbl/ends_check.py: 3,445 arrangements, classification exhaustive).** Let v be the last
+  vertex of line L at one end.
+  - v multiple: the unbounded ray of L is an N ray. It lies on no bounded segment, so neither §4 nor the K_1
+    payment uses it. **good, 1 credit.**
+  - v simple (L and M), with s the last segment of L:
+    - If s is doubly used, it is an end block u → v. If u is triple: I_3, **good, 1 credit**. If u is 4-fold:
+      **bad (I_4)**.
+    - Otherwise some face along s is not a triangle. The segment of M at v on that side borders this face and an
+      unbounded face.
+      - If that segment is bounded, it is unused: **good**. An unused segment serves ≤ 2 ends, 2 credits.
+      - If it is unbounded, v is M's last vertex too: **bad wedge**, with the bounded face opposite the wedge a
+        triangle.
+  - All these credits are disjoint from S_P°, U_4, K_3 and K_4. So
+        2Λ ≥ #(good ends) + Σ S_P° + U_4 + 2K_3 + 4K_4.
+  - BBL parity: if both ends of L are bad wedges, the two corner triangles lie on the same side of L. (Otherwise
+    the two extremity lines M_1 and M_2 would have all their vertices on opposite sides of L and could not cross.)
+    At even n, a simple perfect line has its corner triangles on opposite sides. So a line with two bad-wedge ends
+    carries a parity defect: an unused segment, a doubly used segment, or a same-side step at a multiple point.

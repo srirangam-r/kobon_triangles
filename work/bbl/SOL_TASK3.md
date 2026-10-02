@@ -61,14 +61,21 @@ Any complete, checkable proof of (7) is welcome. Suggested decomposition:
    - Result, exact, every term ≥ 0:
          2Λ = 2R + N_*° + 2U_3 + I_3 + U_4 + Σ_quad S_P° + 2K_3 + 4K_4.
    - Please check this proof too. **The whole remaining problem: this sum is ≥ 14 at n = 18 with A ≥ 1.**
-2. **Per-line ownership (the BBL part).** Distribute the credits of (6) to lines so that every line receives
+2. **Line ends (lead; THEORY §27 notes, work/bbl/ends_check.py).** Every one of the 36 line ends is one of:
+   - good: a free unbounded N token, an I_3 end block, or a touch on an unused segment (≤ 2 ends per segment);
+   - bad: an I_4 end block, or a bad wedge (v is the last vertex of both lines and the face opposite the wedge is
+     a triangle).
+
+   So 2Λ ≥ #good ends + Σ S_P° + U_4 + 2K_3 + 4K_4, with disjoint credits. If both ends of L are bad wedges, its
+   corner triangles lie on the same side of L. Hence, at even n, L has a parity defect along it.
+3. **Per-line ownership (the BBL part).** Distribute the credits of (6) to lines so that every line receives
    ≥ 2/3 (in 2Λ units). The total is 2n/3 = 12, so a 94 would make every line exactly tight. Then show that a line
    through, or capping, an all-8 point cannot be exactly tight, or that the lines near P together receive more
    than their share.
    - The lead's per-line DP (search/rule_lp_t25m.py) proves T ≤ 94 for all arrangements this way. Its all-8 credit
      falls short only because the line automaton cannot see 2-D consistency in lattice-plus-height patches.
    - A 2-D charging argument in your credit language may avoid that looseness.
-3. Any finite case split whose cases are small SAT instances: the lead will run them (classsat/patsat_m at K = 18,
+4. Any finite case split whose cases are small SAT instances: the lead will run them (classsat/patsat_m at K = 18,
    kissat + DRAT).
 
 ## Output wanted
