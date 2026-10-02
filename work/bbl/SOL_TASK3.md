@@ -87,6 +87,15 @@ Any complete, checkable proof of (7) is welcome. Suggested decomposition:
 4. Any finite case split whose cases are small SAT instances: the lead will run them (classsat/patsat_m at K = 18,
    kissat + DRAT).
 
+## Data: real lines that defeat per-line accounting (lead)
+work/eng/oth/wit3/wit_sat.jsonl holds 29 real in-class 18-line arrangements (class + triple optimality, SAT
+realisations of the DP's binding lines).
+- One line through an all-8 point P is at the per-line floor under every weight vector tried.
+- The other lines through the same P are very positive. Example, Λ = 105: P's four lines have finals −0.51, 16.1,
+  23.7 and 17.2.
+- So the surplus exists, but on P's other lines. A proof must move credit across the star of P, or from height
+  lines to kite rows. Per-line accounting with the present rules cannot (capped at −2.29).
+
 ## Output wanted
 work/bbl/ALL8_NOTE3.md. As before:
 - precise statements, complete proofs or explicit counterexamples;

@@ -1,0 +1,8 @@
+r1: warm start 1340 cuts (9 dropped by the new patterns)
+r1: warm start 1340 cuts (9 dropped by the new patterns)
+r2: warm start 1221 cuts (76 dropped by the new patterns)
+r2: LP failed (see /home/nail/stuff/sundai_math/work/eng/T29/rounds/r2/lp.log)
+r2: warm start 82 cuts (15 dropped by the new patterns)
+r2: LP failed (see /home/nail/stuff/sundai_math/work/eng/T29/rounds/r2/lp.log)
+r3: LP done in 3424s: margin -2.2909  (delta 0.0000, eps0 0.0182, epsM 0.4909, epsA 0.0000)
+r3: witness 61 paths: UNSAT 1 (new local patterns 1, deferred whole-line 0), SAT 29, TIMEOUT 31, other {}

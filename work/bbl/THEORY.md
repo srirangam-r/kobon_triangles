@@ -2068,3 +2068,17 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - Next (running): T29's witness-CEGAR round with TRIOPT in both the DP and the witness SAT
     (class_path31.py, env TRIOPT), with all 16 labelled patterns (pats_local1.json). That build previously died at
     1,620 frames; it now runs with 783 (rounds/r3).
+- **CEGAR round 3 with TRIOPT and all 16 labelled patterns (lead, rounds/r3).**
+  - The graph now builds: 1.25M nodes, 69M edges, 32 GB peak.
+  - True margin still −2.2909, at the identical optimum.
+  - Witness SAT of the 61 tight paths, class + TRIOPT at K = 18: 29 WIT_SAT, 31 TIMEOUT, 1 UNSAT.
+- **The binding lines are real (lead; work/eng/oth/wit3).** Exact rows of the 29 witness arrangements:
+  - The M lines sit at final −0.509 = −(ε0 + EPSM) under the margin weights, and at −1/4 (the floor) under
+    w_FCM25. So they are real in-class lines.
+  - The witness arrangements have Λ = 78–135. The OTHER lines through the same all-8 point are very positive:
+    49 of 61 M rows exceed 17/4 under w_FCM25. In a 94 every line is ≤ 17/4 under w_FCM25.
+  - Per-line upper bounds do not exclude the binding lines themselves (they are at the floor). By convexity
+    (Minkowski sums over lines), combining weight vectors gives nothing beyond the single best LP.
+  - **Conclusion: the per-line route needs new transfer families,** moving surplus between the lines of one all-8
+    star, or from a height line to the kite row, keyed by 2-D-visible kite types. The current column families are
+    capped at −2.29 by real lines; no amount of model tightening (hidden state, U-UB, TRIOPT, patterns) can help.
