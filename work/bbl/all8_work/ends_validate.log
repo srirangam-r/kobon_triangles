@@ -1,0 +1,3 @@
+{"event": "built", "variables": 118219, "clauses": 807128, "target_T": null, "minimum_W": 0}
+{"event": "verified", "n": 18, "T": 33, "Lambda": 189, "W": 4}
+{"result": "SAT_VERIFIED", "seconds": 0.7611985206604004, "variables": 118219, "clauses": 807128, "lazy_clauses": 0, "validation": true, "statistics": {"restarts": 1, "conflicts": 0, "decisions": 2, "propagations": 118220}}

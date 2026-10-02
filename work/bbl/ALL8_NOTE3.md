@@ -8,7 +8,7 @@ There are new proved payments and a new exact line-end/path identity. They remov
 
 Files consulted: `SOL_TASK3.md`, `ALL8_NOTE2.md`, `k1_pay_check.py`, `ends_check.py`, and `THEORY.md` §§24–27. The checker is `note3_check.py`. Independent subagent review was attempted but **neither child started**; see §11. Thus no claim here has an independent subagent-review verdict.
 
-Unless otherwise specified, the target setting is 18 proper planar pseudolines, each pair crossing once, multiplicity at most four, quadruples all-8 or 7-type, at least one all-8, and both alternating triple sector sums at least two. All credit quantities use doubled (`2 Lambda`) units.
+Unless otherwise specified, the target setting is 18 proper planar pseudolines, each pair crossing once, multiplicity at most four, quadruples all-8 or 7-type, at least one all-8, and both alternating triple sector sums at least two. Here `Lambda=n(n-2)-3T` (so `288-3T` at `n=18`). All credit quantities use doubled (`2 Lambda`) units.
 
 ## 1. Baseline and a correction to the task's expanded formula
 
@@ -41,7 +41,7 @@ For case B write the kite corners as `P,Q,R,S`, with `P` quadruple and the other
 
 If `PY` were a block, `Y` would be simple. Its cap would be `QR`, and the other triangle along `PY` would require `QR` to meet the ray of `PS` opposite to `S`. Its unique intersection with `PS` is on the wrong ray, by the preceding paragraph. Contradiction. The symmetric argument excludes the block two rays on the other side of `PX`.
 
-Thus a case-B block excludes other blocks at distances `±1,±2`. At an all-8 the vertices `Y` are necessarily multiple; at a 7-type the next sector may be absent, in which case `PY` can be singly used. **The conclusion needed for payment is “not a block”, not an unconditional claim that `Y` is multiple.**
+Thus a case-B block excludes other blocks at distances `±1,±2`. At an all-8 the vertices `Y` are necessarily multiple; at a 7-type the next sector may be absent, in which case `PY` is single and no assertion that `Y` is multiple is needed. **The conclusion needed for payment is “not a block”, not an unconditional claim that `Y` is multiple.**
 
 Kite blocks are isolated. With one case-B block at ray `i`, the only other possible block positions are `i+3,i+4,i+5`. They cannot all be blocks by §2 below. Therefore `D_P<=3`, `k_P<=D_P`, and `S_P>=2`. Two case-B positions have cyclic distance three or four; their exclusions leave just those two block positions, giving `D_P=k_P=2`, `S_P=4`. Three case-B positions cannot fit around eight rays. This proves `S_P>=2c_B(P)` and hence (1) with nonnegative terms.
 
@@ -63,7 +63,7 @@ Use the following rule:
 
 Both triangles cannot fail: failure on both sides would make `PX` the middle of three consecutive blocks, contradicting §2. Thus every such block supplies at least one token. An isolated block supplies two.
 
-**Non-reuse.** Every selected segment is singly used, so it identifies one triangular face. If its other multiple endpoint is `T`, that face has unique simple corner `X` and unique double side `PX`. If the selected segment is `PT` with `T` simple, then `T` is a one-fan corner, since `PT` and `TX` are both single; `X` is the two-fan corner. Thus the face again identifies `X` and the quadruple origin `P`. The token cannot be one of the old outer-triangle tokens, whose origin is triple. Nor can it be a selected `K_0` or case-A `K_1` token, whose simple corner is a four-fan centre. Different quadruple blocks cannot select the same token.
+**Non-reuse.** Every selected segment is singly used, so it identifies one triangular face. If its other multiple endpoint is `T`, that face has unique simple corner `X` and unique double side `PX`. If the selected segment is `PT` with `T` simple, then the fan at `T` containing this face has one triangle, since `PT` and `TX` are both single (an opposite fan may exist); `X` has the two-triangle fan. Thus the face again identifies `X` and the quadruple origin `P`. The token cannot be one of the old outer-triangle tokens, whose origin is triple. Nor can it be a selected `K_0` or case-A `K_1` token, whose simple corner is a four-fan centre. Different quadruple blocks cannot select the same token.
 
 Choose exactly one such token per quadruple touch/end block and reserve it. Then
 
@@ -128,7 +128,15 @@ Let `eta_0` count **bounded unused first rays at multiple points**, counted sepa
 
 Such a ray gives an `N`-token on an unused edge. None of the old payments, `K_1` case-A payments, or §3 reservations uses a zero-use edge, so it remains in `N_res` and is not an unbounded end token. Its unused-edge endpoint slot is at a multiple vertex, so it is neither a touch slot nor a simple end's unused slot. These are two distinct credits in the two summands of (6). Different rays give different tokens and endpoint slots, including when an unused edge joins two multiple points.
 
-In the structural class, these rays can only be at triples. A locally optimal four-consecutive-sector triple has one empty ray; if that ray is bounded, it contributes at least two units to `Delta`.
+In the structural class, these rays can only be at triples. A triple with exactly four triangular sectors forming one cyclic run has one empty ray; if that ray is bounded, it contributes at least two units to `Delta`.
+
+Let `e_mix` count singly used cap edges of kites with at least two quadruple corners. **Proved:**
+
+\[
+ \Delta\ge2\eta_0+2e_{\rm mix}.                        \tag{8a}
+\]
+
+Each such edge has two multiple-endpoint `N`-tokens, on bounded single rays. Its unique triangular face has a four-fan centre with at least two quadruple kite corners. Thus neither token is an old outer-triangle, `K_0`, or case-A `K_1` token, or a §3 reservation. Both survive in `N_res-F`. Tokens from different single edges are distinct; a single cap edge identifies its unique kite centre. They are disjoint from the zero-use tokens in (8). This gives (8a).
 
 ## 5. The bad-wedge graph is a forest of paths at even `n`
 
@@ -180,7 +188,11 @@ In particular the `pi=6` case of a 94 would require
  K_3=K_4=0,\quad\Delta=0.                             \tag{11}
 \]
 
-Every unused-edge slot would then serve a good unused end, and every token of `N_res` would be unbounded. There can be no bounded empty multiple ray by (8). Every locally optimal four-consecutive-sector triple must have its empty ray unbounded. At a zero-slack quadruple all its blocks are kite blocks (see the mask analysis in §8), so in this case there are no quadruple touch, end, or three-fan blocks.
+Every unused-edge slot would then serve a good unused end, and every token of `N_res` would be unbounded. There can be no bounded empty multiple ray by (8). Every locally optimal triple with exactly four consecutive triangular sectors must have its empty ray unbounded. By (8a), all cap edges of every `K_2` kite are double. At a zero-slack quadruple all its blocks are kite blocks (see the mask analysis in §8), so in this case there are no quadruple touch, end, or three-fan blocks.
+
+**Two further proved saturation restrictions:** every `K_0` kite has exactly two single cap edges, and every case-A `K_1` exactly one. The old payments consume tokens from exactly two such edges at a `K_0`, or one at a case-A `K_1`. Any additional single cap edge supplies two bounded free tokens. Its unique four-fan face prevents reuse in any other old or new payment, contradicting `Delta=0`.
+
+Also **every edge of an all-multiple triangular face is double**. A single edge of such a face would have two bounded `N`-tokens; none of the payments can use them, because all payment triangles have a designated simple block or kite centre. Again `Delta` would be at least two. These restrictions, along with the zero-regime propagation restriction in §8, are asserted by the checker when applicable.
 
 The exact remaining obligation, in these terms, is
 
@@ -233,7 +245,7 @@ The same-side step is event 6, an `I_3` centre from event 13, capped by line 7. 
 | 3 | 3 | 1 | relative positions `0,3,5`; position 0 is case B |
 | 2 | 2 | 2 | two case-B blocks at cyclic distance 3 or 4 |
 
-This is a classification of local masks, not of arrangements. The first row follows from `D+k=8`, isolation of kite blocks, and no three consecutive blocks. In the second row the distance-two exclusions give `D<=3`, while zero slack requires `D+k=6`, hence three isolated kites at `0,3,5`. With two case-B blocks the exclusions leave just those two blocks and `S=4`, which is entirely consumed. The 569-mask exhaustive check independently verifies these deductions; there are respectively 2, 8, and 12 labelled zero masks. At a 7-type, zero corrected slack likewise requires all its blocks to be kite blocks; without case B its uncorrected slack is at least two, and with case B the preceding bounds force `D=k` whenever the corrected slack is zero.
+This is a classification of local masks, not of arrangements. The first row follows from `D+k=8`, isolation of kite blocks, and no three consecutive blocks. In the second row the distance-two exclusions give `D<=3`, while zero slack requires `D+k=6`, hence three isolated kites at `0,3,5`. With two case-B blocks the exclusions leave just those two blocks and `S=4`, which is entirely consumed. The 569-mask exhaustive check also verifies these deductions; there are respectively 2, 8, and 12 labelled zero masks. At a 7-type, zero corrected slack likewise requires all its blocks to be kite blocks; without case B its uncorrected slack is at least two, and with case B the preceding bounds force `D=k` whenever the corrected slack is zero.
 
 **First row, proved additional restriction:** at least one first multiple neighbour is quadruple. If all four were triple, the far corners of opposite kites would be the intersection of the same two opposite cap lines. They cannot lie on opposite pencil rays. This is the accepted opposite-kite/far-corner argument.
 
@@ -261,7 +273,29 @@ Apply `lines2gens.transform` with parameters `1/97,1/89`, followed by the shear 
 0 4 5 4 1 2* 6* 4* 3 1* 0 8 6* 3** 1* 8* 6* 5 3* 2 5* 0* 4 7 8 7 3 6
 ```
 
-It has `T=26,Z=8,Lambda=21`, one all-8 (event 13), two case-B `K_1` kites there, and `S_13^circ=0`. **It fails triple optimality at other vertices**, so it does not refute the target class with that extra hypothesis. It does refute dropping the third branch on purely structural/geometric grounds. Whether optimality excludes this branch or forces enough external credit remains open here.
+It has `T=26,Z=8,Lambda=21`, one all-8 (event 13), two case-B `K_1` kites there, and `S_13^circ=0`. **It fails triple optimality at other vertices**, so it does not refute the target class with that extra hypothesis. It does refute dropping the third branch on purely structural/geometric grounds.
+
+**The third branch also survives triple optimality at n=18.** Record 29 of the lead's `work/eng/oth/wit3/wit_sat.jsonl` has the explicit word
+
+```text
+3 2 5 4 6 7 8 7 5* 3* 1* 0 11 12 11 10 9 7* 5* 3* 1* 10* 9 13 12 10* 7** 5* 3* 5 10 15 14 13 12 15 14 15* 13* 11* 9* 6** 4* 2* 0* 2 1 9 10* 8* 6* 4* 3 2 1 6 5 12* 10* 9 8 7 6 5 4 3 2 5 9 8 7 10 9 14* 12* 11 10 9 8 7 6 7 9 11 16 14* 13 12 14
+```
+
+It passes both the structural-class and triple-optimality checks, with `T=75,Z=41,Lambda=63`. Its all-8 event 41 has ring `BRRRBRRR`, two opposite case-B kites, and corrected slack zero. Event 26 has corrected slack six; the total is therefore not zero. The path accounting is `pi=13`, end lower bound 40, and `Delta=86`, giving `C=126`.
+
+Thus optimality does **not** eliminate the double-case-B branch or ensure positive corrected slack at each all-8. This is still not a counterexample to (7′), or to a maximal-94 assertion. The remaining question is how to force enough credit elsewhere.
+
+### A propagation restriction in the zero-slack regime
+
+**Proved.** Suppose every quadruple has corrected slack zero and `K_3=K_4=0`. In the second row of the table, `Q_4` must be quadruple; the alternative in (14) with `Q_4` triple is impossible. Thus in the `pi=6` residual case a single-case-B all-8 has exactly one quadruple first neighbour, the central `Q_4`.
+
+To check the possible endpoint types used below: a zero-slack quadruple with no case B has four alternating kite blocks, which force all eight sectors. With one case B, zero slack forces blocks `0,3,5`; the double cap edges adjacent to the case-B block force the remaining sectors too, so this is again all-8. With two case-B blocks, both its blocks are `K_1` case-B blocks. Consequently a zero-slack quadruple incident to a kite containing another quadruple must be all-8 and of the first or second row, not a 7-type or the third row.
+
+Assume now that `Q_4` is triple. By (14), `Q_2,Q_6` are quadruple. Focus on `Q_2`. The bridge `P Q_2` has on one side the mixed kite on ray 3, and on the other the face `P Q_1 Q_2`, with `Q_1` triple. At `Q_2` the ray toward `P` is therefore flanked by one kite-block ray and one bridge ray toward a triple. `Q_2` cannot be the alternating first row. In the second row it cannot occupy positions 1 or 7: the adjacent kite there is the case-B `K_1`, whereas this kite contains both `P,Q_2`. Thus the ray toward `P` occupies position 2 or 6.
+
+Its central neighbour (position 4) cannot be quadruple, since the kite between it and the quadruple at position 2 or 6 would be `K_3` or `K_4`. Apply (14) at `Q_2`: the neighbour opposite `P` on the same axis must be another quadruple `P'`. It lies farther along the proper line `P Q_2`, away from `P`. The bridge `Q_2 P'` again has a mixed kite on one side and a triangular face with the triple case-B corner on the other. Thus at `P'` the same one-kite/one-triple-bridge configuration repeats. The same argument forces a further quadruple on that line, away from `Q_2`.
+
+Iteration produces arbitrarily many distinct vertices in increasing order on a proper pseudoline, impossible in a finite arrangement. For 18 lines, even six quadruples on one line would already consume 18 other-line crossings, exceeding 17. This proves the restriction. It does not eliminate the first or third zero-slack rows, nor the remaining global budget.
 
 ## 9. An 18-line counterexample to `Q>=7` and component cost `>=6`
 
@@ -296,12 +330,18 @@ python work/bbl/note3_check.py \
   work/eng/lattice/lattice18.jsonl \
   work/eng/lattice/lattice_family.jsonl \
   work/eng/lattice/mixed_all.jsonl \
-  work/phi/gallery18.jsonl
+  work/phi/gallery18.jsonl \
+  work/eng/oth/wit3/wit_sat.jsonl
 ```
 
-Exact stdout is saved in `work/bbl/all8_work/note3_check.out`. The checker asserts token-level disjointness, the fresh quadruple payment, slot capacities, (7), (8), even-`n` forest acyclicity, and (13) on eligible lines. It also checks all pairs and the final permutation of the explicit wiring words. Its use of existing `arr.py`, Note 2 face helpers, and the lead's old-token routine is documented in the imports; this is not a wholly independent implementation of the arrangement parser.
+Exact stdout is saved in `work/bbl/all8_work/note3_check.out`, with empty `note3_check.err`. Python syntax checks passed. Exact local-enumeration and dataset summary lines:
 
-The dataset checks are evidence, not classification: they include nonstructural arrangements and sampling repetitions across sources (identical words are deduplicated), and skip multiplicities above four. The stronger parity assertion is checked only where its hypotheses hold. The geometric double-case-B example deliberately fails optimality. No minimum over all arrangements is inferred.
+```text
+Zero-slack local enumeration: {'configurations': 569, 'shapes': {'(2, 2, 2)': 12, '(3, 3, 1)': 8, '(4, 4, 0)': 2}, 'failures': 0}
+Dataset checks: {'I4': 83, 'K1A': 238, 'K1B': 4, 'U4': 1728, 'W': 30623, 'arrangements': 3474, 'empty_bounded_N': 11161, 'mixed_single_caps': 115, 'parity_cap_steps': 5059, 'parity_lines': 10213, 'quad_nonmut_tokens': 2699} failures=0
+``` The checker asserts token-level disjointness, the fresh quadruple payment, slot capacities, (7), (8a), even-`n` forest acyclicity, the zero-regime propagation restriction, and (13) on eligible lines. It passed 3,474 dataset records, including all 29 Task 3 binding examples. It also checks all pairs and the final permutation of the explicit wiring words. Its use of existing `arr.py`, Note 2 face helpers, and the lead's old-token routine is documented in the imports; this is not a wholly independent implementation of the arrangement parser.
+
+The dataset checks are evidence, not classification: they include nonstructural arrangements and sampling repetitions across sources (identical words are deduplicated), and skip multiplicities above four. The stronger parity assertion is checked only where its hypotheses hold. The 11-line geometric double-case-B example deliberately fails optimality; the separately checked 18-line double-case-B example satisfies it. No minimum over all arrangements is inferred.
 
 The new `all8_work/ends_probe.py` adds triple optimality and the necessary cut `W>=12` to the existing 18-line `T=94` class encoding, retaining lazy pair clauses. It independently reconstructs and checks any accepted SAT model. Pinned validation command:
 
@@ -310,16 +350,33 @@ python work/bbl/all8_work/ends_probe.py --validate --seconds 120 \
   --out work/bbl/all8_work/ends_validate
 ```
 
-This returned `SAT_VERIFIED` for the §9 witness (`T=33,Lambda=189,W=4`), with 118219 variables, 807128 clauses, zero conflicts and two decisions. Artifacts: `ends_validate.log`, `ends_validate/result.json`, and `ends_validate/witness.json`.
+The final revalidation returned `SAT_VERIFIED` for the §9 witness. Exact `ends_validate.log`:
 
-Unrestricted command:
+```jsonl
+{"event": "built", "variables": 118219, "clauses": 807128, "target_T": null, "minimum_W": 0}
+{"event": "verified", "n": 18, "T": 33, "Lambda": 189, "W": 4}
+{"result": "SAT_VERIFIED", "seconds": 0.7611985206604004, "variables": 118219, "clauses": 807128, "lazy_clauses": 0, "validation": true, "statistics": {"restarts": 1, "conflicts": 0, "decisions": 2, "propagations": 118220}}
+```
+
+Artifacts: `ends_validate.log`, `ends_validate/result.json`, and `ends_validate/witness.json`.
+
+The completed unrestricted probe used:
 
 ```bash
-python -u work/bbl/all8_work/ends_probe.py --seconds 300 \
+python -u work/bbl/all8_work/ends_probe.py --seconds 60 \
   --out work/bbl/all8_work/ends18
 ```
 
-Artifacts: `ends18.log` and `ends18/result.json` when terminal. It builds 255647 variables and 1081039 clauses. Its result is recorded below after the dependency barrier. An `UNKNOWN` result is neither SAT nor UNSAT. An `UNSAT_UNCERTIFIED` result would require an encoding audit and a separately checked DRAT proof before being used as an exclusion.
+Exact `ends18.log`:
+
+```jsonl
+{"event": "built", "variables": 255647, "clauses": 1081039, "target_T": 94, "minimum_W": 12}
+{"result": "UNKNOWN", "seconds": 67.31830024719238, "variables": 255647, "clauses": 1081039, "lazy_clauses": 0, "validation": false, "statistics": {"restarts": 510, "conflicts": 136833, "decisions": 2790712, "propagations": 1643869684}}
+```
+
+Artifacts: `ends18.log` and `ends18/result.json`. The nominal 60-second interrupt budget overran to 67.3183 seconds. An earlier nominal-300-second background-tool attempt returned a tool timeout and produced only the build line, preserved as `ends18_attempt1.log`; it supplied no solver verdict. The completed run above used ordinary bounded command execution, not a substitute subagent runner.
+
+`UNKNOWN` is neither SAT nor UNSAT. No model or UNSAT certificate was obtained. An `UNSAT_UNCERTIFIED` result would require an encoding audit and a separately checked DRAT proof before being used as an exclusion.
 
 ## 11. Delegation and remaining work
 

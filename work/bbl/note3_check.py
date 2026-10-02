@@ -18,6 +18,10 @@ BC, GB = NC.BC, NC.GB
 CORE10 = '1 0 4 6 7 5* 4 3 1* 3** 6* 8 2 0 7 5* 3* 5 6 7 6 4 2 1 2 3 4 5 6 0'
 PARITY12 = ('1 4 6 5 6 4 3 8 10 9 7* 9* 6 4* 6** 5 3 2 3 4 5* '
             '1 0 1 3 2 3 4 5 6* 8* 10 7 8 9 1 8 5* 3 2 3 4 5 6 7 8 3')
+ZERO18 = ('3 2 5 4 6 7 8 7 5* 3* 1* 0 11 12 11 10 9 7* 5* 3* 1* 10* 9 13 12 '
+          '10* 7** 5* 3* 5 10 15 14 13 12 15 14 15* 13* 11* 9* 6** 4* 2* 0* 2 1 '
+          '9 10* 8* 6* 4* 3 2 1 6 5 12* 10* 9 8 7 6 5 4 3 2 5 9 8 7 10 9 14* '
+          '12* 11 10 9 8 7 6 7 9 11 16 14* 13 12 14')
 
 
 def extend_right(gens, n, N):
@@ -95,10 +99,20 @@ def credit_state(a):
     old=KP.claimed_tokens(a)
     assert old<=allN
     k1A=set();caseB=Counter();caseBi=defaultdict(list);kiteq=Counter()
+    mixed_tokens=set();mixed_single_caps=0
     for X,rr in at.items():
         if len(rr)!=4:continue
         cs=[far_end(a,X,r) for r in rays(a,X)]
         q=sum(len(a.events[p])==4 for p in cs);kiteq[q]+=1
+        if q>=2:
+            for u,v in zip(cs,cs[1:]+cs[:1]):
+                e=NC.edge(a,u,v)
+                if len(a.t[e[0]][e[1]])!=1:continue
+                mixed_single_caps+=1
+                for p in a.rows[e[0]][e[1]:e[1]+2]:
+                    tok=(p,e)
+                    assert tok in allN and tok not in old and tok not in mixed_tokens
+                    mixed_tokens.add(tok)
         if q!=1:continue
         i=next(i for i,p in enumerate(cs) if len(a.events[p])==4)
         P,Q,R,S=cs[i:]+cs[:i]
@@ -132,6 +146,8 @@ def credit_state(a):
             (i,)=caseBi[P]
             q2,q4,q6=[far_end(a,P,rs[(i+j)%8]) for j in [2,4,6]]
             assert len(a.events[q4])==4 or (len(a.events[q2])==len(a.events[q6])==4)
+            if not any(Scorr.values()) and not kiteq[3] and not kiteq[4]:
+                assert len(a.events[q4])==4
     dec=BC.decomposition(a,records)
     if dec is not None:
         c=(dec['residual2']+len(free)+
@@ -165,6 +181,8 @@ def credit_state(a):
             extra.add(token)
         one[(P,X)]=candidates[0]
     assert len(set(one.values()))==len(one)
+    assert len(mixed_tokens)==2*mixed_single_caps
+    assert mixed_tokens<=free and not mixed_tokens.intersection(one.values())
 
     # Two slots per unused edge. A touch consumes its simple-end slot.
     slots={( (L,e),v) for L in range(a.n) for e,t in enumerate(a.t[L])
@@ -201,7 +219,18 @@ def credit_state(a):
     for tok in emptyN:
         assert tok in free and tok not in set(one.values())
         assert (tok[1],tok[0]) in available and (tok[1],tok[0]) not in usedZ
-    assert remainder>=2*len(emptyN) and C==end_lower+remainder
+    assert remainder>=2*len(emptyN)+2*mixed_single_caps and C==end_lower+remainder
+    if remainder==0:
+        for X,rr in at.items():
+            if len(rr)!=4:continue
+            cs=[far_end(a,X,r) for r in rays(a,X)]
+            q=sum(len(a.events[p])==4 for p in cs)
+            singles=sum(len(a.t[e[0]][e[1]])==1
+                        for e in [NC.edge(a,u,v) for u,v in zip(cs,cs[1:]+cs[:1])])
+            assert singles==2 if q==0 else singles in [0,1] if q==1 else singles==0
+        for f in a.tris:
+            if all(len(a.events[v])>=3 for v in NC.tri_vertices(a,f)):
+                assert all(len(a.t[L][e])==2 for L,e,_ in f)
     if a.n%2==0:
         # Wedge graph is a union of paths. Verify no cycle by union/find.
         ds=GB.DSU(a.n)
@@ -237,6 +266,7 @@ def credit_state(a):
                                   for r in records),quad_nonmut_tokens=len(extra),
                 W=len(wedges),paths=a.n-len(wedges),end_lower=end_lower,
                 end_remainder=remainder,empty_bounded_N=len(emptyN),
+                mixed_single_caps=mixed_single_caps,
                 end_counts=dict(sorted(ec.items())),parity_lines=npar,
                 parity_cap_steps=ncap,K1A=len(k1A)//2,K1B=sum(caseB.values()),Scorr=Scorr)
 
@@ -268,6 +298,14 @@ def examples():
           cap_origin=r['point'],cap_kind=r['kind'],structural_class=good,
           triple_optimality=opt_triples(a),gens=PARITY12))
     print('12-line example credits:',credit_state(a))
+    a=Arr(ZERO18,18);word_valid(ZERO18,18)
+    good,_=GB.class_check(a);assert good and opt_triples(a)
+    z=credit_state(a)
+    assert a.T()==75 and z['C']==126 and z['K1B']==2 and z['Scorr'][41]==0
+    assert len(a.events[41])==4 and all(GB.tri_sectors(a,41))
+    print('Optimal double-case-B example:',dict(n=18,T=a.T(),Z=a.Z(),Lambda=63,
+          P=41,S_at_P=0,S_other=z['S'],case_B=2,structural_class=good,
+          triple_optimality=opt_triples(a),gens=ZERO18))
 
 
 def zero_slack_checks():
@@ -314,7 +352,7 @@ def main():
             if max(map(len,a.events))>4:continue
             z=credit_state(a)
             count['arrangements']+=1
-            for key in ['quad_nonmut_tokens','I4','U4','W','empty_bounded_N','parity_lines','parity_cap_steps','K1A','K1B']:
+            for key in ['quad_nonmut_tokens','I4','U4','W','empty_bounded_N','mixed_single_caps','parity_lines','parity_cap_steps','K1A','K1B']:
                 count[key]+=z[key]
     print('Dataset checks:',dict(sorted(count.items())),'failures=0')
 

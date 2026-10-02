@@ -2120,3 +2120,14 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   (both ends bad) must carry an unused segment (sol §7 with t_L = f_L = 0). So Z ≥ 18 − 2π, and
   Λ = π + ½(2Z − 2π) ≥ max(π, 18 − 2π) ≥ 6. The class case needs a charging of free parity defects: triples,
   bridges and blocks along L, and I-centre cap steps. Sent to sol as work/bbl/SOL_TASK4.md.
+- **sol, ALL8_NOTE3 revision (16:51; checked by the lead).**
+  - (8a): Δ ≥ 2η_0 + 2e_mix, where e_mix counts single cap edges of kites with ≥ 2 four-fold corners. Their tokens
+    lie in no payment triangle.
+  - Saturation when Δ = 0:
+    - every K_0 has exactly 2 single cap edges, and every case-A K_1 exactly 1;
+    - all edges of an all-multiple triangle are double.
+  - Zero-slack propagation: if all S_P° = 0 and K_3 = K_4 = 0, a row-2 all-8 point has Q_4 four-fold. Otherwise
+    (14) at Q_2 repeats the configuration along the line P Q_2 forever. Lead re-derived: Q_2 can only be row 2 with
+    P at position 2 or 6.
+  - The double-case-B row survives triple optimality at n = 18 (wit3 record 29, event 41, ring BRRRBRRR).
+  - Checker: 3,474 records, failures = 0.
