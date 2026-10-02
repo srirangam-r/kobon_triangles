@@ -29,6 +29,29 @@ For a SIMPLE 18-line arrangement, U = S = K = 0, F = I = 0, G_Z = 2π, so Λ = �
 
 So the forest identity plus the parity lemma already contains the BBL baseline. The remaining job has two parts.
 
+## Lead's check-in (after reading note4_check.py): the zero-credit inventory alone cannot finish
+The 14,376 known 93s (work/bbl/all8_work/data93/split93.jsonl; multiplicity ≤ 3, so Λ = π + U + ½Δ = 9) spread
+over the whole simplex. Counts by (π, U, Δ):
+
+| π | U | Δ | count |
+|---|---|---|---|
+| 7 | 2 | 0 | 6,066 |
+| 8 | 1 | 0 | 3,907 |
+| 9 | 0 | 0 | 1,130 |
+| 5 | 4 | 0 | 860 |
+| 6 | 3 | 0 | 743 |
+| 1 | 0 | 16 | 199 |
+| 2 | 7 | 0 | 140 |
+
+π ranges over 1–9: up to 17 bad wedges occur in optimal arrangements.
+
+So a 94 is not confined to the π = 6 zero-credit corner; it could sit at π = 1 with Δ = 10, at π = 3 with U = 3, and
+so on. Case analysis by credit split does not close. **Priority: item 1 below, a trade-off lemma** of the form
+"bad wedges force interior parity defects, and defects force U or Δ", valid in the class.
+- Any candidate must hold, with equality slack ≥ 0, on every 93 in split93.jsonl.
+- The lead will test any candidate inequality on that file and on the all-8 witnesses within minutes. Send
+  candidates early, even unproved.
+
 ## What to prove
 1. **Baseline in the class (Λ ≥ 6 without the DP).** Extend the defect count to interior lines that carry
    triples, doubly used segments (blocks or bridges along L), or cap steps (f_L). These defects are free in the
