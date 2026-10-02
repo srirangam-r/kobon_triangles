@@ -2059,3 +2059,12 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - **Result: no effect.** True margin −2.2909, with the identical optimum δ = 0, ε0 = 1/55, EPSM = 27/55
     (lp_trio1, 284 iterations, cold start). The binding paths involve no non-optimal triple.
   - So the obstruction is on lines through the 4-fold points themselves: they need EPSM ≈ 0.49 per incidence.
+- **Binding lines at the −2.29 optimum (lead; lp_trio2 --dumpall, work/eng/oth/tight_cuts.py).** 191 of 1,142 cuts are
+  tight, 49 of them through an M vertex.
+  - The typical tight M line is a lattice row: simple kite centres (4 triangles) alternating with full triple points
+    (6 triangles, with 2 blocks along the row toward the kites), plus one all-8 point.
+  - In 2-D credit these patches are positive. Each all-8 point on a height line has β = 6, D = k = 2, S_P = 4, and
+    its kites are K_2 (credit 0). So the deficit comes from the DP's per-line view, not from the geometry.
+  - Next (running): T29's witness-CEGAR round with TRIOPT in both the DP and the witness SAT
+    (class_path31.py, env TRIOPT), with all 16 labelled patterns (pats_local1.json). That build previously died at
+    1,620 frames; it now runs with 783 (rounds/r3).
