@@ -2082,3 +2082,8 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - **Conclusion: the per-line route needs new transfer families,** moving surplus between the lines of one all-8
     star, or from a height line to the kite row, keyed by 2-D-visible kite types. The current column families are
     capped at −2.29 by real lines; no amount of model tightening (hidden state, U-UB, TRIOPT, patterns) can help.
+- **KT cells (kite transfers keyed by corner classes; lead, env KT=1, search/rule_lp_t25m.py kt_events).**
+  - Sound: both lines through the kite centre see the same (a, b), so the transfers cancel.
+  - Margin LP lp_kt1 (TRIOPT + KT + uub): −2.2909 again, with the identical optimum. The KT columns stay unused.
+  - The per-line route with local transfer families appears exhausted. The binding real lines get their missing
+    credit only from far parts of other lines.

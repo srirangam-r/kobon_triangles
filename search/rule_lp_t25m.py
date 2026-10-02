@@ -372,6 +372,20 @@ def tri_events_m(prev, cur, nxt):
     return [(k, x) for k, x in out.items() if x]
 
 
+# ---------------------------------------------------------------------------------------------------- KT cells (lead): kite transfers keyed by corner classes
+def kt_events(prev, cur, nxt):
+    """At a kite centre X (simple, 4 triangles) the two lines through X each see their own two corners (neighbour infos) and the other line's two
+    corners (apex classes of the triangles, 3 = >= 4-fold).  Column ("KT", a, b): the line whose own corners contain a 4-fold points pays the line
+    whose own corners contain b; both lines see (a, b), so the transfers cancel exactly."""
+    if cur.kind != "S" or prev is None or nxt is None or cur.bin != (1, 1) or cur.bout != (1, 1):
+        return []
+    a = int(info_is_m(prev)) + int(info_is_m(nxt))
+    b = int(cur.ain[0] == 3) + int(cur.ain[1] == 3)
+    if a == b:
+        return []
+    return [(("KT", a, b), -1), (("KT", b, a), 1)]
+
+
 # ---------------------------------------------------------------------------------------------------- MB cells: blocks whose apex is a >= 4-fold point
 MB = [False]            # --mb: transfers axis <-> cap for blocks with a >= 4-fold apex, keyed by the number of triangles beyond the cap vertex
 
@@ -669,6 +683,9 @@ class FCatalogueM(T.FCatalogue):
                 ex.append((self.col(key_), x_))
         if self.tri:
             for key_, x_ in tri_events_m(prev, cur, nxt):
+                ex.append((self.col(key_), x_))
+        if _os.environ.get("KT") and cur.kind == "S":
+            for key_, x_ in kt_events(prev, cur, nxt):
                 ex.append((self.col(key_), x_))
         if self.pt and cur.kind == "T":
             for key_, x_ in T.pt_events(cur):
@@ -1210,6 +1227,9 @@ class FCatalogueM2(T.FCatalogue):
                 ex.append((self.col(key_), x_))
         if self.tri:
             for key_, x_ in tri_events_m(prev, cur, nxt):
+                ex.append((self.col(key_), x_))
+        if _os.environ.get("KT") and cur.kind == "S":
+            for key_, x_ in kt_events(prev, cur, nxt):
                 ex.append((self.col(key_), x_))
         if self.pt and cur.kind == "T":
             for key_, x_ in T.pt_events(cur):
