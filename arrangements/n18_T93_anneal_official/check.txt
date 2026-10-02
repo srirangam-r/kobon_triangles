@@ -1,0 +1,5 @@
+lines: 18
+method A (planar face enumeration, 3 turning corners): 93
+method B (triple test, no line cuts the open interior): 93
+methods agree: YES
+TRIANGLES: 93

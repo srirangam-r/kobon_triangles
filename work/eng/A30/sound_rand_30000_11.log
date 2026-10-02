@@ -1,0 +1,1 @@
+[rand seed 11] {'T_10': 4, 'T_20': 1599, 'T_30': 10943, 'T_40': 11047, 'T_50': 5520, 'T_60': 881, 'T_70': 6, 'arr': 30000, 'clean_lines': 170386, 'dp_equal_real_FC': 366855, 'dp_equal_real_FD24': 360622, 'dp_equal_real_FS1': 372146, 'dp_equal_real_FS2': 395533, 'dp_equal_real_FS3': 417195, 'lines': 540000, 'simple_arr': 7526, 'tight_FS1': 1, 'triple_points': 330792} 157s

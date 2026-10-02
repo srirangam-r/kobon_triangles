@@ -1,0 +1,31 @@
+forbidden patterns: 8 (with symmetric variants)
+guarded patterns: 26 T23 facts + 8 CEGAR patterns
+frames: 1620 (S/T enriched, apex classes 1/2/3)
+graph: 357584 nodes, 21946481 edges (trimmed), 1206051 windows, 1327931 window options, 1782 terms (1921 term options), K=453 rule columns, M nodes 0, options 90.3s
+catalogue stats: {'cell_removed': 6131, 'window_no_completion': 1410}
+it   0 DP min (2*final+2) =  -24.0000, len 11, cuts 0, |w|_1 = 0.000, 1.6s
+it   5 DP min (2*final+2) =   -8.9296, len 11, cuts 25, |w|_1 = 3.262, 1.5s
+it  10 DP min (2*final+2) =   -2.0573, len 13, cuts 50, |w|_1 = 4.738, 1.5s
+it  15 DP min (2*final+2) =    0.0151, len 10, cuts 74, |w|_1 = 5.834, 1.6s
+it  20 DP min (2*final+2) =    1.0126, len 16, cuts 96, |w|_1 = 6.893, 1.5s
+it  25 DP min (2*final+2) =    0.5667, len 11, cuts 117, |w|_1 = 7.443, 1.5s
+      top columns: ('TAU', (0, 1, 1, 1, 1, 1, 1, 1), 0)=1.25; ('TRI', 'MST', 'S>M')=1.07; ('PT', (0, 1, 1, 0, 1, 1), '0>2')=0.76; ('alpha',)=0.45; ('TRI', 'MTT', 'T>M')=0.42; ('PT', (0, 1, 1, 1, 1, 1), '0>2')=0.38; ('TRI', 'STT', 'S>T')=0.33; ('SV', (0, 0, 1, 1), 0)=0.31
+it  30 DP min (2*final+2) =    0.9955, len 11, cuts 133, |w|_1 = 7.728, 1.5s
+it  35 DP min (2*final+2) =    1.4065, len 12, cuts 149, |w|_1 = 7.882, 1.6s
+it  40 DP min (2*final+2) =    1.4909, len 15, cuts 161, |w|_1 = 8.134, 1.6s
+it  45 DP min (2*final+2) =    1.1547, len 14, cuts 170, |w|_1 = 8.322, 1.7s
+it  50 DP min (2*final+2) =    1.3835, len 11, cuts 184, |w|_1 = 8.571, 1.8s
+      top columns: ('TAU', (0, 1, 1, 1, 1, 1, 1, 1), 0)=1.25; ('TRI', 'MST', 'S>M')=1.12; ('PT', (0, 1, 1, 0, 1, 1), '0>2')=0.78; ('alpha',)=0.47; ('MB', 0, 'C>A')=0.47; ('TRI', 'MSS', 'S>M')=0.43; ('TRI', 'MTT', 'T>M')=0.41; ('PT', (0, 1, 1, 1, 1, 1), '0>2')=0.41
+it  55 DP min (2*final+2) =    1.4971, len 16, cuts 193, |w|_1 = 8.635, 2.0s
+it  60 DP min (2*final+2) =    1.6317, len 14, cuts 204, |w|_1 = 8.754, 1.8s
+it  65 DP min (2*final+2) =    1.6682, len 14, cuts 211, |w|_1 = 8.781, 1.7s
+it  70 DP min (2*final+2) =    1.5885, len 14, cuts 218, |w|_1 = 8.908, 1.8s
+it  75 DP min (2*final+2) =    1.6518, len 14, cuts 224, |w|_1 = 9.006, 2.0s
+      top columns: ('TAU', (0, 1, 1, 1, 1, 1, 1, 1), 0)=1.25; ('TRI', 'MST', 'S>M')=1.17; ('PT', (0, 1, 1, 0, 1, 1), '0>2')=0.85; ('SV', (0, 0, 1, 1), 0)=0.65; ('alpha',)=0.56; ('TRI', 'MSS', 'S>M')=0.41; ('PT', (0, 1, 1, 1, 1, 1), '0>2')=0.41; ('TRI', 'MTT', 'T>M')=0.40
+it  80 DP min (2*final+2) =    1.7570, len 12, cuts 230, |w|_1 = 9.026, 1.8s
+it  85 DP min (2*final+2) =    1.7535, len 15, cuts 237, |w|_1 = 9.039, 1.7s
+it  90 DP min (2*final+2) =    1.8087, len 15, cuts 242, |w|_1 = 9.070, 1.8s
+it  95 DP min (2*final+2) =    1.8139, len 15, cuts 247, |w|_1 = 9.075, 2.0s
+it  97 DP min (2*final+2) =    1.8200, len 12, cuts 249, |w|_1 = 9.076, 1.7s
+exact certificate: denominator 288 DP min (D*(2*final+2)) = 520.0 target 518.4
+verify (bounded): min D*(2*final+2) per n-1: {2: 15120.0, 3: 14636.0, 4: 12740.0, 5: 12618.0, 6: 11088.0, 7: 10600.0, 8: 9016.0, 9: 8584.0, 10: 7056.0, 11: 6568.0, 12: 5040.0, 13: 4552.0, 14: 3024.0, 15: 2536.0, 16: 1008.0, 17: 520.0} target 518.4

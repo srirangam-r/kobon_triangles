@@ -1,0 +1,84 @@
+state_0 allowed 1154  state_2 allowed 205  certs 60
+full graph: N 116545 edges 3118788 windows 185583 | a0 graph: N 8176 edges 12256 windows 1154
+a0 graph windows subset of state_0.allowed: 1154 of 1154
+bounds violations: 0
+FD24       D=     144 graph=full min=288 need>=288 final_min=0 unused_keys=0  OK  [0s]
+FC         D=      16 graph=full min=32 need>=32 final_min=0 unused_keys=0  OK  [1s]
+FS1        D=      24 graph=full min=48 need>=48 final_min=0 unused_keys=0  OK  [1s]
+FS2        D=      16 graph=full min=32 need>=32 final_min=0 unused_keys=0  OK  [2s]
+FS3        D=       4 graph=full min=8 need>=8 final_min=0 unused_keys=0  OK  [2s]
+r1_T480    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T506    D=    1414 graph=a0   min=2828 need>=2828 final_min=0 unused_keys=0  OK  [2s]
+r1_T508    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T524    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [2s]
+r1_T574    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T575    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T576    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T582    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T594    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T603    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [2s]
+r1_T606    D= 2828000 graph=a0   min=5656000 need>=5656000 final_min=0 unused_keys=0  OK  [2s]
+r1_T631    D= 2828000 graph=a0   min=5656000 need>=5656000 final_min=0 unused_keys=0  OK  [2s]
+r1_T632    D= 2828000 graph=a0   min=5656000 need>=5656000 final_min=0 unused_keys=0  OK  [2s]
+r1_T636    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T663    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [2s]
+r1_T693    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T692    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T707    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T720    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [2s]
+r1_T726    D= 2828000 graph=a0   min=5656000 need>=5656000 final_min=0 unused_keys=0  OK  [2s]
+r1_T763    D=    1414 graph=a0   min=2828 need>=2828 final_min=0 unused_keys=0  OK  [2s]
+r1_T787    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T790    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T788    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T808    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T819    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [2s]
+r1_T825    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T833    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [2s]
+r1_T842    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T840    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [2s]
+r1_T844    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T869    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T885    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [2s]
+r1_T882    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_T892    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [2s]
+r1_T906    D=    1414 graph=a0   min=2828 need>=2828 final_min=0 unused_keys=0  OK  [2s]
+r1_T933    D=    1414 graph=a0   min=2828 need>=2828 final_min=0 unused_keys=0  OK  [2s]
+r1_S10     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S9      D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S22     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S42     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S43     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S59     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S77     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S87     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S94     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S88     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S89     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [2s]
+r1_S95     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [3s]
+r1_S96     D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [3s]
+r1_S110    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [3s]
+r1_S112    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [3s]
+r1_S123    D=  707000 graph=a0   min=1414000 need>=1414000 final_min=0 unused_keys=0  OK  [3s]
+r1_S147    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [3s]
+r1_S160    D= 1414000 graph=a0   min=2828000 need>=2828000 final_min=0 unused_keys=0  OK  [3s]
+state_0 T windows 988 S windows 166
+r1_T480    D=707000 all-min 1414000  through-window min 1415414  (2D=1414000)  margin final >= 1/1000  valid=True strict=True
+r1_T506    D=1414 all-min 2828  through-window min 3296  (2D=2828)  margin final >= 117/707  valid=True strict=True
+r1_T508    D=707000 all-min 1414000  through-window min 1415414  (2D=1414000)  margin final >= 1/1000  valid=True strict=True
+strict-on-own-window OK: 55 of 55
+distinct windows targeted by the 55 stored certs: 55
+T25's removed set: 949  covered by stored single-window certs: 55
+[5 initial certs on FULL graph] joint tightness: min combined 1440, target 1440, CONSISTENT (all certs valid); tight edges 3464, terminals 161, windows 1154
+  windows tight under the 5 initial certs: 1154  subset of state_0.allowed: True  equal: True  |w5 - a0|= 0  |a0 - w5|= 0
+[60 certs on a0 graph (no removal)] joint tightness: min combined 3054240000, target 3054240000, CONSISTENT (all certs valid); tight edges 400, terminals 26, windows 213
+  windows tight under all 60: 213  subset of state_2.allowed: False  equal: False  |w60 - a2|= 8  |a2 - w60|= 0
+extra windows (tight under stored 60 certs but removed by T25):
+  in T25 removed set: True (('S', (0, 0), (0, 0), True), EFrame(kind='T', bin=(1, 1), bout=(1, 1), ub=(0, 0), h=(0, 1), ain=(2, 1), aout=(2, 1)), ('S', (0, 0), (0, 1), False))
+  in T25 removed set: True (('S', (0, 0), (0, 0), True), EFrame(kind='T', bin=(1, 1), bout=(1, 1), ub=(0, 0), h=(1, 0), ain=(1, 2), aout=(1, 2)), ('S', (0, 0), (1, 0), False))
+  in T25 removed set: True (('S', (0, 0), (0, 1), False), EFrame(kind='T', bin=(1, 0), bout=(1, 1), ub=(0, 0), h=(1, 1), ain=(2, 0), aout=(1, 2)), ('T', (1, 0), (1, 1), False))
+  in T25 removed set: True (('S', (0, 0), (0, 1), False), EFrame(kind='T', bin=(1, 1), bout=(1, 1), ub=(0, 0), h=(0, 1), ain=(2, 1), aout=(2, 1)), ('S', (0, 0), (0, 0), True))
+  in T25 removed set: True (('S', (0, 0), (1, 0), False), EFrame(kind='T', bin=(0, 1), bout=(1, 1), ub=(0, 0), h=(1, 1), ain=(0, 2), aout=(2, 1)), ('T', (0, 1), (1, 1), False))
+  in T25 removed set: True (('S', (0, 0), (1, 0), False), EFrame(kind='T', bin=(1, 1), bout=(1, 1), ub=(0, 0), h=(1, 0), ain=(1, 2), aout=(1, 2)), ('S', (0, 0), (0, 0), True))
+  in T25 removed set: True (('T', (0, 1), (1, 1), False), EFrame(kind='T', bin=(1, 1), bout=(0, 1), ub=(0, 0), h=(1, 1), ain=(2, 1), aout=(0, 2)), ('S', (0, 0), (1, 0), False))
+  in T25 removed set: True (('T', (1, 0), (1, 1), False), EFrame(kind='T', bin=(1, 1), bout=(1, 0), ub=(0, 0), h=(1, 1), ain=(1, 2), aout=(2, 0)), ('S', (0, 0), (0, 1), False))

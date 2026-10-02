@@ -1,7 +1,0 @@
-n13_t47_M3.cnf: SAT 306.713s
-n13_t48_M3.cnf: UNSAT 372.332s
-n18_t94_R12_M0.cnf: UNSAT .347021s
-n18_t94_R12_M1.cnf: UNSAT 15.4789s
-n17_t85_M17.cnf: timeout 1800.01s
-n17_t86_M17.cnf: timeout 1800.01s
-n18_t94_R12_c0612.cnf: timeout 2125.38s

@@ -1,0 +1,31 @@
+PASS  pair_PQ_all  (0s)
+PASS  pair_indep  (1s)
+PASS  pert_indep  (18s)
+PASS  faces_agree  (0s)
+PASS  validate_pert  (3s)
+PASS  validate_pair2  (75s)
+PASS  note2_check  (12s)
+PASS  note3_check  (13s)
+PASS  k1_pay_check  (9s)
+PASS  ends_check  (1s)
+PASS  a30_export_graph  (28s)
+PASS  a30_audit_elim  (9s)
+PASS  a30_audit_elim2  (3s)
+PASS  a30_soundness  (18s)
+PASS  a30_ident  (4s)
+PASS  a30_defs_check  (25s)
+PASS  a30_cpsat_f2shared  (1s)
+PASS  a30_cpsat_f2disjoint  (13s)
+PASS  a30_cpsat_f1  (15s)
+PASS  a30_cpsat_f0  (2s)
+PASS  a30_cpsat_free  (77s)
+PASS  t28_tip_drat  (21s)
+PASS  a30_tip_own_drat  (1s)
+PASS  a30_tip_validate  (17s)
+PASS  x6_sample  (7s)
+PASS  kissat_pat2  (22s)
+ALL CHEAP VERIFIERS PASSED
+
+real	6m34.985s
+user	7m17.037s
+sys	0m4.985s

@@ -1,0 +1,9 @@
+{"u": 2, "idx": 8, "S": [0, 17], "split": [["F", 0, 1]], "kissat_rc": 20, "solve_s": 0.5, "verified": true, "check_s": 1.9}
+{"u": 2, "idx": 8, "S": [0, 17], "split": [["F", 0, 3]], "kissat_rc": 20, "solve_s": 0.4, "verified": true, "check_s": 2.0}
+{"u": 2, "idx": 8, "S": [0, 17], "split": [["F", 0, 5]], "kissat_rc": 20, "solve_s": 0.4, "verified": true, "check_s": 1.8}
+{"u": 2, "idx": 8, "S": [0, 17], "split": [["F", 0, 7]], "kissat_rc": 20, "solve_s": 0.4, "verified": true, "check_s": 2.1}
+{"u": 2, "idx": 8, "S": [0, 17], "split": [["F", 0, 9]], "kissat_rc": 20, "solve_s": 0.4, "verified": true, "check_s": 1.8}
+{"u": 2, "idx": 8, "S": [0, 17], "split": [["F", 0, 11]], "kissat_rc": 20, "solve_s": 0.5, "verified": true, "check_s": 2.0}
+{"u": 2, "idx": 8, "S": [0, 17], "split": [["F", 0, 13]], "kissat_rc": 20, "solve_s": 0.5, "verified": true, "check_s": 2.3}
+{"u": 2, "idx": 8, "S": [0, 17], "split": [["F", 0, 15]], "kissat_rc": 20, "solve_s": 0.5, "verified": true, "check_s": 2.0}
+{"u": 2, "idx": 8, "S": [0, 17], "split": [["F", 0, 17]], "kissat_rc": 20, "solve_s": 0.6, "verified": true, "check_s": 1.9}

@@ -1,0 +1,10 @@
+frames: 577
+graph: 1774 nodes, 1250 edges (trimmed), 205 windows, 269 window options, 52 terms (109 term options), K=412 rule columns, options 0.0s
+catalogue stats: {'cell_removed': 32}
+frames: 577
+graph: 1774 nodes, 1250 edges (trimmed), 205 windows, 269 window options, 52 terms (109 term options), K=412 rule columns, options 0.0s
+catalogue stats: {'cell_removed': 64}
+tight paths 1608 graph windows 205
+paths 1608 types 1708 windows 205
+model: 1905 vars, 379 rows, Q = 1708
+f2shared status INFEASIBLE 0.1s

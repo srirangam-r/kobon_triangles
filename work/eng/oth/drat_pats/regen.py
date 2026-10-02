@@ -1,7 +1,7 @@
 # Regenerate the n=18 SAT instances behind the CEGAR frame patterns (work/eng/T27/cegar/pats.json, entries with a core)
 # as DIMACS with the core elements as unit clauses; UNSAT of each file is the soundness claim of that pattern.
 import sys, json
-ROOT = "/home/nail/stuff/sundai_math"
+ROOT = __import__("pathlib").Path(__file__).resolve().parents[4].as_posix()
 sys.path.insert(0, ROOT + "/search"); sys.path.append(ROOT + "/work/t3"); sys.path.append(ROOT + "/work/eng/T27"); sys.path.insert(0, ROOT + "/work/eng/T23")
 import sat_path as SP, patsat_m as P
 from pysat.solvers import Solver

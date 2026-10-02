@@ -1,0 +1,3 @@
+PASS  cert_fcm25  (150s, max_rss_kb=3932940)
+      exact DP min D*(2*final+2) = 24.0  target * D = 24.0  OK: True
+ALL CERTIFICATES VERIFIED

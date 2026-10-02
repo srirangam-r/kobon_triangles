@@ -1,1 +1,0 @@
-{"n": 9, "lam": 6, "opt": 0, "result": "UNSAT", "lazy": 0, "sec": 20.0}

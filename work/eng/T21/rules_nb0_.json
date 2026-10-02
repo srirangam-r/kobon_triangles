@@ -1,0 +1,294 @@
+{
+ "description": "rule (payer role, receiver role, block signature cell) with weight; roles A axis, C cap, L/R flank lines, M = both flank lines when the signature is mirror symmetric; see search/rule_ref.py",
+ "denominator": 12,
+ "rules": [
+  {
+   "payer": "A",
+   "receiver": "C",
+   "ring5": "NNNNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/3"
+  },
+  {
+   "payer": "R",
+   "receiver": "A",
+   "ring5": "NNRNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "L",
+   "receiver": "A",
+   "ring5": "NNNNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/6"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNRNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNRNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/3"
+  },
+  {
+   "payer": "R",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    1,
+    1
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "L",
+   "receiver": "A",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    1,
+    0
+   ],
+   "weight": "5/12"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    1,
+    1
+   ],
+   "weight": "1/3"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/3"
+  },
+  {
+   "payer": "L",
+   "receiver": "A",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/3"
+  },
+  {
+   "payer": "L",
+   "receiver": "A",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNNNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/3"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNNNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/3"
+  },
+  {
+   "payer": "A",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "2/3"
+  },
+  {
+   "payer": "A",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1"
+  },
+  {
+   "payer": "A",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1"
+  }
+ ]
+}

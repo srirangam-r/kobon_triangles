@@ -1,0 +1,1 @@
+[corpus seed 13] {'T_90': 9924, 'arr': 9924, 'clean_lines': 108991, 'dp_equal_real_FC': 175581, 'dp_equal_real_FD24': 175542, 'dp_equal_real_FS1': 175203, 'dp_equal_real_FS2': 176667, 'dp_equal_real_FS3': 176832, 'lines': 178632, 'simple_arr': 958, 'tight_FC': 128078, 'tight_FD24': 44396, 'tight_FS1': 111404, 'tight_FS2': 111883, 'tight_FS3': 133512, 'triple_points': 22611} 46s

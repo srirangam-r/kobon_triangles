@@ -104,7 +104,7 @@ def faces_indep(k, w):
 
 if __name__ == "__main__":
     import sys
-    sys.path.insert(0, "/home/nail/stuff/sundai_math/work/eng/pert2")
+    sys.path.insert(0, __import__("pathlib").Path(__file__).resolve().parents[3].as_posix() + "/work/eng/pert2")
     from window import faces, all_words, crossing_set
     bad = 0; tot = 0
     for k, w0 in ((4, [(0, 3)]), (5, [(0, 4)]), (6, [(2, 5), (0, 2)]), (5, [(1, 4), (0, 1)])):

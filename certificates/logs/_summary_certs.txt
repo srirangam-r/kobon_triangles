@@ -1,0 +1,18 @@
+PASS  cert_fcm25  (136s, max_rss_kb=3934260)
+      exact DP min D*(2*final+2) = 24.0  target * D = 24.0  OK: True
+PASS  cert_mw6  (219s, max_rss_kb=8279416)
+      exact DP min D*(2*final+2) = 32.0  target * D = 32.0  OK: True
+PASS  cert_mw6_nocdy  (231s, max_rss_kb=8274744)
+      exact DP min D*(2*final+2) = 32.0  target * D = 32.0  OK: True
+PASS  cert_mw7_no8x  (216s, max_rss_kb=8044680)
+      exact DP min D*(2*final+2) = 520.0  target * D = 518.4  OK: True
+PASS  cert_mw7_no8x_nocd  (214s, max_rss_kb=8041156)
+      exact DP min D*(2*final+2) = 520.0  target * D = 518.4  OK: True
+PASS  cert_tmxs  (195s, max_rss_kb=5350228)
+      exact DP min D*(2*final+2) = 96.0  target * D = 96.0  OK: True
+      second graph (M-strict) exact DP min = 100.0  target2 * D = 100.0  OK: True
+ALL CERTIFICATES VERIFIED
+
+real	20m11.183s
+user	19m58.891s
+sys	0m23.578s

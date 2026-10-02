@@ -1,0 +1,5 @@
+frames: 577
+graph: 116545 nodes, 3118788 edges (trimmed), 185583 windows, 218831 window options, 683 terms (1017 term options), K=1748 rule columns, options 13.6s
+catalogue stats: {'cell_removed': 24714, 'window_no_completion': 6540}
+built 23.31390380859375 116545 3118788 185583
+saved work/eng/A30/elim/g_full.pkl 25.97976779937744

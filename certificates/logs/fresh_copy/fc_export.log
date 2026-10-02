@@ -1,0 +1,2 @@
+FC certificate (D=16): 60 block-cell rules + 7 SV/TRI/PT rules + special {'alpha': '1/2'}
+rules_FC_full.json identical to the audited certificate: True

@@ -1,6 +1,7 @@
 import sys, json
 from collections import Counter, defaultdict
-sys.path.insert(0, "work/t3"); sys.path.insert(0, "work/eng/comp")
+_R = __import__("pathlib").Path(__file__).resolve().parents[3].as_posix()
+sys.path.insert(0, _R + "/work/t3"); sys.path.insert(0, _R + "/work/eng/comp")
 from arr import Arr, rays, first_seg
 from comp_cost import analyse
 

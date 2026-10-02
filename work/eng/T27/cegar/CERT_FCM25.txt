@@ -1,0 +1,51 @@
+CERT_FCM25: exact FC-M certificate, final >= -1/4 on every path (multiplicity >= 4 model).  T27, written as .txt on purpose.
+
+CLAIM (within the model below)
+  Every path of the exact-17 line automaton with M4 vertices has final_L >= -eps0 with eps0 = 1/4 (identity units, 2*final+2 >= 3/2).
+  Sum_L final_L + waste = 3*Lambda - 18 (A30 identity, waste >= 0), and 3*Lambda - 18 is a multiple of 9 (Lambda = 288 - 3T is a multiple of 3).
+  18*eps0 = 4.5 < 9, so 3*Lambda - 18 > -9, hence 3*Lambda - 18 >= 0, Lambda >= 6, T <= 94, for every n = 18 arrangement of the section 24 class
+  (only triple points and bad 4-fold points) that has a bad 4-fold point.  (eps0 up to 1/2 would be enough for this conclusion.)
+  It does NOT give T <= 93.  The smallest uniform eps0 of this per-line model is about 0.22-0.25 (0.20 and 0.22 infeasible, 0.25 exact; the LP-chosen optimum of delta - 18*eps0 is -9/2).
+
+FILES
+  weights         work/eng/T27/cegar/w_FCM25.pkl   (dict column key -> float; every value is an integer / 16)
+  LP log          work/eng/T27/cegar/lp_FCM25.log, cut dump cuts_FCM25.json
+  check scripts   work/eng/T27/verify_exact_cert.py (exact integer DP, rebuilt graph), work/eng/T27/verify_cert.py (rational side rows)
+
+WEIGHTS (D = 16)
+  alpha' = 1/2   a = 0   wr = 0
+  A>C  ('N','X','X','X','N'),u=1 : 1/8       C>A ('N','X','X','X','R'),u=1,tR=1 : 1/8
+  M>A  ring NNNNN : 1/8                      M>A ring NNRNN : 3/16
+  MB 0 C>A : 3/8     MB 1 C>A : 1/4
+  PT (0,1,1,0,1,1) 0>2 : 3/4     PT (0,1,1,1,1,1) 0>2 : 3/8
+  SV (0,0,1,1) 0 : 3/8
+  TRI MSS S>M : 3/8   TRI MST S>M : 9/8   TRI MTT T>M : 3/8   TRI SST S>T : 1/4   TRI STT S>T : 3/8
+  (15 columns; all others 0; the full key tuples are in the pickle)
+
+COMMAND (LP + exact rationalisation; about 6 min, 112 cuts)
+  PAIRLEM=1 uv run --no-project --with numpy --with scipy --with networkx --with python-sat python -u search/rule_lp_t25m.py lp \
+    --class full --split --alpha --wr --sv --tri --pt --splitm --mb --wmax 1000 --projall AC,AL,LC,LR --par 4 --time-limit 2400 \
+    --pats work/eng/T27/cegar/pats.json --core --eps=-1/12 --save work/eng/T27/cegar/w_FCM25.pkl --dump work/eng/T27/cegar/cuts_FCM25.json
+  (--eps=-1/12 means every path final >= 3*eps = -1/4.)
+
+FACTS AND MODEL (what the graph contains)
+  * exact-17 layered DP: S = 1 unit, T = 2, M4 = 3 (junction 1 + M 2); M frames carry hE, hW, shared +-2 rays; M5+ frames dropped (section 24); only bad sector words 11101110 / 11111110 / 11111111.
+  * K3 (guarded for apex class 3), F4' (only where the capped triangle apex is exactly triple), tau_compatible with apex class 3.
+  * PAIRLEM=1: a (4-fold, triple) consecutive pair is allowed only if its canonical sector pattern is in work/eng/pert2/pair_PQ_all.json (48 allowed, section 25); work/eng/T27/pairlemma.py maps frames to patterns (3863/3863 agreement with canon() on T22).
+  * 5 CEGAR frame patterns (cegar/pats.json, 8 with symmetric variants), each refuted by exact n = 18 SAT with 4-fold points allowed.
+  * OFF in this run: K1*, K2, K2g, F5*, celldom, T23 patterns P000-P009 (the guarded versions came later and were not needed).
+  * columns: block cells A/C/L/R with per-pair visible keys (--projall AC,AL,LC,LR), SV, TRI, PT, PT4 (M cells), MB (blocks with >= 4-fold apex), alpha', a, wr.
+  * validity row of the special columns (exact condition, THEORY section 23): alpha' + wr + 1.5*a <= 3/2.  Here 1/2 + 0 + 0 = 1/2 <= 3/2.  The A30 identities B = C and A = 3C/2 were checked on 11,117 multiplicity data arrangements and 1,723 triple-only ones (special_ident.py), 0 failures; a proof for M is outstanding.
+
+EXACT CHECKS DONE (current code, including the pattern-state fix at M arrivals)
+  PAIRLEM=1 python work/eng/T27/verify_exact_cert.py work/eng/T27/cegar/w_FCM25.pkl 16 lp --class full --split --alpha --wr --sv --tri --pt --splitm --mb --wmax 1000 \
+      --projall AC,AL,LC,LR --pats work/eng/T27/cegar/pats.json --eps=-1/12
+  -> exact integer DP min D*(2*final+2) = 24 = target*D (= (2 - 2/4)*16);  per number of units u = 2..17 the minimum is
+     720 696 624 600 528 504 432 408 336 312 240 216 144 120 48 24   (all >= 24).
+  python work/eng/T27/verify_cert.py work/eng/T27/cegar/w_FCM25.pkl 16 -1/12 1
+  -> a = 0, alpha' = 1/2, wr = 0, alpha'+wr+1.5a = 1/2 <= 3/2; 15 columns; max weight 9/8.
+
+OPEN POINTS (not proved by this file)
+  * the model's soundness chain for M windows is validated on data (543k real lines, 0 bad; facts_scan_g.py), not proved;
+  * the perturbation reduction (section 24) and the pair lemma (section 25) are inputs;
+  * the case without any bad 4-fold point is the multiplicity <= 3 case (closed separately).

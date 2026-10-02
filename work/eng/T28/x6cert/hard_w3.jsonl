@@ -1,0 +1,13 @@
+{"u": 4, "idx": 25, "S": [0, 1, 4, 23], "kissat_rc": 20, "solve_s": 54.9, "verified": true, "check_s": 38.4}
+{"u": 4, "idx": 66, "S": [0, 1, 10, 27], "kissat_rc": 20, "solve_s": 77.4, "verified": true, "check_s": 85.9}
+{"u": 4, "idx": 90, "S": [0, 1, 14, 33], "kissat_rc": 20, "solve_s": 53.1, "verified": true, "check_s": 59.4}
+{"u": 6, "idx": 1088, "S": [0, 1, 4, 17, 18, 21], "kissat_rc": 20, "solve_s": 38.9, "verified": true, "check_s": 30.9}
+{"u": 6, "idx": 1479, "S": [0, 1, 6, 17, 18, 23], "kissat_rc": 20, "solve_s": 55.4, "verified": true, "check_s": 36.1}
+{"u": 6, "idx": 1719, "S": [0, 1, 8, 15, 16, 27], "kissat_rc": 20, "solve_s": 60.2, "verified": true, "check_s": 30.7}
+{"u": 6, "idx": 1905, "S": [0, 1, 10, 15, 16, 27], "kissat_rc": 20, "solve_s": 49.0, "verified": true, "check_s": 28.5}
+{"u": 6, "idx": 1949, "S": [0, 1, 10, 17, 20, 29], "kissat_rc": 20, "solve_s": 158.5, "verified": true, "check_s": 729.0}
+{"u": 6, "idx": 2122, "S": [0, 1, 14, 17, 18, 31], "kissat_rc": 20, "solve_s": 48.3, "verified": true, "check_s": 24.7}
+{"u": 6, "idx": 2382, "S": [0, 3, 6, 17, 20, 25], "kissat_rc": 20, "solve_s": 132.7, "verified": true, "check_s": 650.6}
+{"u": 6, "idx": 2489, "S": [0, 3, 8, 17, 22, 27], "kissat_rc": 20, "solve_s": 280.2, "verified": true, "check_s": 1089.0}
+{"u": 6, "idx": 2558, "S": [0, 3, 12, 17, 20, 29], "kissat_rc": 20, "solve_s": 173.1, "verified": true, "check_s": 735.3}
+{"u": 6, "idx": 2583, "S": [0, 5, 10, 17, 22, 29], "kissat_rc": 20, "solve_s": 130.4, "verified": true, "check_s": 804.7}

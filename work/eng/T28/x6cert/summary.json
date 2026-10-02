@@ -1,0 +1,12 @@
+{
+ "verified_per_u": {
+  "0": 1,
+  "2": 9,
+  "4": 245,
+  "6": 2586
+ },
+ "total": 2841,
+ "cubes": 2841,
+ "failed": [],
+ "split_cube_u2_idx8": "17 sub-cubes F(0,s), s=1..17, all verified"
+}

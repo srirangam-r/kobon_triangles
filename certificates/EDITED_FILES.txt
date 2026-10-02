@@ -1,0 +1,54 @@
+# Existing files whose hard-coded / cwd-relative path lines were replaced by __file__-based ROOT computations (2026-10-02). Nothing else was changed.
+# Most are untracked or ignored by git (work/ is in .gitignore), so there is no diff; the change is always one of:
+#   ROOT = "/home/nail/stuff/sundai_math"   ->   ROOT = __import__("pathlib").Path(__file__).resolve().parents[k].as_posix()   (or Path(__file__).resolve().parents[k])
+#   sys.path / open() literals under /home/nail/stuff/sundai_math/...  or  "work/..." relative to the cwd   ->   same expression + "/work/..."
+#   open("pair_PQ_all.json") relative to the cwd   ->   relative to the script's directory
+# Files marked * are in MANIFEST.txt; the others are scripts of the same A30 / T25 / comp directories that were fixed for consistency.
+* work/bbl/ends_check.py
+* work/bbl/k1_pay_check.py
+  work/eng/A30/attack.py
+* work/eng/A30/defs_check.py
+* work/eng/A30/elim/audit_elim2.py
+* work/eng/A30/elim/audit_elim.py
+  work/eng/A30/elim/centre_windows.py
+  work/eng/A30/elim/chk_vals.py
+  work/eng/A30/elim/clean_dp.py
+  work/eng/A30/elim/count_paths2.py
+  work/eng/A30/elim/count_paths.py
+* work/eng/A30/elim/export_graph.py
+  work/eng/A30/elim/peek.py
+  work/eng/A30/elim/planted.py
+  work/eng/A30/elim/rederive.py
+  work/eng/A30/elim/surv_types.py
+  work/eng/A30/elim/z0_check.py
+  work/eng/A30/extremes.py
+* work/eng/A30/ilp/cpsat_free.py
+* work/eng/A30/ilp/cpsat_ilp.py
+  work/eng/A30/ilp/cpsat_maxes.py
+* work/eng/A30/ilp/ilp_identities.py
+* work/eng/A30/mkcnf.py
+* work/eng/A30/soundness.py
+  work/eng/A30/tip_core.py
+* work/eng/A30/tip_validate.py
+  work/eng/A30/tip_witness.py
+* work/eng/comp/bad_comp.py
+* work/eng/comp/comp_cost.py
+* work/eng/lattice/lines2gens.py
+* work/eng/oth/drat_pats/regen.py
+* work/eng/pert2/direct.py
+* work/eng/pert2/faces_indep.py
+* work/eng/pert2/pair_indep.py
+* work/eng/pert2/validate_pair2.py
+* work/eng/pert/validate_pert.py
+* work/eng/T25/elim/elim.py
+* work/eng/T25/elim/ilp2.py
+* work/eng/T25/elim/ilp5.py
+* work/eng/T25/elim/ilp.py
+* work/eng/T27/pairlemma.py
+* work/eng/T27/patsat_m.py
+* work/eng/T27/sat_path.py
+* work/eng/T27/verify_exact_cert.py
+* work/eng/T28/x6_cubes.py
+* work/eng/T28/x6_drat.py
+  work/eng/T28/x6_one.py
+  work/eng/T28/x6_pass2.py

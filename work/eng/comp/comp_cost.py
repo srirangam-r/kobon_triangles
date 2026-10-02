@@ -1,7 +1,7 @@
 # Per-bridge-component cost sum_{P in K} c_P, c_P = m(m-2) - D_P - beta_P/2, on real arrangements.
 import sys, json, glob
 from collections import Counter, defaultdict
-sys.path.insert(0, "work/t3")
+sys.path.insert(0, __import__("pathlib").Path(__file__).resolve().parents[3].as_posix() + "/work/t3")
 from arr import Arr, rays, first_seg, far_end
 
 def analyse(a):

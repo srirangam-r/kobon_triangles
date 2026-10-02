@@ -10,7 +10,8 @@ Claim: these cases are exhaustive. Each unused segment serves <= 2 ends, so
 Also: a line with both ends bad-wedge has its two corner triangles on the same side."""
 import sys, json
 from collections import Counter
-sys.path[:0] = ["work/bbl", "work/t3", "work/eng/pert"]
+_R = __import__("pathlib").Path(__file__).resolve().parents[2].as_posix()
+sys.path[:0] = [_R + "/work/bbl", _R + "/work/t3", _R + "/work/eng/pert"]
 from arr import Arr, rays, far_end, first_seg
 
 def ends(a):

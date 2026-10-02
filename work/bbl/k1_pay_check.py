@@ -6,7 +6,8 @@ claimed by sol's §4 payments, never reused; in case B the rays of P at distance
 blocks; S_P >= 2 * (#case-B kites at P). Then 2 Lambda = sum of nonnegative credits (exact)."""
 import sys, json
 from collections import Counter, defaultdict
-sys.path[:0] = ["work/bbl", "work/t3", "work/eng/pert"]
+_R = __import__("pathlib").Path(__file__).resolve().parents[2].as_posix()
+sys.path[:0] = [_R + "/work/bbl", _R + "/work/t3", _R + "/work/eng/pert"]
 import note2_check as NC
 from arr import Arr, rays, far_end, first_seg
 BC = NC.BC; GB = NC.GB

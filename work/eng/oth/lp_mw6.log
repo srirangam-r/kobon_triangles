@@ -1,0 +1,18 @@
+forbidden patterns: 8 (with symmetric variants)
+guarded patterns: 26 T23 facts + 8 CEGAR patterns
+frames: 1620 (S/T enriched, apex classes 1/2/3)
+graph: 359624 nodes, 22723237 edges (trimmed), 1207473 windows, 1329353 window options, 1782 terms (1921 term options), K=455 rule columns, M nodes 0, options 122.8s
+catalogue stats: {'cell_removed': 6131, 'window_no_completion': 1410}
+it   0 DP min (2*final+2) =  -24.0000, len 11, cuts 0, |w|_1 = 0.000, 2.3s
+it   5 DP min (2*final+2) =  -21.4615, len 17, cuts 24, |w|_1 = 16.478, 2.0s
+it  10 DP min (2*final+2) =   -3.3567, len 11, cuts 47, |w|_1 = 14.326, 2.1s
+it  15 DP min (2*final+2) =   -1.9099, len 11, cuts 71, |w|_1 = 14.247, 1.9s
+it  20 DP min (2*final+2) =   -0.3315, len 14, cuts 93, |w|_1 = 17.926, 2.1s
+it  25 DP min (2*final+2) =   -0.0335, len 13, cuts 114, |w|_1 = 16.836, 2.1s
+      top columns: ('DELTA',)=6.99; ('TAU', (0, 1, 1, 1, 0, 1, 1, 1), 0)=3.50; ('TRI', 'MST', 'S>M')=1.14; ('SV', (0, 0, 1, 1), 0)=0.95; ('PT', (0, 1, 1, 0, 1, 1), '0>2')=0.81; ('alpha',)=0.60; ('TRI', 'MSS', 'S>M')=0.46; ('PT', (0, 1, 1, 1, 1, 1), '0>2')=0.40
+it  30 DP min (2*final+2) =   -0.7564, len 10, cuts 138, |w|_1 = 17.867, 2.3s
+it  35 DP min (2*final+2) =    1.3938, len 16, cuts 161, |w|_1 = 17.959, 2.2s
+it  40 DP min (2*final+2) =    1.4813, len 16, cuts 173, |w|_1 = 17.926, 1.8s
+it  43 DP min (2*final+2) =    2.0000, len 11, cuts 180, |w|_1 = 17.188, 1.8s
+exact certificate: denominator 16 DP min (D*(2*final+2)) = 32.0 target 32.0
+verify (bounded): min D*(2*final+2) per n-1: {2: 908.0, 3: 872.0, 4: 788.0, 5: 752.0, 6: 668.0, 7: 632.0, 8: 548.0, 9: 512.0, 10: 428.0, 11: 392.0, 12: 308.0, 13: 272.0, 14: 188.0, 15: 152.0, 16: 68.0, 17: 32.0} target 32.0

@@ -4,7 +4,7 @@
 import sys
 from fractions import Fraction as F
 from itertools import combinations
-sys.path.insert(0, "/home/nail/stuff/sundai_math/work/t3")
+sys.path.insert(0, __import__("pathlib").Path(__file__).resolve().parents[3].as_posix() + "/work/t3")
 
 def transform(lines, e1, e2):
     # point (x,y,z) -> (x, y, z + e1 x + e2 y); line l . p = 0 -> l' = l M^{-1}; M^{-1}: z = z' - e1 x - e2 y

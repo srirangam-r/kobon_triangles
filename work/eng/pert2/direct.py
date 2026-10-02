@@ -1,7 +1,7 @@
 # Direct reducibility test on a real arrangement: rearrange a set of events that are consecutive tokens of
 # the gens word (after commuting moves), over the tracks they span; recompute T and V for every reduced word.
 import sys, itertools
-sys.path.insert(0, "/home/nail/stuff/sundai_math/work/t3"); sys.path.insert(0, "/home/nail/stuff/sundai_math/work/eng/pert2")
+sys.path.insert(0, __import__("pathlib").Path(__file__).resolve().parents[3].as_posix() + "/work/t3"); sys.path.insert(0, __import__("pathlib").Path(__file__).resolve().parents[3].as_posix() + "/work/eng/pert2")
 from arr import Arr
 from window import crossing_set, all_words
 

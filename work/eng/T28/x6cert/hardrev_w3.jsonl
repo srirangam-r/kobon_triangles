@@ -1,0 +1,6 @@
+{"u": 6, "idx": 2582, "S": [0, 5, 10, 17, 22, 27], "kissat_rc": 20, "solve_s": 214.3, "verified": true, "check_s": 1053.9}
+{"u": 6, "idx": 2542, "S": [0, 3, 10, 17, 22, 29], "kissat_rc": 20, "solve_s": 153.2, "verified": true, "check_s": 937.0}
+{"u": 6, "idx": 2488, "S": [0, 3, 8, 17, 22, 25], "kissat_rc": 20, "solve_s": 132.7, "verified": true, "check_s": 816.5}
+{"u": 6, "idx": 2130, "S": [0, 1, 14, 17, 20, 33], "kissat_rc": 20, "solve_s": 86.4, "verified": true, "check_s": 335.5}
+{"u": 6, "idx": 1941, "S": [0, 1, 10, 17, 18, 27], "kissat_rc": 20, "solve_s": 34.5, "verified": true, "check_s": 29.2}
+{"u": 4, "idx": 78, "S": [0, 1, 12, 29], "kissat_rc": 20, "solve_s": 67.8, "verified": true, "check_s": 70.7}

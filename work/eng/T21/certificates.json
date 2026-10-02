@@ -1,0 +1,61 @@
+{
+ "meaning": "In each class, the listed transfer rules make every line's final value >= 0 for EVERY even n (n >= 4) and every arrangement of pseudolines with only simple and triple points in the class: hence sum_L final >= 0, 3*Lambda - n >= waste >= 0, Lambda >= n/3 (T <= 54 at n=14, T <= 72 at n=16, T <= 94 at n=18 for these classes). 'DP min' is min over all paths and cycles of the enriched line automaton of D*(2*final+2); the certificate requires >= 2D.",
+ "assumed_facts": {
+  "always": "T20 facts F1-F8, enriched apex flags (validated: 127,673 arrangements / 2.14M lines, 0 failures), F4' (two consecutive simple vertices never cap the same side; proof in INTERIM.md)",
+  "C2": "additionally K1* (--k1) and K2 (--k2), proved by the lead / T23"
+ },
+ "certificates": [
+  {
+   "name": "bridge-free",
+   "class": "every triple point has ring type NNNNNN, BNNNNN or BNNBNN (no doubly used segment joins two triple points)",
+   "command": "uv run --no-project --with numpy --with scipy --with networkx python search/rule_lp.py lp --enriched --f4p --families SIG --wmax 100 --iters 1500 --rfree --export work/eng/T21/rules_rfree.json --save work/eng/T21/w_sig_rfree.pkl",
+   "rules": "work/eng/T21/rules_rfree.json",
+   "n_rules": 15,
+   "denominator": 12,
+   "dp_min_over_D": 2.0,
+   "verified": "Bellman-Ford exact integers, layered DP to length 90, SCC negative-cycle check; planted: 15/15 single-weight decrements detected",
+   "data": "0 negative lines on 67,154 (phi) + 265,632 (dpwalkc quarter) bridge-free arrangements, min final 0"
+  },
+  {
+   "name": "NB0",
+   "class": "ring types NNNNNN,BNNNNN,BNNBNN,BNNRNN,NNNNNR,NNNNRR,NNRNNR,NNNRRR,NNRRRR,RRRRRR (no bridge ray adjacent to a block ray)",
+   "command": "uv run --no-project --with numpy --with scipy --with networkx python search/rule_lp.py lp --enriched --f4p --families SIG --wmax 100 --iters 1500 --rings NNNNNN,BNNNNN,BNNBNN,BNNRNN,NNNNNR,NNNNRR,NNRNNR,NNNRRR,NNRRRR,RRRRRR --export work/eng/T21/rules_nb0_.json --save work/eng/T21/w_nb0_.pkl",
+   "rules": "work/eng/T21/rules_nb0_.json",
+   "n_rules": 18,
+   "denominator": 12,
+   "dp_min_over_D": 2.0,
+   "verified": "same three checks; planted 18/18",
+   "data": "0 negative lines on 120,067 in-class arrangements (phi + adv), min final 0"
+  },
+  {
+   "name": "C2",
+   "class": "ring types NNNNNN,BNNNNN,BNNBNN,BNNRNN,NNNNNR,NNNNRR,NNRNNR,NNNRRR,NNRRRR,RRRRRR,BNNNNR,BNNNRR,BRNNNR,BNNRRR,BRNNRR",
+   "command": "uv run --no-project --with numpy --with scipy --with networkx python search/rule_lp.py lp --enriched --f4p --families SIG --wmax 100 --iters 1500 --k1 --k2 --rings NNNNNN,BNNNNN,BNNBNN,BNNRNN,NNNNNR,NNNNRR,NNRNNR,NNNRRR,NNRRRR,RRRRRR,BNNNNR,BNNNRR,BRNNNR,BNNRRR,BRNNRR --export work/eng/T21/rules_C2_k12.json --save work/eng/T21/w_C2_k12.pkl",
+   "rules": "work/eng/T21/rules_C2_k12.json",
+   "n_rules": 46,
+   "denominator": 6,
+   "dp_min_over_D": 2.0,
+   "verified": "same three checks (greedy run log work/eng/T21/greedyk12_BRNNRR.log); planted 46/46",
+   "data": "0 negative lines on 126,324 in-class arrangements (phi + adv + pilot; 99% of that corpus) and 265,992 in-class n=18 arrangements (dpwalkc quarter), min final 0; outside the class 737/1349 (phi) and 392/492 (dpwalkc) arrangements still have negative lines"
+  }
+ ],
+ "min_final_per_n": "0 for every even n = 4..22 (tight paths exist), so the certificate is best possible for these weights",
+ "not_certified": {
+  "full class": "infeasible with F4' + K1* + K2 + K2g + K3: 239 cuts, core of 10 cuts in work/eng/T21/core_k123_full.txt (cuts json cutsk123g_full.json). Bounded n <= 18 also infeasible (319 cuts, K1*+K2).",
+  "all ring types with c_P >= 0": "infeasible with all facts: core_k123_cge0.txt (10 cuts, types BNNBRR, BNNRBR, BNNRRR)",
+  "skipped in the greedy class search": [
+   "BNNNBR",
+   "BNNBRR",
+   "BNNRBR",
+   "BRRRRR",
+   "BRBRRR",
+   "BRRBRR",
+   "BRBRBR"
+  ]
+ },
+ "plugin_points": {
+  "window filter": "SigCatalogue.window_options / Catalogue.window_options",
+  "edge filter": "WGraph(edge_allow=f)",
+  "state": "WGraph node tuple, k3_step"
+ }
+}

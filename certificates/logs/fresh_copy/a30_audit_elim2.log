@@ -1,0 +1,13 @@
+state_0 allowed 1154  state_2 allowed 205  certs 60
+full graph: N 116545 edges 3118788 windows 185583 | a0 graph: N 8176 edges 12256 windows 1154
+a0 graph windows subset of state_0.allowed: 1154 of 1154
+X3 D 2828000 all-min 5656000 (2D = 5656000 )  through-window min 5661656  valid: True  strict: True  margin 1/1000
+X5 D 2828000 all-min 5656000 (2D = 5656000 )  through-window min 5661656  valid: True  strict: True  margin 1/1000
+X0 D 1414000 all-min 2828000 (2D = 2828000 )  through-window min 2830828  valid: True  strict: True  margin 1/1000
+X2 D 1414000 all-min 2828000 (2D = 2828000 )  through-window min 2830828  valid: True  strict: True  margin 1/1000
+X1 D 1414000 all-min 2828000 (2D = 2828000 )  through-window min 2830828  valid: True  strict: True  margin 1/1000
+X4 D 1414000 all-min 2828000 (2D = 2828000 )  through-window min 2830828  valid: True  strict: True  margin 1/1000
+X7 D 2828000 all-min 5656000 (2D = 5656000 )  through-window min 5661656  valid: True  strict: True  margin 1/1000
+X6 D 2828000 all-min 5656000 (2D = 5656000 )  through-window min 5661656  valid: True  strict: True  margin 1/1000
+[60 stored + 8 re-derived certs on a0 graph (no removal)] joint tightness: min combined 3461472000, target 3461472000, CONSISTENT (all certs valid); tight edges 380, terminals 24, windows 205
+  windows: 205  subset of state_2.allowed: True  equal: True  |w68 - a2|= 0  |a2 - w68|= 0

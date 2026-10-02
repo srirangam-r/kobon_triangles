@@ -42,7 +42,8 @@ for tri in itertools.product((0, 1), repeat=nf):
             if T1 > T0 or (T1 == T0 and nv > nv0): good = True; break
         if not good: irr = True; break
     status[key] = status.get(key, False) or irr
-ref = json.load(open("pair_PQ_all.json"))
+import os
+ref = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "pair_PQ_all.json")))
 ex_ref = set(map(tuple, ref["excluded"])); al_ref = set(map(tuple, ref["allowed"]))
 ex = {k_ for k_, v in status.items() if not v}; al = {k_ for k_, v in status.items() if v}
 print("independent: patterns", len(status), "excluded", len(ex), "allowed", len(al))

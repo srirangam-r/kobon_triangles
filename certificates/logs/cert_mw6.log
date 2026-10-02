@@ -1,0 +1,8 @@
+forbidden patterns: 8 (with symmetric variants)
+guarded patterns: 26 T23 facts + 8 CEGAR patterns
+frames: 1620 (S/T enriched, apex classes 1/2/3)
+graph: 359624 nodes, 22723237 edges (trimmed), 1207473 windows, 1329353 window options, 1782 terms (1921 term options), K=455 rule columns, M nodes 0, options 89.9s
+catalogue stats: {'cell_removed': 6131, 'window_no_completion': 1410}
+weights 15 not in the rebuilt catalogue: []
+exact DP min D*(2*final+2) = 32.0  target * D = 32.0  OK: True
+min per number of units: {2: 908.0, 3: 872.0, 4: 788.0, 5: 752.0, 6: 668.0, 7: 632.0, 8: 548.0, 9: 512.0, 10: 428.0, 11: 392.0, 12: 308.0, 13: 272.0, 14: 188.0, 15: 152.0, 16: 68.0, 17: 32.0}
