@@ -23,13 +23,16 @@ contain an *all-8 point*, a point where exactly 4 lines meet with all 8 angles t
 | U-UB lemma | proof checked | THEORY §26 notes | search/rule_lp_t25m.py --uub |
 | Injective N-payment, pure-triple components cost ≥ 0, exact signed-kite identity (only −2K_1 negative), star subcase Λ ≥ 8, triple optimality | sol (ALL8_NOTE2), proofs checked by the lead | THEORY §27 | work/bbl/ALL8_NOTE2.md, note2_check.py |
 | K_1 payment: 2Λ = sum of nonnegative credits (2R + N_*° + 2U_3 + I_3 + U_4 + ΣS_P° + 2K_3 + 4K_4) | lead, hand proof | THEORY §27 | work/bbl/k1_pay_check.py (3,445 arrangements, 0 failures) |
-| Line-end lemma: every line end is good (≥ 1 disjoint credit) or a bad wedge / I_4 end | lead, hand proof | THEORY §27 | work/bbl/ends_check.py |
+| Line-end lemma: every line end is good (≥ 1 disjoint credit) or a bad wedge / I_4 end | lead, hand proof (U_4 slip corrected by sol) | THEORY §27 | work/bbl/ends_check.py |
+| No 3 consecutive 4-fold blocks; fresh tokens for U_4, I_4; exact end identity; bad-wedge graph is a forest at even n; Λ = π + U + ½ΣS_P° + K_3 + 2K_4 + ½Δ | sol (ALL8_NOTE3), proofs checked by the lead | THEORY §27 | work/bbl/ALL8_NOTE3.md, note3_check.py |
 
 ## The open case
 
 Exclude a 94 containing an all-8 point. The class is: only triple points and bad 4-fold points, no 6-type point, and
 the pair lemma.
-- Sharpest form (after the K_1 payment): 2R + N_*° + 2U_3 + I_3 + U_4 + Σ_quad S_P° + 2K_3 + 4K_4 ≥ 14. Every term is
+- Sharpest form (sol, NOTE3 (9)): Λ = π + U + ½ΣS_P° + K_3 + 2K_4 + ½Δ, every term ≥ 0, with π = #components of the
+  bad-wedge forest ≥ 1. Need Λ ≥ 7; a 94 needs π ≤ 6, i.e. at least 12 bad wedges.
+- Previous form (after the K_1 payment): 2R + N_*° + 2U_3 + I_3 + U_4 + Σ_quad S_P° + 2K_3 + 4K_4 ≥ 14. Every term is
   ≥ 0; in a 94 the sum is exactly 12. Sent to sol as work/bbl/SOL_TASK3.md.
 - Small-n SAT with an all-8 point in the class: minimum Λ = 9 at n = 9 and 8 at n = 10; Λ ≤ 6 UNSAT at n = 8–10.
   The surplus partly comes from line ends (R), so a proof must use the parity of n.

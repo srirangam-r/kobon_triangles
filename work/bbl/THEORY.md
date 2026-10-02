@@ -2027,8 +2027,9 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
       - If that segment is bounded, it is unused: **good**. An unused segment serves ≤ 2 ends, 2 credits.
       - If it is unbounded, v is M's last vertex too: **bad wedge**, with the bounded face opposite the wedge a
         triangle.
-  - All these credits are disjoint from S_P°, U_4, K_3 and K_4. So
-        2Λ ≥ #(good ends) + Σ S_P° + U_4 + 2K_3 + 4K_4.
+  - All these credits are disjoint from S_P°, K_3 and K_4. So 2Λ ≥ #(good ends) + Σ S_P° + 2K_3 + 4K_4.
+    (CORRECTED by sol, ALL8_NOTE3 §1: the earlier "+ U_4" here was wrong. U_4's credit lives inside 2Z, and touch
+    blocks occupy unused-edge slots; see sol's (5), G_Z ≤ 2Z − U.)
   - BBL parity: if both ends of L are bad wedges, the two corner triangles lie on the same side of L. (Otherwise
     the two extremity lines M_1 and M_2 would have all their vertices on opposite sides of L and could not cross.)
     At even n, a simple perfect line has its corner triangles on opposite sides. So a line with two bad-wedge ends
@@ -2087,3 +2088,31 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - Margin LP lp_kt1 (TRIOPT + KT + uub): −2.2909 again, with the identical optimum. The KT columns stay unused.
   - The per-line route with local transfer families appears exhausted. The binding real lines get their missing
     credit only from far parts of other lines.
+- **sol, ALL8_NOTE3.md (checked by the lead; checker note3_check.py re-run, failures = 0 on 3,445 arrangements, plus the
+  569-mask enumeration).** All with C = 2Λ:
+  - §1 correction: C = 2Z + U_3 + I_3 + N_*° + Σ S_P° + 2K_3 + 4K_4 (the task file's "+U_4" was a lead error).
+  - §2: no three consecutive blocks at a 4-fold point. The four sectors share one cap, which would meet the fourth
+    pencil line on both opposite rays.
+  - §3: every 4-fold-origin touch/end block has a fresh bounded N token, at P on PT or at T on TX. Both triangles
+    failing would give three consecutive blocks. Hence N_*° ≥ U_4 + I_4 and
+        C = 2Z + U + I + N_res + Σ S_P° + 2K_3 + 4K_4.
+  - §4 exact end identity (lead re-derived the slot count; a touch centre has all 4 rays bounded):
+        F + I + G_Z = 2n − 2W,  G_Z ≤ 2Z − U,  F ≤ N_res,
+        C = 2(n − W) + 2U + Σ S_P° + 2K_3 + 4K_4 + Δ  with Δ ≥ 0.
+    Here W = #bad-wedge vertices. Also Δ ≥ 2η_0 (bounded unused first rays at multiple points).
+  - §5 **forest lemma** (lead checked both parity arguments). Join two lines when their crossing is a bad wedge.
+    A cycle of k lines has k odd (the chain recrosses L k − 3 times and returns to the same side). Any line outside
+    the cycle crosses the closed curve k times, which forces k even. So at even n there is no cycle, and
+    π = n − W ≥ 1 is the number of path components. **Exact:**
+        Λ = π + U + ½ Σ S_P° + K_3 + 2K_4 + ½ Δ.
+    A 94 needs π + U + K_3 + 2K_4 ≤ 6, so W ≥ 12.
+  - §7: on a line with all bounded segments single and both ends bad wedges, (n even) t_L + f_L is odd. Here
+    f_L counts simple same-side cap steps, i.e. touch/end centres capped by L. Triples always flip, by optimality.
+    Also: the n = 12 witness line 7 refutes the naive "simple line alternates" claim.
+  - §8 zero-slack all-8 masks (lead re-derived): (D, k, c_B) = (4,4,0) alternating kites, (3,3,1) blocks at 0,3,5,
+    (2,2,2). Row 1 needs a 4-fold first neighbour (far-corner lemma). Row 2: Q_4 is 4-fold, or Q_2 and Q_6 are
+    (rays 1 and 5 lie on one pencil line). Row 3 is realisable structurally (11 lines) but fails triple optimality
+    elsewhere.
+  - §9: an 18-line class arrangement (with optimality) has 2Q = 11 and component cost 5. So Q ≥ 7 and
+    "component ≥ 6" are false at n = 18.
+  - **Open (sol's (12)):** 2π + 2U + Σ S_P° + 2K_3 + 4K_4 + Δ ≥ 13 when π ≤ 6.
