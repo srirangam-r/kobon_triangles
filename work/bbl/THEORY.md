@@ -1968,3 +1968,31 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   - Checks: 3,446 arrangements and 18,979 points, 0 failures.
   - sol's global SAT probe (an all-8 point present, T = 94, class constraints): UNKNOWN after 2,611 s, which proves
     nothing. ALL8_NOTE2.md is in progress.
+- **sol, ALL8_NOTE2.md (checked by the lead, every proof by hand; checker work/bbl/note2_check.py re-run, output
+  identical to all8_work/note2_check_extended.out: 3,446 arrangements, 18,979 points, 0 failures).** Proved, with
+  N = all non-doubly-used rays (THEORY §1), Ntot = Σ_triples N + 2J, R = Z − U/2 ≥ 0:
+  - §2: two consecutive rays of a triple point are never both blocks (the common cap would meet the third pencil line
+    on both opposite rays). Hence a doubly used ray next to a block at a triple ends at a multiple point.
+  - §3 (kite lemma): a kite whose four corners are triple has a singly used cap edge in each opposite pair. (An
+    exterior triangle on PQ must have apex Y = PS ∩ QR beyond P and Q; on RS, beyond S and R. Y cannot be beyond
+    both ends of PS.)
+  - §4 (outer-triangle rule, injective): Ntot ≥ H_3 + 2(U_3 + I_3) + 4K_0. Every selected token sits on a singly
+    used bounded segment. Its unique triangle has exactly one "designated" simple corner, a kite / 3-fan / 2-fan
+    centre, distinguished by its triangle count, so the payment context is recovered from the token. (Lead check: a
+    second simple corner T of an outer triangle has PT single by §2, so it carries no block in that triangle.)
+  - §5: a line-connected component (multiple points joined when they share any line) containing only triples costs
+    ≥ (U_C + I_C)/2 ≥ 0. All tokens, kite corners and 3-fan partners stay in the component.
+  - §6: at a 4-fold point, S_P = 8 − D_P − k_P ≥ 0 (k_P = blocks ending at kite centres). A kite block has no adjacent
+    block, by L1 on the shared cap edge. S_P ≥ 2 at a 7-type point. At an all-8 point S_P = β_P − k_P.
+  - §7 **exact identity** (algebra re-derived by the lead):
+        2Λ = 2R + N_* + 2U_3 + I_3 + U_4 + Σ_quad S_P + 2K_3 + 4K_4 − 2K_1,
+    with N_* = Ntot − H_3 − 2(U_3 + I_3) − 4K_0 ≥ 0 and K_q = kites with exactly q quadruple corners. Every term is
+    ≥ 0 except −2K_1. **Open: the right side ≥ 14** (in a 94 it equals 12).
+  - §8: generalized pencil-touch (m-fold P; end-block rays lie in m consecutive rays). Star subcase (lead re-checked
+    the 2,3,3 corner gaps): if the only line-connected component with a 4-fold point is {all-8 P + 3 triples}, then
+    all 5 P-blocks are non-mutual, h(P) ≥ 2, Z ≥ 2, the component costs 6 and the rest ≥ 0 by §5, so Λ ≥ 8.
+  - §9 counterexample: lattice18 record 1 (Λ = 66), point 44, ring RBRBRBRB, four all-8 first vertices with no N ray.
+    So no first-neighbourhood ownership lemma holds.
+  - §10: triple optimality. Each of the two resolutions of a triple point gives ΔT = 1 − (alternating sector sum).
+    So in a (T, V)-maximal 94 both alternating sums are ≥ 2 (16 allowed words).
+  - Global SAT (T = 94) and Q ≥ 7 probes: UNKNOWN (no information).

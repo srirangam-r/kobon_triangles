@@ -21,11 +21,13 @@ contain an *all-8 point*, a point where exactly 4 lines meet with all 8 angles t
 | No 94 without (triple, 4-fold) adjacency | strict certificate | THEORY §25 | work/eng/T27/cegar/w_TMXs.pkl (D = 48) |
 | Gauss–Bonnet identity, touch lemma, star subcase | outside contribution (sol), checked by the lead | THEORY §27 | work/bbl/ALL8_GB_NOTE.md |
 | U-UB lemma | proof checked | THEORY §26 notes | search/rule_lp_t25m.py --uub |
+| Injective N-payment, pure-triple components cost ≥ 0, exact signed-kite identity (only −2K_1 negative), star subcase Λ ≥ 8, triple optimality | sol (ALL8_NOTE2), proofs checked by the lead | THEORY §27 | work/bbl/ALL8_NOTE2.md, note2_check.py |
 
 ## The open case
 
 Exclude a 94 containing an all-8 point. The class is: only triple points and bad 4-fold points, no 6-type point, and
 the pair lemma.
+- Sharpest form (sol, ALL8_NOTE2 (7)): 2R + N_* + 2U_3 + I_3 + U_4 + Σ_quad S_P + 2K_3 + 4K_4 ≥ 14 + 2K_1, all terms ≥ 0.
 - Equivalent inequality (THEORY §27): Z + Σ_triples N/2 + 4A + 5J ≥ 7 + b/2. Every block must be paid for. Touch
   blocks are paid by Z; mutual blocks (kites, 3-fans) and end blocks are the unpaid ones.
 - Evidence it holds: every real in-class arrangement with an all-8 point has Λ ≥ 66 (T ≤ 74), and real lines support
