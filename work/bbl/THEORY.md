@@ -2055,5 +2055,7 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
   by the DP.
   - Frame filter (env TRIOPT=1): drop T frames with bin0 + bout0 + h1 < 2 or h0 + bin1 + bout1 < 2.
   - Mapping validated on 1,758 real triple incidences (gallery18): 0 mismatches, 54 non-optimal caught.
-  - It cuts T frames 121 → 20 and enriched frames 1,620 → 783. The all-8 margin LP (uub configuration) is running
-    with it (work/eng/T29/run/lp_trio1.log).
+  - It cuts T frames 121 → 20, enriched frames 1,620 → 783, and the graph 1.84M → 0.77M nodes.
+  - **Result: no effect.** True margin −2.2909, with the identical optimum δ = 0, ε0 = 1/55, EPSM = 27/55
+    (lp_trio1, 284 iterations, cold start). The binding paths involve no non-optimal triple.
+  - So the obstruction is on lines through the 4-fold points themselves: they need EPSM ≈ 0.49 per incidence.
