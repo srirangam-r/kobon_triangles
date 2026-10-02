@@ -2033,3 +2033,11 @@ class CEGAR. Brief: see the agent prompt; files under work/eng/T29/.
     the two extremity lines M_1 and M_2 would have all their vertices on opposite sides of L and could not cross.)
     At even n, a simple perfect line has its corner triangles on opposite sides. So a line with two bad-wedge ends
     carries a parity defect: an unused segment, a doubly used segment, or a same-side step at a multiple point.
+- **Far-corner lemma (lead).** Let P be all-8 with corners Q_1..Q_β (multiple first vertices) and cap sides C_j
+  (C_j runs from Q_j to Q_{j+1}). Take a kite block P → X_j on side C_j whose corners Q_j and Q_{j+1} are both triple.
+  Then the kite's far corner R_j (across C_j on the block line) is C_{j−1} ∩ C_{j+1}. Reason: Q_j R_j lies on a line
+  through Q_j other than C_j and PQ_j, which can only be C_{j−1}; symmetrically at Q_{j+1}.
+  Two such kites with the same pair {C_{j−1}, C_{j+1}} would share R and put it on two rays of P: impossible.
+  - Hence at β = 4 (word RBRBRBRB) with four triple corners, at most 2 kite blocks, and they are adjacent: S_P ≥ 2.
+  - At β = 3, k ≤ 1 (only the 2-segment side can hold a kite block): S_P ≥ 2. At β ≥ 6, S_P ≥ 4.
+  - Open: β = 5 can give S_P° = 0 (blocks i, i+3, i+5 all kites, with i a case-B K_1 kite).
