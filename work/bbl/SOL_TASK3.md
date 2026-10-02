@@ -14,12 +14,16 @@ Accepted:
 - §9: the counterexample.
 - §10: triple optimality.
 
-The open target is unchanged:
+After the lead's K_1 payment (item 1 below), the open target is:
 
-    2R + N_* + 2U_3 + I_3 + U_4 + Σ_quad S_P + 2K_3 + 4K_4 ≥ 14 + 2K_1          (7)
+    C := 2R + N_*° + 2U_3 + I_3 + U_4 + Σ_quad S_P° + 2K_3 + 4K_4 ≥ 13          (7')
 
-for 18 pseudolines in the class: structural class, at least one all-8 point, and triple optimality (both
-alternating sector sums ≥ 2). In a 94 the left side is exactly 12 + 2K_1.
+Every term of C is ≥ 0 and C = 2Λ exactly. Since Λ ≡ 0 (mod 3), C ≡ 0 (mod 6): C ≥ 13 already gives C ≥ 18,
+i.e. T ≤ 93. In a 94, C = 12.
+
+This is for 18 pseudolines in the class: structural class, at least one all-8 point, and triple optimality (both
+alternating sector sums ≥ 2). Equivalently C = 2Z + U_3 + I_3 + N_*° + Σ S_P° + U_4 + 2K_3 + 4K_4. So a 94 has
+Z ≤ 6.
 
 ## New computational facts (lead, exact SAT plus independent re-evaluation)
 Script: work/eng/oth/smalln/smalln.py. It uses your global_sat.build, which encodes the class with lazy pair clauses
@@ -33,7 +37,9 @@ Every SAT model was turned into a wiring word and re-checked with arr.py and the
 | 9 | Λ ≤ 6 UNSAT (also without optimality); minimum Λ = 9 (T = 18). The record K(9) = 21 has Λ = 0. |
 | 10 | Λ ≤ 6 UNSAT; minimum Λ = 8 (T = 24). The record K(10) = 25 has Λ = 5. |
 | 11 | Λ = 9 attained (T = 30); Λ ≤ 6 running. The record K(11) = 32 has Λ = 3. |
-| 12–18 | running |
+| 12 | Λ = 9 attained (T = 37); Λ ≤ 6 running. The record K(12) = 38 has Λ = 6. |
+| 13 | Λ = 11 attained (T = 44). The record K(13) = 47 has Λ = 2. |
+| 14–18 | running |
 
 Identity (6) on the minimisers (2Λ = sum of terms):
 - n = 9, Λ = 9: `0 4 5 3* 2 1 7 5* 2** 5 6* 0* 4* 2* 4 6 5 6 1`
@@ -51,6 +57,9 @@ In particular your stronger Q ≥ 7 (Q = Λ − R) is FALSE at n = 10: this witn
 be discarded. A proof that uses only the first neighbourhood of P is refuted by your §9. One that ignores line ends may also be
 impossible.
 
+Even n matters: the cheapest all-8 arrangement is exactly 3 above the record Λ at n = 10, and at most 3 above it at n = 12. A 94 would need the
+all-8 arrangement to beat the believed record (Λ = 9) by 3.
+
 ## What to prove
 Any complete, checkable proof of (7) is welcome. Suggested decomposition:
 1. **K_1 payment: DONE (lead, THEORY §27 notes, work/bbl/k1_pay_check.py).**
@@ -60,7 +69,7 @@ Any complete, checkable proof of (7) is welcome. Suggested decomposition:
      since the exterior apexes force Y_PQ and Y_SP to be multiple. Hence S_P ≥ 2·#(case-B kites).
    - Result, exact, every term ≥ 0:
          2Λ = 2R + N_*° + 2U_3 + I_3 + U_4 + Σ_quad S_P° + 2K_3 + 4K_4.
-   - Please check this proof too. **The whole remaining problem: this sum is ≥ 14 at n = 18 with A ≥ 1.**
+   - Please check this proof too. **The whole remaining problem: (7').**
 2. **Line ends (lead; THEORY §27 notes, work/bbl/ends_check.py).** Every one of the 36 line ends is one of:
    - good: a free unbounded N token, an I_3 end block, or a touch on an unused segment (≤ 2 ends per segment);
    - bad: an I_4 end block, or a bad wedge (v is the last vertex of both lines and the face opposite the wedge is
