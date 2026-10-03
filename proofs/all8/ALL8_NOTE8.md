@@ -183,7 +183,99 @@ edges between C's vertices. Summing their ordered-line compression,
 Thus `|L(C)|<=2a+1-2k<=2a+2=M_C`. This proves the remaining branch
 and LC. ∎
 
-## 5. Still open
+## 5. Proved: LC with one full triple, any component size
+
+**Theorem.** LC holds when C consists of one full triple P (`111111`)
+and a opposite-four (`110110`) triples. Consequently §§3–5 cover
+every pure-triple component with at most one vertex not opposite-four.
+
+No first ray is unbounded, so F=0. P has six double rays, at most three
+of which can be pairwise nonconsecutive blocks, hence `e>=3`. Here
+
+\[
+M_C=2a-6+2e,\qquad |L(C)|\le2a+3.                    \tag{6}
+\]
+
+For e>=5, capacity dominates all pencils. For e=4 and at least one
+U/I block, its excluded axis gives `|D_C|<=2a+2=M_C`. For e=4 with
+all blocks mutual, their count is `2a-2`, so `h+2k=a-1`. All mutual
+caps are single because they have an opposite-four endpoint. The
+four bridges and `h+4k` cap edges give
+
+\[
+3(a+1)-|L(C)|\ge4+h+4k=a+3+2k,
+\]
+
+and `|L(C)|<=2a-2k<=M_C`.
+
+Finally suppose e=3. All three bridges are incident to P. Its three
+remaining double rays are blocks and must alternate with the bridges.
+Each block centre X has cap neighbours Q,R on the two flanking
+bridge rays, both opposite-four triples. At Q the cap ray QX is
+consecutive to its double ray QP, so QX is single; similarly RX is
+single. At the simple X, with PX double and both cap rays single,
+there are exactly its two P-apex triangles. The continuation of PX
+has no triangle, so the block is U or I. Thus P's three blocks are
+U/I, on three distinct pencil axes, all outside Q0. Equation (6)
+now gives
+
+\[
+|D_C|\le |L(C)|-3\le2a=M_C.
+\]
+
+This proves every branch. ∎
+
+## 6. Proved: LC with one quad and opposite-four triples
+
+**Theorem.** LC holds for a component C consisting of one quad P,
+of all-8 or 7-type, and a opposite-four triples. Together with the
+accepted all-opposite-four theorem, §§3–6 prove LC whenever C has
+**at most one multiple vertex not of type 110110**, of either allowed
+multiplicity.
+
+Let beta be P's number of double bridges and e33 the number of
+triple–triple double bridges. Let q=N_P, so q=0 at all-8 and q=2 at
+7-type. All first rays are bounded. Every K1 kite has all four caps
+single, because each cap has an opposite-four endpoint as in §3.
+Thus K1 is entirely case A; write its count as k1.
+
+The exact flexible capacity is
+
+\[
+\boxed{M_C=2a+2e_{33}+\beta+q+k_1.}                 \tag{7}
+\]
+
+Indeed total N is `4a+q`. The payments remove two tokens per triple
+U/I block, one per triple three-fan block, four per K0, two per K1,
+and one per quad U/I block. Adding the one U/I label per block
+cancels the quad reservations. The remaining expression is
+`Ntot-B_3+k1`; and the opposite-four double-ray count gives
+`B_3=2a-2e33-beta`, proving (7). This uses the actual accepted payments,
+not corrected quad-slack units as extra LC resources.
+
+A spanning-tree ordering rooted at P gives `|L(C)|<=2a+4`.
+The no-three-consecutive-quad-blocks lemma gives beta>=3 at all-8
+(at most five of its eight double rays can be blocks), and beta>=2
+at 7-type (its six consecutive double rays contain a bridge in each
+disjoint interval of three).
+
+At 7-type, (7) gives `M_C>=2a+4>=|L(C)|`. At all-8, the same holds
+unless `beta=3`, `e33=0`, and `k1=0`. In that exceptional case
+`M_C=2a+3`. If there is a U/I block, its excluded axis suffices.
+
+If all blocks are mutual, their total count is
+`(8-beta)+(2a-beta)=2a+2`. Since k1=0, writing h for three-fan
+centres and k0 for K0 centres gives `h+2k0=a+1`. All their central
+caps and kite caps are single and distinct. Together with the three
+bridges they yield
+
+\[
+3a+4-|L(C)|\ge3+h+4k_0=a+4+2k_0.
+\]
+
+Hence `|L(C)|<=2a-2k0<=M_C`, proving LC in the last case. ∎
+
+## 7. Still open
 
 The new reduction (H-S) does not yet give a geometric Hall proof.
 Alternatively, the LC route still needs the larger mixed-sector/quad

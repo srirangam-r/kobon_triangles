@@ -82,8 +82,9 @@ The UNSAT cubes have no DRAT certificates yet.
 - LC has 0 failures on all 14,376 93s and the other datasets.
 - LC is **proved for every component of size 1** (`all8/STAGE1_ISOLATED.md`), **for every component made only of
   110110 triples, of any size, and for every component of size 2** (`all8/ALL8_NOTE7.md` §§2–4, checked by the lead),
-  **and for every component of one 111100 triple plus any number of 110110 triples** (`all8/ALL8_NOTE8.md` §3,
-  checked).
+  **and, more generally, for every component with at most one multiple point that is not a 110110 triple** (that
+  point may be a 111100, 111110 or full triple, or an all-8 or 7-type quad; `all8/ALL8_NOTE8.md` §§3–6, checked by
+  the lead). Open: components with two or more such points, and the end reconciliation.
   - In the data this leaves 149 / 1 / 27 components (93 corpus / earlier / bindings) outside the proved families.
   - Note 7 §5 also proves a disjoint partial payment for bad wedges in the direct form of (B). A wider transport
     graph (§7) has 0 failures on all data, but its Hall theorem is open. `all8/ALL8_NOTE8.md` §2 (checked) shows
