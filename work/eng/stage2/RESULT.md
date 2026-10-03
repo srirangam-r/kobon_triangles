@@ -47,6 +47,11 @@ Every 94 in the corner contains an all-8 point P of type (a), or an endpoint P o
   - Paths with k ≥ 3 points and alternating endpoints are excluded at n = 18 (STAGE2_TASK6 §5–§6). So the fourfold
     neighbour Q of P on the shared line H is also a single-case-B endpoint.
   - Q's case-B block is therefore the ray of H at Q pointing away from P.
+- **Full-corner pin** (`--fullpin`, used for the cubes started after the pilot in round r3).
+  - Applies to every case-B kite at P (STAGE2_TASK6 §4, with Δ = 0). Its far corner T on H and its two corners on the
+    diagonal through the kite centre are full six-sector triples.
+  - So the following first segments are doubly used: H beyond T, T's other line at T in both directions, and the
+    diagonal beyond each of the two corners.
 
 ## Solving
 - **Solver:** CaDiCaL 1.5.3 (python-sat), in conflict-budget chunks.
@@ -56,6 +61,8 @@ Every 94 in the corner contains an all-8 point P of type (a), or an endpoint P o
   - UNKNOWN = the wall-clock limit ran out (120–300 s per cube).
 - **Not yet done:** the final CNFs of the UNSAT cubes were saved but are not in this repository (about 11 GB), and
   none has been DRAT-checked.
+- **Pilot of the full-corner pin:** 1 of 2 path cubes that were undecided under the Q pin became UNSAT; the hard star
+  cube stayed undecided.
 - **Speed tests on one hard star cube:**
   - CaDiCaL at 600 s and kissat at 580 s both return UNKNOWN;
   - a 16-way split on one neighbour decides only 5 of 16 parts at 120 s.

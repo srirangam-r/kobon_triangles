@@ -24,6 +24,7 @@ def main():
     ap.add_argument('--drop', default='', help='comma list of constraints among c2..c9 to drop')
     ap.add_argument('--chunk', type=int, default=20000); ap.add_argument('--no-c10', action='store_true'); ap.add_argument('--tcard', default='equals_seq'); ap.add_argument('--mask'); ap.add_argument('--pins', action='store_true')
     ap.add_argument('--qpin', action='store_true', help='single-B cubes: the quad first neighbour Q on H = line of ray i+4 is a single-case-B endpoint (k=2 path; k>=3 and alternating endpoints excluded by hand, STAGE2_TASK6 s5-s6), so its case-B block is the ray of H at Q pointing away from P')
+    ap.add_argument('--fullpin', action='store_true', help='every case-B ray C of P: the far kite corner T on H and both kite corners on the diagonal e are full six-sector triples (STAGE2_TASK6 s4, Delta=0), so the first segments of H beyond T, of e beyond both corners, and of T\'s other lines at T are doubly used')
     ap.add_argument('--dump', default='', help='write the CNF (mask, pins, split included; no lazy pair clauses) and exit')
     ap.add_argument('--split', default='', help='cube-and-conquer: comma list mm:c; asserts that the first multiple neighbour on ray mm is formed with line c (one disjunct of the pinned far(mm) clause)')
     args = ap.parse_args()
@@ -79,6 +80,34 @@ def main():
             if c in quad: continue
             a_lit = B.A[H, x, c] if d == 1 else B.A[H, c, x]
             B.cl.append([-a_lit, -B.zp2[H, c], S2.cb[H, c, d]])
+    if args.fullpin:
+        assert args.mask and args.pins
+        Rl = range(18)
+        def nxt(L, u, w, d):   # on line L, vertex L^w immediately follows L^u in direction d
+            return B.A[L, u, w] if d == 1 else B.A[L, w, u]
+        for mm in range(8):
+            if args.mask[mm] != 'C': continue
+            H, d = ray(mm); x = min(y for y in quad if y != H)
+            for e in Rl:
+                if e in quad: continue
+                a1 = nxt(H, x, e, d)                                   # X = H^e is the case-B kite centre
+                for t in Rl:
+                    if t in (H, e) or t in quad: continue
+                    a2 = nxt(H, e, t, d)                               # T = H^t, far kite corner
+                    B.cl.append([-a1, -a2] + [nxt(H, t, v, d) for v in Rl if v not in (H, e, t)])
+                    for v in Rl:
+                        if v in (H, e, t): continue
+                        B.cl.append([-a1, -a2, -nxt(H, t, v, d), S2.use2(H, t, v)])        # H beyond T
+                        for dd in (1, -1):
+                            B.cl.append([-a1, -a2, -nxt(t, H, v, dd), S2.use2(t, H, v)])  # T's line t, both rays
+                for dd in (1, -1):                                      # kite corners on e: e^a next to X both ways
+                    for a in Rl:
+                        if a in (H, e): continue
+                        b1 = nxt(e, H, a, dd)
+                        B.cl.append([-a1, -b1] + [nxt(e, a, w, dd) for w in Rl if w not in (H, e, a)])
+                        for w in Rl:
+                            if w in (H, e, a): continue
+                            B.cl.append([-a1, -b1, -nxt(e, a, w, dd), S2.use2(e, a, w)])
     if args.split:
         assert args.mask and args.pins
         m = args.mask; nC = m.count('C')
@@ -98,7 +127,7 @@ def main():
     log = open(os.path.join(args.out, 'log.jsonl'), 'a')
     def L(**kw):
         kw['t'] = round(time.time() - t0, 1); log.write(json.dumps(kw) + '\n'); log.flush()
-    L(event='built', qpin=args.qpin, split=args.split, mask=args.mask, pins=args.pins, vars=B.nv, clauses=len(B.cl), quad=quad, target=args.target, no_extra=args.no_extra)
+    L(event='built', fullpin=args.fullpin, qpin=args.qpin, split=args.split, mask=args.mask, pins=args.pins, vars=B.nv, clauses=len(B.cl), quad=quad, target=args.target, no_extra=args.no_extra)
     sv = Solver(name=args.solver, bootstrap_with=B.cl)
     lazy = 0; result = 'UNKNOWN'; ncalls = 0
     while True:

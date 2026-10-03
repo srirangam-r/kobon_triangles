@@ -9,7 +9,7 @@ for f in sorted(glob.glob(os.path.join(logdir, 'r[0-9]*', '*', 'result.json'))):
     r = json.load(open(f)); built = json.loads(open(os.path.join(os.path.dirname(f), 'log.jsonl')).readline())
     cube, mask = d.split('_')[0][1:], d.split('_')[1].replace('d', '.')
     typ = {2: 'double-B star', 1: 'single-B endpoint', 0: 'alternating'}[mask.count('C')]
-    rows.append(dict(round=rnd, cube=cube, quad='-'.join(map(str, r['quad'])), mask=mask, type=typ, qpin=int(bool(built.get('qpin'))),
+    rows.append(dict(round=rnd, cube=cube, quad='-'.join(map(str, r['quad'])), mask=mask, type=typ, qpin=int(bool(built.get('qpin'))), fullpin=int(bool(built.get('fullpin'))),
                      result=r['result'], seconds=r['seconds'], conflicts=r['stats'].get('conflicts')))
 with open(outcsv, 'w', newline='') as fh:
     w = csv.DictWriter(fh, fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)

@@ -63,7 +63,12 @@ The UNSAT cubes have no DRAT certificates yet.
 **Stage 1 progress (`all8/ALL8_NOTE5.md`, `all8/ALL8_NOTE6.md`).**
 - Exact reduction of (B) to an allocation (O2Q) plus an end reconciliation.
 - Payment locality and a conditional Hall theorem: a local capacity inequality (LC) implies O2Q.
-- LC has 0 failures on all 14,376 93s and the other datasets, but is unproved.
+- LC has 0 failures on all 14,376 93s and the other datasets.
+- LC is **proved for every component of size 1** (`all8/STAGE1_ISOLATED.md`).
+  - In a 94 such a component is an isolated triple with sector pattern 110110 and M = 2.
+  - These components are about 97% of all components in the data, and include every component where LC is tight.
+  - Corollary: U ≥ #isolated triples.
+- LC for larger components, and the end reconciliation, remain unproved.
 
 Known 93s spread their credit over all terms (`data/kobon18_93_catalogue.jsonl`), so a trade-off lemma is needed. Its form:
 bad wedges force parity defects on interior lines, and the defects force U or Δ. The candidate trade-off inequalities
