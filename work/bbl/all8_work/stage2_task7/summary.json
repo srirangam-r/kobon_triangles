@@ -1,0 +1,16 @@
+{
+  "counts": {
+    "arrangements": 3479,
+    "full_case_B_diagonal_corners": 4,
+    "full_case_B_first_H_apices": 1,
+    "full_case_B_return_axis_checks": 4,
+    "full_case_B_simple_first_H_apex_quad_side_checks": 0,
+    "full_case_B_simple_first_H_apices": 0,
+    "outside_structural_class_arrangements": 1024,
+    "structural_class_arrangements": 2455,
+    "triple_cap_continuations": 975,
+    "zero_single_B_quad_neighbour_pairs": 0
+  },
+  "failures": 0,
+  "limitation": "Local geometric checks only; no global Stage 2 certificate."
+}

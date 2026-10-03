@@ -25,6 +25,9 @@ def main():
     ap.add_argument('--chunk', type=int, default=20000); ap.add_argument('--no-c10', action='store_true'); ap.add_argument('--tcard', default='equals_seq'); ap.add_argument('--mask'); ap.add_argument('--pins', action='store_true')
     ap.add_argument('--qpin', action='store_true', help='single-B cubes: the quad first neighbour Q on H = line of ray i+4 is a single-case-B endpoint (k=2 path; k>=3 and alternating endpoints excluded by hand, STAGE2_TASK6 s5-s6), so its case-B block is the ray of H at Q pointing away from P')
     ap.add_argument('--fullpin', action='store_true', help='every case-B ray C of P: the far kite corner T on H and both kite corners on the diagonal e are full six-sector triples (STAGE2_TASK6 s4, Delta=0), so the first segments of H beyond T, of e beyond both corners, and of T\'s other lines at T are doubly used')
+    ap.add_argument('--beyond2', action='store_true', help='every case-B ray of P on line H: at least two distinct lines cross H beyond the far kite corner T (STAGE2_TASK6 s4, applies to single-B endpoints and the double-B star)')
+    ap.add_argument('--vmult', action='store_true', help='every case-B ray of P on H: the first vertex V on H beyond the far kite corner T is multiple (STAGE2_TASK7 star pin)')
+    ap.add_argument('--tnbr', action='store_true', help='every case-B ray of P on H: all first neighbours of the far corner T along its two non-H lines are multiple (kite corners A,F triple; exterior apices Y,Z multiple, STAGE2_TASK7 Pin 1)')
     ap.add_argument('--dump', default='', help='write the CNF (mask, pins, split included; no lazy pair clauses) and exit')
     ap.add_argument('--split', default='', help='cube-and-conquer: comma list mm:c; asserts that the first multiple neighbour on ray mm is formed with line c (one disjunct of the pinned far(mm) clause)')
     args = ap.parse_args()
@@ -108,6 +111,60 @@ def main():
                         for w in Rl:
                             if w in (H, e, a): continue
                             B.cl.append([-a1, -b1, -nxt(e, a, w, dd), S2.use2(e, a, w)])
+    if args.beyond2:
+        assert args.mask and args.pins
+        Rl = range(18)
+        def nxt2(L, u, w, d):
+            return B.A[L, u, w] if d == 1 else B.A[L, w, u]
+        for mm in range(8):
+            if args.mask[mm] != 'C': continue
+            H, d = ray(mm); x = min(y for y in quad if y != H)
+            for e in Rl:
+                if e in quad: continue
+                a1 = nxt2(H, x, e, d)
+                for t in Rl:
+                    if t in (H, e) or t in quad: continue
+                    a2 = nxt2(H, e, t, d)
+                    B.cl.append([-a1, -a2] + [nxt2(H, t, v, d) for v in Rl if v not in (H, e, t)])
+                    for v in Rl:
+                        if v in (H, e, t): continue
+                        a3 = nxt2(H, t, v, d)
+                        B.cl.append([-a1, -a2, -a3, B.zp[H, v]] + [nxt2(H, v, w, d) for w in Rl if w not in (H, e, t, v)])
+    if args.vmult:
+        assert args.mask and args.pins
+        Rl = range(18)
+        def nxt3(L, u, w, d):
+            return B.A[L, u, w] if d == 1 else B.A[L, w, u]
+        for mm in range(8):
+            if args.mask[mm] != 'C': continue
+            H, d = ray(mm); x = min(y for y in quad if y != H)
+            for e in Rl:
+                if e in quad: continue
+                a1 = nxt3(H, x, e, d)
+                for t in Rl:
+                    if t in (H, e) or t in quad: continue
+                    a2 = nxt3(H, e, t, d)
+                    for v in Rl:
+                        if v in (H, e, t): continue
+                        B.cl.append([-a1, -a2, -nxt3(H, t, v, d), B.zp[H, v]])
+    if args.tnbr:
+        assert args.mask and args.pins
+        Rl = range(18)
+        def nxt4(L, u, w, d):
+            return B.A[L, u, w] if d == 1 else B.A[L, w, u]
+        for mm in range(8):
+            if args.mask[mm] != 'C': continue
+            H, d = ray(mm); x = min(y for y in quad if y != H)
+            for e in Rl:
+                if e in quad: continue
+                a1 = nxt4(H, x, e, d)
+                for t in Rl:
+                    if t in (H, e) or t in quad: continue
+                    a2 = nxt4(H, e, t, d)                     # T = H^t, t any line through T other than H
+                    for dd in (1, -1):
+                        for w in Rl:
+                            if w in (H, t): continue
+                            B.cl.append([-a1, -a2, -nxt4(t, H, w, dd), B.zp[t, w]])
     if args.split:
         assert args.mask and args.pins
         m = args.mask; nC = m.count('C')
@@ -127,7 +184,7 @@ def main():
     log = open(os.path.join(args.out, 'log.jsonl'), 'a')
     def L(**kw):
         kw['t'] = round(time.time() - t0, 1); log.write(json.dumps(kw) + '\n'); log.flush()
-    L(event='built', fullpin=args.fullpin, qpin=args.qpin, split=args.split, mask=args.mask, pins=args.pins, vars=B.nv, clauses=len(B.cl), quad=quad, target=args.target, no_extra=args.no_extra)
+    L(event='built', tnbr=args.tnbr, vmult=args.vmult, beyond2=args.beyond2, fullpin=args.fullpin, qpin=args.qpin, split=args.split, mask=args.mask, pins=args.pins, vars=B.nv, clauses=len(B.cl), quad=quad, target=args.target, no_extra=args.no_extra)
     sv = Solver(name=args.solver, bootstrap_with=B.cl)
     lazy = 0; result = 'UNKNOWN'; ncalls = 0
     while True:

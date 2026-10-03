@@ -52,11 +52,15 @@ credit:
 - paths with ≥ 3 fourfold points need ≥ 3k + 11 lines;
 - every alternating endpoint forces ≥ 21 lines.
 
-Only two local types remain open: the isolated double-case-B star (needs ≥ 14 lines) and a two-point path with two
-single-case-B ends (needs ≥ 17).
+The two-point path with two single-case-B ends is **excluded** (`all8/STAGE2_TASK7.md` §3, hand proof, checked by
+the lead). Applying a cyclic-order lemma at four triple kite corners shows that one cap line passes through both
+outer far corners, which also lie on H; two lines would then cross twice.
+
+**Only one local type remains open in Stage 2: the isolated double-case-B star** (needs ≥ 14 lines). The first vertex
+on H beyond each far corner is multiple, and other proved pins hold (`all8/STAGE2_TASK7.md` §§4–5).
 
 **Stage 2 by SAT (partial; `work/eng/stage2/RESULT.md`).** The zero-credit corner is encoded exactly, and the two
-remaining types are split into 1,248 cubes. Coverage is in `work/eng/stage2/results_summary.txt`: so far about half
+remaining types are split into 1,248 cubes; after the path exclusion only the 416 star cubes matter. Coverage is in `work/eng/stage2/results_summary.txt`: so far about half
 of the cubes are UNSAT and **none is SAT**. The rest are undecided at 120–300 s per cube, so Stage 2 is not proved.
 The UNSAT cubes have no DRAT certificates yet.
 

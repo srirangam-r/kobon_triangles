@@ -14,6 +14,10 @@ of fourfold cluster at n = 18:
 
 Every 94 in the corner contains an all-8 point P of type (a), or an endpoint P of type (b).
 
+**Type (b) is now excluded by hand** (`proofs/all8/STAGE2_TASK7.md` §3). Only the 416 double-B star cubes matter;
+the single-B cube results are kept for the record. Round r4 runs the open star cubes with all proved star pins:
+`--fullpin --beyond2 --vmult --tnbr` (STAGE2_TASK6 §4, STAGE2_TASK7 Pins 1 and 3).
+
 ## Encoding (`stage2_sat.py`, notes in `ENCODING.md`)
 - **Base model:** the class model for 18 pseudolines (signotope variables with concurrency, every structural-class
   constraint), with T = 94 by a cardinality constraint.
