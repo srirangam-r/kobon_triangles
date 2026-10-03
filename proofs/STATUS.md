@@ -62,7 +62,10 @@ if the first vertices V± beyond both far corners are triples of type 111100, th
 H meets exactly 3 + 2 + 4 + 4 = 13 lines, so n = 14. At n = 18 at least one V± is therefore a triple of type 111110
 or full, or a quad. **The quad case is excluded** (`all8/STAGE2_TASK8.md` §3, checked by the lead). The return
 vertex U would lie on four distinct axes, making it a double-B quad, and one of its required block rays is a double
-bridge. So both V± are triples, and at least one of them is 111110 or full.
+bridge. So both V± are triples, and at least one of them is 111110 or full. Moreover (lead, proved; see
+`all8/STAGE2_TASK8.md` and `all8/STAGE2_STAR_LEAD_NOTES.md` Addendum 4), the apices Y, Z at both ends are triples. If Y were
+a quad, its three consecutive bridges would force a double-B mask whose kite centre is the return vertex U, but U
+lies on two lines not through Y.
 
 **Stage 2 by SAT (partial; `work/eng/stage2/RESULT.md`).** The zero-credit corner is encoded exactly, and the two
 remaining types are split into 1,248 cubes; after the path exclusion only the 416 star cubes matter. Coverage is in `work/eng/stage2/results_summary.txt`: so far about half
@@ -74,7 +77,9 @@ The UNSAT cubes have no DRAT certificates yet.
 - Payment locality and a conditional Hall theorem: a local capacity inequality (LC) implies O2Q.
 - LC has 0 failures on all 14,376 93s and the other datasets.
 - LC is **proved for every component of size 1** (`all8/STAGE1_ISOLATED.md`), **for every component made only of
-  110110 triples, of any size, and for every component of size 2** (`all8/ALL8_NOTE7.md` §§2–4, checked by the lead).
+  110110 triples, of any size, and for every component of size 2** (`all8/ALL8_NOTE7.md` §§2–4, checked by the lead),
+  **and for every component of one 111100 triple plus any number of 110110 triples** (`all8/ALL8_NOTE8.md` §3,
+  checked).
   - In the data this leaves 149 / 1 / 27 components (93 corpus / earlier / bindings) outside the proved families.
   - Note 7 §5 also proves a disjoint partial payment for bad wedges in the direct form of (B). A wider transport
     graph (§7) has 0 failures on all data, but its Hall theorem is open. `all8/ALL8_NOTE8.md` §2 (checked) shows

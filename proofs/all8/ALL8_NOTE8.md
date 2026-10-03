@@ -62,7 +62,128 @@ An attempted proof still has to control the **union** of roots' pencils,
 not a sum of separate line capacities, which would count a resource
 multiple times.
 
-## 3. Still open
+## 3. Proved: LC with one four-run triple, any component size
+
+**Theorem.** Let C be a bridge/mutual component consisting of one
+triple P with mask `111100` and a triples with mask `110110`. Then
+`|D_C|<=M_C`. This allows any a, not just the accepted size-two case.
+The structural and triple-optimality hypotheses are those of Note 7.
+
+Let e be the number of double bridges of C, u its number of U/I
+blocks, h its number of mutual three-fan centres, k its number of K0
+centres, and F its number of unbounded N rays. The accepted pure-triple
+identity is
+
+\[
+M_C=2a+2e-F.                                         \tag{2}
+\]
+
+Only P can have an unbounded first ray: each ray at an opposite-four
+triple is beside a triangle, and the four-run triple has exactly one
+ray beside two missing sectors. Thus `F<=1`. Also `e>=1`: P has three
+consecutive double rays, and they cannot all be blocks.
+
+All component links join vertices sharing an arrangement line, so a
+spanning-tree ordering gives
+
+\[
+|L(C)|\le3+2a.                                      \tag{3}
+\]
+
+**Case e>=2.** Equation (2) gives `M_C>=2a+3>=|L(C)|`, proving LC.
+
+**Case e=1.** The sole bridge joins P to an opposite-four triple Q.
+At P it is the middle of the three consecutive double rays: otherwise
+the two other double rays would be consecutive blocks. Denote its
+supporting line by L. The opposite ray at P is unused. If bounded it
+contains an unused segment; if unbounded P is a multiple end on L.
+Either way `L notin Q0`, hence `L notin D_C`.
+
+If F=0, equations (2)–(3) and this one excluded line give
+`|D_C|<=2a+2=M_C`. If F=1 and some U/I block has an axis A different
+from L, that axis also lies outside Q0 (a touch has an unused segment,
+an end block gives a non-W end). The two exclusions give
+`|D_C|<=2a+1=M_C`.
+
+It remains to treat **F=1 with every U/I axis equal to L**. The block
+count is `B_C=2a+1`, so
+
+\[
+u+2h+4k=2a+1;                                      \tag{4}
+\]
+
+in particular u is positive and odd. Select the h central cap edges
+of the three-fans and all 4k cap edges of the K0 centres. Every selected
+cap is **single**. At least one endpoint is an opposite-four triple;
+its block toward the fan centre and its ray toward the other cap
+endpoint are consecutive. A double cap would therefore give two
+consecutive double rays at a `110110` vertex, impossible. Selected
+caps are distinct: their unique incident triangles identify their fan
+centres. Together with the bridge PQ, there are `1+h+4k` selected,
+distinct elementary edges between vertices of C.
+
+P has no U/I block on L, since its only double ray on L is the bridge.
+Q has at most one. Every other U/I origin has at most two blocks, so
+there are at least `(u-1)/2` distinct U/I origins besides P,Q on L.
+Each is isolated in the selected-edge graph on L: both its first rays
+on its U/I axis L are double, whereas all selected cap edges are
+single; it is not an endpoint of PQ.
+
+For a pencil line A containing r_A vertices of C, the selected edges
+on A are edges in the ordered path of those vertices. Hence their
+count is at most `r_A-1`. On L the isolated origins improve this by
+at least `(u-1)/2`: the graph has the component containing PQ and that
+many additional isolated components. Summing over pencil lines,
+
+\[
+\begin{aligned}
+3(a+1)-|L(C)|
+ &=\sum_A(r_A-1)\\
+ &\ge1+h+4k+(u-1)/2\\
+ &=a+1+2k,\qquad\text{by (4)}.
+\end{aligned}
+\]
+
+Therefore `|L(C)|<=2a+2-2k`; after excluding L,
+
+\[
+|D_C|\le2a+1-2k\le2a+1=M_C.
+\]
+
+This closes the final branch and proves the theorem. All edges used
+for the compression are actual consecutive-vertex segments; no
+straight-line angle or extra transport assumption is used. ∎
+
+## 4. Proved: LC with one five-run triple, any component size
+
+**Theorem.** LC also holds when C consists of one triple P of type
+`111110` and a opposite-four (`110110`) triples.
+
+Every ray at these vertices is beside a triangle, hence F=0. The
+five-run vertex has four consecutive double rays; at most two can
+be nonconsecutive blocks, so `e>=2`. The capacity identity is
+
+\[
+M_C=2a-2+2e,\qquad |L(C)|\le2a+3.                    \tag{5}
+\]
+
+If e>=3, capacity dominates all pencil lines. If e=2 and there is
+a U/I block, its excluded axis gives `|D_C|<=2a+2=M_C`.
+
+If e=2 and every block is mutual, the block count is 2a, hence
+`h+2k=a`. As in §3, all h central three-fan caps and all 4k kite
+caps are single: each cap has an opposite-four endpoint. Those
+distinct cap edges and the two distinct bridges are elementary
+edges between C's vertices. Summing their ordered-line compression,
+
+\[
+3(a+1)-|L(C)|\ge2+h+4k=a+2+2k.
+\]
+
+Thus `|L(C)|<=2a+1-2k<=2a+2=M_C`. This proves the remaining branch
+and LC. ∎
+
+## 5. Still open
 
 The new reduction (H-S) does not yet give a geometric Hall proof.
 Alternatively, the LC route still needs the larger mixed-sector/quad

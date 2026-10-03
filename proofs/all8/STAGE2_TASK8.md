@@ -1,10 +1,12 @@
 # Task 8 Stage 2 — excluding a quad first outer apex
 
-**Live handoff; updated during the Task 8 run.** A new conditional hand
-proof excludes a quadruple first outer H-apex V. Consequently both
-first outer apices of an isolated double-B star must be triple. The
-triple branches and the whole star remain open at this checkpoint.
-The proof below awaits the lead's review. No new SAT result is claimed.
+**Live handoff; updated during the Task 8 run.** Two new conditional
+hand proofs exclude quadruple first outer H-apices V and quadruple
+far-cap side apices Y,Z. Thus all six exterior apices at the two ends
+of an isolated double-B star are triple. The five-run/full triple
+branches and the whole star remain open at this checkpoint. Both
+proofs have been independently cross-audited but await the lead's
+review. No new SAT result is claimed.
 
 The main agent prioritizes Stage 2. The existing Stage 2 subagent
 independently audits this work; a separate subagent pursues Stage 1
@@ -41,15 +43,24 @@ Y=(PA)\cap(TF),\qquad Z=(PF)\cap(TA),
 and let V be the first H-vertex beyond T. By accepted Task 7,
 Y,Z,V are multiple and the faces TVY,TVZ are all-multiple, hence double.
 
-Let b,c be the original opposite-side cap axes, meeting H at the
+Fix the following ten-line normal form. P's pencil is H,p,q,r, with
+A on p, F on q, and middle bridge B on r. The opposite kite is
+`(P,C,T_minus,D)`, centre X_minus and diagonal D1=C X_minus D,
+where C is on q opposite F and D is on p opposite A. Put
+
+```text
+a=TA, f=TF, b=T_minus C, c=T_minus D,
+B=r intersect a intersect b, E=r intersect f intersect c.
+```
+
+Thus b,c are the original opposite-side cap axes, meeting H at the
 negative far triple T_minus. Full A,F supply return vertices
 
 \[
 U=D0\cap b,\qquad U'=D0\cap c,
 \]
 
-with faces ABU,AYU and FCU',FZU' (B,C are the original next bridge
-neighbours toward the negative side). If Y is triple, its third axis
+with faces ABU,AYU and FEU',FZU'. If Y is triple, its third axis
 is e=YV=YU; if Z is triple, its third axis is g=ZV=ZU'. This is the
 accepted return-axis pin, not an assumption at quad Y or Z.
 
@@ -104,7 +115,53 @@ at U, contradicting the required block axis.
 Hence V is not quadruple. This proof applies independently to both
 ends of the old star and uses no straight-line geometry. ∎
 
-## 4. Immediate solver pin and remaining task
+## 4. New hand exclusion: Y and Z cannot be quadruple
+
+Use the normal form in §2. The opposite exterior apex paired with C
+is `Ybar=q intersect c`, with old return `J=D1 intersect a` and first
+opposite H-apex Vbar. We call the return J to avoid confusing it with
+either old kite centre.
+
+Assume Y quad. Its three consecutive first bridge rays YA,YT,YV
+force its zero mask to be double-B. Face AYU occupies the adjacent
+sector before YA; hence YU is a **block** ray. Thus U is a simple
+kite centre. Its four corners are `(Y,A,B,W)`, with W beyond U on D0.
+At triple B, cap continuation puts the new cap BW on its remaining
+axis r, so `W=D0 intersect r`. This is a case-B kite of Y; its other
+three corners A,B,W are consequently triple and full. The axis YW
+is e=YV, whereas YU is b. In particular Y's axes are p,f,b,e.
+
+At newly full B the cyclic rays are
+
+```text
+A (a), P (r), C (b), J (opposite a), W (opposite r), U (opposite b).
+```
+
+Full B supplies faces BWJ and BCJ. Old full C already fixes BCJ and
+CYbarJ, with J on D1 beyond C away from X_minus. Triple-cap
+continuation at W, across BW, puts J on W's other cap WY=e. Thus
+
+```text
+J lies on D1, a, e,
+whose H crossings are X_minus, T, V, respectively.
+```
+
+These three axes are distinct, so J is multiple. If Ybar were quad,
+the same three-bridge mask argument would make its return J simple.
+Therefore Ybar is triple. The accepted return-axis pin puts J on
+h=Ybar Vbar. Its H crossing is Vbar, distinct from all three above.
+Consequently J is quad.
+
+But the actual faces BWJ, BCJ, CYbarJ give **four consecutive bridge
+rays** JW,JB,JC,JYbar on its four distinct axes e,a,D1,h. All these
+edges are double by all-multiple saturation. The zero double-B mask
+has no run of four consecutive bridges. Contradiction.
+
+Hence Y is triple. Reflection proves the result for Z, and the same
+argument at the opposite kite proves its two exterior side apices
+triple. No triple-only continuation has been applied at J. ∎
+
+## 5. Immediate solver pins and remaining task
 
 With T represented as H^t, V as H^v and d pointing outward:
 
@@ -114,10 +171,27 @@ zero-star boundary guard AND A^d(H,t,v) =>
 ```
 
 The positive `zp` is the accepted Task 7 pin; the negative `zp2` is
-new. The implication is guarded by the full global zero-corner
+new. Also, for each of the four side apices:
+
+```text
+zero-star boundary guard => Triple(Y), Triple(Z)
+    [at each end; Triple means zp AND NOT zp2].
+```
+
+The implications are guarded by the full global zero-corner
 assumptions, not an arbitrary case-B kite in a nonzero arrangement.
+In particular the previously conditional return-axis pins are now
+unconditional within this guard: every return U is multiple and lies
+on its side-apex/outer-apex supporting line.
 
 Both V endpoints are now triple, with mask 111100, 111110 or full.
-The four-run branch is terminal on H by eta0=0. Further triple-branch
-proofs, checks, and pins will be appended here. The isolated double-B
-star itself is not yet excluded.
+The four-run branch is terminal on H by eta0=0. The lead's new
+Addendum 1 excludes both ends being four-run: then the entire H order
+is `Vbar,T_minus,X_minus,P,X,T,V`, consuming only
+`2+2+1+3+1+2+2=13` of the required 17 weighted crossings. Therefore
+at least one endpoint is five-run or full. This is now the only
+remaining multiplicity branch; the suggested quad lattice
+propagation is contradicted locally by §3 before it can iterate.
+
+Further triple-branch proofs, checks, and pins will be appended here.
+The isolated double-B star itself is not yet excluded.
