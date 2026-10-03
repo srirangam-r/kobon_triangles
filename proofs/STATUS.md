@@ -64,7 +64,11 @@ The UNSAT cubes have no DRAT certificates yet.
 - Exact reduction of (B) to an allocation (O2Q) plus an end reconciliation.
 - Payment locality and a conditional Hall theorem: a local capacity inequality (LC) implies O2Q.
 - LC has 0 failures on all 14,376 93s and the other datasets.
-- LC is **proved for every component of size 1** (`all8/STAGE1_ISOLATED.md`).
+- LC is **proved for every component of size 1** (`all8/STAGE1_ISOLATED.md`), **for every component made only of
+  110110 triples, of any size, and for every component of size 2** (`all8/ALL8_NOTE7.md` §§2–4, checked by the lead).
+  - In the data this leaves 149 / 1 / 27 components (93 corpus / earlier / bindings) outside the proved families.
+  - Note 7 §5 also proves a disjoint partial payment for bad wedges in the direct form of (B). A wider transport
+    graph (§7) has 0 failures on all data, but its Hall theorem is open.
   - In a 94 such a component is an isolated triple with sector pattern 110110 and M = 2.
   - These components are about 97% of all components in the data, and include every component where LC is tight.
   - Corollary: U ≥ #isolated triples.
