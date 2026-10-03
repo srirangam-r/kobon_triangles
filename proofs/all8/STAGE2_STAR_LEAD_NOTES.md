@@ -127,3 +127,65 @@ Setting: zero corner, star boundary (P, A, T, F), with V now known to be a tripl
   U ∈ YV and U′ ∈ ZV. SAT pin `--ttriple` is added.
 
 Also accepted: Note 8 §3 (LC with one four-run triple plus 110110 triples). Checked.
+
+## Addendum 5 (lead): the 14-line star skeleton is nearly rigid (please re-check, then use it to close)
+This corrects the indices in Addendum 3. Returns:
+- at A+: U+ = D+∩γ−; at F+: U+′ = D+∩α−;
+- at C−: U− = D−∩α+; at A−: U−′ = D−∩φ+.
+
+Pin 5 at the triples Y±, Z±, using the new lines e1 = Y+V+, e2 = Z+V+, e3 = Y−V−, e4 = Z−V−:
+
+    e1: G  U+  Y+ V+ W1+        (W1+ = c∩e1)
+    e2: G′ U+′ Z+ V+ W2+        (W2+ = a∩e2)
+    e3: G′ U−′ Y− V− W1−        (W1− = c∩e3)
+    e4: G  U−  Z− V− W2−        (W2− = a∩e4)
+    b : G′ B− P B+ G            (G = b∩e1∩e4, G′ = b∩e2∩e3)
+
+- **B± are full.** Their four forced faces have all-multiple vertices, so the two remaining rays are double.
+- **G = b∩e1∩e4.** B+'s face across B+U+ lies at U+ in the sector (−e1, U+B+), and at U− in (−e4, U−B+).
+- **Vertex table, 14 lines:**
+
+      P  : H a b c
+      X± : H D±
+      T+ : H α+ φ+          T− : H γ− α−
+      V+ : H e1 e2          V− : H e3 e4
+      A+ : a D+ α+          A− : a D− α−
+      F+ : c D+ φ+          C− : c D− γ−
+      Y+ : a φ+ e1          Y− : a γ− e3
+      Z+ : c α+ e2          Z− : c α− e4
+      B+ : b α+ γ−          B− : b φ+ α−
+      U+ : D+ γ− e1         U+′: D+ α− e2
+      U− : D− α+ e4         U−′: D− φ+ e3
+      G  : b e1 e4          G′ : b e2 e3
+      W1+: c e1   W2+: a e2   W1−: c e3   W2−: a e4
+
+  This covers 72 of the 91 pairs.
+
+- **H, a and c have all 13 skeleton crossings identified.** The other 4 lines f1–f4 meet a only at W2± or beyond,
+  c only at W1± or beyond, and H only beyond V±. The vertices W1±, W2± can gain extra lines only from f-lines.
+- **If G is a triple:** GU± and GB+ are double, so G has 4 consecutive faces. The face (−e4, GU+) has third vertex
+  **D+∩e4**, adjacent to U+ on D+ and to G on e4. Symmetrically D−∩e1 is adjacent to U− and G, and likewise at G′
+  (D+∩e3 and D−∩e2).
+- **Remaining unplaced skeleton pairs:** b–D+, b–D−, D+–D−, α+–α−, α+–e1, α+–e3, φ+–γ−, φ+–e2, φ+–e4, γ−–e2,
+  γ−–e4, α−–e1, α−–e3, e1–e3, e2–e4.
+
+**Suggested close:**
+- The lattice keeps closing with 14 lines and only 4 free lines f1–f4.
+- Each f must cross H beyond V±, a beyond Y±, and c beyond Z±. With η0 = 0, U = 0 and Δ = 0, the outer faces at
+  W1±, W2± and V± (the 111100/111110/full branches) must be paid.
+- Count the bad wedges available at the ends of H, a, c, e1–e4 and the f-lines against W = 12 and π = 6.
+
+## Addendum 6 (lead): §4 and §6 checked; the full-V branch pins the free lines
+Your §4 (Y, Z triple) and §6 (no five-run V) are checked and accepted. So each V± is 111100 (terminal on H) or
+full, and at least one is full.
+
+**V+ full.** Let S be the next vertex on H. The extra faces are V+SW1+ and V+W2+S.
+- If W1+ were simple (only c and e1), edge SW1+ would lie on c, giving S = c∩H = P on the wrong ray. So **W1+ and
+  W2+ are multiple**.
+- By Addendum 5 their extra lines can only be free lines f. Edge SW1+ lies on W1+'s free line f_i, and SW2+ on
+  f_j, so S ∈ f_i ∩ f_j.
+- If f_i = f_j = f, that one free line passes through W2+ (a, e2), S (H) and W1+ (c, e1), in that order.
+- If V− is 111100, H ends at V−, so all 4 free lines cross H beyond V+ (Σ(m−1) on H: 13 + 4 = 17).
+- Next: the four-run end V−. Its rays −e3 and −e4 are single, and its H-ray is unbounded (a multiple end). Use
+  η0 = 0 and Δ = 0 at W1−, W2− to pin how the free lines meet a and c beyond Y−, Z−. Then count each free line's
+  17 crossings against the 15 unplaced skeleton pairs and the bad-wedge ends.

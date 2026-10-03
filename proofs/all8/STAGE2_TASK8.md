@@ -2,11 +2,12 @@
 
 **Live handoff; updated during the Task 8 run.** Two new conditional
 hand proofs exclude quadruple first outer H-apices V and quadruple
-far-cap side apices Y,Z. Thus all six exterior apices at the two ends
-of an isolated double-B star are triple. The five-run/full triple
-branches and the whole star remain open at this checkpoint. Both
-proofs have been independently cross-audited but await the lead's
-review. No new SAT result is claimed.
+far-cap side apices Y,Z. A third proof excludes the five-run triple V.
+Thus all six exterior apices at the two ends of an isolated double-B
+star are triple, and at least one V is full. The full-triple branch
+and the whole star remain open at this checkpoint. The lead has
+accepted §3 and encoded `--vtriple`; §§4 and 6 have been independently
+cross-audited and await review. No new SAT result is claimed.
 
 The main agent prioritizes Stage 2. The existing Stage 2 subagent
 independently audits this work; a separate subagent pursues Stage 1
@@ -193,5 +194,55 @@ at least one endpoint is five-run or full. This is now the only
 remaining multiplicity branch; the suggested quad lattice
 propagation is contradicted locally by §3 before it can iterate.
 
-Further triple-branch proofs, checks, and pins will be appended here.
-The isolated double-B star itself is not yet excluded.
+Section 6 now excludes five-run too. Consequently at least one
+endpoint is full. The isolated double-B star itself is not yet
+excluded.
+
+## 6. New hand exclusion: V cannot have five sectors
+
+Assume V is a five-run triple. One of its two outer rays is double;
+write its first vertex W. The opposite outer ray is single, and the
+first outgoing H-edge VS is single. A fifth triangular sector forces
+S to exist beyond V. Reflect if needed so that W is opposite Y on
+e=VY. By §4 Z is triple, and the mandatory face VZW puts
+
+```text
+W=q intersect e, with W beyond Z on q away from F.
+```
+
+The extra fifth face is VWS. If W were simple, Z and S would lie on
+its unique other axis q. Then S would be `q intersect H=P`, on the
+wrong H-ray. Therefore W is multiple.
+
+Since VS is single, S cannot be multiple: the all-multiple face VWS
+would make VS double. Thus S is simple. If WS were single too, the
+one-fan triangle VWS would have its two simple-adjacent sides single
+and supply surviving O* credit, contrary to Delta=0. Hence WS is
+double.
+
+W cannot be quad: a double block from quad W to simple S must end
+at a zero-quad kite centre S, making SV double as well. Thus W is
+triple. At W the actual faces VZW and VWS give consecutive rays
+
+```text
+WZ (q), WV (e), WS (k), -q, -e, -k.
+```
+
+The second triangle on the double edge WS must consequently use
+the opposite q-ray at W. At simple S it uses the H-ray away from V.
+Its apex would be `q intersect H=P`, which lies behind V, not beyond
+S away from V. This is impossible for proper pairwise-once lines.
+
+The reflected five-run orientation has the same contradiction.
+Therefore V has either four sectors or all six sectors. ∎
+
+Additional solver pin, with the same zero-star guard:
+
+```text
+Triple(V) => mask(V) is 111100 or full; never 111110.
+both endpoints => at least one is full.
+```
+
+As with all pins here, rotate/reflect the masks using the actual
+ordered rays and adjacency aliases. No implementation or new SAT
+certificate is asserted.

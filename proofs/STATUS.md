@@ -65,7 +65,11 @@ vertex U would lie on four distinct axes, making it a double-B quad, and one of 
 bridge. So both V± are triples, and at least one of them is 111110 or full. Moreover (lead, proved; see
 `all8/STAGE2_TASK8.md` and `all8/STAGE2_STAR_LEAD_NOTES.md` Addendum 4), the apices Y, Z at both ends are triples. If Y were
 a quad, its three consecutive bridges would force a double-B mask whose kite centre is the return vertex U, but U
-lies on two lines not through Y.
+lies on two lines not through Y. V cannot have exactly five triangular sectors (`all8/STAGE2_TASK8.md` §6, checked), so **each V± is a 111100
+triple (H ends there) or full, and at least one is full.** The star's forced structure is a 14-line skeleton with
+72 of its 91 crossing pairs placed at identified vertices (`all8/STAGE2_STAR_LEAD_NOTES.md` Addendum 5), and only 4
+free lines. In the full branch the free lines are pinned further (Addendum 6). Completing this case analysis would
+exclude the star and finish Stage 2.
 
 **Stage 2 by SAT (partial; `work/eng/stage2/RESULT.md`).** The zero-credit corner is encoded exactly, and the two
 remaining types are split into 1,248 cubes; after the path exclusion only the 416 star cubes matter. Coverage is in `work/eng/stage2/results_summary.txt`: so far about half
