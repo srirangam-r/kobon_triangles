@@ -39,6 +39,26 @@ Proved (hand proofs, each step checked; exact checks on 3,474 arrangements; note
 
     2π + 2U + Σ_P S°_P + 2K₃ + 4K₄ + Δ ≥ 13.
 
+**Two-stage plan.**
+- Stage 1: prove (B), E ≥ 18 − 3π. This would force any 94 to π = 6 and E = 0, the "zero-credit corner".
+- Stage 2: exclude that corner.
+
+**Stage 2 progress (hand proofs, checked by the lead; `all8/ALL8_NOTE6.md`, `all8/STAGE2_TASK6.md`).** Under zero
+credit:
+- every zero-slack fourfold point is all-8;
+- two case-B kites are opposite;
+- fourfold first-neighbour clusters are isolated double-case-B stars or collinear paths;
+- paths with ≥ 3 fourfold points need ≥ 3k + 11 lines;
+- every alternating endpoint forces ≥ 21 lines.
+
+Only two local types remain open: the isolated double-case-B star (needs ≥ 14 lines) and a two-point path with two
+single-case-B ends (needs ≥ 17).
+
+**Stage 1 progress (`all8/ALL8_NOTE5.md`, `all8/ALL8_NOTE6.md`).**
+- Exact reduction of (B) to an allocation (O2Q) plus an end reconciliation.
+- Payment locality and a conditional Hall theorem: a local capacity inequality (LC) implies O2Q.
+- LC has 0 failures on all 14,376 93s and the other datasets, but is unproved.
+
 Known 93s spread their credit over all terms (`data/kobon18_93_catalogue.jsonl`), so a trade-off lemma is needed. Its form:
 bad wedges force parity defects on interior lines, and the defects force U or Δ. The candidate trade-off inequalities
 (B) and (A) are stated in `all8/ALL8_NOTE4.md`; (A) would finish the proof.
