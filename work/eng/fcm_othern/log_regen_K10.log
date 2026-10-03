@@ -1,0 +1,5 @@
+0 slots ['T', 'T'] (frames 2..3) min lines 5 K 10 vars 8839 clauses 46931 cadical: UNSAT sha256 2ba389c98f19a770ea66f66d2c8e19368b2de9833e50b8ec74261f6e0c70aa82 pat0.cnf
+1 slots ['T', 'S', 'T'] (frames 4..6) min lines 6 K 10 vars 9212 clauses 48732 cadical: UNSAT sha256 4b171558a1ca37a97827b504f5e1f54d50801a008d18cadf683eb9c649bb5878 pat1.cnf
+2 slots ['T', 'T'] (frames 5..6) min lines 5 K 10 vars 8839 clauses 46931 cadical: UNSAT sha256 8366320285d557e2e04f1e8f30bccae11a447c810578098d36e49f4896e8abfa pat2.cnf
+3 slots ['T', 'T', 'T'] (frames 5..7) min lines 7 K 10 vars 9718 clauses 51195 cadical: UNSAT sha256 8bcfab14b8f4758a48d96ea85a971dd5a5adccbf732f2b04928490e0f7ab8201 pat3.cnf
+4 no core (hand fact)

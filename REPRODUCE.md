@@ -47,6 +47,15 @@ uv run --no-project --with-requirements requirements.txt python work/eng/k14all/
 for i in 0 1 2 3; do bash work/eng/k14all/prove_k.sh 14 $i; done   # kissat + drat-trim (needs tools/ built)
 ```
 
+K(10) = 25 for all arrangements (`work/eng/fcm_othern/RESULT.md`; about 6 minutes, 1.2 GB):
+
+```sh
+bash work/eng/fcm_othern/verify_fcm_n.sh 9    # FC-M at n = 10 -> log_verify_W9.log: '... OK: True'
+uv run --no-project --with-requirements requirements.txt python work/eng/fcm_othern/regen_k.py 10
+for i in 0 1 2 3; do bash work/eng/fcm_othern/prove_k.sh 10 $i; done
+uv run --no-project --with-requirements requirements.txt python work/eng/fcm_othern/pert_cover.py 7 25   # lossless redrawings, 7 <= m <= 25
+```
+
 The three values n = 14, 16, 20 individually:
 
 ```sh

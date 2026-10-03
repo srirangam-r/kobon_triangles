@@ -50,7 +50,8 @@ The proofs combine three ingredients:
 certificates. These are checked exactly by dynamic programming over a finite automaton describing every possible line;
 \item local optimality lemmas, proved by exhaustive enumeration of local redrawings.
 \end{itemize}
-The same certificates hold at other $n$. They prove $K(14)=54$ for \emph{all} arrangements, a new exact value. For
+The same certificates hold at other $n$. They prove $K(14)=54$ for \emph{all} arrangements, a new exact value, and
+confirm $K(10)=25$ for all arrangements. For
 multiplicity at most three they prove the Bartholdi--Blanc--Loisel bound $\lfloor n(n-7/3)/3\rfloor$ for every even $n$
 from $6$ to $40$, which gives $K(16)=72$ and $K(20)=117$ in that class; previously these bounds were proved only for
 simple arrangements.
@@ -354,6 +355,7 @@ arrangement from~\cite{gallery} with three triple points. Exact coefficients and
 has $T\le\lfloor n(n-7/3)/3\rfloor$. This equals the known record at $n=6,8,10,12,14,16,20$~\cite{gallery,oeis}. So in
 this class $K(n)$ is determined for these $n$, and in particular $K(16)=72$ and $K(20)=117$.
 \item Every arrangement of $14$ lines or pseudolines, of any multiplicity, has $T\le 54$. Hence $K(14)=54$.
+Likewise every arrangement of $10$ lines or pseudolines has $T\le 25$, so $K(10)=25$.
 \end{enumerate}
 \end{theorem}
 \begin{proof}[Proof sketch]
@@ -365,11 +367,16 @@ $\Lam\equiv n(n-2)\pmod 3$ the bound follows.
 
 (b) The certificate FC-M of Proposition~\ref{prop:fcm} verifies at $W=13$ with $\min\mathrm{final}\ge-\tfrac14$. Its
 SAT-proved local patterns, which were proved for $18$ lines, were re-proved for $14$ lines with DRAT certificates. The
-perturbation and pair lemmas are local. Then $3\Lam-14\ge-\tfrac{14}{4}>-5$. Since $\Lam\equiv 0\pmod 3$ and
-$3\cdot 3-14=-5$, we get $\Lam\ge 6$, i.e.\ $T\le 54$.
+perturbation and pair lemmas are local (explicit lossless redrawings exist for every multiplicity $7\le m\le 25$).
+Then $3\Lam-14\ge-\tfrac{14}{4}>-5$. Since $\Lam\equiv 0\pmod 3$ and $3\cdot 3-14=-5$, we get $\Lam\ge 6$, i.e.\
+$T\le 54$. At $n=10$ the same certificate verifies at $W=9$, with the patterns re-proved for $10$ lines. Then
+$3\Lam-10\ge-\tfrac{10}{4}$ and $\Lam\equiv 2\pmod 3$; since $3\cdot 2-10<-\tfrac52$, we get $\Lam\ge 5$, i.e.\
+$T\le 25$.
 \end{proof}
 \noindent The records at $n=14$ and $n=20$ use triple points and exceed Blanc's bounds for simple arrangements ($53$
-and $116$), so the simple-arrangement theorems did not settle these values.
+and $116$), so the simple-arrangement theorems did not settle these values. We do not claim $K(10)=25$ as new; the
+record is old, and we have not checked whether recent computer searches already prove the bound for all
+arrangements. Our certificate gives an independent proof.
 
 Two further results from the same framework hold for every even $n$. Their certificates and proofs are in the
 repository.
@@ -402,6 +409,7 @@ Lemma~\ref{lem:pert}, \ref{lem:pair} & exhaustive enumeration; independent re-de
 Thm.~\ref{thm:structure}(b), (d), and the 7-type case & exact credit certificates & computer-verified \\
 Thm.~\ref{thm:othern}(a) & certificate FC rechecked exactly at $W=n-1$, even $n\le 40$ & computer-verified \\
 Thm.~\ref{thm:othern}(b), $K(14)=54$ & certificate FC-M at $W=13$; patterns re-proved for $14$ lines (DRAT) & computer-verified \\
+Thm.~\ref{thm:othern}(b), $K(10)=25$ & certificate FC-M at $W=9$; patterns re-proved for $10$ lines (DRAT) & computer-verified \\
 Thm.~\ref{thm:identity} and lemmas of \S\ref{sec:open} & hand proofs, each checked; exact checks on $3{,}474$ arrangements & proofs checked, not refereed \\
 $K(18)=93$ & --- & \textbf{open} (all-8 case) \\
 \bottomrule

@@ -20,6 +20,7 @@ bounded triangles, Λ = 288 − 3T, which is a multiple of 3. So T ≤ 94 ⟺ Λ
 | **Hence a 94 contains an all-8 point** | the above | paper Thm 3 |
 | T ≤ ⌊n(n − 7/3)/3⌋ for multiplicity ≤ 3, every even n from 6 to 40 (exact at 6, 8, 10, 12, 14, 16, 20) | the FC certificate (unchanged weights) verified exactly at W = n − 1. Every ingredient is valid for all n (`work/eng/othern/FACTS.md`) | `work/eng/othern/TABLE.md`, `RESULT.md` |
 | **K(14) = 54 for all arrangements** | FC-M (unchanged weights) verified exactly at W = 13: final ≥ −1/4, so 3Λ − 14 ≥ −3.5, so Λ ≥ 6. CEGAR patterns 0–3 re-proved for 14 lines (kissat + drat-trim) | `work/eng/k14all/RESULT.md`, `FACTS.md` |
+| K(10) = 25 for all arrangements (known record; independent proof) | FC-M verified exactly at W = 9: 3Λ − 10 ≥ −2.5 and Λ ≡ 2 (mod 3), so Λ ≥ 5. Patterns 0–3 re-proved for 10 lines; explicit lossless redrawings for 7 ≤ m ≤ 25 | `work/eng/fcm_othern/RESULT.md` |
 
 ## The open case: an all-8 point
 
