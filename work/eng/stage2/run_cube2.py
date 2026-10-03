@@ -28,6 +28,7 @@ def main():
     ap.add_argument('--beyond2', action='store_true', help='every case-B ray of P on line H: at least two distinct lines cross H beyond the far kite corner T (STAGE2_TASK6 s4, applies to single-B endpoints and the double-B star)')
     ap.add_argument('--vmult', action='store_true', help='every case-B ray of P on H: the first vertex V on H beyond the far kite corner T is multiple (STAGE2_TASK7 star pin)')
     ap.add_argument('--tnbr', action='store_true', help='every case-B ray of P on H: all first neighbours of the far corner T along its two non-H lines are multiple (kite corners A,F triple; exterior apices Y,Z multiple, STAGE2_TASK7 Pin 1)')
+    ap.add_argument('--vtriple', action='store_true', help='with --vmult: V is not a quad, hence a triple (STAGE2_TASK8 s3)')
     ap.add_argument('--dump', default='', help='write the CNF (mask, pins, split included; no lazy pair clauses) and exit')
     ap.add_argument('--split', default='', help='cube-and-conquer: comma list mm:c; asserts that the first multiple neighbour on ray mm is formed with line c (one disjunct of the pinned far(mm) clause)')
     args = ap.parse_args()
@@ -147,6 +148,7 @@ def main():
                     for v in Rl:
                         if v in (H, e, t): continue
                         B.cl.append([-a1, -a2, -nxt3(H, t, v, d), B.zp[H, v]])
+                        if args.vtriple: B.cl.append([-a1, -a2, -nxt3(H, t, v, d), -B.zp2[H, v]])
     if args.tnbr:
         assert args.mask and args.pins
         Rl = range(18)
@@ -184,7 +186,7 @@ def main():
     log = open(os.path.join(args.out, 'log.jsonl'), 'a')
     def L(**kw):
         kw['t'] = round(time.time() - t0, 1); log.write(json.dumps(kw) + '\n'); log.flush()
-    L(event='built', tnbr=args.tnbr, vmult=args.vmult, beyond2=args.beyond2, fullpin=args.fullpin, qpin=args.qpin, split=args.split, mask=args.mask, pins=args.pins, vars=B.nv, clauses=len(B.cl), quad=quad, target=args.target, no_extra=args.no_extra)
+    L(event='built', vtriple=args.vtriple, tnbr=args.tnbr, vmult=args.vmult, beyond2=args.beyond2, fullpin=args.fullpin, qpin=args.qpin, split=args.split, mask=args.mask, pins=args.pins, vars=B.nv, clauses=len(B.cl), quad=quad, target=args.target, no_extra=args.no_extra)
     sv = Solver(name=args.solver, bootstrap_with=B.cl)
     lazy = 0; result = 'UNKNOWN'; ncalls = 0
     while True:

@@ -60,7 +60,9 @@ outer far corners, which also lie on H; two lines would then cross twice.
 on H beyond each far corner is multiple, and other proved pins hold (`all8/STAGE2_TASK7.md` §§4–5). Also proved:
 if the first vertices V± beyond both far corners are triples of type 111100, then each is the last vertex of H, and
 H meets exactly 3 + 2 + 4 + 4 = 13 lines, so n = 14. At n = 18 at least one V± is therefore a triple of type 111110
-or full, or a quad (which is then a second double-B star with a different case-B axis).
+or full, or a quad. **The quad case is excluded** (`all8/STAGE2_TASK8.md` §3, checked by the lead). The return
+vertex U would lie on four distinct axes, making it a double-B quad, and one of its required block rays is a double
+bridge. So both V± are triples, and at least one of them is 111110 or full.
 
 **Stage 2 by SAT (partial; `work/eng/stage2/RESULT.md`).** The zero-credit corner is encoded exactly, and the two
 remaining types are split into 1,248 cubes; after the path exclusion only the 416 star cubes matter. Coverage is in `work/eng/stage2/results_summary.txt`: so far about half
