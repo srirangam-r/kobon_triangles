@@ -18,6 +18,7 @@ bounded triangles, Λ = 288 − 3T, which is a multiple of 3. So T ≤ 94 ⟺ Λ
 | No 11111110 point in a 94 without an all-8 point | credit certificate, margin 7/10 | `certificates/` |
 | A 94 has a (fourfold, triple) adjacency | strict certificate | `certificates/` |
 | **Hence a 94 contains an all-8 point** | the above | paper Thm 3 |
+| K(14) = 54, K(16) = 72, K(20) = 117 for multiplicity ≤ 3 | the FC certificate (unchanged weights) verified exactly at W = 13, 15, 19. Every ingredient is valid for all n (`work/eng/othern/FACTS.md`) | `work/eng/othern/RESULT.md` |
 
 ## The open case: an all-8 point
 

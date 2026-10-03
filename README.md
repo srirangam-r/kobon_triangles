@@ -21,7 +21,11 @@ K(18) is the maximum number of bounded triangles formed by 18 lines. Previously 
 | 4 | In such a 94, consecutive (fourfold, triple) pairs have one of 48 local patterns; every triple has both alternating sector sums ≥ 2 | enumeration; short proof | computer-verified / proved |
 | 5 | Such a 94 has no 11101110 point, and needs an **all-8** point (11111111) | exact credit certificates | computer-verified |
 | 6 | Exact identity Λ = π + U + ½ΣS° + K₃ + 2K₄ + ½Δ, with every term ≥ 0, where Λ = 288 − 3T. **K(18) = 93 ⟺ Λ ≥ 7** in the all-8 case | hand proofs, each step checked; exact checks on 3,474 arrangements | proved, not refereed |
+| 7 | **K(14) = 54, K(16) = 72, K(20) = 117** for arrangements with no point on 4 or more lines | the certificate of result 1, verified exactly at n = 14, 16, 20; all ingredients hold for every n | computer-verified |
 | — | **K(18) = 93** | — | **open**: the all-8 case |
+
+Result 7 matches the known records 54, 72 and 117. Those values have so far been proved only for **simple**
+arrangements, although the records at n = 14 and 20 use triple points.
 
 **More results, for general n.**
 - **Theorem G (every even n):** if no line passes through two multiple points (and no three lines are mutually parallel), T ≤ ⌊(2n² − 5n + 2t)/6⌋ with t triple
@@ -52,7 +56,7 @@ independent checker. The competition's frozen baseline has 16.
 python3 checker/kobon_check.py arrangements/n18_T93_anneal_official/solution.json   # 93, two exact methods
 python3 checker/test_kobon_check.py                                                   # checker self-tests
 python3 tools/build_proof_tools.py                                                    # builds pinned kissat + drat-trim (seconds)
-bash certificates/verify_cheap.sh                                                     # fast proof checks (~10 min)
+bash certificates/verify_cheap.sh                                                     # fast proof checks (10–20 min)
 ```
 
 The checker uses only the Python standard library (exact rationals). The exact DP re-verification of the six main certificates (`bash certificates/verify_certs.sh`, about 20 min,

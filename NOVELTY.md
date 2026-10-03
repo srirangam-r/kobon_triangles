@@ -17,11 +17,16 @@ At n = 18, before this work:
    multiplicity. It is the first bound below 95 that allows multiple points (computer-assisted; paper Thm 1).
 2. **New theorem: T ≤ 93 for multiplicity ≤ 3.** This extends Blanc's optimality of 93 from simple arrangements to
    arrangements with triple points (paper Thm 2).
-3. **Structure of a hypothetical 94.** Vertex-maximal: only triple points and three "bad" fourfold types. No 11101110
+3. **New exact values: K(14) = 54, K(16) = 72, K(20) = 117 for multiplicity ≤ 3.**
+   - The n = 18 per-line certificate also verifies exactly at n = 14, 16, 20.
+   - These values appear in OEIS as exact, but the published proofs (Bartholdi–Blanc–Loisel, Blanc) cover only simple
+     arrangements. The records at n = 14 and n = 20 use triple points and exceed Blanc's simple bounds.
+   - Points of multiplicity ≥ 4 are not covered at these n.
+4. **Structure of a hypothetical 94.** Vertex-maximal: only triple points and three "bad" fourfold types. No 11101110
    point, and necessarily an all-8 point. Local pair and triple constraints (paper Thm 3).
-4. **A reduction of K(18) = 93 to one inequality in nonnegative local credits** in the all-8 case (paper §6). The
+5. **A reduction of K(18) = 93 to one inequality in nonnegative local credits** in the all-8 case (paper §6). The
    bad-wedge forest lemma gives a short new proof of the simple-arrangement baseline Λ ≥ n/3.
-5. **Method.** The Bartholdi–Blanc–Loisel charging argument is made into an exact, machine-checkable form for
+6. **Method.** The Bartholdi–Blanc–Loisel charging argument is made into an exact, machine-checkable form for
    non-simple arrangements:
    - an exact budget identity;
    - transfer rules with LP weights;
@@ -59,3 +64,4 @@ is date-stamped for the judges.
 | 2026-10-01 | 11101110 points excluded; 11111110 points excluded without an all-8 point |
 | 2026-10-01 | credit identity in the all-8 case (payments, K₁ lemma) |
 | 2026-10-02 | bad-wedge forest identity Λ = π + U + ½ΣS° + K₃ + 2K₄ + ½Δ |
+| 2026-10-02 | K(14) = 54, K(16) = 72, K(20) = 117 for multiplicity ≤ 3 (n = 18 certificate verified at n = 14, 16, 20) |

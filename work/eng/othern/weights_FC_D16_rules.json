@@ -1,0 +1,1006 @@
+{
+ "description": "rule (payer role, receiver role, block signature cell) with weight; a = portion split, alpha = waste identity column; roles A axis, C cap, L/R flank lines, M = both flank lines when symmetric",
+ "denominator": 16,
+ "special": {
+  "alpha": "1/2"
+ },
+ "rules": [
+  {
+   "payer": "C",
+   "receiver": "A",
+   "ring5": "RBRBR",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "A",
+   "ring5": "RRRRR",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "A",
+   "ring5": "RBRRR",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "M",
+   "ring5": "NNRNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/16"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNRNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "A",
+   "receiver": "M",
+   "ring5": "NNRNN",
+   "u": 0,
+   "pL": 1,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/4"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNRRR",
+   "u": 0,
+   "pL": 1,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNRRR",
+   "u": 0,
+   "pL": 1,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "L",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 1,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "A",
+   "ring5": "RBNNR",
+   "u": 0,
+   "pL": 1,
+   "pR": 0,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    0,
+    1,
+    1
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    1,
+    1
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    1,
+    0
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNRRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 1,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 1,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    0,
+    1,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 1,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    0,
+    1,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    0,
+    1,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 1,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 1,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "A",
+   "receiver": "L",
+   "ring5": "NNBRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    1,
+    1
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNRRR",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "R",
+   "ring5": "NNRRR",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 1,
+   "tR": 0,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    1,
+    1
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 1,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1"
+  },
+  {
+   "payer": "C",
+   "receiver": "M",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 1,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    1,
+    1
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "C",
+   "receiver": "M",
+   "ring5": "NNRNN",
+   "u": 0,
+   "pL": 1,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/4"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNRNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "7/16"
+  },
+  {
+   "payer": "L",
+   "receiver": "R",
+   "ring5": "NNRNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "R",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "3/8"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    1,
+    1
+   ],
+   "weight": "3/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "R",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "L",
+   "receiver": "R",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 1,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "M",
+   "receiver": "C",
+   "ring5": "NNNNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    9,
+    9,
+    9
+   ],
+   "weight": "7/16"
+  },
+  {
+   "payer": "A",
+   "receiver": "M",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/16"
+  },
+  {
+   "payer": "C",
+   "receiver": "M",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/16"
+  },
+  {
+   "payer": "C",
+   "receiver": "M",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/16"
+  },
+  {
+   "payer": "A",
+   "receiver": "M",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "3/16"
+  },
+  {
+   "payer": "A",
+   "receiver": "M",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "L",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "L",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/16"
+  },
+  {
+   "payer": "A",
+   "receiver": "L",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/4"
+  },
+  {
+   "payer": "A",
+   "receiver": "L",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/4"
+  },
+  {
+   "payer": "A",
+   "receiver": "L",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/16"
+  },
+  {
+   "payer": "C",
+   "receiver": "L",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "C",
+   "receiver": "L",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "L",
+   "ring5": "NNBNN",
+   "u": 0,
+   "pL": 0,
+   "pR": 1,
+   "tL": 0,
+   "tR": 1,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    1
+   ],
+   "weight": "1/2"
+  },
+  {
+   "payer": "A",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    0,
+    0,
+    0
+   ],
+   "weight": "7/8"
+  },
+  {
+   "payer": "A",
+   "receiver": "C",
+   "ring5": "NNBNN",
+   "u": 1,
+   "pL": 0,
+   "pR": 0,
+   "tL": 0,
+   "tR": 0,
+   "oth": [
+    1,
+    0,
+    0
+   ],
+   "weight": "7/8"
+  }
+ ],
+ "families": [
+  {
+   "family": "TRI",
+   "key": "('SST', 'S>T')",
+   "weight": "1/8"
+  },
+  {
+   "family": "TRI",
+   "key": "('STT', 'S>T')",
+   "weight": "1/2"
+  },
+  {
+   "family": "PT",
+   "key": "((0, 1, 1, 1, 1, 1), '0>2')",
+   "weight": "1/2"
+  },
+  {
+   "family": "PT",
+   "key": "((0, 1, 1, 0, 1, 1), '0>2')",
+   "weight": "1"
+  },
+  {
+   "family": "PT",
+   "key": "((0, 1, 0, 1, 1, 1), '0>1')",
+   "weight": "1/2"
+  },
+  {
+   "family": "PT",
+   "key": "((0, 0, 1, 0, 1, 1), '1>2')",
+   "weight": "1/2"
+  },
+  {
+   "family": "SV",
+   "key": "((0, 0, 1, 1), 0)",
+   "weight": "3/8"
+  }
+ ]
+}

@@ -25,11 +25,22 @@ See `certificates/README.md` for the full table: claim, files, command, expected
 
 ```sh
 python3 tools/build_proof_tools.py       # pinned kissat and drat-trim (needs a C compiler)
-bash certificates/verify_cheap.sh        # all fast checks (~10 min)
+bash certificates/verify_cheap.sh        # all fast checks (10–20 min)
 bash certificates/verify_certs.sh        # exact DP re-verification of FC-M, the credit and adjacency certificates (~20 min, < 10 GB)
 ```
 
 Each certificate's command, expected output, runtime and memory are listed in `certificates/README.md`, with today's logs in `certificates/logs/`.
+
+## 2b. Other n (K(14) = 54, K(16) = 72, K(20) = 117 for multiplicity ≤ 3)
+
+```sh
+for W in 13 15 19; do
+  bash work/eng/othern/run_export.sh $W          # rebuild the automaton graph for n = W + 1 (~1 min, ~3 GB)
+  uv run --no-project --with-requirements requirements.txt python work/eng/othern/check_w.py \
+      work/eng/othern/g_W$W.pkl $W work/eng/T25/elim/state_2.pkl 1
+done
+# expected: "W=13 min D*(2*final+2) = 32  need >= 32  final_min = 0  OK" (and the same for 15, 19)
+```
 
 ## 3. The paper
 

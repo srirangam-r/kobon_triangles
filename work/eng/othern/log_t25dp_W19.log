@@ -1,0 +1,6 @@
+frames: 577
+graph: 116545 nodes, 3118788 edges (trimmed), 185583 windows, 218831 window options, 683 terms (1017 term options), K=1748 rule columns, options 32.9s
+catalogue stats: {'cell_removed': 24714, 'window_no_completion': 6540}
+W 19 missing keys 0
+T25 min_by_units D*(2final+2) per units: {3: 800.0, 5: 704.0, 7: 608.0, 9: 512.0, 11: 416.0, 13: 320.0, 15: 224.0, 17: 128.0, 19: 32.0}  need >= 32
+planted -1/D decrements detected: 68/68
