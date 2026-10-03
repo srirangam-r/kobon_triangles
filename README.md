@@ -48,9 +48,9 @@ independent checker. The competition's frozen baseline has 16.
 
 **Not yet done.**
 - No human refereeing and no formal (Lean) proof; there are no Lean files.
-- Some automaton facts used at fourfold points, including two modelling identities of the multiplicity ≥ 4
-  certificates, are validated on large data sets but not yet proved by hand. This affects results 1 (fourfold part),
-  5 and 7.
+- Some automaton facts used at fourfold points ("guarded facts") are validated on large data sets but not yet
+  written out by hand. The two special-column identities of the multiplicity ≥ 4 certificates are now proved:
+  `proofs/additional/special_column_identities.md`.
 - The independent audit covers result 2, not the fourfold certificates.
 - Details: `paper/kobon18.pdf` §8 and `proofs/STATUS.md`.
 

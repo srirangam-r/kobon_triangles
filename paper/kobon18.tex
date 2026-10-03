@@ -423,9 +423,9 @@ half-edge face enumeration and a triple test against every other line).
 \paragraph{Limitations.}
 \begin{enumerate}[nosep]
 \item No human refereeing and no formalisation (no Lean or other proof assistant).
-\item The automaton facts (``guarded facts'') used at fourfold apexes, and two modelling identities of the
-fourfold certificates, are validated on large real data sets, but their hand proofs are not all written out. This
-affects the fourfold parts of Theorems~\ref{thm:94} and~\ref{thm:structure} and Theorem~\ref{thm:othern}(b).
+\item The automaton facts (``guarded facts'') used at fourfold apexes are validated on large real data sets, but their
+hand proofs are not all written out. (The two special-column identities used by the fourfold certificates, previously
+only validated on data, are now proved for every multiplicity; see the repository.)
 \item The independent audit covers the multiplicity-$\le 3$ chain only, not the fourfold certificates.
 \item SAT encodings are validated on many pinned cases but not formally verified.
 \item The main open case is stated in Section~\ref{sec:open}.

@@ -1523,6 +1523,7 @@ arrangements with T = K(18).
 - T27 path-level CEGAR round 1: 37/44 core paths are SAT-realisable even with their adversarial cells. The infeasibility
   depth is only t* ≈ 0.004 in 2·final + 2 (target 2), independent of wmax: shallow.
 - The A30 identities (B = C, A = 1.5C, waste ≥ 0) hold on 2,021 clean arrangements, 298 of them with M points.
+  B = C and A = 1.5C are now proved for all multiplicities (`proofs/additional/special_column_identities.md`).
 - T27 found its earlier M runs used the weak LP box. The strict row α′ + wr + 1.5a ≤ 3/2 is now enforced.
 - Running: (δ, ε) = (1/6, 1/25) and (1/24, 1/100).
 

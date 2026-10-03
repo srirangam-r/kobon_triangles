@@ -66,8 +66,9 @@ bad wedges force parity defects on interior lines, and the defects force U or Δ
 ## Limitations
 
 - No human refereeing; no formal verification (no Lean files exist).
-- Automaton facts used at fourfold apexes, and two modelling identities of the fourfold certificates (B = C,
-  A = 3C/2 in `work/eng/k14all/FACTS.md`), are validated on large real data sets; their hand proofs are not all written.
+- Automaton facts used at fourfold apexes are validated on large real data sets; their hand proofs are not all written.
+  The special-column identities B = C and A = 3C/2, earlier validated only on data for fourfold points, are proved for
+  all multiplicities in `additional/special_column_identities.md`.
 - The independent audit covers the multiplicity ≤ 3 chain, not the fourfold certificates.
 - SAT encodings are validated on pinned cases, not formally verified.
 
@@ -76,4 +77,4 @@ bad wedges force parity defects on interior lines, and the defects force U or Δ
 - `technical_notes/THEORY.md`: the complete technical record (definitions, every lemma, the certificate runs), in the
   order it was developed. The paper is the curated statement.
 - `all8/`: the notes on the all-8 case (`ALL8_NOTE2.md` to `ALL8_NOTE4.md`; Note 4 is work in progress).
-- `additional/`: Theorem G for even n, and the lemmas it uses.
+- `additional/`: Theorem G for even n, the lemmas it uses, and the special-column identities B = C, A = 3C/2.

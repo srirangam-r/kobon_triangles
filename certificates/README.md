@@ -78,8 +78,7 @@ Only hard-coded or cwd-relative path lines were changed, to compute the reposito
 * Hand proofs, not machine checked: the guarded facts at 4-fold apexes (K3 and F4' used only where the apex is exactly
   triple; validated on 543k real lines, 0 violations), the 5th CEGAR pattern (`pats.json` entry 4 is a hand fact), the cube-defining
   lemmas E2-E5 and the block lemma of the 6-X case (hand-derived from Z = 0; no real arrangement has Z = 0, so they cannot be
-  tested on data), the special-column identities B = C and A = 3C/2 for multiplicity >= 4 ("a proof for M is outstanding",
-  CERT_FCM25.txt), the perturbation lemma's reduction (§24, exhaustive local re-drawings, validated on 597 real points and independently
+  tested on data), the perturbation lemma's reduction (§24, exhaustive local re-drawings, validated on 597 real points and independently
   re-derived but not proved in the model), and the model soundness chain for M windows (validated on data).
 * The pair lemma (§25) and the perturbation lemma are computations (window enumerations), cross-checked by an independent
   implementation (`faces_indep.py`, `pair_indep.py`, `pert_indep.py`) but not DRAT- or proof-checked.

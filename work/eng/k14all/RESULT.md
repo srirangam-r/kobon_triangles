@@ -2,7 +2,8 @@
 
 Verdict: **the FC-M certificate (w_FCM25.pkl, D = 16, unchanged weights) passes the exact integer DP at n = 14**, every ingredient is n-independent
 or was re-proved at K = 14 (FACTS.md). Hence every arrangement of 14 pseudolines has T <= 54, and with the known 54, K(14) = 54 (conditional on the same
-trust base as the n = 18 result: Python automaton/LP code, hand-proved local facts, the unproved M identities B = C, A = 3C/2; see FACTS.md rows 10, 11).
+trust base as the n = 18 result: Python automaton/LP code, hand-proved local facts; see FACTS.md rows 10, 11. The M identities B = C, A = 3C/2 are now proved,
+`proofs/additional/special_column_identities.md`).
 
 ## Exact verification (graph rebuilt at W = 13; command in verify_fcm_n.sh, log log_verify_W13.log)
 `PAIRLEM=1 .../work/eng/T27/verify_exact_cert.py work/eng/T27/cegar/w_FCM25.pkl 16 lp <flags of certificates/verify_certs.sh fcm25> --exactw 13`
@@ -26,7 +27,7 @@ Patterns 0-3 re-proved UNSAT with K = 14 lines, kissat and drat-trim VERIFIED (a
 Observation: the restricted patterns are tiny (2-3 slots); the old regen.py instead proves the full src path (needs 18 lines), a weaker statement, so `regen_k.py` is the right re-proof.
 
 ## Caveats
-- Trust base identical to n = 18: unproved M identities (B = C, A = 3C/2), M window soundness validated on n = 18 data only (not rerun at n = 14), hand proofs of K3, F4', perturbation and pair lemmas not machine-checked, code not machine-checked.
+- Trust base identical to n = 18: M window soundness validated on n = 18 data only (not rerun at n = 14), hand proofs of K3, F4', perturbation and pair lemmas not machine-checked, code not machine-checked.
 - Perturbation lemma at n = 14 relies on its m = 6 sampled cover and explicit W_m for 7 <= m <= 14.
 - No real-arrangement data check of FC-M at n = 14 was run.
 Files: verify_fcm_n.sh, regen_k.py, prove_k.sh, planted_fcm.py, cnf_K14/, cnf_K14.sha256, log_*.log.
