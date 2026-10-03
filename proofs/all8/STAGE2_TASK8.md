@@ -6,8 +6,9 @@ far-cap side apices Y,Z. A third proof excludes the five-run triple V.
 Thus all six exterior apices at the two ends of an isolated double-B
 star are triple, and at least one V is full. The full-triple branch
 and the whole star remain open at this checkpoint. The lead has
-accepted §3 and encoded `--vtriple`; §§4 and 6 have been independently
-cross-audited and await review. No new SAT result is claimed.
+accepted §§3,4,6 and encoded `--vtriple` and `--ttriple`. Further
+cross-audited pins are in §§7–9; an important qualification to the
+lead's Addendum 5 is in §10. No new SAT result is claimed.
 
 The main agent prioritizes Stage 2. The existing Stage 2 subagent
 independently audits this work; a separate subagent pursues Stage 1
@@ -117,6 +118,13 @@ Hence V is not quadruple. This proof applies independently to both
 ends of the old star and uses no straight-line geometry. ∎
 
 ## 4. New hand exclusion: Y and Z cannot be quadruple
+
+**Accepted by the lead.** Its shorter independent proof is useful:
+quad Y would make its adjacent return U simple, on Y's fourth axis.
+But U lies on D0 and b; neither contains Y (`D0 intersect p=A`,
+`b intersect p=the opposite exterior side apex`). No third axis is
+available at simple U. The following longer cross-audit independently
+recovers a forbidden four-bridge return.
 
 Use the normal form in §2. The opposite exterior apex paired with C
 is `Ybar=q intersect c`, with old return `J=D1 intersect a` and first
@@ -246,3 +254,109 @@ both endpoints => at least one is full.
 As with all pins here, rotate/reflect the masks using the actual
 ordered rays and adjacency aliases. No implementation or new SAT
 certificate is asserted.
+
+## 7. New pin: at least one return on each old diagonal is triple
+
+The four returns are already multiple. Suppose U on D0 is quad.
+Its actual faces ABU,AYU give the three consecutive bridges B,A,Y,
+so it is double-B. Consider its kite adjacent B. At B the exterior
+face UBA puts its other cap BR on a, away from A; the kite diagonal
+is r. Write d for this kite's block axis at U, R for its far triple,
+and F_u for its other diagonal corner, on e opposite Y.
+
+B is now full. Its face BCR and old full C identify
+`R=D1 intersect a`, the opposite old return, which is therefore
+triple. Its three axes are a,D1,d, so its other kite cap RF_u is D1.
+Full U supplies the exterior face UF_uJ0, where J0 is U's opposite
+middle bridge on D0 away from A. Triple-cap continuation at F_u
+puts J0 on RF_u=D1. Therefore
+
+```text
+Quad(U) => J0=D0 intersect D1 lies beyond U away from A.
+Quad(U') => the same J0 lies beyond U' away from F.
+```
+
+But D0 has order `U,A,X,F,U'`. These two rays are disjoint, so the
+two assertions cannot both hold. At least one of U,U' is triple.
+The same proof holds for the two returns on D1. This does **not**
+yet prove every return triple. ∎
+
+## 8. New hand exclusion: the next vertex S after full V is not quad
+
+Let W=q intersect e and K=p intersect g be the two outer tips. Full
+V gives faces VZW,VWS,VSK,VKY. Both W,K are multiple: a simple W
+would put S on q and hence S=P, on the wrong ray, and similarly K.
+Thus ZW and YK are double by all-multiple saturation. Together with
+their four previously known double first rays these make Z,Y full.
+
+Suppose S quad. Its three consecutive bridges W,V,K force the
+double-B mask; W,K are full triples. By §7 choose U' triple and use
+the W side, or choose U triple and reflect the whole argument.
+
+S's kite adjacent W has diagonal q, far triple R, cap WR=e, and
+other diagonal corner F_s opposite K. At full W its cyclic rays are
+
+```text
+Z (q), V (e), S (SW), new centre (-q), R (-e), M (-SW).
+```
+
+Full W gives ZWM. Full Z fixes M on a and also gives ZU'M.
+Triple U', whose known axes are D0,c,g, forces M onto c. Full W
+also gives WRM; triple-cap continuation at R puts M on the other
+new far cap ell=RF_s. Full S and triple F_s put S's next H-neighbour
+T_s, beyond S away from V, on this same cap. Thus M lies on four
+distinct axes a,c,SW,ell, with distinct H crossings T,T_minus,S,T_s.
+Consequently M is quad.
+
+The actual faces U'ZM,ZWM,WRM force four consecutive bridge rays
+MU',MZ,MW,MR. This contradicts the zero double-B mask. Therefore
+S is **simple or triple**, not quad. ∎
+
+## 9. New terminal pin: simple S is an I-end on H
+
+Continue with full V. W,K are multiple and Y,Z full as in §8.
+Assume S simple, so its other supporting line k contains W,S,K.
+
+If SW were double and W triple, the two faces VZW,VWS give cyclic
+rays WZ(q),WV(e),WS(k). The other WS face would join the opposite
+q-ray at W to the opposite H-ray at S, forcing apex P=q intersect H
+beyond S. This is the same wrong-ray contradiction as §6.
+
+If SW were double and W quad, S would be a zero-quad kite centre,
+with corners `(V,W,R,K)` and far R beyond S on H. A triple K would
+put KR on its remaining axis p, forcing R=P on the wrong ray; hence
+K is quad. K3=0 makes R triple. At W the mixed K2 kite block is
+flanked by triples V,R, forcing the already excluded alternating
+zero mask. Thus SW cannot be double. Symmetrically SK is single.
+
+S is therefore a two-fan: SV double, SW and SK single, its opposite
+H-ray unused. If that ray were bounded, SV would be a touching U
+block, contrary to U=0. Hence S is the last H-vertex and SV is an
+I-end block. ∎
+
+Together with the 17 weighted H-crossings, this forces **at least one
+full V whose next S is triple**: if every full V ended at a simple
+S, the total would be at most `13+1+1=15`, not 17. This is the
+remaining target; no exclusion of that S-triple continuation is
+claimed yet.
+
+## 10. Input audit: Addendum 5 needs triple-return guards
+
+The lead's full B± conclusion is valid. However the asserted
+concurrencies `G=b intersect e1 intersect e4` and the corresponding
+G' require the involved returns to be **triple**, not just multiple.
+The main agent and independent auditor agree on this qualification.
+
+At a triple U, the exterior sector across UB indeed uses the ray
+opposite UY=e. At a quad U, the three bridges UB,UA,UY force a
+double-B mask, and that exterior sector instead uses its **fourth
+block axis d**. The next old r-neighbour beyond B can then be the
+simple centre `r intersect d` of U's new kite, while `r intersect e`
+is the distinct opposite triple corner. These must not be aliased.
+
+Therefore retain the 14 distinct baseline axes and their crossings
+with H,p,q, but do not impose G/G' concurrency or use their asserted
+triple rows without guards. Either first exclude all quad returns,
+or split this geometry into the triple and quad return branches.
+Section 7 currently excludes only both returns on one diagonal
+being quad, not every quad return individually.

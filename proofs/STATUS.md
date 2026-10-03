@@ -44,37 +44,34 @@ Proved (hand proofs, each step checked; exact checks on 3,474 arrangements; note
 - Stage 1: prove (B), E ≥ 18 − 3π. This would force any 94 to π = 6 and E = 0, the "zero-credit corner".
 - Stage 2: exclude that corner.
 
-**Stage 2 progress (hand proofs, checked by the lead; `all8/ALL8_NOTE6.md`, `all8/STAGE2_TASK6.md`).** Under zero
-credit:
-- every zero-slack fourfold point is all-8;
-- two case-B kites are opposite;
-- fourfold first-neighbour clusters are isolated double-case-B stars or collinear paths;
-- paths with ≥ 3 fourfold points need ≥ 3k + 11 lines;
-- every alternating endpoint forces ≥ 21 lines.
+**Stage 2: excluding the zero-credit corner.** Hand proofs, each checked by the lead unless marked otherwise.
+Sources: `all8/ALL8_NOTE6.md`, `all8/STAGE2_TASK6.md` to `all8/STAGE2_TASK8.md`,
+`all8/STAGE2_STAR_LEAD_NOTES.md`. Under zero credit:
+- Every zero-slack fourfold point is all-8. Two case-B kites at one point are opposite.
+- Fourfold first-neighbour clusters are isolated double-case-B stars or collinear paths.
+- Paths with k ≥ 3 points need ≥ 3k + 11 lines, and alternating endpoints need ≥ 21 lines. Both are excluded at
+  n = 18.
+- **The two-point path with single-case-B ends is excluded** (STAGE2_TASK7 §3). A cyclic-order lemma at four triple
+  kite corners puts both outer far corners on one cap line; they also lie on H, so two lines would cross twice.
+- **Only the isolated double-case-B star remains.** Let H be its case-B axis, T± the far kite corners on H, and V±
+  the next vertices on H. What is known:
+  - V± are multiple (STAGE2_TASK7 §4), and not quads (STAGE2_TASK8 §3), so they are triples.
+  - V± have four or six triangular sectors, never five (STAGE2_TASK8 §6). A four-run V ends H.
+  - Not both V± are four-run: H would then meet only 3 + 2 + 4 + 4 = 13 lines (lead). So at least one V is full.
+  - The exterior apices Y, Z at both ends are triples (lead, and independently STAGE2_TASK8 §4).
+  - The forced configuration is a 14-line skeleton with 72 of its 91 crossing pairs at identified vertices, and only
+    4 free lines (lead notes, Addendum 5). The G/G′ rows need triple returns (qualification in the lead notes).
+  - *Stated by sol, not yet checked by the lead* (STAGE2_TASK8 §§7–9):
+    - at least one return on each old diagonal is a triple;
+    - the vertex S after a full V is not a quad;
+    - a simple S is an I-end of H. With the H crossing budget, at least one full V is followed by a triple S.
+  - Remaining: that last branch.
 
-The two-point path with two single-case-B ends is **excluded** (`all8/STAGE2_TASK7.md` §3, hand proof, checked by
-the lead). Applying a cyclic-order lemma at four triple kite corners shows that one cap line passes through both
-outer far corners, which also lie on H; two lines would then cross twice.
-
-**Only one local type remains open in Stage 2: the isolated double-case-B star** (needs ≥ 14 lines). The first vertex
-on H beyond each far corner is multiple, and other proved pins hold (`all8/STAGE2_TASK7.md` §§4–5). Also proved:
-if the first vertices V± beyond both far corners are triples of type 111100, then each is the last vertex of H, and
-H meets exactly 3 + 2 + 4 + 4 = 13 lines, so n = 14. At n = 18 at least one V± is therefore a triple of type 111110
-or full, or a quad. **The quad case is excluded** (`all8/STAGE2_TASK8.md` §3, checked by the lead). The return
-vertex U would lie on four distinct axes, making it a double-B quad, and one of its required block rays is a double
-bridge. So both V± are triples, and at least one of them is 111110 or full. Moreover (lead, proved; see
-`all8/STAGE2_TASK8.md` and `all8/STAGE2_STAR_LEAD_NOTES.md` Addendum 4), the apices Y, Z at both ends are triples. If Y were
-a quad, its three consecutive bridges would force a double-B mask whose kite centre is the return vertex U, but U
-lies on two lines not through Y. V cannot have exactly five triangular sectors (`all8/STAGE2_TASK8.md` §6, checked), so **each V± is a 111100
-triple (H ends there) or full, and at least one is full.** The star's forced structure is a 14-line skeleton with
-72 of its 91 crossing pairs placed at identified vertices (`all8/STAGE2_STAR_LEAD_NOTES.md` Addendum 5), and only 4
-free lines. In the full branch the free lines are pinned further (Addendum 6). Completing this case analysis would
-exclude the star and finish Stage 2.
-
-**Stage 2 by SAT (partial; `work/eng/stage2/RESULT.md`).** The zero-credit corner is encoded exactly, and the two
-remaining types are split into 1,248 cubes; after the path exclusion only the 416 star cubes matter. Coverage is in `work/eng/stage2/results_summary.txt`: so far about half
-of the cubes are UNSAT and **none is SAT**. The rest are undecided at 120–300 s per cube, so Stage 2 is not proved.
-The UNSAT cubes have no DRAT certificates yet.
+**Stage 2 by SAT (partial; `work/eng/stage2/RESULT.md`).** The zero-credit corner is encoded exactly. After the path
+exclusion only the 416 star cubes matter. Of these, **260 are UNSAT and none is SAT**; the rest are undecided
+(`work/eng/stage2/results_summary.txt`). Cubes are run with all proved star pins. The full skeleton pin (`--skeleton`)
+has been checked to be satisfiable on relaxed instances (T = 60, 70) but has not yet been run on the open cubes. The
+UNSAT cubes have no DRAT certificates yet.
 
 **Stage 1 progress (`all8/ALL8_NOTE5.md`, `all8/ALL8_NOTE6.md`).**
 - Exact reduction of (B) to an allocation (O2Q) plus an end reconciliation.

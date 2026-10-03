@@ -189,3 +189,9 @@ full, and at least one is full.
 - Next: the four-run end V−. Its rays −e3 and −e4 are single, and its H-ray is unbounded (a multiple end). Use
   η0 = 0 and Δ = 0 at W1−, W2− to pin how the free lines meet a and c beyond Y−, Z−. Then count each free line's
   17 crossings against the 15 unplaced skeleton pairs and the bad-wedge ends.
+
+## Qualification (from STAGE2_TASK8.md §10, accepted)
+The concurrencies G = b∩e1∩e4 and G′ = b∩e2∩e3 in Addendum 5 need the returns involved to be **triples**. At a quad
+return, the exterior sector across UB uses that quad's fourth (block) axis instead. So the G/G′ rows hold only in the
+triple-return branch; STAGE2_TASK8.md §7 proves just one triple return per diagonal. The SAT skeleton pin
+(`run_cube2.py --skeleton`) leaves G and G′ out, and it does not assert that any return is a triple.

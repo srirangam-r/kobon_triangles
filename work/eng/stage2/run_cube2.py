@@ -30,6 +30,7 @@ def main():
     ap.add_argument('--tnbr', action='store_true', help='every case-B ray of P on H: all first neighbours of the far corner T along its two non-H lines are multiple (kite corners A,F triple; exterior apices Y,Z multiple, STAGE2_TASK7 Pin 1)')
     ap.add_argument('--vtriple', action='store_true', help='with --vmult: V is not a quad, hence a triple (STAGE2_TASK8 s3)')
     ap.add_argument('--ttriple', action='store_true', help='with --tnbr: the four off-H neighbours of T (kite corners A,F and apices Y,Z) are triples (lead lemma, after STAGE2_TASK8 s3)')
+    ap.add_argument('--skeleton', action='store_true', help='double-B star cubes: the proved 14-line star skeleton (lead notes Addenda 2-5, STAGE2_TASK7/8): one-hot labels for D+-, alpha+-, phi+, gamma-, e1..e4 and all proved incidences/orders; G not included')
     ap.add_argument('--dump', default='', help='write the CNF (mask, pins, split included; no lazy pair clauses) and exit')
     ap.add_argument('--split', default='', help='cube-and-conquer: comma list mm:c; asserts that the first multiple neighbour on ray mm is formed with line c (one disjunct of the pinned far(mm) clause)')
     args = ap.parse_args()
@@ -169,6 +170,52 @@ def main():
                             if w in (H, t): continue
                             B.cl.append([-a1, -a2, -nxt4(t, H, w, dd), B.zp[t, w]])
                             if args.ttriple: B.cl.append([-a1, -a2, -nxt4(t, H, w, dd), -B.zp2[t, w]])
+    if args.skeleton:
+        assert args.mask and args.pins and args.mask.count('C') == 2
+        i = args.mask.index('C')
+        def LD(k): return ray((i + k) % 8)
+        H, dH = LD(0); a, s1 = LD(1); b, s2 = LD(2); c, s3 = LD(3)
+        s5, s6, s7 = -s1, -s2, -s3
+        def xq(L): return min(y for y in quad if y != L)
+        def nxt5(L, u, w, d): return B.A[L, u, w] if d == 1 else B.A[L, w, u]
+        free = [l for l in range(18) if l not in quad]
+        names = ['Dp', 'Dm', 'ap', 'fp', 'gm', 'am', 'e1', 'e2', 'e3', 'e4']
+        lam = {n: {l: B.new() for l in free} for n in names}
+        for n in names:
+            B.cl.append([lam[n][l] for l in free])
+            for l1, l2 in combinations(free, 2): B.cl.append([-lam[n][l1], -lam[n][l2]])
+        for l in free:
+            for n1, n2 in combinations(names, 2): B.cl.append([-lam[n1][l], -lam[n2][l]])
+        def first(L, d, n):                      # first vertex on ray (L,d) from P lies on line n
+            for p in free: B.cl.append([-lam[n][p], nxt5(L, xq(L), p, d)])
+        def after(L, d, n1, n2):                 # vertex on n2 immediately follows vertex on n1 along (L,d)
+            for p in free:
+                for q in free:
+                    if p != q: B.cl.append([-lam[n1][p], -lam[n2][q], nxt5(L, p, q, d)])
+        def notquad(L, n):
+            for p in free: B.cl.append([-lam[n][p], -B.zp2[L, p]])
+        def conc(n1, n2, n3):                    # the three named lines are concurrent
+            for p in free:
+                for q in free:
+                    if q == p: continue
+                    for r in free:
+                        if r in (p, q): continue
+                        B.cl.append([-lam[n1][p], -lam[n2][q], -lam[n3][r], B.z[S.key3(p, q, r)]])
+        # kite+ on ray i: X+ = H^Dp, T+ = H^ap = H^fp, V+ = H^e1 = H^e2
+        first(H, dH, 'Dp'); after(H, dH, 'Dp', 'ap'); after(H, dH, 'Dp', 'fp'); after(H, dH, 'ap', 'e1'); after(H, dH, 'ap', 'e2')
+        first(H, -dH, 'Dm'); after(H, -dH, 'Dm', 'gm'); after(H, -dH, 'Dm', 'am'); after(H, -dH, 'gm', 'e3'); after(H, -dH, 'gm', 'e4')
+        # corners and apices
+        first(a, s1, 'Dp'); first(a, s1, 'ap'); after(a, s1, 'Dp', 'fp'); after(a, s1, 'Dp', 'e1')        # A+, Y+
+        first(c, s7, 'Dp'); first(c, s7, 'fp'); after(c, s7, 'Dp', 'ap'); after(c, s7, 'Dp', 'e2')        # F+, Z+
+        first(c, s3, 'Dm'); first(c, s3, 'gm'); after(c, s3, 'Dm', 'am'); after(c, s3, 'Dm', 'e4')        # C-, Z-
+        first(a, s5, 'Dm'); first(a, s5, 'am'); after(a, s5, 'Dm', 'gm'); after(a, s5, 'Dm', 'e3')        # A-, Y-
+        first(b, s2, 'ap'); first(b, s2, 'gm'); first(b, s6, 'fp'); first(b, s6, 'am')                    # B+, B-
+        # returns U (Pin 5)
+        conc('Dp', 'gm', 'e1'); conc('Dp', 'am', 'e2'); conc('Dm', 'ap', 'e4'); conc('Dm', 'fp', 'e3')
+        # proved triples
+        for L, n in [(H, 'ap'), (H, 'gm'), (H, 'e1'), (H, 'e3'), (a, 'Dp'), (a, 'Dm'), (c, 'Dp'), (c, 'Dm'), (b, 'ap'), (b, 'fp'),
+                     (a, 'fp'), (a, 'gm'), (c, 'ap'), (c, 'am')]:
+            notquad(L, n)
     if args.split:
         assert args.mask and args.pins
         m = args.mask; nC = m.count('C')
@@ -188,7 +235,7 @@ def main():
     log = open(os.path.join(args.out, 'log.jsonl'), 'a')
     def L(**kw):
         kw['t'] = round(time.time() - t0, 1); log.write(json.dumps(kw) + '\n'); log.flush()
-    L(event='built', ttriple=args.ttriple, vtriple=args.vtriple, tnbr=args.tnbr, vmult=args.vmult, beyond2=args.beyond2, fullpin=args.fullpin, qpin=args.qpin, split=args.split, mask=args.mask, pins=args.pins, vars=B.nv, clauses=len(B.cl), quad=quad, target=args.target, no_extra=args.no_extra)
+    L(event='built', skeleton=args.skeleton, ttriple=args.ttriple, vtriple=args.vtriple, tnbr=args.tnbr, vmult=args.vmult, beyond2=args.beyond2, fullpin=args.fullpin, qpin=args.qpin, split=args.split, mask=args.mask, pins=args.pins, vars=B.nv, clauses=len(B.cl), quad=quad, target=args.target, no_extra=args.no_extra)
     sv = Solver(name=args.solver, bootstrap_with=B.cl)
     lazy = 0; result = 'UNKNOWN'; ncalls = 0
     while True:

@@ -28,7 +28,13 @@ At n = 18, before this work:
 5. **Structure of a hypothetical 94.** Vertex-maximal: only triple points and three "bad" fourfold types. No 11101110
    point, and necessarily an all-8 point. Local pair and triple constraints (paper Thm 3).
 6. **A reduction of K(18) = 93 to one inequality in nonnegative local credits** in the all-8 case (paper §6). The
-   bad-wedge forest lemma gives a short new proof of the simple-arrangement baseline Λ ≥ n/3.
+   bad-wedge forest lemma gives a short new proof of the simple-arrangement baseline Λ ≥ n/3. The open case splits
+   into two stages:
+   - **Stage 1** is the inequality (B). It is proved for most component types (the capacity inequality LC holds
+     whenever a component has at most one point other than a 110110 triple); the rest is open.
+   - **Stage 2** is the zero-credit corner. It is reduced by hand to a single local configuration, the isolated
+     double-case-B star. Its forced structure is largely determined, and 260 of its 416 SAT cubes are UNSAT with
+     none SAT.
 7. **Method.** The Bartholdi–Blanc–Loisel charging argument is made into an exact, machine-checkable form for
    non-simple arrangements:
    - an exact budget identity;
@@ -69,3 +75,5 @@ is date-stamped for the judges.
 | 2026-10-02 | bad-wedge forest identity Λ = π + U + ½ΣS° + K₃ + 2K₄ + ½Δ |
 | 2026-10-02 | BBL bound for multiplicity ≤ 3 at every even n ≤ 40 (exact at 6–16, 20) |
 | 2026-10-02 | K(14) = 54 for all arrangements |
+| 2026-10-02 | K(10) = 25 for all arrangements (independent certificate); special-column identities proved for all multiplicities |
+| 2026-10-02 | Stage 2 reduced to the double-B star (path type excluded); star apices and V± forced triple; LC for components with at most one non-110110 point |

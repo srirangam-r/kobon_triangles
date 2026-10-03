@@ -1,4 +1,4 @@
-as of 2026-10-02 23:23
-double-B star: 220 UNSAT, 0 SAT, 163 UNKNOWN, 33 not run, of 416
+as of 2026-10-02 23:46
+double-B star: 260 UNSAT, 0 SAT, 123 UNKNOWN, 33 not run, of 416
 single-B endpoint: 486 UNSAT, 0 SAT, 346 UNKNOWN, 0 not run, of 832
-single-B endpoint type: excluded by hand (proofs/all8/STAGE2_TASK7.md s3)
+single-B endpoint type: excluded by hand (proofs/all8/STAGE2_TASK7.md s3); only the 416 star cubes matter

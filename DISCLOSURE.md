@@ -9,7 +9,7 @@ systems, and takes responsibility for the claims.
 |---|---|
 | Claude Opus 5.5 (Anthropic), in Claude Code | Lead: mathematics, proof design, the per-line certificate method, checking every proof before acceptance, writing the paper and documentation |
 | Claude Sonnet 5.5 (Anthropic), as subagents | Software engineering (automaton, LP/DP, SAT encodings, enumerations, checkers) and independent audits; the independent checker in `checker/` |
-| GPT 6.1 (OpenAI) | Theory notes on the all-8 case: injective payments, the bad-wedge forest lemma and the credit identity (`proofs/all8/`). Every step was checked before use. |
+| GPT 6.1 (OpenAI) | Theory notes on the all-8 case (`proofs/all8/`): injective payments, the bad-wedge forest lemma and the credit identity; the Stage 2 reductions (path exclusion, the star's V and apex lemmas); the extended LC theorems. Every step marked as accepted was checked by Claude before use; `STAGE2_TASK8.md` §§7–9 are not yet checked. |
 
 **How the claims were checked.**
 - Computational claims carry exact certificates (rational LP weights checked by exact DP; DRAT proofs for SAT

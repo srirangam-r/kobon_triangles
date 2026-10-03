@@ -23,12 +23,21 @@ K(18) is the maximum number of bounded triangles formed by 18 lines. Previously 
 | 6 | Exact identity Λ = π + U + ½ΣS° + K₃ + 2K₄ + ½Δ, with every term ≥ 0, where Λ = 288 − 3T. **K(18) = 93 ⟺ Λ ≥ 7** in the all-8 case | hand proofs, each step checked; exact checks on 3,474 arrangements | proved, not refereed |
 | 7 | **K(14) = 54 for all arrangements** of 14 lines or pseudolines (any multiplicity); likewise **K(10) = 25** | the multiplicity ≥ 4 certificate of result 1, verified exactly at n = 14 and n = 10; its SAT-proved patterns re-proved for 14 and 10 lines (DRAT) | computer-verified |
 | 8 | **T ≤ ⌊n(n − 7/3)/3⌋ for every even n from 6 to 40**, for arrangements with no point on 4 or more lines. This is the Bartholdi–Blanc–Loisel bound, extended from simple arrangements to triple points. Exact (equal to the record) at n = 6, 8, 10, 12, 14, 16, 20, giving **K(16) = 72 and K(20) = 117** in this class | the multiplicity ≤ 3 certificate, verified exactly at each n | computer-verified |
-| — | **K(18) = 93** | — | **open**: the all-8 case |
+| — | **K(18) = 93** | — | **open**: the all-8 case, reduced to the two stages below |
 
 Results 7 and 8 match the known records 54, 72 and 117. Those values have so far been proved only for **simple**
 arrangements, although the records at n = 14 and 20 use triple points. K(14) = 54 is new as an exact value for
 arrangements of any kind. We do not claim K(10) = 25 as new (the record is old, and we have not checked whether recent
 computer searches already prove the bound for all arrangements); our certificate is an independent proof.
+
+**The open case.** By result 6, K(18) = 93 follows from two statements about a hypothetical 94 with an all-8
+point (details in `proofs/STATUS.md`):
+- **Stage 1, the inequality (B) E ≥ 18 − 3π.** It reduces to a local capacity inequality (LC) for each component
+  of multiple points, plus an end reconciliation. LC is proved for every component with at most one point that is
+  not a 110110 triple. LC holds on all known data and (B) holds on every known 93; the general proof is open.
+- **Stage 2, no 94 in the zero-credit corner (π = 6, E = 0).** This is reduced by hand to a single local
+  configuration, the isolated double-case-B star. Its forced structure is a 14-line skeleton with only 4 free
+  lines. 260 of its 416 SAT cubes are UNSAT and none is SAT; the rest are undecided.
 
 **More results, for general n.**
 - **Theorem G (every even n):** if no line passes through two multiple points (and no three lines are mutually parallel), T ≤ ⌊(2n² − 5n + 2t)/6⌋ with t triple

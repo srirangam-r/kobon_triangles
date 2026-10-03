@@ -312,20 +312,32 @@ $L$, and $f_L$ the number of touch or end centres capped by $L$. If $n$ is even,
 $(\pi,U,\tfrac12\Delta)$ ranges from $(9,0,0)$ to $(1,0,8)$ and $(2,7,0)$. So no single term can be forced. What is
 needed is a trade-off lemma in the class: many bad wedges force parity defects on the lines between them, and these
 defects force $U$ or $\Delta$. Lines through triple points flip parity at no cost, and this is the core difficulty.
-Partial results toward a two-stage finish: (B) $E\ge 18-3\pi$ would force a $94$ into the zero-credit corner
-$\pi=6$, $E=0$. In that corner, hand counts of the lines forced by local saturation exclude every cluster of
-fourfold points except two local types. These are an isolated double-case-B star (at least $14$ lines) and a
-two-point path with two case-B ends. The path is then excluded by a short cyclic-order argument: a cap line through
-four triple kite corners would contain both outer far corners, which also lie on the path's axis, so two lines would
-cross twice. \emph{Thus Stage~2 reduces to excluding the isolated double-case-B star.} A SAT encoding of the corner
-splits the star into $416$ cubes (the four lines through the all-8 point, up to symmetry, and its ray pattern), with
-proved local pins. So far about half of them are UNSAT and none is satisfiable; the rest are undecided, so this is
-evidence, not a proof (exact counts in the repository). The proof of (B) is reduced to a local capacity inequality
-(LC) per component of multiple points, together with an end reconciliation. LC holds on all known data. We prove
-it for every component consisting of a single point, for every component of size two, and for every component all
-of whose points are triples of sector type $110110$. In a $94$ such a point is a triple with sector pattern
-$110110$ carrying a touch block, so also $U$ is at least the number of isolated triples. These components are
-about $97\%$ of all components in the data and include every case where LC is tight. Small cases are also decided by SAT: with an all-8 point in
+Partial results toward a two-stage finish. (B) $E\ge 18-3\pi$ would force a $94$ into the zero-credit corner
+$\pi=6$, $E=0$.
+
+\emph{Stage 2 (the corner).} Hand counts of the lines forced by local saturation exclude every cluster of fourfold
+points except an isolated double-case-B star and a two-point path with two case-B ends. The path is excluded by a
+short cyclic-order argument: a cap line through four triple kite corners would contain both outer far corners, which
+also lie on the path's axis, so two lines would cross twice. \emph{Thus Stage~2 reduces to excluding the isolated
+double-case-B star.} For the star we prove the following about the first vertices $V_\pm$ beyond the two far kite
+corners on its case-B axis~$H$:
+\begin{itemize}[nosep]
+\item $V_\pm$ are triples, never quadruples, with four or six triangular sectors;
+\item they cannot both have four, since $H$ would then meet only $13$ lines;
+\item the exterior apices are triples.
+\end{itemize}
+The forced configuration is a $14$-line skeleton with $72$ of its $91$ crossing pairs at identified vertices, leaving
+four free lines. A SAT encoding of the corner splits the star into $416$ cubes (the four lines through the all-8
+point, up to symmetry, and its ray pattern), with the proved local facts as pins. Of these, $260$ are UNSAT and none
+is satisfiable; the rest are undecided, so this is evidence, not a proof.
+
+\emph{Stage 1 (proving (B)).} The proof of (B) reduces to a local capacity inequality (LC) for each component of
+multiple points, together with an end reconciliation. LC holds on all known data. We prove it for every component
+with at most one point that is not a triple of sector type $110110$. An isolated point, for example, is a triple of
+type $110110$ carrying a touch block, so $U$ is at least the number of isolated triples. Equivalently, (B) is a
+Hall-type condition, $|E(G_W[S])|\le\rho(S)$ for every set $S$ of lines, where $G_W$ is the bad-wedge forest and
+$\rho(S)$ counts the credit resources with a root on a line of~$S$. It holds on all data, but its proof is open.
+Small cases are also decided by SAT: with an all-8 point in
 the class, $\Lam\le 6$ is impossible for $n\le 10$, and the minimum is $\Lam=9$ at $n=9$ and $8$ at $n=10$.
 
 \section{Constructions}\label{sec:constr}
