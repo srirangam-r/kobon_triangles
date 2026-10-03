@@ -21,11 +21,13 @@ K(18) is the maximum number of bounded triangles formed by 18 lines. Previously 
 | 4 | In such a 94, consecutive (fourfold, triple) pairs have one of 48 local patterns; every triple has both alternating sector sums ≥ 2 | enumeration; short proof | computer-verified / proved |
 | 5 | Such a 94 has no 11101110 point, and needs an **all-8** point (11111111) | exact credit certificates | computer-verified |
 | 6 | Exact identity Λ = π + U + ½ΣS° + K₃ + 2K₄ + ½Δ, with every term ≥ 0, where Λ = 288 − 3T. **K(18) = 93 ⟺ Λ ≥ 7** in the all-8 case | hand proofs, each step checked; exact checks on 3,474 arrangements | proved, not refereed |
-| 7 | **K(14) = 54, K(16) = 72, K(20) = 117** for arrangements with no point on 4 or more lines | the certificate of result 1, verified exactly at n = 14, 16, 20; all ingredients hold for every n | computer-verified |
+| 7 | **K(14) = 54 for all arrangements** of 14 lines or pseudolines (any multiplicity) | the multiplicity ≥ 4 certificate of result 1, verified exactly at n = 14; its SAT-proved patterns re-proved for 14 lines (DRAT) | computer-verified |
+| 8 | **T ≤ ⌊n(n − 7/3)/3⌋ for every even n from 6 to 40**, for arrangements with no point on 4 or more lines. This is the Bartholdi–Blanc–Loisel bound, extended from simple arrangements to triple points. Exact (equal to the record) at n = 6, 8, 10, 12, 14, 16, 20, giving **K(16) = 72 and K(20) = 117** in this class | the multiplicity ≤ 3 certificate, verified exactly at each n | computer-verified |
 | — | **K(18) = 93** | — | **open**: the all-8 case |
 
-Result 7 matches the known records 54, 72 and 117. Those values have so far been proved only for **simple**
-arrangements, although the records at n = 14 and 20 use triple points.
+Results 7 and 8 match the known records 54, 72 and 117. Those values have so far been proved only for **simple**
+arrangements, although the records at n = 14 and 20 use triple points. K(14) = 54 is new as an exact value for
+arrangements of any kind.
 
 **More results, for general n.**
 - **Theorem G (every even n):** if no line passes through two multiple points (and no three lines are mutually parallel), T ≤ ⌊(2n² − 5n + 2t)/6⌋ with t triple
@@ -46,7 +48,9 @@ independent checker. The competition's frozen baseline has 16.
 
 **Not yet done.**
 - No human refereeing and no formal (Lean) proof; there are no Lean files.
-- Some automaton facts used at fourfold points are validated on large data sets but not yet written out by hand.
+- Some automaton facts used at fourfold points, including two modelling identities of the multiplicity ≥ 4
+  certificates, are validated on large data sets but not yet proved by hand. This affects results 1 (fourfold part),
+  5 and 7.
 - The independent audit covers result 2, not the fourfold certificates.
 - Details: `paper/kobon18.pdf` §8 and `proofs/STATUS.md`.
 

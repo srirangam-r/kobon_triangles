@@ -1,0 +1,7 @@
+forbidden patterns: 8 (with symmetric variants)
+frames: 1620 (S/T enriched, apex classes 1/2/3)
+graph: 156156 nodes, 9220102 edges (trimmed), 1208966 windows, 1331926 window options, 1777 terms (1911 term options), K=451 rule columns, M nodes 0, options 133.5s
+catalogue stats: {}
+weights 15 not in the rebuilt catalogue: []
+exact DP min D*(2*final+2) = 24.0  target * D = 24.0  OK: True
+min per number of units: {2: 528.0, 3: 504.0, 4: 432.0, 5: 408.0, 6: 336.0, 7: 312.0, 8: 240.0, 9: 216.0, 10: 144.0, 11: 120.0, 12: 48.0, 13: 24.0}

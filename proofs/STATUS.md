@@ -18,7 +18,8 @@ bounded triangles, Λ = 288 − 3T, which is a multiple of 3. So T ≤ 94 ⟺ Λ
 | No 11111110 point in a 94 without an all-8 point | credit certificate, margin 7/10 | `certificates/` |
 | A 94 has a (fourfold, triple) adjacency | strict certificate | `certificates/` |
 | **Hence a 94 contains an all-8 point** | the above | paper Thm 3 |
-| K(14) = 54, K(16) = 72, K(20) = 117 for multiplicity ≤ 3 | the FC certificate (unchanged weights) verified exactly at W = 13, 15, 19. Every ingredient is valid for all n (`work/eng/othern/FACTS.md`) | `work/eng/othern/RESULT.md` |
+| T ≤ ⌊n(n − 7/3)/3⌋ for multiplicity ≤ 3, every even n from 6 to 40 (exact at 6, 8, 10, 12, 14, 16, 20) | the FC certificate (unchanged weights) verified exactly at W = n − 1. Every ingredient is valid for all n (`work/eng/othern/FACTS.md`) | `work/eng/othern/TABLE.md`, `RESULT.md` |
+| **K(14) = 54 for all arrangements** | FC-M (unchanged weights) verified exactly at W = 13: final ≥ −1/4, so 3Λ − 14 ≥ −3.5, so Λ ≥ 6. CEGAR patterns 0–3 re-proved for 14 lines (kissat + drat-trim) | `work/eng/k14all/RESULT.md`, `FACTS.md` |
 
 ## The open case: an all-8 point
 
@@ -45,7 +46,8 @@ bad wedges force parity defects on interior lines, and the defects force U or Δ
 ## Limitations
 
 - No human refereeing; no formal verification (no Lean files exist).
-- Automaton facts used at fourfold apexes are validated on large real data sets; their hand proofs are not all written.
+- Automaton facts used at fourfold apexes, and two modelling identities of the fourfold certificates (B = C,
+  A = 3C/2 in `work/eng/k14all/FACTS.md`), are validated on large real data sets; their hand proofs are not all written.
 - The independent audit covers the multiplicity ≤ 3 chain, not the fourfold certificates.
 - SAT encodings are validated on pinned cases, not formally verified.
 

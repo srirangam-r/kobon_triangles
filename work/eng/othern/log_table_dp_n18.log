@@ -1,0 +1,3 @@
+name FC D 16 keys 68 present 68
+W=17 min D*(2*final+2) = 32  need >= 32  final_min = 0  OK
+wall 93 s

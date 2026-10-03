@@ -31,7 +31,23 @@ bash certificates/verify_certs.sh        # exact DP re-verification of FC-M, the
 
 Each certificate's command, expected output, runtime and memory are listed in `certificates/README.md`, with today's logs in `certificates/logs/`.
 
-## 2b. Other n (K(14) = 54, K(16) = 72, K(20) = 117 for multiplicity ≤ 3)
+## 2b. Other n
+
+Multiplicity ≤ 3, every even n from 6 to 40 (`work/eng/othern/TABLE.md`):
+
+```sh
+bash work/eng/othern/run_table_all.sh        # rebuilds the graph and runs the exact DP for each n (1.5–3 min each)
+```
+
+K(14) = 54 for all arrangements (`work/eng/k14all/RESULT.md`):
+
+```sh
+bash work/eng/k14all/verify_fcm_n.sh 13      # FC-M at n = 14 -> log_verify_W13.log: 'exact DP min D*(2*final+2) = 24.0  target * D = 24.0  OK: True'
+uv run --no-project --with-requirements requirements.txt python work/eng/k14all/regen_k.py 14   # rebuilds the 4 pattern CNFs for 14 lines (cadical: UNSAT; sha256 in cnf_K14.sha256)
+for i in 0 1 2 3; do bash work/eng/k14all/prove_k.sh 14 $i; done   # kissat + drat-trim (needs tools/ built)
+```
+
+The three values n = 14, 16, 20 individually:
 
 ```sh
 for W in 13 15 19; do

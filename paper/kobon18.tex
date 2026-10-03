@@ -50,8 +50,10 @@ The proofs combine three ingredients:
 certificates. These are checked exactly by dynamic programming over a finite automaton describing every possible line;
 \item local optimality lemmas, proved by exhaustive enumeration of local redrawings.
 \end{itemize}
-The same certificate, checked at $n=14,16,20$, proves $K(14)=54$, $K(16)=72$ and $K(20)=117$ for arrangements with
-no point on four or more lines; these values were previously proved only for simple arrangements.
+The same certificates hold at other $n$. They prove $K(14)=54$ for \emph{all} arrangements, a new exact value. For
+multiplicity at most three they prove the Bartholdi--Blanc--Loisel bound $\lfloor n(n-7/3)/3\rfloor$ for every even $n$
+from $6$ to $40$, which gives $K(16)=72$ and $K(20)=117$ in that class; previously these bounds were proved only for
+simple arrangements.
 For the remaining all-8 case we prove an exact identity
 $\Lam=\pi+U+\tfrac12\sum_P S^\circ_P+K_3+2K_4+\tfrac12\Delta$ with all terms nonnegative; $K(18)=93$ is equivalent
 to $\Lam\ge 7$ in this case, which is open. We release exact arrangements, triangle certificates, an independent checker,
@@ -344,16 +346,24 @@ arrangement from~\cite{gallery} with three triple points. Exact coefficients and
 \section{Further results for general $n$}\label{sec:general}
 
 \begin{theorem}[computer-assisted]\label{thm:othern}
-Every arrangement of $n$ pseudolines with no point on four or more lines has at most $54$ bounded triangles if $n=14$,
-at most $72$ if $n=16$, and at most $117$ if $n=20$. Since these values are attained~\cite{gallery}, $K(14)=54$,
-$K(16)=72$ and $K(20)=117$ for multiplicity at most three.
+\begin{enumerate}[nosep,label=(\alph*)]
+\item For every even $n$ with $6\le n\le 40$, every arrangement of $n$ pseudolines with no point on four or more lines
+has $T\le\lfloor n(n-7/3)/3\rfloor$. This equals the known record at $n=6,8,10,12,14,16,20$~\cite{gallery,oeis}. So in
+this class $K(n)$ is determined for these $n$, and in particular $K(16)=72$ and $K(20)=117$.
+\item Every arrangement of $14$ lines or pseudolines, of any multiplicity, has $T\le 54$. Hence $K(14)=54$.
+\end{enumerate}
 \end{theorem}
 \begin{proof}[Proof sketch]
-Take the certificate FC of Proposition~\ref{prop:fc}, with the same weights. Every ingredient of it is valid for all
-$n$: the automaton facts, the cell domains (an enumeration over automaton windows filtered by local facts with hand
-proofs), and the base identity. Only the exact path weight $W=n-1$ changes. Rebuilding the automaton at $W=13,15,19$
-and rerunning the exact DP gives $\min\mathrm{final}=0$ in each case. Hence $3\Lam-n\ge 0$. With
-$\Lam\equiv n(n-2)\pmod 3$, this gives $\Lam\ge 6, 8, 9$ and so $T\le 54,72,117$.
+(a) Take the certificate FC of Proposition~\ref{prop:fc}, with unchanged weights. Its ingredients are valid for all
+$n$: the automaton facts, the cell domains (an enumeration over automaton windows, filtered by local facts with hand
+proofs), and the base identity. Only the exact path weight $W=n-1$ changes. Rebuilding the automaton for each even
+$n\le 40$ and rerunning the exact DP gives $\min\mathrm{final}=0$. Hence $3\Lam-n\ge 0$, and with
+$\Lam\equiv n(n-2)\pmod 3$ the bound follows.
+
+(b) The certificate FC-M of Proposition~\ref{prop:fcm} verifies at $W=13$ with $\min\mathrm{final}\ge-\tfrac14$. Its
+SAT-proved local patterns, which were proved for $18$ lines, were re-proved for $14$ lines with DRAT certificates. The
+perturbation and pair lemmas are local. Then $3\Lam-14\ge-\tfrac{14}{4}>-5$. Since $\Lam\equiv 0\pmod 3$ and
+$3\cdot 3-14=-5$, we get $\Lam\ge 6$, i.e.\ $T\le 54$.
 \end{proof}
 \noindent The records at $n=14$ and $n=20$ use triple points and exceed Blanc's bounds for simple arrangements ($53$
 and $116$), so the simple-arrangement theorems did not settle these values.
@@ -387,7 +397,8 @@ Thm.~\ref{thm:94}, fourfold points & exact certificate FC-M ($D=16$, $\varepsilo
 Thm.~\ref{thm:mult3} & joint tightness, elimination, ILP; tip lemma (DRAT); 6-X case (2,841 DRAT cubes) & computer-verified, audited \\
 Lemma~\ref{lem:pert}, \ref{lem:pair} & exhaustive enumeration; independent re-derivation & computer-verified \\
 Thm.~\ref{thm:structure}(b), (d), and the 7-type case & exact credit certificates & computer-verified \\
-Thm.~\ref{thm:othern} ($n=14,16,20$) & certificate FC rechecked exactly at $W=13,15,19$ & computer-verified \\
+Thm.~\ref{thm:othern}(a) & certificate FC rechecked exactly at $W=n-1$, even $n\le 40$ & computer-verified \\
+Thm.~\ref{thm:othern}(b), $K(14)=54$ & certificate FC-M at $W=13$; patterns re-proved for $14$ lines (DRAT) & computer-verified \\
 Thm.~\ref{thm:identity} and lemmas of \S\ref{sec:open} & hand proofs, each checked; exact checks on $3{,}474$ arrangements & proofs checked, not refereed \\
 $K(18)=93$ & --- & \textbf{open} (all-8 case) \\
 \bottomrule
@@ -409,8 +420,9 @@ half-edge face enumeration and a triple test against every other line).
 \paragraph{Limitations.}
 \begin{enumerate}[nosep]
 \item No human refereeing and no formalisation (no Lean or other proof assistant).
-\item The automaton facts (``guarded facts'') used at fourfold apexes are validated on large real data sets, but their
-hand proofs are not all written out.
+\item The automaton facts (``guarded facts'') used at fourfold apexes, and two modelling identities of the
+fourfold certificates, are validated on large real data sets, but their hand proofs are not all written out. This
+affects the fourfold parts of Theorems~\ref{thm:94} and~\ref{thm:structure} and Theorem~\ref{thm:othern}(b).
 \item The independent audit covers the multiplicity-$\le 3$ chain only, not the fourfold certificates.
 \item SAT encodings are validated on many pinned cases but not formally verified.
 \item The main open case is stated in Section~\ref{sec:open}.
