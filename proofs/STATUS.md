@@ -75,7 +75,9 @@ The UNSAT cubes have no DRAT certificates yet.
   110110 triples, of any size, and for every component of size 2** (`all8/ALL8_NOTE7.md` §§2–4, checked by the lead).
   - In the data this leaves 149 / 1 / 27 components (93 corpus / earlier / bindings) outside the proved families.
   - Note 7 §5 also proves a disjoint partial payment for bad wedges in the direct form of (B). A wider transport
-    graph (§7) has 0 failures on all data, but its Hall theorem is open.
+    graph (§7) has 0 failures on all data, but its Hall theorem is open. `all8/ALL8_NOTE8.md` §2 (checked) shows
+    that this Hall condition is equivalent to |E(G_W[S])| ≤ ρ(S) for every set S of lines. Here G_W is the
+    bad-wedge forest, and ρ(S) counts the resources with a root on a line of S.
   - In a 94 such a component is an isolated triple with sector pattern 110110 and M = 2.
   - These components are about 97% of all components in the data, and include every component where LC is tight.
   - Corollary: U ≥ #isolated triples.
