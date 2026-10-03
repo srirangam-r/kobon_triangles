@@ -1,5 +1,10 @@
 # Task 5 Stage 2 — independent zero-slack quadruple audit
 
+**Superseded pin:** §5's outward-K1A pin at alternating endpoints did
+not exclude quadruple far corners across their simple kite centres.
+Read `STAGE2_TASK6.md` for the corrected pins and hand exclusions;
+the first-neighbour path reduction and baseline line count below stand.
+
 Stage 2 remains incomplete. The results below are conditional on the
 zero-credit hypotheses of `SOL_TASK5.md`; they do not prove Stage 1 (B),
 and they do not turn the sample checks into an exclusion of a 94.

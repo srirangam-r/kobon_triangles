@@ -1,5 +1,11 @@
 # All-8 Note 5 — allocation, end reconciliation, and zero-star boundaries
 
+**Task 6 correction:** §6's outward-K1A endpoint pin was not established:
+the far corner may be quadruple. `ALL8_NOTE6.md` §§1–6 supplies the
+corrected analysis and stronger hand exclusions. Do not use the old pin
+as an exhaustive SAT classification. The accepted first-neighbour path
+reduction and baseline line count are unaffected.
+
 **Task 5 remains partial. Neither (B) nor the global zero-credit all-8
 exclusion is proved. There is no UNSAT certificate and no counterexample
 to the desired `T<=93`.** The new results are an exact accounting of the
