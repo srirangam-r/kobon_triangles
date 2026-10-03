@@ -55,6 +55,11 @@ credit:
 Only two local types remain open: the isolated double-case-B star (needs ≥ 14 lines) and a two-point path with two
 single-case-B ends (needs ≥ 17).
 
+**Stage 2 by SAT (partial; `work/eng/stage2/RESULT.md`).** The zero-credit corner is encoded exactly, and the two
+remaining types are split into 1,248 cubes. Coverage is in `work/eng/stage2/results_summary.txt`: so far about half
+of the cubes are UNSAT and **none is SAT**. The rest are undecided at 120–300 s per cube, so Stage 2 is not proved.
+The UNSAT cubes have no DRAT certificates yet.
+
 **Stage 1 progress (`all8/ALL8_NOTE5.md`, `all8/ALL8_NOTE6.md`).**
 - Exact reduction of (B) to an allocation (O2Q) plus an end reconciliation.
 - Payment locality and a conditional Hall theorem: a local capacity inequality (LC) implies O2Q.

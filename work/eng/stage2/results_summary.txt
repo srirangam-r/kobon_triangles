@@ -1,0 +1,3 @@
+as of 2026-10-02 21:59
+double-B star: 185 UNSAT, 0 SAT, 198 UNKNOWN, 33 not run, of 416
+single-B endpoint: 445 UNSAT, 0 SAT, 375 UNKNOWN, 12 not run, of 832
