@@ -37,7 +37,7 @@ point (details in `proofs/STATUS.md`):
   not a 110110 triple. LC holds on all known data and (B) holds on every known 93; the general proof is open.
 - **Stage 2, no 94 in the zero-credit corner (π = 6, E = 0).** This is reduced by hand to a single local
   configuration, the isolated double-case-B star. Its forced structure is a 14-line skeleton with only 4 free
-  lines. 260 of its 416 SAT cubes are UNSAT and none is SAT; the rest are undecided.
+  lines. 281 of its 416 SAT cubes are UNSAT and none is SAT; the rest are undecided.
 
 **More results, for general n.**
 - **Theorem G (every even n):** if no line passes through two multiple points (and no three lines are mutually parallel), T ≤ ⌊(2n² − 5n + 2t)/6⌋ with t triple

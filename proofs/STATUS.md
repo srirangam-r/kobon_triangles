@@ -68,7 +68,7 @@ Sources: `all8/ALL8_NOTE6.md`, `all8/STAGE2_TASK6.md` to `all8/STAGE2_TASK8.md`,
   - Remaining: that last branch.
 
 **Stage 2 by SAT (partial; `work/eng/stage2/RESULT.md`).** The zero-credit corner is encoded exactly. After the path
-exclusion only the 416 star cubes matter. Of these, **260 are UNSAT and none is SAT**; the rest are undecided
+exclusion only the 416 star cubes matter. Of these, **281 are UNSAT and none is SAT**; the rest are undecided
 (`work/eng/stage2/results_summary.txt`). Cubes are run with all proved star pins. The full skeleton pin (`--skeleton`)
 has been checked to be satisfiable on relaxed instances (T = 60, 70) but has not yet been run on the open cubes. The
 UNSAT cubes have no DRAT certificates yet.

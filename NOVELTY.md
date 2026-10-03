@@ -33,7 +33,7 @@ At n = 18, before this work:
    - **Stage 1** is the inequality (B). It is proved for most component types (the capacity inequality LC holds
      whenever a component has at most one point other than a 110110 triple); the rest is open.
    - **Stage 2** is the zero-credit corner. It is reduced by hand to a single local configuration, the isolated
-     double-case-B star. Its forced structure is largely determined, and 260 of its 416 SAT cubes are UNSAT with
+     double-case-B star. Its forced structure is largely determined, and 281 of its 416 SAT cubes are UNSAT with
      none SAT.
 7. **Method.** The Bartholdi–Blanc–Loisel charging argument is made into an exact, machine-checkable form for
    non-simple arrangements:
