@@ -22,6 +22,20 @@ bounded triangles, Λ = 288 − 3T, which is a multiple of 3. So T ≤ 94 ⟺ Λ
 | **K(14) = 54 for all arrangements** | FC-M (unchanged weights) verified exactly at W = 13: final ≥ −1/4, so 3Λ − 14 ≥ −3.5, so Λ ≥ 6. CEGAR patterns 0–3 re-proved for 14 lines (kissat + drat-trim) | `work/eng/k14all/RESULT.md`, `FACTS.md` |
 | K(10) = 25 for all arrangements (known record; independent proof) | FC-M verified exactly at W = 9: 3Λ − 10 ≥ −2.5 and Λ ≡ 2 (mod 3), so Λ ≥ 5. Patterns 0–3 re-proved for 10 lines; explicit lossless redrawings for 7 ≤ m ≤ 25 | `work/eng/fcm_othern/RESULT.md` |
 
+## Update after the deadline (October 2026)
+Hand proofs written after the 2 October submission are in `all8/after_deadline/`, with a status table in its README.
+"Refereed" there means by an independent AI agent, not by a human.
+- **Stage 2 is closed** (`STAR_CASES.md`, refereed): the isolated double-case-B star does not exist. This settles the
+  branch below that was left to sol's unchecked STAGE2_TASK8 §§7–9. So **K(18) = 93 follows from (B)**.
+- **Theorem 0**: the Stage-2 proofs never use U = 0. So every 94 has hard credit H = ½ΣS° + K₃ + 2K₄ + ½Δ > 0.
+- **H = 1 is impossible** (`W13*.md`, every part refereed). So every 94 has **H ≥ 2 and W ≥ 14**.
+- **H = 2 is partially excluded** (`W14_*.md`, unrefereed). Lemma UM; star configurations C1, C2, C5, C7 (and C4 at
+  W = 14); all K-cases. Open: star configurations C3 and C6 (one branch), and the slack mask lists of
+  `W14_mixed.md` §5.
+- A pruned exhaustive search is not feasible (README of `all8/after_deadline/`).
+
+The text below describes the state at the deadline.
+
 ## The open case: an all-8 point
 
 Proved (hand proofs, each step checked; exact checks on 3,474 arrangements; notes in `all8/`):
@@ -98,7 +112,7 @@ bad wedges force parity defects on interior lines, and the defects force U or Δ
 
 ## Limitations
 
-- No human refereeing; no formal verification (no Lean files exist).
+- No human refereeing; no formal verification (no Lean files exist). The October notes are refereed only by AI agents, or not at all.
 - Automaton facts used at fourfold apexes are validated on large real data sets; their hand proofs are not all written.
   The special-column identities B = C and A = 3C/2, earlier validated only on data for fourfold points, are proved for
   all multiplicities in `additional/special_column_identities.md`.

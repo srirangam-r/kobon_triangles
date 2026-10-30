@@ -39,6 +39,13 @@ point (details in `proofs/STATUS.md`):
   configuration, the isolated double-case-B star. Its forced structure is a 14-line skeleton with only 4 free
   lines. 281 of its 416 SAT cubes are UNSAT and none is SAT; the rest are undecided.
 
+**Update after the deadline (October 2026; hand proofs, AI-refereed at most; `proofs/all8/after_deadline/`).**
+- **Stage 2 is closed.** The isolated double-case-B star does not exist, so K(18) = 93 now follows from Stage 1 alone.
+- **Hard credit.** Write H = ½ΣS° + K₃ + 2K₄ + ½Δ. Then H = 0 and H = 1 are both impossible. So every 94 has
+  **H ≥ 2 and at least 14 bad wedges**.
+- **H = 2 is partly done.** All K-cases are excluded, and so are four of the seven pure-Δ star configurations (five at W = 14). The
+  remaining slack cases are listed explicitly.
+
 **More results, for general n.**
 - **Theorem G (every even n):** if no line passes through two multiple points (and no three lines are mutually parallel), T ≤ ⌊(2n² − 5n + 2t)/6⌋ with t triple
   points. This extends Blanc's bound to arrangements with triple points. Proof: `proofs/additional/theorem_G_even_n.md`
